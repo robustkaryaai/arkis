@@ -97,15 +97,15 @@ export default function RKDesktopProduct() {
             {/* CTA */}
             <section style={{ textAlign: 'center', padding: '100px 5%', background: 'linear-gradient(to bottom, transparent, rgba(79,156,249,0.05))' }}>
                 <h2 className="section-title">Ready to upgrade your computer?</h2>
-                <p className="section-sub" style={{ margin: '0 auto 40px' }}>Join thousands of users building the future with ARKIS.</p>
+                <p className="section-sub" style={{ margin: '0 auto 40px' }}>Join thousands of users building the future with RK AI.</p>
                 <Link href="/login" className="btn-primary" style={{ padding: '16px 40px' }}>Get Started Now</Link>
             </section>
 
             {/* FOOTER */}
             <footer>
-                <span className="logo"><span>ARKIS</span></span>
-                <span>© 2026 ARKIS. All rights reserved.</span>
-                <a href="mailto:hello@arkis.ai">hello@arkis.ai</a>
+                <span className="logo"><span>RK AI</span></span>
+                <span>© 2026 RK AI. All rights reserved.</span>
+                <a href="mailto:arkisglobal.official@gmail.com">arkisglobal.official@gmail.com</a>
             </footer>
 
             <ChatWidget />

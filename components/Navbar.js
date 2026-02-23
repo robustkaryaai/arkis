@@ -7,7 +7,7 @@ export default function Navbar() {
     const isActive = (href) => path === href ? 'active' : '';
     return (
         <nav>
-            <Link className="nav-logo" href="/"><span>ARKIS</span></Link>
+            <Link className="nav-logo" href="/"><span>RK AI</span></Link>
             <ul className="nav-links">
                 <li><Link href="/" className={isActive('/')}>Home</Link></li>
                 <li><Link href="/products" className={isActive('/products')}>Products</Link></li>

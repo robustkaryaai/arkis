@@ -218,7 +218,7 @@ const products = [
         icon: '🔑',
         category: 'Lumina OS Component',
         name: 'Light Key',
-        desc: 'A core ecosystem component designed for Lumina OS. The authentication & access layer that unlocks the full experience, expanding the ARKIS ecosystem securely.',
+        desc: 'A core ecosystem component designed for Lumina OS. The authentication & access layer that unlocks the full experience, expanding the RK AI ecosystem securely.',
         tags: ['Auth Layer', 'Hardware/Software', 'Coming Soon'],
         accentColor: '#f59e0b',
         accentColor2: '#d97706',
@@ -231,9 +231,9 @@ const products = [
     {
         id: 'cloud',
         icon: '☁️',
-        category: 'ARKIS Ecosystem',
-        name: 'ARKIS Cloud',
-        desc: 'The backbone of your AI experience. Securely sync your preferences, access premium hosted models, and manage your subscriptions across the ARKIS ecosystem.',
+        category: 'RK AI Ecosystem',
+        name: 'RK AI Cloud',
+        desc: 'The backbone of your AI experience. Securely sync your preferences, access premium hosted models, and manage your subscriptions across the RK AI ecosystem.',
         tags: ['Cloud AI', 'Subscriptions', 'Live'],
         accentColor: '#8b5cf6',
         accentColor2: '#6d28d9',
@@ -253,8 +253,8 @@ export default function Products() {
 
             {/* HERO */}
             <section className="hero" style={{ minHeight: '45vh', paddingTop: '100px', paddingBottom: '40px' }}>
-                <div className="badge"><span className="dot" />ARKIS Product Store</div>
-                <h1 style={{ fontSize: 'clamp(36px,6vw,68px)' }}>Build the future<br /><span className="grad">with ARKIS.</span></h1>
+                <div className="badge"><span className="dot" />RK AI Product Store</div>
+                <h1 style={{ fontSize: 'clamp(36px,6vw,68px)' }}>Build the future<br /><span className="grad">with RK AI.</span></h1>
                 <p>AI tools built for real people. Private, local, and powerful.</p>
             </section>
 
@@ -274,9 +274,9 @@ export default function Products() {
 
             {/* FOOTER */}
             <footer>
-                <span className="logo"><span>ARKIS</span></span>
-                <span>© 2026 ARKIS. All rights reserved.</span>
-                <a href="mailto:hello@arkis.ai">hello@arkis.ai</a>
+                <span className="logo"><span>RK AI</span></span>
+                <span>© 2026 RK AI. All rights reserved.</span>
+                <a href="mailto:arkisglobal.official@gmail.com">arkisglobal.official@gmail.com</a>
             </footer>
 
             {showTiers && <TierModal onClose={() => setShowTiers(false)} />}
