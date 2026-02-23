@@ -10,7 +10,7 @@ export default function Contact() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // TODO: wire to backend / Formspree
-        window.location.href = `mailto:hello@arkis.ai?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(`Name: ${form.name}\n\n${form.message}`)}`;
+        window.location.href = `mailto:arkisglobal.official@gmail.com?subject=${encodeURIComponent(form.subject)}&body=${encodeURIComponent(`Name: ${form.name}\n\n${form.message}`)}`;
         setSent(true);
     };
 
@@ -62,7 +62,7 @@ export default function Contact() {
                 )}
 
                 <div style={{ display: 'flex', gap: '24px', marginTop: '60px', flexWrap: 'wrap' }}>
-                    {[['📧', 'Email', 'hello@arkis.ai'], ['🐦', 'Twitter / X', '@arkisai'], ['💬', 'Discord', 'Coming soon']].map(([icon, label, val]) => (
+                    {[['📧', 'Email', 'arkisglobal.official@gmail.com'], ['🐦', 'Twitter / X', '@arkisai'], ['💬', 'Discord', 'Coming soon']].map(([icon, label, val]) => (
                         <div key={label} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '20px 24px', flex: '1', minWidth: '150px' }}>
                             <div style={{ fontSize: '24px', marginBottom: '8px' }}>{icon}</div>
                             <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '600', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '4px' }}>{label}</div>
@@ -75,7 +75,7 @@ export default function Contact() {
             <footer style={{ marginTop: '80px' }}>
                 <span className="logo"><span>ARKIS</span></span>
                 <span>© 2026 ARKIS. All rights reserved.</span>
-                <a href="mailto:hello@arkis.ai">hello@arkis.ai</a>
+                <a href="mailto:arkisglobal.official@gmail.com">arkisglobal.official@gmail.com</a>
             </footer>
 
             <ChatWidget />
