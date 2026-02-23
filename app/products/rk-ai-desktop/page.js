@@ -22,7 +22,7 @@ export default function RKDesktopProduct() {
                         </p>
 
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
-                            <a href="/downloads/RK-AI-mac.dmg" className="btn-primary" style={{
+                            <a href="https://drive.google.com/uc?export=download&id=1aSeiA8ac0hg5W0HO_sGCQ1sWW4WLedqw" download className="btn-primary" style={{
                                 display: 'flex', alignItems: 'center', gap: '12px', padding: '18px 36px',
                                 borderRadius: '50px', fontSize: '16px', fontWeight: '700',
                                 boxShadow: '0 10px 30px rgba(79, 156, 249, 0.3)'
@@ -30,7 +30,7 @@ export default function RKDesktopProduct() {
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.96.78-1.92 1.45-3 1.45s-1.47-.63-2.65-.63c-1.2 0-1.63.61-2.67.63-1.05.02-2.17-.79-3.21-1.68C3.52 18.25 2 15.27 2 12.11c0-3.12 2.02-4.76 4-4.76 1.05 0 2.08.57 2.72.57.65 0 1.55-.57 2.82-.57 1.33 0 2.45.65 3.16 1.45-2.58 1.41-2.18 4.71.55 5.75-.43 1.15-.99 2.29-1.99 3.16l1.79 2.57zm-3.66-13.68c-.02 1.95-1.61 3.59-3.55 3.59-.02-1.89 1.62-3.59 3.55-3.59z" /></svg>
                                 macOS (DMG)
                             </a>
-                            <a href="/downloads/RK-AI-windows.exe" className="btn-secondary" style={{
+                            <a href="https://drive.google.com/uc?export=download&id=1BvVE-4huxgKPJ0Ya5yOYYlNp9EMBUlRm" download className="btn-secondary" style={{
                                 display: 'flex', alignItems: 'center', gap: '12px', padding: '18px 36px',
                                 borderRadius: '50px', fontSize: '16px', fontWeight: '700',
                                 border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.05)',
