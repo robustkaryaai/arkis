@@ -180,7 +180,7 @@ const products = [
         accentColor2: '#9b59f5',
         badge: 'Live',
         badgeColor: 'linear-gradient(135deg, #4ade80, #16a34a)',
-        cta: 'View Plans →',
+        cta: 'Download Now',
         comingSoon: false,
     },
     {
@@ -261,7 +261,7 @@ export default function Products() {
             {/* PRODUCT CARDS */}
             <section style={{ padding: '0 5% 80px' }}>
                 <div className="label" style={{ marginBottom: '24px' }}>Products</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', maxWidth: '1200px', margin: '0 auto' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', maxWidth: '1400px', margin: '0 auto' }}>
                     {products.map(p => (
                         <ProductCard key={p.id} product={p} onSelect={() => {
                             if (p.id === 'rkai_desktop') window.location.href = '/products/rk-ai-desktop';

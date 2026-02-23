@@ -13,9 +13,8 @@ export default function Navbar() {
                 <li><Link href="/products" className={isActive('/products')}>Products</Link></li>
                 <li><Link href="/about" className={isActive('/about')}>About</Link></li>
                 <li><Link href="/contact" className={isActive('/contact')}>Contact</Link></li>
-                <li><Link href="/login" className={isActive('/login')}>Login</Link></li>
             </ul>
-            <Link className="nav-cta" href="/products">Get Started →</Link>
+            <Link className="nav-cta" href="/login">Login</Link>
         </nav>
     );
 }

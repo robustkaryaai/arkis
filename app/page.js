@@ -48,26 +48,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* DOWNLOAD */}
-      <section id="download" style={{ textAlign: 'center', padding: '80px 5%' }}>
-        <div className="label">Download</div>
-        <h2 className="section-title">Get RK AI for Desktop.</h2>
-        <p className="section-sub">Experience the ARKIS ecosystem today. Blazing fast, fully private.</p>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '20px',
-          maxWidth: '600px',
-          margin: '40px auto 0'
-        }}>
-          <a href="/downloads/RK-AI-mac.dmg" className="btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-            <span>🍎</span> macOS (DMG)
-          </a>
-          <a href="/downloads/RK-AI-windows.exe" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', background: 'var(--surface)', border: '1px solid var(--border)' }}>
-            <span>🪟</span> Windows (EXE)
-          </a>
-        </div>
-      </section>
+      {/* FOOTER */}
 
       {/* FOOTER */}
       <footer>
