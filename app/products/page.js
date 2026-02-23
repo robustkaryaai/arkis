@@ -247,7 +247,7 @@ export default function Products() {
             {/* PRODUCT CARDS */}
             <section style={{ padding: '0 5% 80px' }}>
                 <div className="label" style={{ marginBottom: '24px' }}>Products</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', maxWidth: '800px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', maxWidth: '1200px' }}>
                     {products.map(p => (
                         <ProductCard key={p.id} product={p} onSelect={() => p.id === 'rkai_desktop' && setShowTiers(true)} />
                     ))}
