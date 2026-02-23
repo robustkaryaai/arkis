@@ -20,13 +20,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* VISION */}
-      <section style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto', paddingTop: '40px' }}>
-        <p style={{ fontSize: '1.2rem', color: 'var(--text)', lineHeight: '1.6' }}>
-          <strong>Our Vision</strong><br />
-          Technology should amplify human potential without compromising privacy. We are building an independent ecosystem where AI is a utility, not an overlord—starting with the desktop and expanding to the home, the operating system, and beyond.
-        </p>
-      </section>
+
 
       {/* FEATURES / WHY ARKIS */}
       <section id="features">
