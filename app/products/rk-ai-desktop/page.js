@@ -9,11 +9,11 @@ export default function RKDesktopProduct() {
             <Navbar />
 
             {/* PRODUCT HERO */}
-            <section className="hero" style={{ minHeight: '60vh', padding: '120px 5% 60px' }}>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '60px', alignItems: 'center', maxWidth: '1200px', margin: '0 auto' }}>
+            <section className="hero" style={{ minHeight: '60vh', padding: '120px 5% 60px', textAlign: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', maxWidth: '800px', margin: '0 auto' }}>
 
-                    <div style={{ flex: '1 1 500px' }}>
-                        <div className="badge"><span className="dot" />Now Live for macOS & Windows</div>
+                    <div style={{ width: '100%' }}>
+                        <div className="badge" style={{ margin: '0 auto 16px' }}><span className="dot" />Now Live for macOS & Windows</div>
                         <h1 style={{ fontSize: 'clamp(42px, 6vw, 72px)', marginBottom: '20px' }}>
                             RK AI <span className="grad">Desktop</span>
                         </h1>
@@ -21,22 +21,22 @@ export default function RKDesktopProduct() {
                             The ultimate AI powerhouse for your computer. Control your system, generate high-quality documents, and run local models with zero latency.
                         </p>
 
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
                             <a href="/downloads/RK-AI-mac.dmg" className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '16px 32px' }}>
                                 <span>🍎</span> Download for Mac
                             </a>
-                            <a href="/downloads/RK-AI-windows.exe" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '16px 32px', border: '1px solid var(--border)' }}>
+                            <a href="/downloads/RK-AI-windows.exe" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '16px 32px', border: '1px solid var(--border)', background: 'var(--surface)' }}>
                                 <span>🪟</span> Download for Windows
                             </a>
                         </div>
                         <p style={{ marginTop: '16px', fontSize: '12px', color: 'var(--muted)' }}>
-                            Latest Version: 1.0.0 · Free to start · Requires Ollama for local mode
+                            Latest Version: 2.0.0 · Free to start · Requires Ollama for local mode
                         </p>
                     </div>
 
-                    <div style={{ flex: '1 1 400px', display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ marginTop: '60px', width: '100%', maxWidth: '600px', display: 'flex', justifyContent: 'center' }}>
                         <div style={{
-                            width: '100%', height: '400px', background: 'var(--surface)',
+                            width: '100%', height: '300px', background: 'var(--surface)',
                             border: '1px solid var(--border)', borderRadius: '24px',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
                             fontSize: '100px', boxShadow: '0 40px 80px rgba(0,0,0,0.4)',
