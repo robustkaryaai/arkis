@@ -170,12 +170,12 @@ function TierModal({ onClose }) {
 
 const products = [
     {
-        id: 'rkai',
-        icon: '🎙️',
-        category: 'AI Home Assistant',
-        name: 'RK AI',
-        desc: 'A fully local voice AI assistant for your desktop. Wake word detection, Ollama models, music, web search, image generation and more.',
-        tags: ['Voice AI', 'Local LLM', 'macOS · Windows · Linux'],
+        id: 'rkai_desktop',
+        icon: '💻',
+        category: 'AI Desktop Assistant',
+        name: 'RK AI (Desktop)',
+        desc: 'An advanced AI assistant for computers. Deep system control, PPT/DOCX creation, image/video generation, coding assistance, and local Ollama support. Turn your computer into an intelligent workspace.',
+        tags: ['Productivity', 'Local AI', 'System Control'],
         accentColor: '#4f9cf9',
         accentColor2: '#9b59f5',
         badge: 'Live',
@@ -184,12 +184,42 @@ const products = [
         comingSoon: false,
     },
     {
+        id: 'rkai_home',
+        icon: '🎙️',
+        category: 'Smart Home Device',
+        name: 'RK AI Home',
+        desc: 'An Alexa-style physical voice assistant built for Indian users. Wake word activation, smart home integration, music, notes, and privacy-first local/cloud AI. A powerful but respectful home assistant.',
+        tags: ['Smart Home', 'Hardware', 'Pre-order Soon'],
+        accentColor: '#ec4899',
+        accentColor2: '#be185d',
+        badge: 'Coming Soon',
+        badgeColor: 'linear-gradient(135deg, #f59e0b, #d97706)',
+        cta: '',
+        comingSoon: true,
+        dimmed: false,
+    },
+    {
+        id: 'lumina_os',
+        icon: '💿',
+        category: 'Operating System',
+        name: 'Lumina OS',
+        desc: 'An AI-first operating system. Linux-based foundation, custom UI ecosystem, AI-optional design, and long-term independent system control. Redefining how operating systems interact with users.',
+        tags: ['Linux', 'AI-Optional', 'Privacy First'],
+        accentColor: '#10b981',
+        accentColor2: '#047857',
+        badge: 'In Development',
+        badgeColor: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
+        cta: '',
+        comingSoon: true,
+        dimmed: false,
+    },
+    {
         id: 'lightkey',
         icon: '🔑',
         category: 'Lumina OS Component',
         name: 'Light Key',
-        desc: 'The authentication & access layer for Lumina OS — a lightweight, secure key that unlocks the full Lumina experience. Designed to integrate seamlessly with ARKIS services.',
-        tags: ['Lumina OS', 'Auth Layer', 'Coming Soon'],
+        desc: 'A core ecosystem component designed for Lumina OS. The authentication & access layer that unlocks the full experience, expanding the ARKIS ecosystem securely.',
+        tags: ['Auth Layer', 'Hardware/Software', 'Coming Soon'],
         accentColor: '#f59e0b',
         accentColor2: '#d97706',
         badge: 'Coming Soon',
@@ -219,7 +249,7 @@ export default function Products() {
                 <div className="label" style={{ marginBottom: '24px' }}>Products</div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', maxWidth: '800px' }}>
                     {products.map(p => (
-                        <ProductCard key={p.id} product={p} onSelect={() => p.id === 'rkai' && setShowTiers(true)} />
+                        <ProductCard key={p.id} product={p} onSelect={() => p.id === 'rkai_desktop' && setShowTiers(true)} />
                     ))}
                 </div>
             </section>

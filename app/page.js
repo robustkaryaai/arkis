@@ -11,61 +11,39 @@ export default function Home() {
 
       {/* HERO */}
       <section className="hero">
-        <div className="badge"><span className="dot" />Now in Beta — Local AI for Everyone</div>
-        <h1>AI that runs<br /><span className="grad">on your machine.</span></h1>
-        <p>ARKIS brings a fully private, blazing-fast voice AI assistant to your desktop. No cloud lock-in. Just your voice and your hardware.</p>
+        <div className="badge"><span className="dot" />Engineered in India</div>
+        <h1>An AI-first ecosystem.<br /><span className="grad">Built for the future.</span></h1>
+        <p>ARKIS is a technology company building privacy-focused, ecosystem-driven products that respect your autonomy.</p>
         <div className="hero-btns">
-          <Link className="btn-primary" href="#download">Download Free</Link>
-          <Link className="btn-secondary" href="/products">View Plans</Link>
+          <Link className="btn-primary" href="/products">Explore Products</Link>
+          <Link className="btn-secondary" href="/about">Our Vision</Link>
         </div>
       </section>
 
-      {/* FEATURES */}
+      {/* VISION */}
+      <section style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto', paddingTop: '40px' }}>
+        <p style={{ fontSize: '1.2rem', color: 'var(--text)', lineHeight: '1.6' }}>
+          <strong>Our Vision</strong><br />
+          Technology should amplify human potential without compromising privacy. We are building an independent ecosystem where AI is a utility, not an overlord—starting with the desktop and expanding to the home, the operating system, and beyond.
+        </p>
+      </section>
+
+      {/* FEATURES / WHY ARKIS */}
       <section id="features">
         <div className="label">Why ARKIS</div>
         <h2 className="section-title">Built different.<br />By design.</h2>
-        <p className="section-sub">Every decision was made to give you a smarter, faster, more private AI experience.</p>
-        <div className="feature-grid">
+        <div className="feature-grid" style={{ marginTop: '40px' }}>
           {[
-            ['🔒', '100% Private', 'Your conversations never leave your machine. RK AI runs entirely offline using local Ollama models.'],
-            ['⚡', 'Instant Response', 'Wake word detection, speech recognition, and AI generation happen locally — zero latency.'],
-            ['🎙️', 'Natural Voice', 'Fuzzy wake word matching understands your accent and variations of "RK" perfectly.'],
-            ['🖼️', 'AI Image Generation', 'Say "RK generate an image of..." and get a high-quality result in seconds (Pro+).'],
-            ['🌐', 'Live Web Search', 'Ask anything about today\'s news or the web and get an AI-summarised answer (Pro+).'],
-            ['🎵', 'Music + Commands', 'Play music, open apps, control your system — all hands-free.'],
+            ['🔒', 'Privacy-First', 'Your data is yours. Our architectures are designed to prioritize local execution and strict data boundaries.'],
+            ['🇮🇳', 'Indian-Made', 'Founded and engineered in India, building world-class technology for global users.'],
+            ['⚙️', 'AI-Optional', 'We build AI-first, but user-controlled. You have the power to fully disable AI support in our environments.'],
+            ['🌐', 'Ecosystem-Driven', 'From the desktop assistant to the operating system, every product is designed to work seamlessly together.'],
           ].map(([icon, title, desc]) => (
             <div key={title} className="feature-card">
               <div className="feature-icon">{icon}</div>
               <h3>{title}</h3>
               <p>{desc}</p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* PRICING CTA */}
-      <section style={{ textAlign: 'center' }}>
-        <div className="label">Plans</div>
-        <h2 className="section-title">Simple, honest pricing.</h2>
-        <p className="section-sub" style={{ margin: '0 auto 32px' }}>Start free. Upgrade for image generation, video AI, and more.</p>
-        <Link className="btn-primary" href="/products">See All Plans →</Link>
-      </section>
-
-      {/* DOWNLOAD */}
-      <section id="download">
-        <div className="label">Download</div>
-        <h2 className="section-title">Get RK AI now.</h2>
-        <p className="section-sub">Available on all major platforms. Free to start.</p>
-        <div className="download-grid" style={{ marginTop: '32px' }}>
-          {[
-            ['🍎', 'macOS', 'DMG · Intel & Apple Silicon'],
-            ['🪟', 'Windows', 'EXE (NSIS) + MSI · 64-bit'],
-            ['🐧', 'Linux', 'AppImage + .deb'],
-          ].map(([icon, name, sub]) => (
-            <a key={name} className="dl-btn" href="#">
-              <span>{icon}</span>
-              <div><strong>{name}</strong><br /><small style={{ color: 'var(--muted)' }}>{sub}</small></div>
-            </a>
           ))}
         </div>
       </section>
