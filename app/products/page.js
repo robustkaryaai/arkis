@@ -228,6 +228,20 @@ const products = [
         comingSoon: true,
         dimmed: false,
     },
+    {
+        id: 'cloud',
+        icon: '☁️',
+        category: 'ARKIS Ecosystem',
+        name: 'ARKIS Cloud',
+        desc: 'The backbone of your AI experience. Securely sync your preferences, access premium hosted models, and manage your subscriptions across the ARKIS ecosystem.',
+        tags: ['Cloud AI', 'Subscriptions', 'Live'],
+        accentColor: '#8b5cf6',
+        accentColor2: '#6d28d9',
+        badge: 'Tier Buy',
+        badgeColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
+        cta: 'Manage Tiers →',
+        comingSoon: false,
+    },
 ];
 
 export default function Products() {
@@ -247,9 +261,13 @@ export default function Products() {
             {/* PRODUCT CARDS */}
             <section style={{ padding: '0 5% 80px' }}>
                 <div className="label" style={{ marginBottom: '24px' }}>Products</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', maxWidth: '1200px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '24px', maxWidth: '1200px', margin: '0 auto' }}>
                     {products.map(p => (
-                        <ProductCard key={p.id} product={p} onSelect={() => p.id === 'rkai_desktop' && setShowTiers(true)} />
+                        <ProductCard key={p.id} product={p} onSelect={() => {
+                            if (p.id === 'rkai_desktop') window.location.href = '/products/rk-ai-desktop';
+                            else if (p.id === 'cloud') setShowTiers(true);
+                            else if (p.comingSoon) alert("This product is coming soon!");
+                        }} />
                     ))}
                 </div>
             </section>
