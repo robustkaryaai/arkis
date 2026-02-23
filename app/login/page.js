@@ -42,7 +42,7 @@ export default function Login() {
             <Navbar />
 
             <div style={{
-                minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+                minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
                 padding: '20px'
             }}>
                 <div style={{

@@ -16,11 +16,8 @@ export default function Home() {
         <p>ARKIS is a technology company building privacy-focused, ecosystem-driven products that respect your autonomy.</p>
         <div className="hero-btns">
           <Link className="btn-primary" href="/products">Explore Products</Link>
-          <Link className="btn-secondary" href="/about">Our Vision</Link>
         </div>
       </section>
-
-
 
       {/* FEATURES / WHY ARKIS */}
       <section id="features">
@@ -42,7 +39,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
 
       {/* FOOTER */}
       <footer>
