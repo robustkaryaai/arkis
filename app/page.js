@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
 
-export const metadata = { title: 'ARKIS — AI, Redefined' };
+export const metadata = { title: 'RK AI — AI, Redefined' };
 
 export default function Home() {
   return (
