@@ -276,7 +276,7 @@ export default function Products() {
             <footer>
                 <span className="logo"><span>RK AI</span></span>
                 <span>© 2026 RK AI. All rights reserved.</span>
-                <a href="mailto:arkisglobal.official@gmail.com">arkisglobal.official@gmail.com</a>
+                <a href="mailto:rkai.official@gmail.com">rkai.official@gmail.com</a>
             </footer>
 
             {showTiers && <TierModal onClose={() => setShowTiers(false)} />}

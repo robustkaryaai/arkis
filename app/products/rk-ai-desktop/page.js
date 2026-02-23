@@ -27,7 +27,9 @@ export default function RKDesktopProduct() {
                                 borderRadius: '50px', fontSize: '16px', fontWeight: '700',
                                 boxShadow: '0 10px 30px rgba(79, 156, 249, 0.3)'
                             }}>
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.96.78-1.92 1.45-3 1.45s-1.47-.63-2.65-.63c-1.2 0-1.63.61-2.67.63-1.05.02-2.17-.79-3.21-1.68C3.52 18.25 2 15.27 2 12.11c0-3.12 2.02-4.76 4-4.76 1.05 0 2.08.57 2.72.57.65 0 1.55-.57 2.82-.57 1.33 0 2.45.65 3.16 1.45-2.58 1.41-2.18 4.71.55 5.75-.43 1.15-.99 2.29-1.99 3.16l1.79 2.57zm-3.66-13.68c-.02 1.95-1.61 3.59-3.55 3.59-.02-1.89 1.62-3.59 3.55-3.59z" /></svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M16.365 1.43c0 1.14-.45 2.24-1.19 3.04-.83.9-2.21 1.6-3.46 1.5-.14-1.11.4-2.31 1.16-3.09.83-.87 2.22-1.53 3.41-1.45.06.67.08 1.34.08 1.99zM20.74 18.41c-.6 1.39-1.45 2.66-2.5 3.84-.94 1.03-1.98 2.11-3.32 2.15-1.17.04-1.95-.73-3.25-.73-1.31 0-2.15.71-3.31.75-1.36.04-2.42-1.14-3.36-2.17-2.06-2.28-3.62-6.44-3.56-10.35.04-2.04.74-3.99 2.02-5.35 1.07-1.15 2.56-1.82 4.14-1.85 1.19-.02 2.32.8 3.25.8.89 0 2.31-.99 3.88-.84.66.03 2.54.27 3.75 1.86-.1.06-2.24 1.32-2.22 3.94.02 3.14 2.74 4.18 2.77 4.19-.03.09-.44 1.51-1.49 2.97z" />
+                                </svg>
                                 macOS (DMG)
                             </a>
                             <a href="https://drive.google.com/uc?export=download&id=1BvVE-4huxgKPJ0Ya5yOYYlNp9EMBUlRm" download className="btn-secondary" style={{
@@ -105,7 +107,7 @@ export default function RKDesktopProduct() {
             <footer>
                 <span className="logo"><span>RK AI</span></span>
                 <span>© 2026 RK AI. All rights reserved.</span>
-                <a href="mailto:arkisglobal.official@gmail.com">arkisglobal.official@gmail.com</a>
+                <a href="mailto:rkai.official@gmail.com">rkai.official@gmail.com</a>
             </footer>
 
             <ChatWidget />

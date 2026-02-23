@@ -67,7 +67,7 @@ export default function About() {
             <footer style={{ padding: '60px 5%', textAlign: 'center', borderTop: '1px solid var(--border)' }}>
                 <span className="logo" style={{ fontSize: '24px', fontWeight: '800' }}><span>RK AI</span></span>
                 <p style={{ color: 'var(--muted)', marginTop: '12px' }}>© 2026 RK AI. All rights reserved.</p>
-                <a href="mailto:arkisglobal.official@gmail.com" style={{ color: 'var(--blue)', textDecoration: 'none' }}>arkisglobal.official@gmail.com</a>
+                <a href="mailto:rkai.official@gmail.com" style={{ color: 'var(--blue)', textDecoration: 'none' }}>rkai.official@gmail.com</a>
             </footer>
 
             <ChatWidget />
