@@ -30,10 +30,11 @@ export default function Login() {
 
     const handleGoogleLogin = () => {
         setLoading(true);
+        const origin = window.location.origin;
         account.createOAuth2Session(
             'google',
-            `${window.location.origin}/products`,
-            `${window.location.origin}/login`
+            `${origin}/products`,
+            `${origin}/login`
         );
     };
 
@@ -52,7 +53,7 @@ export default function Login() {
                 }}>
                     <div style={{ textAlign: 'center', marginBottom: '30px' }}>
                         <h1 style={{ fontSize: '28px', fontWeight: '800', letterSpacing: '-0.5px' }}>Welcome Back</h1>
-                        <p style={{ color: 'var(--muted)', marginTop: '8px', fontSize: '14px' }}>Sign in to your RK AI ecosystem account.</p>
+                        <p style={{ color: 'var(--muted)', marginTop: '8px', fontSize: '14px' }}>Sign in to your ARKIS ecosystem account.</p>
                     </div>
 
                     {error && (

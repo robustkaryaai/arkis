@@ -2,7 +2,7 @@ import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
 
-export const metadata = { title: 'RK AI — AI, Redefined' };
+export const metadata = { title: 'ARKIS - AI, Redefined' };
 
 export default function Home() {
   return (
@@ -13,15 +13,15 @@ export default function Home() {
       <section className="hero">
         <div className="badge"><span className="dot" />Engineered in India</div>
         <h1>An AI-first ecosystem.<br /><span className="grad">Built for the future.</span></h1>
-        <p>RK AI is a technology company building privacy-focused, ecosystem-driven products that respect your autonomy.</p>
+        <p>ARKIS is a technology company building privacy-focused, ecosystem-driven products that respect your autonomy.</p>
         <div className="hero-btns">
           <Link className="btn-primary" href="/products">Explore Products</Link>
         </div>
       </section>
 
-      {/* FEATURES / WHY RK AI */}
+      {/* FEATURES / WHY ARKIS */}
       <section id="features">
-        <div className="label">Why RK AI</div>
+        <div className="label">Why ARKIS</div>
         <h2 className="section-title">Built different.<br />By design.</h2>
         <div className="feature-grid" style={{ marginTop: '40px' }}>
           {[
@@ -41,8 +41,8 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer>
-        <span className="logo"><span>RK AI</span></span>
-        <span>© 2026 RK AI. All rights reserved.</span>
+        <span className="logo"><span>ARKIS</span></span>
+        <span>© 2026 ARKIS. All rights reserved.</span>
         <span>Built with ❤️ and local AI</span>
       </footer>
 

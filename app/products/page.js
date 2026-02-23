@@ -125,7 +125,7 @@ function TierModal({ onClose }) {
             <div style={{ width: '100%', maxWidth: '1000px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                     <div>
-                        <h2 style={{ fontSize: '32px', fontWeight: '800' }}>🎙️ RK AI Home Assistant — Plans</h2>
+                        <h2 style={{ fontSize: '32px', fontWeight: '800' }}>🎙️ ARKIS Home Assistant — Plans</h2>
                         <p style={{ color: 'var(--muted)', marginTop: '6px' }}>Choose the plan that's right for you.</p>
                     </div>
                     <button onClick={onClose} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '50%', width: '44px', height: '44px', color: 'var(--text)', cursor: 'pointer', fontSize: '18px', fontFamily: 'inherit' }}>✕</button>
@@ -173,7 +173,7 @@ const products = [
         id: 'rkai_desktop',
         icon: '💻',
         category: 'AI Desktop Assistant',
-        name: 'RK AI (Desktop)',
+        name: 'ARKIS (Desktop)',
         desc: 'An advanced AI assistant for computers. Deep system control, PPT/DOCX creation, image/video generation, coding assistance, and local Ollama support. Turn your computer into an intelligent workspace.',
         tags: ['Productivity', 'Local AI', 'System Control'],
         accentColor: '#4f9cf9',
@@ -187,7 +187,7 @@ const products = [
         id: 'rkai_home',
         icon: '🎙️',
         category: 'Smart Home Device',
-        name: 'RK AI Home',
+        name: 'ARKIS Home',
         desc: 'An Alexa-style physical voice assistant built for Indian users. Wake word activation, smart home integration, music, notes, and privacy-first local/cloud AI. A powerful but respectful home assistant.',
         tags: ['Smart Home', 'Hardware', 'Pre-order Soon'],
         accentColor: '#ec4899',
@@ -218,7 +218,7 @@ const products = [
         icon: '🔑',
         category: 'Lumina OS Component',
         name: 'Light Key',
-        desc: 'A core ecosystem component designed for Lumina OS. The authentication & access layer that unlocks the full experience, expanding the RK AI ecosystem securely.',
+        desc: 'A core ecosystem component designed for Lumina OS. The authentication & access layer that unlocks the full experience, expanding the ARKIS ecosystem securely.',
         tags: ['Auth Layer', 'Hardware/Software', 'Coming Soon'],
         accentColor: '#f59e0b',
         accentColor2: '#d97706',
@@ -231,9 +231,9 @@ const products = [
     {
         id: 'cloud',
         icon: '☁️',
-        category: 'RK AI Ecosystem',
-        name: 'RK AI Cloud',
-        desc: 'The backbone of your AI experience. Securely sync your preferences, access premium hosted models, and manage your subscriptions across the RK AI ecosystem.',
+        category: 'ARKIS Ecosystem',
+        name: 'ARKIS Cloud',
+        desc: 'The backbone of your AI experience. Securely sync your preferences, access premium hosted models, and manage your subscriptions across the ARKIS ecosystem.',
         tags: ['Cloud AI', 'Subscriptions', 'Live'],
         accentColor: '#8b5cf6',
         accentColor2: '#6d28d9',
@@ -253,8 +253,8 @@ export default function Products() {
 
             {/* HERO */}
             <section className="hero" style={{ minHeight: '45vh', paddingTop: '100px', paddingBottom: '40px' }}>
-                <div className="badge"><span className="dot" />RK AI Product Store</div>
-                <h1 style={{ fontSize: 'clamp(36px,6vw,68px)' }}>Build the future<br /><span className="grad">with RK AI.</span></h1>
+                <div className="badge"><span className="dot" />ARKIS Product Store</div>
+                <h1 style={{ fontSize: 'clamp(36px,6vw,68px)' }}>Build the future<br /><span className="grad">with ARKIS.</span></h1>
                 <p>AI tools built for real people. Private, local, and powerful.</p>
             </section>
 
@@ -274,9 +274,9 @@ export default function Products() {
 
             {/* FOOTER */}
             <footer>
-                <span className="logo"><span>RK AI</span></span>
-                <span>© 2026 RK AI. All rights reserved.</span>
-                <a href="mailto:rkai.official@gmail.com">rkai.official@gmail.com</a>
+                <span className="logo"><span>ARKIS</span></span>
+                <span>© 2026 ARKIS. All rights reserved.</span>
+                <a href="mailto:arkisglobal.official@gmail.com">arkisglobal.official@gmail.com</a>
             </footer>
 
             {showTiers && <TierModal onClose={() => setShowTiers(false)} />}

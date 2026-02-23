@@ -73,9 +73,9 @@ export default function Contact() {
             </section>
 
             <footer style={{ marginTop: '80px' }}>
-                <span className="logo"><span>RK AI</span></span>
-                <span>© 2026 RK AI. All rights reserved.</span>
-                <a href="mailto:rkai.official@gmail.com">rkai.official@gmail.com</a>
+                <span className="logo"><span>ARKIS</span></span>
+                <span>© 2026 ARKIS. All rights reserved.</span>
+                <a href="mailto:arkisglobal.official@gmail.com">arkisglobal.official@gmail.com</a>
             </footer>
 
             <ChatWidget />
