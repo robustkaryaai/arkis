@@ -90,8 +90,8 @@ export default function ChatWidget() {
                 }
 
                 const genAI = new GoogleGenerativeAI(apiKey);
-                // Using gemma-2-12b-it as corrected by the user
-                const model = genAI.getGenerativeModel({ model: "gemma-2-12b-it" });
+                // Using gemma-3-12b-it as corrected by the user
+                const model = genAI.getGenerativeModel({ model: "gemma-3-12b-it" });
 
                 const prompt = `${SYSTEM_PROMPT}\n\nUser: ${userMsg}\nAI Assistant:`;
                 const result = await model.generateContent(prompt);
