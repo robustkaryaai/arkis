@@ -64,7 +64,7 @@ export default function ChatWidget() {
             }
 
             const genAI = new GoogleGenerativeAI(apiKey);
-            const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+            const model = genAI.getGenerativeModel({ model: "gemma-3-12b-it" });
 
             // Follow example: Send a prompt (including system context for ARKIS)
             const prompt = `${SYSTEM_PROMPT}\n\nUser: ${userMsg}\nAI Assistant:`;
