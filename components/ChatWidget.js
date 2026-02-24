@@ -31,52 +31,92 @@ export default function ChatWidget() {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
-    }, [messages]);
+    }, [messages, isTyping]);
 
     const handleOpen = () => {
         setOpen(o => !o);
         if (!open && messages.length === 0) {
-            setMessages([{ text: '👋 Hi! I\'m the ARKIS Assistant. How can I help you explore our ecosystem today?', role: 'bot' }]);
+            typewriter('👋 Hi! I\'m the ARKIS Assistant. How can I help you explore our ecosystem today?');
         }
     };
 
+    const typewriter = async (text) => {
+        setIsTyping(true);
+        let currentText = '';
+        const delay = 20; // ms per character
+
+        // Add an empty bot message first
+        setMessages(prev => [...prev, { text: '', role: 'bot' }]);
+
+        for (let i = 0; i < text.length; i++) {
+            currentText += text[i];
+            setMessages(prev => {
+                const newMessages = [...prev];
+                newMessages[newMessages.length - 1] = { text: currentText, role: 'bot' };
+                return newMessages;
+            });
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+        setIsTyping(false);
+    };
+
     const send = async () => {
-        if (!input.trim() || loading) return;
+        if (!input.trim() || loading || isTyping) return;
 
         const userMsg = input;
         setInput('');
         setMessages(prev => [...prev, { text: userMsg, role: 'user' }]);
         setLoading(true);
 
-        try {
-            const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
-            if (!apiKey) {
-                console.error("❌ Please set the NEXT_PUBLIC_GEMINI_API_KEY environment variable.");
-                setMessages(prev => [...prev, { text: '⚠️ Gemini API Key not found. Please add NEXT_PUBLIC_GEMINI_API_KEY to your env.', role: 'bot' }]);
+        const maxRetries = 3;
+        let retryCount = 0;
+        let success = false;
+
+        while (retryCount < maxRetries && !success) {
+            try {
+                const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+                if (!apiKey) {
+                    console.error("❌ Please set the NEXT_PUBLIC_GEMINI_API_KEY environment variable.");
+                    setMessages(prev => [...prev, { text: '⚠️ Gemini API Key not found.', role: 'bot' }]);
+                    setLoading(false);
+                    return;
+                }
+
+                const genAI = new GoogleGenerativeAI(apiKey);
+                // Using gemini-pro as it's more stable
+                const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+                const prompt = `${SYSTEM_PROMPT}\n\nUser: ${userMsg}\nAI Assistant:`;
+                const result = await model.generateContent(prompt);
+                const responseText = result.response.text();
+
                 setLoading(false);
-                return;
+                await typewriter(responseText);
+                success = true;
+            } catch (error) {
+                console.error(`❌ Gemini API Error (Attempt ${retryCount + 1}):`, error);
+                
+                if (error.message?.includes("503") || error.message?.includes("high demand")) {
+                    retryCount++;
+                    if (retryCount < maxRetries) {
+                        const waitTime = Math.pow(2, retryCount) * 1000;
+                        console.log(`⚠️ High demand. Retrying in ${waitTime}ms...`);
+                        await new Promise(resolve => setTimeout(resolve, waitTime));
+                        continue;
+                    }
+                }
+                
+                setMessages(prev => [...prev, { text: '🤖 I experienced a connection issue. Please try again in a moment.', role: 'bot' }]);
+                setLoading(false);
+                break;
             }
-
-            const genAI = new GoogleGenerativeAI(apiKey);
-            const model = genAI.getGenerativeModel({ model: "gemma-3-12b-it" });
-
-            // Follow example: Send a prompt (including system context for ARKIS)
-            const prompt = `${SYSTEM_PROMPT}\n\nUser: ${userMsg}\nAI Assistant:`;
-            const result = await model.generateContent(prompt);
-            const responseText = result.response.text();
-
-            setMessages(prev => [...prev, { text: responseText, role: 'bot' }]);
-        } catch (error) {
-            console.error("❌ Error calling Gemini API:", error);
-            setMessages(prev => [...prev, { text: '🤖 I experienced a connection issue. Please ensure your API key is valid.', role: 'bot' }]);
-        } finally {
-            setLoading(false);
         }
     };
 
