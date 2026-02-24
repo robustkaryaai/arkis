@@ -122,7 +122,7 @@ export default function Home() {
       <footer className="reveal">
         <span className="logo"><span>ARKIS</span></span>
         <span>© 2026 ARKIS. All rights reserved.</span>
-        <span>Built with ❤️ and local AI</span>
+        <span>Built with ❤️</span>
       </footer>
 
       <ChatWidget />
