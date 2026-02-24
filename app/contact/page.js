@@ -85,7 +85,7 @@ export default function Contact() {
                 </div>
 
                 <div style={{ display: 'flex', gap: '24px', marginTop: '60px', flexWrap: 'wrap' }}>
-                    {[['📧', 'Email', 'rkai.official@gmail.com'], ['🐦', 'Twitter / X', '@rkai'], ['💬', 'Discord', 'Coming soon']].map(([icon, label, val], i) => (
+                    {[['📧', 'Email', 'arkisglobal.official@gmail.com'], ['🐦', 'Twitter / X', '@arkisglobal'], ['💬', 'Discord', 'Coming soon']].map(([icon, label, val], i) => (
                         <div key={label} className={`reveal reveal-delay-${i + 1}`} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '24px', flex: '1', minWidth: '220px' }}>
                             <div style={{ fontSize: '32px', marginBottom: '12px' }}>{icon}</div>
                             <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '6px' }}>{label}</div>
@@ -98,7 +98,7 @@ export default function Contact() {
             <footer className="reveal" style={{ padding: '60px 5%', textAlign: 'center', borderTop: '1px solid var(--border)' }}>
                 <span className="logo" style={{ fontSize: '24px', fontWeight: '800' }}><span>ARKIS</span></span>
                 <p style={{ color: 'var(--muted)', marginTop: '12px' }}>© 2026 ARKIS. All rights reserved.</p>
-                <a href="mailto:arkisglobal.official@gmail.com" style={{ color: 'var(--blue)', textDecoration: 'none' }}>arkisglobal.official@gmail.com</a>
+                <a href="mailto:arkisglobal.official@gmail.com" style={{ color: 'var(--white)', textDecoration: 'none' }}>arkisglobal.official@gmail.com</a>
             </footer>
 
             <ChatWidget />

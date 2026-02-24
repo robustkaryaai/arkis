@@ -20,7 +20,7 @@ export default function Login() {
 
         try {
             await account.createEmailPasswordSession(email, password);
-            router.push('/products');
+            router.push('/');
         } catch (err) {
             setError(err.message || 'Failed to login. Please check your credentials.');
         } finally {
@@ -33,7 +33,7 @@ export default function Login() {
         const origin = window.location.origin;
         account.createOAuth2Session(
             'google',
-            `${origin}/products`,
+            `${origin}/`,
             `${origin}/login`
         );
     };
