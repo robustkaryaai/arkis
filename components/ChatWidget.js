@@ -81,9 +81,9 @@ export default function ChatWidget() {
 
         while (retryCount < maxRetries && !success) {
             try {
-                const apiKey = process.env.NEXT_PUBLIC_GEMINI_KEY;
+                const apiKey = process.env.GEMINI_KEY;
                 if (!apiKey) {
-                    console.error("❌ Please set the NEXT_PUBLIC_GEMINI_KEY environment variable.");
+                    console.error("❌ Please set the GEMINI_KEY environment variable.");
                     setMessages(prev => [...prev, { text: '⚠️ Gemini API Key not found.', role: 'bot' }]);
                     setLoading(false);
                     return;
