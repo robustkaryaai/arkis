@@ -118,7 +118,7 @@ export default function Navbar() {
                                     <Link href="/orders" onClick={() => setDropdownOpen(false)} style={{ padding: '12px', borderRadius: '12px', color: 'var(--text)', textDecoration: 'none', fontSize: '14px', transition: 'background 0.2s', display: 'flex', alignItems: 'center', gap: '12px' }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'} onMouseLeave={e => e.currentTarget.style.background = 'none'}>
                                         <span style={{ fontSize: '18px' }}>📦</span> Order History
                                     </Link>
-                                    <Link href="/products#pricing" onClick={() => setDropdownOpen(false)} style={{ padding: '12px', borderRadius: '12px', color: 'var(--text)', textDecoration: 'none', fontSize: '14px', transition: 'background 0.2s', display: 'flex', alignItems: 'center', gap: '12px' }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'} onMouseLeave={e => e.currentTarget.style.background = 'none'}>
+                                    <Link href="/subscription" onClick={() => setDropdownOpen(false)} style={{ padding: '12px', borderRadius: '12px', color: 'var(--text)', textDecoration: 'none', fontSize: '14px', transition: 'background 0.2s', display: 'flex', alignItems: 'center', gap: '12px' }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'} onMouseLeave={e => e.currentTarget.style.background = 'none'}>
                                         <span style={{ fontSize: '18px' }}>💎</span> Subscriptions
                                     </Link>
                                 </div>
