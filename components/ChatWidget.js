@@ -33,42 +33,16 @@ export default function ChatWidget() {
     const [loading, setLoading] = useState(false);
     const messagesEndRef = useRef(null);
 
-    // Maintenance of Chat History for Gemini API
-    const [chatSession, setChatSession] = useState(null);
-
     useEffect(() => {
         if (messagesEndRef.current) {
             messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     }, [messages]);
 
-    const initGemini = async () => {
-        const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
-        if (!apiKey) {
-            setMessages([{ text: '⚠️ Gemini API Key not found. Please add NEXT_PUBLIC_GEMINI_API_KEY to your env.', role: 'bot' }]);
-            return null;
-        }
-
-        const genAI = new GoogleGenerativeAI(apiKey);
-        // Using gemma-3-12b-it as requested
-        const model = genAI.getGenerativeModel({
-            model: "gemma-3-12b-it",
-            systemInstruction: SYSTEM_PROMPT
-        });
-
-        const chat = model.startChat({
-            history: [],
-            generationConfig: { maxOutputTokens: 500 }
-        });
-        setChatSession(chat);
-        return chat;
-    };
-
-    const handleOpen = async () => {
+    const handleOpen = () => {
         setOpen(o => !o);
         if (!open && messages.length === 0) {
             setMessages([{ text: '👋 Hi! I\'m the ARKIS Assistant. How can I help you explore our ecosystem today?', role: 'bot' }]);
-            if (!chatSession) await initGemini();
         }
     };
 
@@ -81,16 +55,25 @@ export default function ChatWidget() {
         setLoading(true);
 
         try {
-            let session = chatSession;
-            if (!session) session = await initGemini();
-            if (!session) { setLoading(false); return; }
+            const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+            if (!apiKey) {
+                console.error("❌ Please set the NEXT_PUBLIC_GEMINI_API_KEY environment variable.");
+                setMessages(prev => [...prev, { text: '⚠️ Gemini API Key not found. Please add NEXT_PUBLIC_GEMINI_API_KEY to your env.', role: 'bot' }]);
+                setLoading(false);
+                return;
+            }
 
-            const result = await session.sendMessage(userMsg);
+            const genAI = new GoogleGenerativeAI(apiKey);
+            const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+            // Follow example: Send a prompt (including system context for ARKIS)
+            const prompt = `${SYSTEM_PROMPT}\n\nUser: ${userMsg}\nAI Assistant:`;
+            const result = await model.generateContent(prompt);
             const responseText = result.response.text();
 
             setMessages(prev => [...prev, { text: responseText, role: 'bot' }]);
         } catch (error) {
-            console.error("Gemini Error:", error);
+            console.error("❌ Error calling Gemini API:", error);
             setMessages(prev => [...prev, { text: '🤖 I experienced a connection issue. Please ensure your API key is valid.', role: 'bot' }]);
         } finally {
             setLoading(false);
@@ -118,7 +101,7 @@ export default function ChatWidget() {
                         <button id="chat-send" onClick={send} disabled={loading}>↑</button>
                     </div>
                     <div style={{ fontSize: '10px', color: 'var(--muted)', textAlign: 'center', opacity: 0.6 }}>
-                        Powered by Gemma
+                        Powered by Gemini
                     </div>
                 </div>
             </div>
