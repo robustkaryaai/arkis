@@ -42,6 +42,20 @@ export default function RKDesktopProduct() {
                         <p style={{ marginTop: '24px', fontSize: '13px', color: 'var(--muted)', fontWeight: '500' }}>
                             Stable Release: v2.0.0 · Free for Personal Use
                         </p>
+                        <div style={{
+                            marginTop: '16px', background: 'rgba(251,191,36,0.08)',
+                            border: '1px solid rgba(251,191,36,0.2)', borderRadius: '12px',
+                            padding: '12px 20px', maxWidth: '480px', textAlign: 'left'
+                        }}>
+                            <p style={{ fontSize: '12px', color: '#fbbf24', fontWeight: '600', marginBottom: '4px' }}>⚠️ macOS users: "damaged" warning?</p>
+                            <p style={{ fontSize: '11px', color: 'var(--muted)', lineHeight: '1.6' }}>
+                                This is Apple Gatekeeper blocking unsigned apps. Run this in Terminal to fix it:<br />
+                                <code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 8px', borderRadius: '4px', fontFamily: 'monospace', fontSize: '11px' }}>
+                                    xattr -rd com.apple.quarantine ~/Downloads/RK-AI.dmg
+                                </code><br />
+                                Or: right-click the DMG → Open → Open Anyway.
+                            </p>
+                        </div>
                     </div>
 
                     <div style={{ marginTop: '60px', width: '100%', maxWidth: '600px', display: 'flex', justifyContent: 'center' }}>
