@@ -50,7 +50,7 @@ const plans = [
 
 function ProductCard({ product, onSelect }) {
     return (
-        <div style={{
+        <div className="product-card" style={{
             background: 'var(--surface)', border: '1px solid var(--border)',
             borderRadius: '20px', overflow: 'hidden',
             transition: 'transform 0.25s, border-color 0.25s, box-shadow 0.25s',

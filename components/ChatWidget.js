@@ -91,7 +91,13 @@ export default function ChatWidget() {
                     {messages.map((m, i) => (
                         <div key={i} className={`msg ${m.role}`}>{m.text}</div>
                     ))}
-                    {loading && <div className="msg bot">...</div>}
+                    {loading && (
+                        <div className="msg bot">
+                            <div className="typing-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                    )}
                     <div ref={messagesEndRef} />
                 </div>
                 <div id="chat-input-row" style={{ flexDirection: 'column', gap: '8px' }}>

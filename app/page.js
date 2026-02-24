@@ -11,7 +11,7 @@ export default function Home() {
 
       {/* HERO */}
       <section className="hero">
-        <div className="badge"><span className="dot" />Engineered in India</div>
+        <div className="badge float-anim"><span className="dot" />Engineered in India</div>
         <h1>An AI-first ecosystem.<br /><span className="grad">Built for the future.</span></h1>
         <p>ARKIS is a technology company building privacy-focused, ecosystem-driven products that respect your autonomy.</p>
         <div className="hero-btns">
