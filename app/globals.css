@@ -60,23 +60,44 @@
 }
 
 .hero h1, .hero p, .hero-btns {
-  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.hero h1 { animation-delay: 0.1s; }
-.hero p { animation-delay: 0.2s; }
-.hero-btns { animation-delay: 0.3s; }
+.hero h1 { animation-delay: 0.2s; }
+.hero p { animation-delay: 0.4s; }
+.hero-btns { animation-delay: 0.6s; }
 
 .section-title, .label {
-  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .feature-card, .tier-card, .product-card {
-  animation: scale-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: scale-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .float-anim {
-  animation: float 4s ease-in-out infinite;
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ─── TYPEWRITER CURSOR ──────────────────────────────────────────────── */
+.typewriter-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 0.9em;
+  background: linear-gradient(135deg, var(--blue), var(--violet));
+  margin-left: 4px;
+  vertical-align: middle;
+  animation: cursor-blink 0.8s infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.hero .grad {
+  display: inline-block;
+  min-height: 1.2em;
 }
 
 /* ─── ARKIS Global Styles ────────────────────────────────────────────── */

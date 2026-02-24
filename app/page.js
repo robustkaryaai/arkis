@@ -1,8 +1,64 @@
+'use client';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
 
-export const metadata = { title: 'ARKIS - AI, Redefined' };
+const ROLLING_TEXTS = [
+  "Built for the future.",
+  "Powered by intelligence.",
+  "Designed for autonomy.",
+  "Engineered for control.",
+  "Privacy by default.",
+  "Local. Private. Powerful.",
+  "AI without compromise.",
+  "Intelligence, redefined.",
+  "Your AI. Your rules.",
+  "Technology that respects you.",
+  "Own your intelligence.",
+  "Control the system."
+];
+
+function HeroTypewriter() {
+  const [index, setIndex] = useState(0);
+  const [displayText, setDisplayText] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    let timer;
+    const currentFullText = ROLLING_TEXTS[index];
+    
+    const handleType = () => {
+      if (!isDeleting) {
+        setDisplayText(currentFullText.substring(0, displayText.length + 1));
+        if (displayText.length + 1 === currentFullText.length) {
+          timer = setTimeout(() => setIsDeleting(true), 2000);
+        } else {
+          timer = setTimeout(handleType, 100);
+        }
+      } else {
+        setDisplayText(currentFullText.substring(0, displayText.length - 1));
+        if (displayText.length === 0) {
+          setIsDeleting(false);
+          setIndex((prev) => (prev + 1) % ROLLING_TEXTS.length);
+          timer = setTimeout(handleType, 500);
+        } else {
+          timer = setTimeout(handleType, 50);
+        }
+      }
+    };
+
+    if (!timer) timer = setTimeout(handleType, 100);
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, index]);
+
+  return (
+    <span className="grad">
+      {displayText}
+      <span className="typewriter-cursor"></span>
+    </span>
+  );
+}
 
 export default function Home() {
   return (
@@ -12,7 +68,7 @@ export default function Home() {
       {/* HERO */}
       <section className="hero">
         <div className="badge float-anim"><span className="dot" />Engineered in India</div>
-        <h1>An AI-first ecosystem.<br /><span className="grad">Built for the future.</span></h1>
+        <h1>An AI-first ecosystem.<br /><HeroTypewriter /></h1>
         <p>ARKIS is a technology company building privacy-focused, ecosystem-driven products that respect your autonomy.</p>
         <div className="hero-btns">
           <Link className="btn-primary" href="/products">Explore Products</Link>
@@ -50,3 +106,4 @@ export default function Home() {
     </>
   );
 }
+
