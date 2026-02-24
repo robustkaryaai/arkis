@@ -46,10 +46,12 @@ export default function Navbar() {
                 {user ? (
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                            <span style={{ fontSize: '12px', fontWeight: '700', color: 'var(--text)' }}>{user.name}</span>
+                            <span style={{ fontSize: '13px', fontWeight: '700', color: 'var(--text)' }}>{user.name}</span>
+                            <span style={{ fontSize: '11px', color: 'var(--muted)', fontWeight: '500' }}>{user.email}</span>
                             <button onClick={handleLogout} style={{
-                                background: 'none', border: 'none', color: 'var(--muted)',
-                                fontSize: '11px', cursor: 'pointer', padding: 0, fontWeight: '600'
+                                background: 'none', border: 'none', color: 'var(--blue)',
+                                fontSize: '11px', cursor: 'pointer', padding: 0, fontWeight: '600',
+                                marginTop: '4px'
                             }}>Logout</button>
                         </div>
                         <div style={{
