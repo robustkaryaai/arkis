@@ -60,32 +60,32 @@
 }
 
 .hero h1, .hero p, .hero-btns {
-  animation: fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fade-up 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.hero h1 { animation-delay: 0.2s; }
-.hero p { animation-delay: 0.4s; }
-.hero-btns { animation-delay: 0.6s; }
+.hero h1 { animation-delay: 0.3s; }
+.hero p { animation-delay: 0.6s; }
+.hero-btns { animation-delay: 0.9s; }
 
 .section-title, .label {
-  animation: fade-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: fade-up 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .feature-card, .tier-card, .product-card {
-  animation: scale-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: scale-up 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .float-anim {
-  animation: float 6s ease-in-out infinite;
+  animation: float 8s ease-in-out infinite;
 }
 
 /* ─── TYPEWRITER CURSOR ──────────────────────────────────────────────── */
 .typewriter-cursor {
   display: inline-block;
-  width: 3px;
-  height: 0.9em;
+  width: 2px;
+  height: 1em;
   background: linear-gradient(135deg, var(--blue), var(--violet));
-  margin-left: 4px;
+  margin-left: 2px;
   vertical-align: middle;
   animation: cursor-blink 0.8s infinite;
 }
@@ -99,6 +99,24 @@
   display: inline-block;
   min-height: 1.2em;
 }
+
+/* ─── SCROLL REVEAL ANIMATIONS ────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
 
 /* ─── ARKIS Global Styles ────────────────────────────────────────────── */
 

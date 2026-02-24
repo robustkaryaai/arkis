@@ -1,26 +1,44 @@
+'use client';
+import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
 
-export const metadata = { title: 'About ARKIS' };
-
 export default function About() {
+    useEffect(() => {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        return () => observer.disconnect();
+    }, []);
+
     return (
         <div style={{ background: 'var(--background)', color: 'var(--text)', minHeight: '100vh' }}>
             <Navbar />
 
             <section className="hero" style={{ minHeight: '60vh', paddingTop: '120px', paddingBottom: '60px', textAlign: 'center' }}>
                 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                    <div className="badge" style={{ margin: '0 auto 16px' }}><span className="dot" />Our Vision</div>
+                    <div className="badge float-anim" style={{ margin: '0 auto 16px' }}><span className="dot" />Our Vision</div>
                     <h1 style={{ fontSize: 'clamp(36px,6vw,72px)', lineHeight: '1.2' }}>Built for,<br /><span className="grad">everyone.</span></h1>
                     <p style={{ fontSize: '1.2rem', opacity: 0.8, marginTop: '20px' }}>ARKIS is a technology company focused on building intelligent systems — from AI assistants to operating systems.</p>
                 </div>
             </section>
 
             <section style={{ padding: '80px 5%', maxWidth: '1200px', margin: '0 auto' }}>
-                <div className="label">Mission</div>
-                <h2 className="section-title">AI that respects you.</h2>
-                <div className="section-sub" style={{ maxWidth: '900px', lineHeight: '1.8', opacity: 0.9 }}>
+                <div className="label reveal">Mission</div>
+                <h2 className="section-title reveal reveal-delay-1">AI that respects you.</h2>
+                <div className="section-sub reveal reveal-delay-2" style={{ maxWidth: '900px', lineHeight: '1.8', opacity: 0.9 }}>
                     <p style={{ marginBottom: '24px' }}>
                         ARKIS is a technology company dedicated to building the intelligent systems of the future — from specialized AI assistants to decentralized operating systems. Our mission is to bridge the gap between high-performance computing and true personal privacy. We believe that technology should empower human potential without requiring the sacrifice of digital autonomy.
                     </p>
@@ -34,8 +52,8 @@ export default function About() {
             </section>
 
             <section style={{ padding: '80px 5%', maxWidth: '1200px', margin: '0 auto' }}>
-                <div className="label">Ecosystem</div>
-                <h2 className="section-title">Technological pillars.</h2>
+                <div className="label reveal">Ecosystem</div>
+                <h2 className="section-title reveal reveal-delay-1">Technological pillars.</h2>
                 <div className="feature-grid" style={{
                     display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
                     gap: '40px', marginTop: '60px'
@@ -45,8 +63,8 @@ export default function About() {
                         ['🏠', 'ARKIS Home', 'Hardware-integrated ambient intelligence. Empowering physical spaces with voice-activated assistance that respects the home boundary.'],
                         ['💿', 'Lumina OS', 'A next-generation operating system built from the ground up for the AI-first era. Independent, secure, and user-centric.'],
                         ['🔑', 'Light Key', 'The proprietary authentication and access layer for the ARKIS ecosystem, ensuring unified security across all systems.'],
-                    ].map(([icon, title, desc]) => (
-                        <div key={title} className="feature-card" style={{
+                    ].map(([icon, title, desc], i) => (
+                        <div key={title} className={`feature-card reveal reveal-delay-${(i % 4) + 1}`} style={{
                             background: 'var(--surface)', padding: '32px', borderRadius: '24px',
                             border: '1px solid var(--border)'
                         }}>
@@ -58,13 +76,13 @@ export default function About() {
                 </div>
             </section>
 
-            <section style={{ textAlign: 'center', padding: '100px 5%' }}>
+            <section style={{ textAlign: 'center', padding: '100px 5%' }} className="reveal">
                 <h2 className="section-title">Join the ecosystem.</h2>
                 <p className="section-sub" style={{ margin: '0 auto 32px' }}>Be part of the future of intelligent computing.</p>
                 <Link className="btn-primary" href="/products" style={{ padding: '18px 40px', borderRadius: '50px' }}>Explore ARKIS Products →</Link>
             </section>
 
-            <footer style={{ padding: '60px 5%', textAlign: 'center', borderTop: '1px solid var(--border)' }}>
+            <footer className="reveal" style={{ padding: '60px 5%', textAlign: 'center', borderTop: '1px solid var(--border)' }}>
                 <span className="logo" style={{ fontSize: '24px', fontWeight: '800' }}><span>ARKIS</span></span>
                 <p style={{ color: 'var(--muted)', marginTop: '12px' }}>© 2026 ARKIS. All rights reserved.</p>
                 <a href="mailto:arkisglobal.official@gmail.com" style={{ color: 'var(--blue)', textDecoration: 'none' }}>arkisglobal.official@gmail.com</a>

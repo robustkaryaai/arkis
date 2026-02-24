@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 
@@ -247,33 +247,55 @@ const products = [
 export default function Products() {
     const [showTiers, setShowTiers] = useState(false);
 
+    useEffect(() => {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        return () => observer.disconnect();
+    }, []);
+
     return (
-        <>
+        <div style={{ background: 'var(--background)', color: 'var(--text)', minHeight: '100vh' }}>
             <Navbar />
 
-            {/* HERO */}
-            <section className="hero" style={{ minHeight: '45vh', paddingTop: '100px', paddingBottom: '40px' }}>
-                <div className="badge"><span className="dot" />ARKIS Product Store</div>
-                <h1 style={{ fontSize: 'clamp(36px,6vw,68px)' }}>Build the future<br /><span className="grad">with ARKIS.</span></h1>
-                <p>AI tools built for real people. Private, local, and powerful.</p>
+            <section className="hero" style={{ minHeight: '60vh', paddingTop: '120px', paddingBottom: '60px', textAlign: 'center' }}>
+                <div style={{ maxWidth: '800px', margin: '0 auto' }}>
+                    <div className="badge float-anim" style={{ margin: '0 auto 16px' }}><span className="dot" />Ecosystem</div>
+                    <h1 style={{ fontSize: 'clamp(36px,6vw,72px)', lineHeight: '1.2' }}>The ARKIS<br /><span className="grad">Product Suite.</span></h1>
+                    <p style={{ fontSize: '1.2rem', opacity: 0.8, marginTop: '20px' }}>Explore our range of AI-first products designed for privacy, performance, and control.</p>
+                </div>
             </section>
 
-            {/* PRODUCT CARDS */}
-            <section style={{ padding: '0 5% 80px' }}>
-                <div className="label" style={{ marginBottom: '24px' }}>Products</div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '40px', maxWidth: '1400px', margin: '0 auto' }}>
-                    {products.map(p => (
-                        <ProductCard key={p.id} product={p} onSelect={() => {
-                            if (p.id === 'rkai_desktop') window.location.href = '/products/rk-ai-desktop';
-                            else if (p.id === 'cloud') setShowTiers(true);
-                            else if (p.comingSoon) alert("This product is coming soon!");
-                        }} />
+            <section style={{ padding: '40px 5%' }}>
+                <div className="label reveal">Our Products</div>
+                <div style={{
+                    display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: '32px', marginTop: '40px'
+                }}>
+                    {products.map((p, i) => (
+                        <div key={p.id} className={`reveal reveal-delay-${(i % 3) + 1}`}>
+                            <ProductCard product={p} onSelect={() => {
+                                if (p.id === 'rkai_desktop') window.location.href = '/products/rk-ai-desktop';
+                                else if (p.id === 'cloud') setShowTiers(true);
+                                else if (p.comingSoon) alert("This product is coming soon!");
+                            }} />
+                        </div>
                     ))}
                 </div>
             </section>
 
-            {/* FOOTER */}
-            <footer>
+            <footer className="reveal" style={{ marginTop: '80px' }}>
                 <span className="logo"><span>ARKIS</span></span>
                 <span>© 2026 ARKIS. All rights reserved.</span>
                 <a href="mailto:arkisglobal.official@gmail.com">arkisglobal.official@gmail.com</a>
@@ -281,6 +303,6 @@ export default function Products() {
 
             {showTiers && <TierModal onClose={() => setShowTiers(false)} />}
             <ChatWidget />
-        </>
+        </div>
     );
 }

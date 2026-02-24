@@ -81,17 +81,17 @@ export default function ChatWidget() {
 
         while (retryCount < maxRetries && !success) {
             try {
-                const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+                const apiKey = process.env.NEXT_PUBLIC_GEMINI_KEY;
                 if (!apiKey) {
-                    console.error("❌ Please set the NEXT_PUBLIC_GEMINI_API_KEY environment variable.");
+                    console.error("❌ Please set the NEXT_PUBLIC_GEMINI_KEY environment variable.");
                     setMessages(prev => [...prev, { text: '⚠️ Gemini API Key not found.', role: 'bot' }]);
                     setLoading(false);
                     return;
                 }
 
                 const genAI = new GoogleGenerativeAI(apiKey);
-                // Using gemini-pro as it's more stable
-                const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+                // Using gemma-2-12b-it as corrected by the user
+                const model = genAI.getGenerativeModel({ model: "gemma-2-12b-it" });
 
                 const prompt = `${SYSTEM_PROMPT}\n\nUser: ${userMsg}\nAI Assistant:`;
                 const result = await model.generateContent(prompt);
