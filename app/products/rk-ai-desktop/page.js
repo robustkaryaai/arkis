@@ -43,17 +43,33 @@ export default function RKDesktopProduct() {
                             Stable Release: v2.0.0 · Free for Personal Use
                         </p>
                         <div style={{
-                            marginTop: '16px', background: 'rgba(251,191,36,0.08)',
-                            border: '1px solid rgba(251,191,36,0.2)', borderRadius: '12px',
-                            padding: '12px 20px', maxWidth: '480px', textAlign: 'left'
+                            marginTop: '20px', background: 'rgba(251,191,36,0.06)',
+                            border: '1px solid rgba(251,191,36,0.18)', borderRadius: '16px',
+                            padding: '18px 24px', maxWidth: '500px', textAlign: 'left'
                         }}>
-                            <p style={{ fontSize: '12px', color: '#fbbf24', fontWeight: '600', marginBottom: '4px' }}>⚠️ macOS users: "damaged" warning?</p>
-                            <p style={{ fontSize: '11px', color: 'var(--muted)', lineHeight: '1.6' }}>
-                                This is Apple Gatekeeper blocking unsigned apps. Run this in Terminal to fix it:<br />
-                                <code style={{ background: 'rgba(0,0,0,0.3)', padding: '2px 8px', borderRadius: '4px', fontFamily: 'monospace', fontSize: '11px' }}>
-                                    xattr -rd com.apple.quarantine ~/Downloads/RK-AI.dmg
-                                </code><br />
-                                Or: right-click the DMG → Open → Open Anyway.
+                            <p style={{ fontSize: '13px', color: '#fbbf24', fontWeight: '700', marginBottom: '10px' }}>
+                                ⚠️ macOS: "damaged" or "unverified developer" warning?
+                            </p>
+                            <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '10px', lineHeight: '1.5' }}>
+                                This is normal — Apple blocks unsigned apps until you allow them. It takes 3 clicks:
+                            </p>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                {[
+                                    ['1', '🖱️ Right-click the downloaded DMG', 'Choose "Open" from the menu (not double-click)'],
+                                    ['2', '🔓 Click "Open" in the dialog', 'MacOS will ask to confirm — hit Open'],
+                                    ['3', '✅ Done!', 'App opens. macOS remembers your choice.'],
+                                ].map(([num, title, desc]) => (
+                                    <div key={num} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
+                                        <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: 'rgba(251,191,36,0.2)', border: '1px solid rgba(251,191,36,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: '700', color: '#fbbf24', flexShrink: 0, marginTop: '1px' }}>{num}</div>
+                                        <div>
+                                            <p style={{ fontSize: '12px', fontWeight: '600', color: '#e2e8f0', margin: 0 }}>{title}</p>
+                                            <p style={{ fontSize: '11px', color: 'var(--muted)', margin: 0 }}>{desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                            <p style={{ fontSize: '11px', color: '#64748b', marginTop: '10px', marginBottom: 0 }}>
+                                Or go to <strong style={{ color: 'var(--muted)' }}>System Settings → Privacy & Security</strong> → scroll down → click <strong style={{ color: 'var(--muted)' }}>Open Anyway</strong>.
                             </p>
                         </div>
                     </div>
