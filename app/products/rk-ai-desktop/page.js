@@ -68,13 +68,25 @@ export default function RKDesktopProduct() {
                         <div style={{
                             marginTop: '20px', background: 'rgba(251,191,36,0.06)',
                             border: '1px solid rgba(251,191,36,0.18)', borderRadius: '16px',
-                            padding: '18px 24px', maxWidth: '500px', textAlign: 'left'
+                            padding: '18px 24px', maxWidth: '600px', textAlign: 'left',
+                            margin: '20px auto 0'
                         }}>
                             <p style={{ fontSize: '13px', color: '#fbbf24', fontWeight: '700', marginBottom: '10px' }}>
                                 ⚠️ macOS: "damaged" or "unverified developer" warning?
                             </p>
+                            <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '12px', lineHeight: '1.5' }}>
+                                This is normal — Apple blocks unsigned apps until you allow them. <strong>For a quick fix, run this command in your Terminal:</strong>
+                            </p>
+                            <div style={{ 
+                                background: 'rgba(0,0,0,0.3)', padding: '12px 16px', borderRadius: '8px', 
+                                border: '1px solid rgba(251,191,36,0.1)', marginBottom: '16px',
+                                fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color: '#e2e8f0',
+                                wordBreak: 'break-all', userSelect: 'all', cursor: 'pointer'
+                            }} title="Click to select all">
+                                xattr -rd com.apple.quarantine ~/Downloads/RK-AI.dmg && open ~/Downloads/RK-AI.dmg
+                            </div>
                             <p style={{ fontSize: '12px', color: 'var(--muted)', marginBottom: '10px', lineHeight: '1.5' }}>
-                                This is normal — Apple blocks unsigned apps until you allow them. It takes 3 clicks:
+                                Or follow these steps:
                             </p>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                 {[

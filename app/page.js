@@ -27,29 +27,33 @@ function HeroTypewriter() {
   useEffect(() => {
     let timer;
     const currentFullText = ROLLING_TEXTS[index];
-    
-    const handleType = () => {
+
+    const type = () => {
       if (!isDeleting) {
-        setDisplayText(currentFullText.substring(0, displayText.length + 1));
-        if (displayText.length + 1 === currentFullText.length) {
-          // Pause for 5 seconds after typing finishes
-          timer = setTimeout(() => setIsDeleting(true), 5000);
+        // Typing
+        if (displayText.length < currentFullText.length) {
+          setDisplayText(currentFullText.substring(0, displayText.length + 1));
+          timer = setTimeout(type, 100);
         } else {
-          timer = setTimeout(handleType, 100);
+          // Finished typing, wait 5 seconds before deleting
+          timer = setTimeout(() => setIsDeleting(true), 5000);
         }
       } else {
-        setDisplayText(currentFullText.substring(0, displayText.length - 1));
-        if (displayText.length === 0) {
+        // Deleting
+        if (displayText.length > 0) {
+          setDisplayText(currentFullText.substring(0, displayText.length - 1));
+          timer = setTimeout(type, 50);
+        } else {
+          // Finished deleting, move to next text
           setIsDeleting(false);
           setIndex((prev) => (prev + 1) % ROLLING_TEXTS.length);
-          timer = setTimeout(handleType, 500);
-        } else {
-          timer = setTimeout(handleType, 50);
+          timer = setTimeout(type, 500);
         }
       }
     };
 
-    if (!timer) timer = setTimeout(handleType, 100);
+    timer = setTimeout(type, 100);
+
     return () => clearTimeout(timer);
   }, [displayText, isDeleting, index]);
 
