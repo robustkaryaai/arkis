@@ -95,12 +95,12 @@ function PreOrderContent() {
                                 <h3 style={{ fontSize: '18px', fontWeight: '700' }}>RK AI Home</h3>
                                 <p style={{ color: 'var(--muted)', fontSize: '14px' }}>Ambient AI Hub</p>
                             </div>
-                            <div style={{ marginLeft: 'auto', fontWeight: '800' }}>₹9,999</div>
+                            <div style={{ marginLeft: 'auto', fontWeight: '800' }}>₹4,999</div>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--muted)' }}>
                                 <span>Subtotal</span>
-                                <span>₹9,999</span>
+                                <span>₹4,999</span>
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--muted)' }}>
                                 <span>Shipping</span>
@@ -108,7 +108,7 @@ function PreOrderContent() {
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '20px', fontWeight: '900', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid var(--border)' }}>
                                 <span>Total</span>
-                                <span className="grad">₹9,999</span>
+                                <span className="grad">₹4,999</span>
                             </div>
                         </div>
                     </div>
