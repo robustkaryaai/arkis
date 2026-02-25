@@ -283,12 +283,6 @@ export default function Products() {
     const handleProductAction = (product) => {
         if (product.isModal) {
             setShowTiers(true);
-        } else if (product.isBuyable) {
-            if (!authLoading && !user) {
-                router.push(`/login?redirect=/products/pre-order?productId=${product.id}`);
-            } else {
-                router.push(`/products/pre-order?productId=${product.id}`);
-            }
         } else if (product.href) {
             window.location.href = product.href;
         }
