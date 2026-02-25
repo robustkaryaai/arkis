@@ -2,8 +2,21 @@
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function RKHomeProduct() {
+    const { user, loading: authLoading } = useAuth();
+    const router = useRouter();
+
+    const handlePreOrder = (e) => {
+        e.preventDefault();
+        if (!authLoading && !user) {
+            router.push('/login?redirect=/products/pre-order?productId=rkai_home');
+        } else {
+            router.push('/products/pre-order?productId=rkai_home');
+        }
+    };
     return (
         <div style={{ background: 'var(--bg)', minHeight: '100vh', color: 'var(--text)' }}>
             <Navbar />
@@ -58,7 +71,7 @@ export default function RKHomeProduct() {
                         justifyContent: 'center',
                         animation: 'fade-up 1.6s ease-out'
                     }}>
-                        <Link href="/login" className="btn-primary" style={{ padding: '16px 48px', fontSize: '18px', background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}>Pre-order Now</Link>
+                        <button onClick={handlePreOrder} className="btn-primary" style={{ padding: '16px 48px', fontSize: '18px', background: 'linear-gradient(135deg, #f59e0b, #d97706)', border: 'none', cursor: 'pointer', fontWeight: '700', borderRadius: '50px', color: '#fff' }}>Pre-order Now</button>
                         <div style={{ 
                             padding: '16px 32px', 
                             borderRadius: '50px',
@@ -70,7 +83,7 @@ export default function RKHomeProduct() {
                             alignItems: 'center',
                             gap: '10px'
                         }}>
-                            � Shipping Q3 2026
+                            📦 Shipping Q3 2026
                         </div>
                     </div>
 

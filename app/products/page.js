@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 // ─── Tier data (matches rk-main subscription page) ─────────────────────────
 const plans = [
@@ -49,15 +51,27 @@ const plans = [
 ];
 
 function ProductCard({ product, onSelect }) {
+    const isOrange = product.accentColor === '#f59e0b' || product.isBuyable;
+    const shadowColor = isOrange ? 'rgba(245, 158, 11, 0.2)' : `${product.accentColor}22`;
+
     return (
         <div className="product-card" style={{
             background: 'var(--surface)', border: '1px solid var(--border)',
             borderRadius: '20px', overflow: 'hidden',
             transition: 'transform 0.25s, border-color 0.25s, box-shadow 0.25s',
             cursor: 'pointer', display: 'flex', flexDirection: 'column',
+            height: '100%' // Ensure all cards take full height of their container
         }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-6px)'; e.currentTarget.style.borderColor = product.accentColor; e.currentTarget.style.boxShadow = `0 20px 60px ${product.accentColor}22`; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.boxShadow = ''; }}
+            onMouseEnter={e => { 
+                e.currentTarget.style.transform = 'translateY(-6px)'; 
+                e.currentTarget.style.borderColor = product.accentColor; 
+                e.currentTarget.style.boxShadow = `0 20px 60px ${shadowColor}`; 
+            }}
+            onMouseLeave={e => { 
+                e.currentTarget.style.transform = ''; 
+                e.currentTarget.style.borderColor = 'var(--border)'; 
+                e.currentTarget.style.boxShadow = ''; 
+            }}
         >
             {/* Product image / banner */}
             <div style={{
@@ -263,6 +277,22 @@ const products = [
 
 export default function Products() {
     const [showTiers, setShowTiers] = useState(false);
+    const { user, loading: authLoading } = useAuth();
+    const router = useRouter();
+
+    const handleProductAction = (product) => {
+        if (product.isModal) {
+            setShowTiers(true);
+        } else if (product.isBuyable) {
+            if (!authLoading && !user) {
+                router.push(`/login?redirect=/products/pre-order?productId=${product.id}`);
+            } else {
+                router.push(`/products/pre-order?productId=${product.id}`);
+            }
+        } else if (product.href) {
+            window.location.href = product.href;
+        }
+    };
 
     useEffect(() => {
         const observerOptions = {
@@ -297,15 +327,15 @@ export default function Products() {
             <section style={{ padding: '40px 5%' }}>
                 <div className="label reveal">Our Products</div>
                 <div style={{
-                    display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                    gap: '32px', marginTop: '40px'
+                    display: 'grid', 
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: '32px',
+                    marginTop: '40px',
+                    alignItems: 'stretch'
                 }}>
                     {products.map((p, i) => (
                         <div key={p.id} className={`reveal reveal-delay-${(i % 3) + 1}`}>
-                            <ProductCard product={p} onSelect={() => {
-                                if (p.isModal) setShowTiers(true);
-                                else if (p.href) window.location.href = p.href;
-                            }} />
+                            <ProductCard product={p} onSelect={() => handleProductAction(p)} />
                         </div>
                     ))}
                 </div>

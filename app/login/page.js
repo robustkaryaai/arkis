@@ -1,30 +1,38 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
-import { useState } from 'react';
-import { account } from '@/lib/appwrite';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter, useSearchParams } from 'next/navigation';
 import ChatWidget from '@/components/ChatWidget';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [localLoading, setLocalLoading] = useState(false);
+    const { user, loading: authLoading, login } = useAuth();
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectTo = searchParams.get('redirect') || '/';
+
+    useEffect(() => {
+        if (!authLoading && user) {
+            router.push(redirectTo);
+        }
+    }, [user, authLoading, router, redirectTo]);
 
     const handleEmailLogin = async (e) => {
         e.preventDefault();
         setError('');
-        setLoading(true);
+        setLocalLoading(true);
 
-        try {
-            await account.createEmailPasswordSession(email, password);
-            router.push('/');
-        } catch (err) {
-            setError(err.message || 'Failed to login. Please check your credentials.');
-        } finally {
-            setLoading(false);
+        const res = await login(email, password);
+        if (res.success) {
+            router.push(redirectTo);
+        } else {
+            setError(res.error || 'Failed to login. Please check your credentials.');
+            setLocalLoading(false);
         }
     };
 
@@ -101,12 +109,11 @@ export default function Login() {
                                 }} onFocus={e => e.target.style.borderColor = 'var(--blue)'} onBlur={e => e.target.style.borderColor = 'var(--border)'} />
                         </div>
 
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="btn-primary"
-                            style={{ width: '100%', marginTop: '10px', padding: '14px', fontSize: '15px', opacity: loading ? 0.7 : 1 }}>
-                            {loading ? 'Authenticating...' : 'Sign In'}
+                        <button type="submit" disabled={localLoading} className="btn-primary" style={{
+                            width: '100%', padding: '14px', borderRadius: '10px', fontSize: '16px',
+                            fontWeight: '700', cursor: localLoading ? 'not-allowed' : 'pointer', opacity: localLoading ? 0.7 : 1
+                        }}>
+                            {localLoading ? 'Signing in...' : 'Sign In'}
                         </button>
                     </form>
 
