@@ -83,6 +83,7 @@ export default function Navbar() {
                 <li><Link href="/" className={isActive('/')}>Home</Link></li>
                 <li><Link href="/products" className={isActive('/products')}>Products</Link></li>
                 <li><Link href="/about" className={isActive('/about')}>About</Link></li>
+                <li><Link href="/contact" className={isActive('/contact')}>Contact</Link></li>
             </ul>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
@@ -185,6 +186,7 @@ export default function Navbar() {
                 <Link href="/" className={isActive('/')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/') ? 'var(--blue)' : 'var(--text)' }}>Home</Link>
                 <Link href="/products" className={isActive('/products')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/products') ? 'var(--blue)' : 'var(--text)' }}>Products</Link>
                 <Link href="/about" className={isActive('/about')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/about') ? 'var(--blue)' : 'var(--text)' }}>About</Link>
+                <Link href="/contact" className={isActive('/contact')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/contact') ? 'var(--blue)' : 'var(--text)' }}>Contact</Link>
                 {!user && (
                     <Link href="/login" style={{ marginTop: '20px', padding: '14px', textAlign: 'center', background: 'var(--blue)', borderRadius: '50px', textDecoration: 'none', color: '#fff', fontWeight: '700' }}>Login</Link>
                 )}

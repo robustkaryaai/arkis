@@ -80,7 +80,27 @@ function PreOrderContent() {
                                     <input name="zipCode" value={formData.zipCode} onChange={handleChange} required style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '10px', padding: '12px', color: 'var(--text)' }} />
                                 </div>
                             </div>
-                            <button type="submit" disabled={isSubmitting} className="btn-primary" style={{ marginTop: '20px', padding: '16px', borderRadius: '50px', fontWeight: '800', background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}>
+                            <button 
+                                type="submit" 
+                                disabled={isSubmitting} 
+                                className="btn-primary" 
+                                style={{ 
+                                    marginTop: '20px', padding: '16px', borderRadius: '50px', fontWeight: '800', 
+                                    background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                                    boxShadow: '0 0 30px rgba(245, 158, 11, 0.3)',
+                                    transition: 'all 0.3s ease',
+                                    border: 'none',
+                                    width: '100%'
+                                }}
+                                onMouseEnter={e => {
+                                    e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)';
+                                    e.currentTarget.style.boxShadow = '0 10px 30px rgba(245, 158, 11, 0.5)';
+                                }}
+                                onMouseLeave={e => {
+                                    e.currentTarget.style.transform = '';
+                                    e.currentTarget.style.boxShadow = '0 0 30px rgba(245, 158, 11, 0.3)';
+                                }}
+                            >
                                 {isSubmitting ? 'Processing...' : 'Proceed to Payment'}
                             </button>
                         </form>

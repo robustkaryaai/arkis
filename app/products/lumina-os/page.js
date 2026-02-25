@@ -55,8 +55,45 @@ export default function LuminaOSProduct() {
                         gap: '16px', 
                         justifyContent: 'center'
                     }}>
-                        <Link href="/login?redirect=/products/lumina-os" className="btn-primary" style={{ padding: '16px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
-                        <a href="https://luminaos.vercel.app" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding: '16px 48px', fontSize: '18px', textDecoration: 'none' }}>Experience Lumina OS in Web</a>
+                        <Link 
+                            href="/login?redirect=/products/lumina-os" 
+                            className="btn-primary" 
+                            style={{ 
+                                padding: '16px 48px', fontSize: '18px',
+                                background: 'linear-gradient(135deg, #10b981, #059669)',
+                                boxShadow: '0 0 30px rgba(16, 185, 129, 0.3)',
+                                transition: 'all 0.3s ease'
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
+                                e.currentTarget.style.boxShadow = '0 10px 30px rgba(16, 185, 129, 0.5)';
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.transform = '';
+                                e.currentTarget.style.boxShadow = '0 0 30px rgba(16, 185, 129, 0.3)';
+                            }}
+                        >
+                            Join the Waitlist
+                        </Link>
+                        <a 
+                            href="https://luminaos.vercel.app" 
+                            target="_blank" rel="noopener noreferrer" 
+                            className="btn-secondary" 
+                            style={{ 
+                                padding: '16px 48px', fontSize: '18px', textDecoration: 'none',
+                                transition: 'all 0.3s ease'
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.borderColor = '#10b981';
+                                e.currentTarget.style.boxShadow = '0 0 20px rgba(16, 185, 129, 0.1)';
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.borderColor = 'var(--border)';
+                                e.currentTarget.style.boxShadow = '';
+                            }}
+                        >
+                            Experience Lumina OS in Web
+                        </a>
                     </div>
 
                     {/* PRODUCT IMAGE PLACEHOLDER */}

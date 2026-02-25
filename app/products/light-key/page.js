@@ -55,7 +55,26 @@ export default function LightKeyProduct() {
                         gap: '16px', 
                         justifyContent: 'center'
                     }}>
-                        <Link href="/login?redirect=/products/light-key" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
+                        <Link 
+                            href="/login?redirect=/products/light-key" 
+                            className="btn-primary" 
+                            style={{ 
+                                padding: '18px 48px', fontSize: '18px',
+                                background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                                boxShadow: '0 0 30px rgba(245, 158, 11, 0.3)',
+                                transition: 'all 0.3s ease'
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
+                                e.currentTarget.style.boxShadow = '0 10px 30px rgba(245, 158, 11, 0.5)';
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.transform = '';
+                                e.currentTarget.style.boxShadow = '0 0 30px rgba(245, 158, 11, 0.3)';
+                            }}
+                        >
+                            Join the Waitlist
+                        </Link>
                         <button disabled className="btn-secondary" style={{ padding: '18px 48px', fontSize: '18px', opacity: 0.5, cursor: 'not-allowed' }}>Buy Light Key (Coming Soon)</button>
                     </div>
 

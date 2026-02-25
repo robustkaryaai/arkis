@@ -127,12 +127,24 @@ function ProductCard({ product, onSelect }) {
                             🔔 Notify Me When Available
                         </div>
                     ) : (
-                        <button onClick={onSelect} style={{
-                            width: '100%', background: `linear-gradient(135deg, ${product.accentColor}, ${product.accentColor2 || product.accentColor}cc)`,
-                            color: '#fff', border: 'none', borderRadius: '50px', padding: '13px 20px',
-                            fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
-                            transition: 'opacity 0.2s',
-                        }}>
+                        <button 
+                            onClick={onSelect} 
+                            style={{
+                                width: '100%', background: `linear-gradient(135deg, ${product.accentColor}, ${product.accentColor2 || product.accentColor}cc)`,
+                                color: '#fff', border: 'none', borderRadius: '50px', padding: '13px 20px',
+                                fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
+                                transition: 'all 0.3s ease',
+                                boxShadow: `0 0 20px ${product.accentColor}33`
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
+                                e.currentTarget.style.boxShadow = `0 10px 25px ${product.accentColor}66`;
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.transform = '';
+                                e.currentTarget.style.boxShadow = `0 0 20px ${product.accentColor}33`;
+                            }}
+                        >
                             {product.cta}
                         </button>
                     )}

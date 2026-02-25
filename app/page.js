@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
+import Footer from '@/components/Footer';
 import Link from 'next/link';
 
 const ROLLING_TEXTS = [
@@ -118,13 +119,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="reveal">
-        <span className="logo"><span>ARKIS</span></span>
-        <span>© 2026 ARKIS. All rights reserved.</span>
-        <span>Built with ❤️</span>
-      </footer>
-
+      <Footer />
       <ChatWidget />
     </>
   );

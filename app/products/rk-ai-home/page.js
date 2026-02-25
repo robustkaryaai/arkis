@@ -69,7 +69,28 @@ export default function RKHomeProduct() {
                         gap: '16px', 
                         justifyContent: 'center'
                     }}>
-                        <button onClick={handlePreOrder} className="btn-primary" style={{ padding: '16px 48px', fontSize: '18px', background: 'linear-gradient(135deg, #f59e0b, #d97706)', border: 'none', cursor: 'pointer', fontWeight: '700', borderRadius: '50px', color: '#fff' }}>Pre-order Now</button>
+                        <button 
+                            onClick={handlePreOrder} 
+                            className="btn-primary" 
+                            style={{ 
+                                padding: '16px 48px', fontSize: '18px', 
+                                background: 'linear-gradient(135deg, #f59e0b, #d97706)', 
+                                border: 'none', cursor: 'pointer', fontWeight: '700', 
+                                borderRadius: '50px', color: '#fff',
+                                transition: 'all 0.3s ease',
+                                boxShadow: '0 0 30px rgba(245, 158, 11, 0.3)'
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
+                                e.currentTarget.style.boxShadow = '0 10px 30px rgba(245, 158, 11, 0.5)';
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.transform = '';
+                                e.currentTarget.style.boxShadow = '0 0 30px rgba(245, 158, 11, 0.3)';
+                            }}
+                        >
+                            Pre-order Now
+                        </button>
                         <div style={{ 
                             padding: '16px 32px', 
                             borderRadius: '50px',

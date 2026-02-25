@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
+import Footer from '@/components/Footer';
 
 export default function Contact() {
     const [form, setForm] = useState({ name: '', email: '', subject: 'General', message: '' });
@@ -95,11 +96,7 @@ export default function Contact() {
                 </div>
             </section>
 
-            <footer className="reveal" style={{ padding: '60px 5%', textAlign: 'center', borderTop: '1px solid var(--border)' }}>
-                <span className="logo" style={{ fontSize: '24px', fontWeight: '800' }}><span>ARKIS</span></span>
-                <p style={{ color: 'var(--muted)', marginTop: '12px' }}>© 2026 ARKIS. All rights reserved.</p>
-                <a href="mailto:arkisglobal.official@gmail.com" style={{ color: 'var(--white)', textDecoration: 'none' }}>arkisglobal.official@gmail.com</a>
-            </footer>
+            <Footer />
 
             <ChatWidget />
         </div>
