@@ -43,8 +43,17 @@ export function AuthProvider({ children }) {
         }
     };
 
+    const loginWithGoogle = () => {
+        const origin = window.location.origin;
+        account.createOAuth2Session(
+            'google',
+            `${origin}/`,
+            `${origin}/login`
+        );
+    };
+
     return (
-        <AuthContext.Provider value={{ user, loading, login, logout, checkUser }}>
+        <AuthContext.Provider value={{ user, loading, login, loginWithGoogle, logout, checkUser }}>
             {children}
         </AuthContext.Provider>
     );
