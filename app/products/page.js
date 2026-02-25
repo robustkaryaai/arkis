@@ -95,7 +95,19 @@ function ProductCard({ product, onSelect }) {
                 </div>
 
                 <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
-                    {product.comingSoon ? (
+                    {product.isBuyable ? (
+                        <button onClick={onSelect} style={{
+                            width: '100%', background: `linear-gradient(135deg, #f59e0b, #d97706)`,
+                            color: '#fff', border: 'none', borderRadius: '50px', padding: '13px 20px',
+                            fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
+                            transition: 'transform 0.2s, box-shadow 0.2s',
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(245, 158, 11, 0.3)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}
+                        >
+                            🛒 {product.cta}
+                        </button>
+                    ) : product.comingSoon ? (
                         <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '50px', padding: '12px 20px', textAlign: 'center', color: 'var(--muted)', fontWeight: '600', fontSize: '14px' }}>
                             🔔 Notify Me When Available
                         </div>
@@ -173,73 +185,78 @@ const products = [
         id: 'rkai_desktop',
         icon: '💻',
         category: 'AI Desktop Assistant',
-        name: 'RK AI (Desktop)',
-        desc: 'An advanced AI assistant for computers. Deep system control, PPT/DOCX creation, image/video generation, coding assistance, and local Ollama support. Turn your computer into an intelligent workspace.',
+        name: 'RK AI Desktop',
+        desc: 'A local-first AI system built for personal computing. Voice-enabled, automation-ready, and powered by on-device models.',
         tags: ['Productivity', 'Local AI', 'System Control'],
         accentColor: '#4f9cf9',
         accentColor2: '#9b59f5',
         badge: 'Live',
         badgeColor: 'linear-gradient(135deg, #4ade80, #16a34a)',
         cta: 'Download Now',
+        href: '/products/rk-ai-desktop',
         comingSoon: false,
     },
     {
         id: 'rkai_home',
-        icon: '🎙️',
+        icon: '🏠',
         category: 'Smart Home Device',
         name: 'RK AI Home',
-        desc: 'An Alexa-style physical voice assistant built for Indian users. Wake word activation, smart home integration, music, notes, and privacy-first local/cloud AI. A powerful but respectful home assistant.',
-        tags: ['Smart Home', 'Hardware', 'Pre-order Soon'],
+        desc: 'An AI system designed for physical environments — enabling voice control, automation, and intelligent coordination.',
+        tags: ['Smart Home', 'Hardware', 'Pre-order'],
         accentColor: '#ec4899',
         accentColor2: '#be185d',
-        badge: 'Coming Soon',
+        badge: 'Buy Now',
         badgeColor: 'linear-gradient(135deg, #f59e0b, #d97706)',
-        cta: '',
-        comingSoon: true,
-        dimmed: false,
+        cta: 'Buy Hardware',
+        href: '/products/rk-ai-home',
+        comingSoon: false,
+        isPhysical: true,
+        isBuyable: true
     },
     {
         id: 'lumina_os',
         icon: '💿',
         category: 'Operating System',
         name: 'Lumina OS',
-        desc: 'An AI-first operating system. Linux-based foundation, custom UI ecosystem, AI-optional design, and long-term independent system control. Redefining how operating systems interact with users.',
-        tags: ['Linux', 'AI-Optional', 'Privacy First'],
+        desc: 'A lightweight, AI-integrated operating system built around speed, privacy, and intelligent workflows.',
+        tags: ['Linux', 'AI-Native', 'Privacy First'],
         accentColor: '#10b981',
         accentColor2: '#047857',
         badge: 'In Development',
         badgeColor: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
-        cta: '',
-        comingSoon: true,
-        dimmed: false,
+        cta: 'Download Alpha',
+        href: '/products/lumina-os',
+        comingSoon: false,
     },
     {
         id: 'lightkey',
-        icon: '🔑',
-        category: 'Lumina OS Component',
+        icon: '⌨️',
+        category: 'Intelligent Input',
         name: 'Light Key',
-        desc: 'A core ecosystem component designed for Lumina OS. The authentication & access layer that unlocks the full experience, expanding the ARKIS ecosystem securely.',
-        tags: ['Auth Layer', 'Hardware/Software', 'Coming Soon'],
+        desc: 'An intelligent input system that enhances typing with contextual suggestions and AI-powered assistance.',
+        tags: ['Input', 'AI-Keyboard', 'Beta'],
         accentColor: '#f59e0b',
         accentColor2: '#d97706',
-        badge: 'Coming Soon',
+        badge: 'Buy Now',
         badgeColor: 'linear-gradient(135deg, #f59e0b, #d97706)',
-        cta: '',
-        comingSoon: true,
-        dimmed: false,
+        cta: 'Buy Light Key',
+        href: '/products/light-key',
+        comingSoon: false,
+        isBuyable: true
     },
     {
         id: 'cloud',
         icon: '☁️',
         category: 'ARKIS Ecosystem',
         name: 'ARKIS Cloud',
-        desc: 'The backbone of your AI experience. Securely sync your preferences, access premium hosted models, and manage your subscriptions across the ARKIS ecosystem.',
-        tags: ['Cloud AI', 'Subscriptions', 'Live'],
+        desc: 'The backbone of your AI experience. Securely sync your preferences and manage your subscriptions.',
+        tags: ['Cloud AI', 'Sync', 'Live'],
         accentColor: '#8b5cf6',
         accentColor2: '#6d28d9',
-        badge: 'Tier Buy',
+        badge: 'Live',
         badgeColor: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
-        cta: 'Manage Tiers →',
+        cta: 'Manage Tiers',
+        isModal: true,
         comingSoon: false,
     },
 ];
@@ -286,9 +303,8 @@ export default function Products() {
                     {products.map((p, i) => (
                         <div key={p.id} className={`reveal reveal-delay-${(i % 3) + 1}`}>
                             <ProductCard product={p} onSelect={() => {
-                                if (p.id === 'rkai_desktop') window.location.href = '/products/rk-ai-desktop';
-                                else if (p.id === 'cloud') setShowTiers(true);
-                                else if (p.comingSoon) alert("This product is coming soon!");
+                                if (p.isModal) setShowTiers(true);
+                                else if (p.href) window.location.href = p.href;
                             }} />
                         </div>
                     ))}
