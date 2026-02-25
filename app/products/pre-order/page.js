@@ -1,11 +1,11 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function PreOrderCheckout() {
+function PreOrderContent() {
     const { user, loading: authLoading } = useAuth();
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -116,5 +116,13 @@ export default function PreOrderCheckout() {
             </div>
             <ChatWidget />
         </div>
+    );
+}
+
+export default function PreOrderCheckout() {
+    return (
+        <Suspense fallback={<div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div className="spinner"></div></div>}>
+            <PreOrderContent />
+        </Suspense>
     );
 }
