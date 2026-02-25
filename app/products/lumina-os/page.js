@@ -59,7 +59,7 @@ export default function LuminaOSProduct() {
                         animation: 'fade-up 1.6s ease-out'
                     }}>
                         <button disabled className="btn-primary" style={{ padding: '16px 48px', fontSize: '18px', opacity: 0.5, cursor: 'not-allowed', filter: 'grayscale(1)' }}>Download Alpha (Coming Soon)</button>
-                        <a href="https://lumina-os-web.vercel.app" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding: '16px 48px', fontSize: '18px', textDecoration: 'none' }}>Experience Lumina OS in Web</a>
+                        <a href="https://luminaos.vercel.app" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding: '16px 48px', fontSize: '18px', textDecoration: 'none' }}>Experience Lumina OS in Web</a>
                     </div>
 
                     {/* PRODUCT IMAGE PLACEHOLDER */}

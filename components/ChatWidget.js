@@ -23,7 +23,7 @@ ARKIS Products:
 3. Lumina OS: 
    - A lightweight, AI-integrated operating system built for speed and privacy.
    - Features: AI-native architecture, Linux-based custom UI.
-   - Status: Downloadable Alpha. Also available to experience in web at lumina-os-web.vercel.app.
+   - Status: Downloadable Alpha. Also available to experience in web at luminaos.vercel.app.
    - Positioning: An operating system built for the AI era.
 
 4. Light Key: 
