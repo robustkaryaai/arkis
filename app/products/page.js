@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
+import Footer from '@/components/Footer';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 
@@ -335,12 +336,7 @@ export default function Products() {
                 </div>
             </section>
 
-            <footer className="reveal" style={{ marginTop: '80px' }}>
-                <span className="logo"><span>ARKIS</span></span>
-                <span>© 2026 ARKIS. All rights reserved.</span>
-                <a href="mailto:arkisglobal.official@gmail.com">arkisglobal.official@gmail.com</a>
-            </footer>
-
+            <Footer />
             {showTiers && <TierModal onClose={() => setShowTiers(false)} />}
             <ChatWidget />
         </div>

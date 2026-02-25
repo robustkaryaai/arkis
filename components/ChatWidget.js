@@ -14,23 +14,28 @@ ARKIS Products:
    - Status: Downloadable now for macOS & Windows.
    - Positioning: Your personal AI layer for everyday computing.
 
-2. RK AI Home: 
-   - An AI system designed for physical environments (Smart Home).
-   - Features: Ambient voice control, smart home automation, and ecosystem coordination.
-   - Status: Physical hardware product. Available for Pre-order (Shipping Q3 2026).
-   - Positioning: AI infrastructure for modern living spaces.
+2. RK AI Home (Pi Client):
+   - A hardware voice assistant optimized for Raspberry Pi Zero W (512MB RAM).
+   - Features: Gemini LLM integration, Smart Intent Routing (intent_classifier.py), 50+ Offline Commands, Self-Diagnosis (self_diagnosis.py), and a Memory Engine.
+   - Price: ₹9,999. Shipping Q3 2026.
+   - Status: Hardware Pre-order Phase.
+   - Upcoming: Smart Appliance Control (Matter/Tuya/Thread integration).
 
 3. Lumina OS: 
    - A lightweight, AI-integrated operating system built for speed and privacy.
-   - Features: AI-native architecture, Linux-based custom UI.
-   - Status: Downloadable Alpha. Also available to experience in web at luminaos.vercel.app.
-   - Positioning: An operating system built for the AI era.
+   - Features: AI-native architecture, Linux-based custom UI, and a system-level AI DISABLE SWITCH for total control.
+   - Status: In development. Experience it in web at luminaos.vercel.app or join the waitlist.
+   - Positioning: A Privacy-First, AI-Native Operating System.
 
 4. Light Key: 
-   - An intelligent input system (keyboard evolution).
-   - Features: Contextual suggestions, smart commands, and AI typing assistance.
-   - Status: Available for Purchase / Beta Access.
-   - Positioning: The AI-powered evolution of the keyboard.
+   - An intelligent input system that enhances typing with contextual suggestions and AI-powered assistance.
+   - Status: Beta Testing Soon. Join the waitlist.
+   - Positioning: Context-Aware Intelligence for Every Keystroke.
+
+Pre-order & Waitlist Process:
+- RK AI Home: Click "Pre-order Now" on its product page. Price is ₹9,999 with free shipping. It requires an ARKIS account.
+- Lumina OS & Light Key: Click "Join the Waitlist" on their respective pages to secure your spot for the Alpha/Beta phases.
+- Account: All actions require being logged into your ARKIS ecosystem account.
 
 5. ARKIS Cloud: 
    - Subscription and resource management layer for syncing preferences and accessing premium hosted models.
@@ -44,8 +49,9 @@ Key Philosophies:
 Instructions:
 - Be concise and premium in your tone.
 - If asked about technical details, emphasize privacy and local execution.
-- If the user asks for the desktop app, tell them it's available for macOS and Windows on the Products page.
-- If asked about RK AI Home, clarify that it is a physical hardware product currently in development and not yet for sale.
+- If asked about RK AI Home, use the technical summary: It's optimized for Raspberry Pi Zero W (512MB RAM), features Gemini integration, Smart Intent Routing, 50+ Offline Commands, and a Self-Diagnosis engine. It is available for Pre-order at ₹9,999.
+- Pre-order process: Users must go to the product page and click "Pre-order Now". They will be asked to login to their ARKIS account and then enter shipping details for payment.
+- Waitlist process: For Lumina OS and Light Key, users should click "Join the Waitlist" on the respective product pages.
 - Always be polite and representative of the ARKIS brand.
 `;
 
@@ -113,10 +119,12 @@ export default function ChatWidget() {
                 }
 
                 const genAI = new GoogleGenerativeAI(apiKey);
-                // Using gemma-3-12b-it as corrected by the user
                 const model = genAI.getGenerativeModel({ model: "gemma-3-12b-it" });
 
-                const prompt = `${SYSTEM_PROMPT}\n\nUser: ${userMsg}\nAI Assistant:`;
+                // Construct chat history for Gemma
+                const history = messages.map(m => `${m.role === 'user' ? 'User' : 'AI Assistant'}: ${m.text}`).join('\n');
+                const prompt = `${SYSTEM_PROMPT}\n\n${history}\nUser: ${userMsg}\nAI Assistant:`;
+                
                 const result = await model.generateContent(prompt);
                 const responseText = result.response.text();
 
@@ -136,7 +144,7 @@ export default function ChatWidget() {
                     }
                 }
                 
-                setMessages(prev => [...prev, { text: '🤖 I experienced a connection issue. Please try again in a moment.', role: 'bot' }]);
+                setMessages(prev => [...prev, { text: 'I experienced a connection issue. Please try again in a moment.', role: 'bot' }]);
                 setLoading(false);
                 break;
             }
@@ -147,7 +155,7 @@ export default function ChatWidget() {
         <div id="chat-widget">
             <div id="chat-panel" className={open ? 'open' : ''}>
                 <div id="chat-header">
-                    🤖 ARKIS Assistant
+                    ARKIS Assistant
                     <button onClick={() => setOpen(false)}>✕</button>
                 </div>
                 <div id="chat-messages">
@@ -170,7 +178,7 @@ export default function ChatWidget() {
                         <button id="chat-send" onClick={send} disabled={loading}>↑</button>
                     </div>
                     <div style={{ fontSize: '10px', color: 'var(--muted)', textAlign: 'center', opacity: 0.6 }}>
-                        Powered by Gemini
+                        Powered by Gemma
                     </div>
                 </div>
             </div>

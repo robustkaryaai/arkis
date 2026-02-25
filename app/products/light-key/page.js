@@ -1,6 +1,7 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
+import Footer from '@/components/Footer';
 import Link from 'next/link';
 
 export default function LightKeyProduct() {
@@ -120,13 +121,13 @@ export default function LightKeyProduct() {
                 </div>
             </section>
 
-            <footer style={{ padding: '80px 5%', borderTop: '1px solid var(--border)', textAlign: 'center' }}>
-                <div className="nav-logo" style={{ justifyContent: 'center', marginBottom: '24px' }}>
-                    <span>ARKIS</span>
-                </div>
-                <p style={{ color: 'var(--muted)', fontSize: '14px' }}>© 2026 ARKIS. All rights reserved.</p>
-            </footer>
+            <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(245, 158, 11, 0.05))' }}>
+                <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>The future of input is here.</h2>
+                <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Join the waitlist to be among the first to experience Light Key.</p>
+                <Link href="/login?redirect=/products/light-key" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
+            </section>
 
+            <Footer />
             <ChatWidget />
         </div>
     );

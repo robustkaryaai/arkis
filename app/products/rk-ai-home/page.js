@@ -1,6 +1,7 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
+import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
@@ -172,12 +173,13 @@ export default function RKHomeProduct() {
                 </div>
             </section>
 
-            <footer style={{ padding: '80px 5%', borderTop: '1px solid var(--border)', textAlign: 'center' }}>
-                <div className="nav-logo" style={{ justifyContent: 'center', marginBottom: '24px' }}>
-                    <span>ARKIS</span>
-                </div>
-                <p style={{ color: 'var(--muted)', fontSize: '14px' }}>© 2026 ARKIS. All rights reserved.</p>
-            </footer>
+            <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(236, 72, 153, 0.05))' }}>
+                <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>Building the future of living.</h2>
+                <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Interested in early testing? Join the community for project updates.</p>
+                <Link href="/login?redirect=/products/rk-ai-home" className="btn-secondary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Community</Link>
+            </section>
+
+            <Footer />
 
             <ChatWidget />
         </div>

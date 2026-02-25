@@ -1,6 +1,7 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
+import Footer from '@/components/Footer';
 import Link from 'next/link';
 
 export default function LuminaOSProduct() {
@@ -127,13 +128,7 @@ export default function LuminaOSProduct() {
                 <Link href="/login?redirect=/products/lumina-os" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
             </section>
 
-            <footer style={{ padding: '80px 5%', borderTop: '1px solid var(--border)', textAlign: 'center' }}>
-                <div className="nav-logo" style={{ justifyContent: 'center', marginBottom: '24px' }}>
-                    <span>ARKIS</span>
-                </div>
-                <p style={{ color: 'var(--muted)', fontSize: '14px' }}>© 2026 ARKIS. All rights reserved.</p>
-            </footer>
-
+            <Footer />
             <ChatWidget />
         </div>
     );
