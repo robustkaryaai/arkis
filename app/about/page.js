@@ -40,13 +40,13 @@ export default function About() {
                 <h2 className="section-title reveal reveal-delay-1">AI that respects you.</h2>
                 <div className="section-sub reveal reveal-delay-2" style={{ maxWidth: '900px', lineHeight: '1.8', opacity: 0.9 }}>
                     <p style={{ marginBottom: '24px' }}>
-                        ARKIS is a technology company dedicated to building the intelligent systems of the future — from specialized AI assistants to decentralized operating systems. Our mission is to bridge the gap between high-performance computing and true personal privacy. We believe that technology should empower human potential without requiring the sacrifice of digital autonomy.
+                        ARKIS is a technology company dedicated to building the intelligent systems of the future — from specialized AI assistants to native operating systems. Our mission is to bridge the gap between high-performance computing and true personal privacy. We believe that technology should empower human potential without requiring the sacrifice of digital autonomy.
                     </p>
                     <p style={{ marginBottom: '24px' }}>
-                        At the core of our philosophy is the belief that the future of AI is local. By shifting processing power from the cloud back to the edge, we enable experiences that are fast, private, and entirely under your control. Whether you are a student streamlining your research or a studio automating complex workflows, ARKIS builds the infrastructure that keeps your data where it belongs: with you.
+                        At the core of our philosophy is the belief that the future of AI is local. By shifting processing power from the cloud back to the edge, we enable experiences that are fast, private, and entirely under your control. Whether you are using our <strong>RK AI Desktop</strong> for professional workflows or our <strong>RK AI Home</strong> assistant for hands-free coordination, ARKIS builds the infrastructure that keeps your data where it belongs: with you.
                     </p>
                     <p>
-                        We aren't just building tools; we are designing an ecosystem. From the ARKIS Desktop environment to the upcoming Lumina OS, every product we create is a pillar in a new standard of computing. One where privacy is the default, ownership is real, and innovation is relentless.
+                        We aren't just building tools; we are designing an ecosystem. From the custom-engineered hardware of our <strong>Home Assistant</strong> to the AI-native kernel of <strong>Lumina OS</strong>, every product we create is a pillar in a new standard of computing. One where privacy is the default, ownership is real, and innovation is relentless.
                     </p>
                 </div>
             </section>
@@ -59,10 +59,10 @@ export default function About() {
                     gap: '40px', marginTop: '60px'
                 }}>
                     {[
-                        ['💻', 'ARKIS Desktop', 'The flagship AI assistant ecosystem for power users. Local model execution, system-wide automation, and privacy-first intelligence.'],
-                        ['🏠', 'ARKIS Home', 'Hardware-integrated ambient intelligence. Empowering physical spaces with voice-activated assistance that respects the home boundary.'],
-                        ['💿', 'Lumina OS', 'A next-generation operating system built from the ground up for the AI-first era. Independent, secure, and user-centric.'],
-                        ['🔑', 'Light Key', 'The proprietary authentication and access layer for the ARKIS ecosystem, ensuring unified security across all systems.'],
+                        ['💻', 'ARKIS Desktop', 'The flagship AI layer for Windows & macOS. Local model execution, system-wide automation, and privacy-first intelligence.'],
+                        ['🏠', 'ARKIS Home', 'Hardware-integrated ambient intelligence powered by Gemini. Optimized for Raspberry Pi Zero W with offline fallback and intent routing.'],
+                        ['💿', 'Lumina OS', 'A next-generation, AI-native operating system built on Linux. Includes a system-level AI disable switch for total user control.'],
+                        ['⌨️', 'Light Key', 'An intelligent input system that bridges the gap between thoughts and machines with contextual suggestions and smart commands.'],
                     ].map(([icon, title, desc], i) => (
                         <div key={title} className={`feature-card reveal reveal-delay-${(i % 4) + 1}`} style={{
                             background: 'var(--surface)', padding: '32px', borderRadius: '24px',

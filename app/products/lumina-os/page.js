@@ -5,13 +5,13 @@ import Link from 'next/link';
 
 export default function LuminaOSProduct() {
     return (
-        <div style={{ background: 'var(--bg)', minHeight: '100vh', color: 'var(--text)' }}>
+        <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
             <Navbar />
 
             {/* PRODUCT HERO */}
             <section className="hero" style={{ minHeight: '80vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div className="badge" style={{ marginBottom: '24px', animation: 'fade-in 1s ease-out' }}>
+                    <div className="badge float-anim" style={{ marginBottom: '24px' }}>
                         <span className="dot" style={{ background: '#10b981' }} /> Alpha Development Phase
                     </div>
                     
@@ -20,8 +20,7 @@ export default function LuminaOSProduct() {
                         fontWeight: '900', 
                         lineHeight: '1.1', 
                         letterSpacing: '-2px',
-                        marginBottom: '24px',
-                        animation: 'fade-up 1s ease-out'
+                        marginBottom: '24px'
                     }}>
                         Lumina <span className="grad">OS</span>
                     </h1>
@@ -32,8 +31,7 @@ export default function LuminaOSProduct() {
                         fontWeight: '600',
                         marginBottom: '16px',
                         letterSpacing: '1px',
-                        textTransform: 'uppercase',
-                        animation: 'fade-up 1.2s ease-out'
+                        textTransform: 'uppercase'
                     }}>
                         A Privacy-First, AI-Native Operating System.
                     </p>
@@ -43,22 +41,20 @@ export default function LuminaOSProduct() {
                         color: 'var(--muted)', 
                         maxWidth: '800px', 
                         lineHeight: '1.7',
-                        marginBottom: '40px',
-                        animation: 'fade-up 1.4s ease-out'
+                        marginBottom: '40px'
                     }}>
                         Lumina OS is built from the ground up to rethink how humans interact with machines in the AI era. 
                         It integrates artificial intelligence directly into the kernel, providing a seamless, fast, and 
-                        private workspace that adapts to your needs without ever sending your data to the cloud.
+                        private workspace that adapts to your needs.
                     </p>
 
                     <div style={{ 
                         display: 'flex', 
                         flexWrap: 'wrap', 
                         gap: '16px', 
-                        justifyContent: 'center',
-                        animation: 'fade-up 1.6s ease-out'
+                        justifyContent: 'center'
                     }}>
-                        <button disabled className="btn-primary" style={{ padding: '16px 48px', fontSize: '18px', opacity: 0.5, cursor: 'not-allowed', filter: 'grayscale(1)' }}>Download Alpha (Coming Soon)</button>
+                        <Link href="/login?redirect=/products/lumina-os" className="btn-primary" style={{ padding: '16px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
                         <a href="https://luminaos.vercel.app" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding: '16px 48px', fontSize: '18px', textDecoration: 'none' }}>Experience Lumina OS in Web</a>
                     </div>
 
@@ -77,8 +73,7 @@ export default function LuminaOSProduct() {
                         fontSize: '120px',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.5), inset 0 0 80px rgba(16, 185, 129, 0.05)',
                         position: 'relative',
-                        overflow: 'hidden',
-                        animation: 'scale-up 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                        overflow: 'hidden'
                     }}>
                         💿
                         <div style={{
@@ -103,10 +98,10 @@ export default function LuminaOSProduct() {
                     gap: '40px'
                 }}>
                     {[
-                        { icon: '🚀', title: 'Speed Engine', desc: 'Custom kernel optimizations for lightning-fast application launches and system responsiveness.' },
-                        { icon: '🧠', title: 'Native AI Stack', desc: 'A built-in AI layer that manages your tasks, search, and system configurations with intuitive ease.' },
+                        { icon: '�', title: 'AI Disable Switch', desc: 'The ultimate control. A system-level toggle to completely disable all AI features, reverting to a pure, high-performance Linux environment whenever you choose.' },
+                        { icon: '🧠', title: 'Native AI Stack', desc: 'A built-in AI layer that manages your tasks, search, and system configurations with intuitive ease, processed 100% locally.' },
                         { icon: '🔒', title: 'Hardened Privacy', desc: 'No data collection. No telemetry. Your machine belongs to you, and Lumina OS ensures it stays that way.' },
-                        { icon: '🔄', title: 'Decentralized Core', desc: 'Architecture built to support distributed workflows and resilient data management.' },
+                        { icon: '�', title: 'Speed Engine', desc: 'Custom kernel optimizations for lightning-fast application launches and system responsiveness.' },
                         { icon: '🎨', title: 'Adaptive UI', desc: 'A visual ecosystem that morphs based on your current task, maximizing focus and reducing noise.' },
                         { icon: '🐧', title: 'Linux Based', desc: 'The security and stability of Linux, transformed into a modern, user-friendly AI environment.' },
                     ].map(f => (
@@ -129,7 +124,7 @@ export default function LuminaOSProduct() {
             <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(16, 185, 129, 0.05))' }}>
                 <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>Witness the evolution of computing.</h2>
                 <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Early access spots for Lumina OS Alpha are limited. Secure yours now.</p>
-                <Link href="/login" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
+                <Link href="/login?redirect=/products/lumina-os" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
             </section>
 
             <footer style={{ padding: '80px 5%', borderTop: '1px solid var(--border)', textAlign: 'center' }}>

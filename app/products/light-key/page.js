@@ -5,13 +5,13 @@ import Link from 'next/link';
 
 export default function LightKeyProduct() {
     return (
-        <div style={{ background: 'var(--bg)', minHeight: '100vh', color: 'var(--text)' }}>
+        <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
             <Navbar />
 
             {/* PRODUCT HERO */}
             <section className="hero" style={{ minHeight: '80vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div className="badge" style={{ marginBottom: '24px', animation: 'fade-in 1s ease-out' }}>
+                    <div className="badge float-anim" style={{ marginBottom: '24px' }}>
                         <span className="dot" style={{ background: '#f59e0b' }} /> Beta Testing Soon
                     </div>
                     
@@ -20,8 +20,7 @@ export default function LightKeyProduct() {
                         fontWeight: '900', 
                         lineHeight: '1.1', 
                         letterSpacing: '-2px',
-                        marginBottom: '24px',
-                        animation: 'fade-up 1s ease-out'
+                        marginBottom: '24px'
                     }}>
                         Light <span className="grad">Key</span>
                     </h1>
@@ -32,8 +31,7 @@ export default function LightKeyProduct() {
                         fontWeight: '600',
                         marginBottom: '16px',
                         letterSpacing: '1px',
-                        textTransform: 'uppercase',
-                        animation: 'fade-up 1.2s ease-out'
+                        textTransform: 'uppercase'
                     }}>
                         Context-Aware Intelligence for Every Keystroke.
                     </p>
@@ -43,8 +41,7 @@ export default function LightKeyProduct() {
                         color: 'var(--muted)', 
                         maxWidth: '800px', 
                         lineHeight: '1.7',
-                        marginBottom: '40px',
-                        animation: 'fade-up 1.4s ease-out'
+                        marginBottom: '40px'
                     }}>
                         Light Key is an intelligent input layer that bridges the gap between your thoughts and your machine. 
                         It uses on-device context to provide real-time suggestions, execute smart commands, 
@@ -55,11 +52,10 @@ export default function LightKeyProduct() {
                         display: 'flex', 
                         flexWrap: 'wrap', 
                         gap: '16px', 
-                        justifyContent: 'center',
-                        animation: 'fade-up 1.6s ease-out'
+                        justifyContent: 'center'
                     }}>
-                        <button disabled className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px', background: 'var(--border)', color: 'var(--muted)', cursor: 'not-allowed', opacity: 0.7 }}>Buy Light Key (Coming Soon)</button>
-                        <Link href="/login" className="btn-secondary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join Beta Waitlist</Link>
+                        <Link href="/login?redirect=/products/light-key" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
+                        <button disabled className="btn-secondary" style={{ padding: '18px 48px', fontSize: '18px', opacity: 0.5, cursor: 'not-allowed' }}>Buy Light Key (Coming Soon)</button>
                     </div>
 
                     {/* PRODUCT IMAGE PLACEHOLDER */}
@@ -77,8 +73,7 @@ export default function LightKeyProduct() {
                         fontSize: '120px',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.5), inset 0 0 80px rgba(245, 158, 11, 0.05)',
                         position: 'relative',
-                        overflow: 'hidden',
-                        animation: 'scale-up 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                        overflow: 'hidden'
                     }}>
                         ⌨️
                         <div style={{
@@ -103,12 +98,12 @@ export default function LightKeyProduct() {
                     gap: '40px'
                 }}>
                     {[
-                        { icon: '🪄', title: 'Contextual Flow', desc: 'Predictive typing that understands what you’re building. From code to creative writing, Light Key adapts to your style.' },
-                        { icon: '⌨️', title: 'Smart Commands', desc: 'Execute system actions and AI workflows directly from your keyboard. Type "/create-ppt" and watch the magic happen.' },
-                        { icon: '✍️', title: 'AI Assistant', desc: 'Real-time grammar, tone, and clarity improvements. Professional communication built into every keystroke.' },
-                        { icon: '🔒', title: 'Local Encryption', desc: 'Your keystrokes never leave your device. All suggestions and processing happen locally for total security.' },
-                        { icon: '🚀', title: 'Macro Engine', desc: 'Create complex multi-step automations and trigger them with simple, intelligent shortcuts.' },
-                        { icon: '💎', title: 'ARKIS Integrated', desc: 'Works as the primary input layer for Lumina OS and syncs your custom shortcuts across the ecosystem.' },
+                        { icon: '✨', title: 'Contextual Suggestions', desc: 'Predictive typing that understands your intent. Light Key learns your vocabulary and context to offer relevant word and phrase completions.' },
+                        { icon: '⌨️', title: 'Smart Commands', desc: 'Execute system actions directly from your keyboard. Use simple shortcuts to trigger complex AI workflows and automations.' },
+                        { icon: '🔒', title: 'Private by Design', desc: 'Your keystrokes are never uploaded. All learning and prediction happens locally on your machine for absolute privacy.' },
+                        { icon: '🚀', title: 'Speed & Focus', desc: 'Reduce friction between your thoughts and the screen. Designed to keep you in the flow state with minimal interruptions.' },
+                        { icon: '🔗', title: 'Unified Ecosystem', desc: 'One input system for all your ARKIS devices. Seamlessly transition your typing experience across Desktop and Mobile.' },
+                        { icon: '🛠️', title: 'Customizable', desc: 'Tailor Light Key to your specific needs. Create your own commands and fine-tune suggestion sensitivity.' },
                     ].map(f => (
                         <div key={f.title} className="feature-card" style={{
                             background: 'var(--surface)', 
@@ -123,13 +118,6 @@ export default function LightKeyProduct() {
                         </div>
                     ))}
                 </div>
-            </section>
-
-            {/* CTA SECTION */}
-            <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(245, 158, 11, 0.05))' }}>
-                <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>Don’t just type. Command.</h2>
-                <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Be among the first to experience the evolution of the keyboard.</p>
-                <Link href="/login" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Get Early Access</Link>
             </section>
 
             <footer style={{ padding: '80px 5%', borderTop: '1px solid var(--border)', textAlign: 'center' }}>

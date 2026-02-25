@@ -17,14 +17,15 @@ export default function RKHomeProduct() {
             router.push('/products/pre-order?productId=rkai_home');
         }
     };
+
     return (
-        <div style={{ background: 'var(--bg)', minHeight: '100vh', color: 'var(--text)' }}>
+        <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
             <Navbar />
 
             {/* PRODUCT HERO */}
-            <section className="hero" style={{ minHeight: '80vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative' }}>
+            <section className="hero" style={{ minHeight: '90vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div className="badge" style={{ marginBottom: '24px', animation: 'fade-in 1s ease-out', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.3)' }}>
+                    <div className="badge float-anim" style={{ marginBottom: '24px', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.3)' }}>
                         <span className="dot" style={{ background: '#fbbf24' }} /> Hardware Pre-order Phase
                     </div>
                     
@@ -33,8 +34,7 @@ export default function RKHomeProduct() {
                         fontWeight: '900', 
                         lineHeight: '1.1', 
                         letterSpacing: '-2px',
-                        marginBottom: '24px',
-                        animation: 'fade-up 1s ease-out'
+                        marginBottom: '24px'
                     }}>
                         RK AI <span className="grad">Home</span>
                     </h1>
@@ -45,31 +45,28 @@ export default function RKHomeProduct() {
                         fontWeight: '600',
                         marginBottom: '16px',
                         letterSpacing: '1px',
-                        textTransform: 'uppercase',
-                        animation: 'fade-up 1.2s ease-out'
+                        textTransform: 'uppercase'
                     }}>
-                        Ambient Intelligence for Physical Spaces.
+                        The Intelligent Endpoint for Your Living Space.
                     </p>
 
                     <p style={{ 
                         fontSize: 'clamp(16px, 1.8vw, 20px)', 
                         color: 'var(--muted)', 
-                        maxWidth: '800px', 
+                        maxWidth: '850px', 
                         lineHeight: '1.7',
-                        marginBottom: '40px',
-                        animation: 'fade-up 1.4s ease-out'
+                        marginBottom: '40px'
                     }}>
-                        RK AI Home is a hardware-integrated AI system designed to manage your physical environment. 
-                        It acts as a central hub for your smart home, coordinating voice control, security, 
-                        and automation across all your devices while prioritizing local data processing and privacy.
+                        A lightweight, highly optimized voice assistant designed for the edge. 
+                        Powered by Gemini and local intent routing, RK AI Home provides a hands-free, 
+                        private experience for your entire household.
                     </p>
 
                     <div style={{ 
                         display: 'flex', 
                         flexWrap: 'wrap', 
                         gap: '16px', 
-                        justifyContent: 'center',
-                        animation: 'fade-up 1.6s ease-out'
+                        justifyContent: 'center'
                     }}>
                         <button onClick={handlePreOrder} className="btn-primary" style={{ padding: '16px 48px', fontSize: '18px', background: 'linear-gradient(135deg, #f59e0b, #d97706)', border: 'none', cursor: 'pointer', fontWeight: '700', borderRadius: '50px', color: '#fff' }}>Pre-order Now</button>
                         <div style={{ 
@@ -102,8 +99,7 @@ export default function RKHomeProduct() {
                         fontSize: '120px',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.5), inset 0 0 80px rgba(236, 72, 153, 0.05)',
                         position: 'relative',
-                        overflow: 'hidden',
-                        animation: 'scale-up 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                        overflow: 'hidden'
                     }}>
                         🎙️
                         <div style={{
@@ -115,46 +111,65 @@ export default function RKHomeProduct() {
                 </div>
             </section>
 
-            {/* FEATURES SECTION */}
+            {/* CORE FEATURES SECTION */}
             <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-                    <div className="label">Ambient Intelligence</div>
-                    <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800' }}>Your home, but smarter.</h2>
+                    <div className="label">Technical Excellence</div>
+                    <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800' }}>Powerful Intelligence at the Edge.</h2>
                 </div>
 
                 <div style={{
                     display: 'grid', 
                     gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                    gap: '40px'
+                    gap: '32px'
                 }}>
-                    {[
-                        { icon: '🏠', title: 'Smart Coordination', desc: 'Intelligent control over lights, fans, and appliances. RK AI Home learns your routines to automate your lifestyle.' },
-                        { icon: '🗣️', title: 'Wake Word Ready', desc: 'Always-on voice recognition with custom wake words. Designed for accurate detection even in noisy environments.' },
-                        { icon: '🔒', title: 'Physical Privacy', desc: 'Hard-wired mute switches and local processing ensure your conversations stay within your four walls.' },
-                        { icon: '📻', title: 'Music & Media', desc: 'High-fidelity audio playback with support for local libraries and major streaming services.' },
-                        { icon: '🔗', title: 'Ecosystem Sync', desc: 'Seamlessly transition tasks from your RK AI Desktop to your Home Assistant without missing a beat.' },
-                        { icon: '🛠️', title: 'Custom Hardware', desc: 'Bespoke industrial design engineered in India, optimized for durability and aesthetic integration.' },
-                    ].map(f => (
-                        <div key={f.title} className="feature-card" style={{
-                            background: 'var(--surface)', 
-                            padding: '40px', 
-                            borderRadius: '24px',
-                            border: '1px solid var(--border)',
-                            transition: 'all 0.3s ease'
-                        }}>
-                            <div style={{ fontSize: '40px', marginBottom: '24px' }}>{f.icon}</div>
-                            <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '16px' }}>{f.title}</h3>
-                            <p style={{ color: 'var(--muted)', fontSize: '16px', lineHeight: '1.7' }}>{f.desc}</p>
-                        </div>
-                    ))}
+                    <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
+                        <div style={{ fontSize: '32px', marginBottom: '20px' }}>🧠</div>
+                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Advanced AI & Intent Routing</h3>
+                        <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
+                            Powered by Google's Gemini for complex reasoning and an AI-driven intent classifier for zero-latency local commands.
+                            Built-in memory engine ensures contextual awareness across conversations.
+                        </p>
+                    </div>
+
+                    <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
+                        <div style={{ fontSize: '32px', marginBottom: '20px' }}>🛡️</div>
+                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Autonomous Resilience</h3>
+                        <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
+                            Offline fallback with 50+ whitelisted commands. Continuous self-diagnosis and error monitoring 
+                            ensure maximum uptime and reliability without cloud dependence.
+                        </p>
+                    </div>
+
+                    <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
+                        <div style={{ fontSize: '32px', marginBottom: '20px' }}>🎵</div>
+                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Integrated Utilities</h3>
+                        <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
+                            Native music management, localized news, and weather with offline caching. Seamless 
+                            provisioning via Bluetooth and real-time command polling from the mobile app.
+                        </p>
+                    </div>
                 </div>
             </section>
 
-            {/* CTA SECTION */}
-            <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(236, 72, 153, 0.05))' }}>
-                <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>Building the future of living.</h2>
-                <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Interested in early testing? Join the community for project updates.</p>
-                <Link href="/login" className="btn-secondary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Community</Link>
+            {/* UPCOMING FEATURES SECTION */}
+            <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto', borderTop: '1px solid var(--border)' }}>
+                <div style={{ 
+                    background: 'linear-gradient(135deg, rgba(79, 156, 249, 0.05), rgba(155, 89, 245, 0.05))',
+                    borderRadius: '32px',
+                    padding: '60px',
+                    border: '1px solid var(--border)'
+                }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', maxWidth: '800px' }}>
+                        <div style={{ fontSize: '12px', fontWeight: '700', color: 'var(--blue)', textTransform: 'uppercase', letterSpacing: '2px' }}>Upcoming Roadmap</div>
+                        <h2 style={{ fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: '800' }}>🔌 Smart Appliance Control</h2>
+                        <p style={{ fontSize: '18px', color: 'var(--muted)', lineHeight: '1.6' }}>
+                            RK AI Home is evolving into a complete smart home hub. Soon, you'll be able to directly 
+                            control local devices (lights, plugs, thermostats) via voice, interfacing with Matter, 
+                            Thread, and Tuya ecosystems—all processed locally for instant response.
+                        </p>
+                    </div>
+                </div>
             </section>
 
             <footer style={{ padding: '80px 5%', borderTop: '1px solid var(--border)', textAlign: 'center' }}>
