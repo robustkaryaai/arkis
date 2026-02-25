@@ -35,7 +35,7 @@ export default function LuminaOSProduct() {
                         textTransform: 'uppercase',
                         animation: 'fade-up 1.2s ease-out'
                     }}>
-                        An operating system built for the AI era.
+                        A Privacy-First, AI-Native Operating System.
                     </p>
 
                     <p style={{ 
@@ -46,7 +46,9 @@ export default function LuminaOSProduct() {
                         marginBottom: '40px',
                         animation: 'fade-up 1.4s ease-out'
                     }}>
-                        A lightweight, AI-integrated operating system built around speed, privacy, and intelligent workflows. Designed to rethink how users interact with their machines.
+                        Lumina OS is built from the ground up to rethink how humans interact with machines in the AI era. 
+                        It integrates artificial intelligence directly into the kernel, providing a seamless, fast, and 
+                        private workspace that adapts to your needs without ever sending your data to the cloud.
                     </p>
 
                     <div style={{ 
@@ -56,7 +58,7 @@ export default function LuminaOSProduct() {
                         justifyContent: 'center',
                         animation: 'fade-up 1.6s ease-out'
                     }}>
-                        <Link href="/login" className="btn-primary" style={{ padding: '16px 48px', fontSize: '18px' }}>Download Alpha</Link>
+                        <button disabled className="btn-primary" style={{ padding: '16px 48px', fontSize: '18px', opacity: 0.5, cursor: 'not-allowed', filter: 'grayscale(1)' }}>Download Alpha (Coming Soon)</button>
                         <a href="https://lumina-os-web.vercel.app" target="_blank" rel="noopener noreferrer" className="btn-secondary" style={{ padding: '16px 48px', fontSize: '18px', textDecoration: 'none' }}>Experience Lumina OS in Web</a>
                     </div>
 

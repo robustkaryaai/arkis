@@ -12,7 +12,7 @@ export default function RKHomeProduct() {
             <section className="hero" style={{ minHeight: '80vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div className="badge" style={{ marginBottom: '24px', animation: 'fade-in 1s ease-out', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.3)' }}>
-                        <span className="dot" style={{ background: '#fbbf24' }} /> Hardware Prototyping Phase
+                        <span className="dot" style={{ background: '#fbbf24' }} /> Hardware Pre-order Phase
                     </div>
                     
                     <h1 style={{ 
@@ -35,7 +35,7 @@ export default function RKHomeProduct() {
                         textTransform: 'uppercase',
                         animation: 'fade-up 1.2s ease-out'
                     }}>
-                        AI infrastructure for modern living spaces.
+                        Ambient Intelligence for Physical Spaces.
                     </p>
 
                     <p style={{ 
@@ -46,7 +46,9 @@ export default function RKHomeProduct() {
                         marginBottom: '40px',
                         animation: 'fade-up 1.4s ease-out'
                     }}>
-                        An AI system designed for physical environments — enabling voice control, automation, and intelligent coordination across devices inside your home.
+                        RK AI Home is a hardware-integrated AI system designed to manage your physical environment. 
+                        It acts as a central hub for your smart home, coordinating voice control, security, 
+                        and automation across all your devices while prioritizing local data processing and privacy.
                     </p>
 
                     <div style={{ 

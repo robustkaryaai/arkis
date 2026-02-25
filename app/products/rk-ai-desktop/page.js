@@ -43,7 +43,7 @@ export default function RKDesktopProduct() {
                         textTransform: 'uppercase',
                         animation: 'fade-up 1.2s ease-out'
                     }}>
-                        Your personal AI layer for everyday computing.
+                        The Intelligent Layer for Your Computer.
                     </p>
 
                     <p style={{ 
@@ -54,7 +54,9 @@ export default function RKDesktopProduct() {
                         marginBottom: '40px',
                         animation: 'fade-up 1.4s ease-out'
                     }}>
-                        A local-first AI system built for personal computing. Voice-enabled, automation-ready, and powered by on-device models — RK AI Desktop turns your computer into a private intelligent workspace.
+                        RK AI Desktop is a local-first AI ecosystem that transforms how you interact with your machine. 
+                        It combines the power of large language models with deep system integration, allowing you to 
+                        automate tasks, create professional content, and manage your digital life—all with 100% privacy.
                     </p>
 
                     <div style={{ 

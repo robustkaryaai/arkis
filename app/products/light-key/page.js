@@ -35,7 +35,7 @@ export default function LightKeyProduct() {
                         textTransform: 'uppercase',
                         animation: 'fade-up 1.2s ease-out'
                     }}>
-                        The AI-powered evolution of the keyboard.
+                        Context-Aware Intelligence for Every Keystroke.
                     </p>
 
                     <p style={{ 
@@ -46,7 +46,9 @@ export default function LightKeyProduct() {
                         marginBottom: '40px',
                         animation: 'fade-up 1.4s ease-out'
                     }}>
-                        An intelligent input system that enhances typing with contextual suggestions, smart commands, and AI-powered assistance — built for speed and focus.
+                        Light Key is an intelligent input layer that bridges the gap between your thoughts and your machine. 
+                        It uses on-device context to provide real-time suggestions, execute smart commands, 
+                        and automate typing tasks across the entire ARKIS ecosystem.
                     </p>
 
                     <div style={{ 
@@ -56,8 +58,8 @@ export default function LightKeyProduct() {
                         justifyContent: 'center',
                         animation: 'fade-up 1.6s ease-out'
                     }}>
-                        <Link href="/login" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px', background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}>Buy Light Key</Link>
-                        <Link href="/login" className="btn-secondary" style={{ padding: '18px 48px', fontSize: '18px' }}>Get Early Access (Beta)</Link>
+                        <button disabled className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px', background: 'var(--border)', color: 'var(--muted)', cursor: 'not-allowed', opacity: 0.7 }}>Buy Light Key (Coming Soon)</button>
+                        <Link href="/login" className="btn-secondary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join Beta Waitlist</Link>
                     </div>
 
                     {/* PRODUCT IMAGE PLACEHOLDER */}
