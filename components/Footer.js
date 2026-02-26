@@ -28,20 +28,6 @@ export default function Footer() {
                         WebkitTextFillColor: 'transparent'
                     }}>ARKIS</span>
                 </div>
-                
-                <div style={{ 
-                    display: 'flex', 
-                    justifyContent: 'center', 
-                    gap: '32px', 
-                    marginBottom: '32px',
-                    flexWrap: 'wrap'
-                }}>
-                    <Link href="/" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '600' }}>Home</Link>
-                    <Link href="/products" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '600' }}>Products</Link>
-                    <Link href="/about" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '600' }}>About</Link>
-                    <Link href="/contact" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '600' }}>Contact</Link>
-                    <Link href="/login" style={{ color: 'var(--muted)', textDecoration: 'none', fontSize: '14px', fontWeight: '600' }}>Account</Link>
-                </div>
 
                 <div style={{ 
                     display: 'flex', 

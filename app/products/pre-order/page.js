@@ -1,6 +1,7 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
+import Footer from '@/components/Footer';
 import { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -27,6 +28,16 @@ function PreOrderContent() {
         }
     }, [user, authLoading, router, productId]);
 
+    useEffect(() => {
+        if (!authLoading && user) {
+            setFormData((prev) => ({
+                ...prev,
+                fullName: prev.fullName || user.name || '',
+                email: prev.email || user.email || '',
+            }));
+        }
+    }, [authLoading, user]);
+
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
@@ -34,11 +45,37 @@ function PreOrderContent() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
-        // Placeholder for payment gateway integration (Razorpay/Stripe)
+
+        const productName = 'RK AI Home';
+        const price = '₹4,999';
+
+        try {
+            const raw = localStorage.getItem('arkis_orders') || '[]';
+            const list = JSON.parse(raw);
+            const order = {
+                id: `ORD-${Date.now()}`,
+                productId,
+                productName,
+                price,
+                email: formData.email,
+                shipping: {
+                    fullName: formData.fullName,
+                    address: formData.address,
+                    city: formData.city,
+                    zipCode: formData.zipCode,
+                    country: formData.country,
+                },
+                status: 'Pre-order Submitted',
+                createdAt: new Date().toISOString(),
+            };
+            const next = Array.isArray(list) ? [order, ...list] : [order];
+            localStorage.setItem('arkis_orders', JSON.stringify(next));
+        } catch (_) { }
+
         setTimeout(() => {
-            alert('Redirecting to secure payment gateway...');
             setIsSubmitting(false);
-        }, 1500);
+            router.push('/orders');
+        }, 700);
     };
 
     if (authLoading || !user) {
@@ -134,6 +171,7 @@ function PreOrderContent() {
                     </div>
                 </div>
             </div>
+            <Footer />
             <ChatWidget />
         </div>
     );

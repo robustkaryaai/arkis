@@ -1,29 +1,24 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { account } from '@/lib/appwrite';
+import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
+import Footer from '@/components/Footer';
+import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function Profile() {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const { user, loading } = useAuth();
+    const router = useRouter();
 
     useEffect(() => {
-        const getAccount = async () => {
-            try {
-                const data = await account.get();
-                setUser(data);
-            } catch (err) {
-                console.error(err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        getAccount();
-    }, []);
+        if (!loading && !user) {
+            router.push('/login?redirect=/profile');
+        }
+    }, [loading, user, router]);
 
     if (loading) return <div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text)' }}>Loading...</div>;
-    if (!user) return <div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text)' }}>Please login to view profile.</div>;
+    if (!user) return <div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text)' }}>Redirecting...</div>;
 
     return (
         <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
@@ -46,6 +41,12 @@ export default function Profile() {
                     <h1 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '8px' }}>{user.name}</h1>
                     <p style={{ color: 'var(--muted)', fontSize: '16px', marginBottom: '32px' }}>{user.email}</p>
 
+                    <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '30px' }}>
+                        <Link href="/orders" className="btn-secondary" style={{ padding: '12px 22px', borderRadius: '50px' }}>View Orders</Link>
+                        <Link href="/subscription" className="btn-secondary" style={{ padding: '12px 22px', borderRadius: '50px' }}>Manage Subscription</Link>
+                        <Link href="/products" className="btn-secondary" style={{ padding: '12px 22px', borderRadius: '50px' }}>Explore Products</Link>
+                    </div>
+
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px', textAlign: 'left' }}>
                         <div style={{ background: 'rgba(255,255,255,0.03)', padding: '20px', borderRadius: '16px', border: '1px solid var(--border)' }}>
                             <div style={{ fontSize: '11px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '8px' }}>Account ID</div>
@@ -58,6 +59,7 @@ export default function Profile() {
                     </div>
                 </div>
             </div>
+            <Footer />
             <ChatWidget />
         </div>
     );

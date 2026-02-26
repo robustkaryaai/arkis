@@ -1,6 +1,7 @@
 'use client';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
+import Footer from '@/components/Footer';
 import Link from 'next/link';
 
 export default function RKDesktopProduct() {
@@ -13,7 +14,7 @@ export default function RKDesktopProduct() {
     };
 
     return (
-        <div style={{ background: 'var(--bg)', minHeight: '100vh', color: 'var(--text)' }}>
+        <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
             <Navbar />
 
             {/* PRODUCT HERO */}
@@ -180,15 +181,9 @@ export default function RKDesktopProduct() {
                 <Link href="/login" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Get Started Free</Link>
             </section>
 
-            <footer style={{ padding: '80px 5%', borderTop: '1px solid var(--border)', textAlign: 'center' }}>
-                <div className="nav-logo" style={{ justifyContent: 'center', marginBottom: '24px' }}>
-                    <span>ARKIS</span>
-                </div>
-                <p style={{ color: 'var(--muted)', fontSize: '14px' }}>© 2026 ARKIS. All rights reserved.</p>
-            </footer>
+            <Footer />
 
             <ChatWidget />
         </div>
     );
 }
-

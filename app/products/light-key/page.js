@@ -56,7 +56,7 @@ export default function LightKeyProduct() {
                         justifyContent: 'center'
                     }}>
                         <Link 
-                            href="/login?redirect=/products/light-key" 
+                            href="/waitlist?product=light-key" 
                             className="btn-primary" 
                             style={{ 
                                 padding: '18px 48px', fontSize: '18px',
@@ -143,7 +143,7 @@ export default function LightKeyProduct() {
             <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(245, 158, 11, 0.05))' }}>
                 <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>The future of input is here.</h2>
                 <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Join the waitlist to be among the first to experience Light Key.</p>
-                <Link href="/login?redirect=/products/light-key" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
+                <Link href="/waitlist?product=light-key" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
             </section>
 
             <Footer />

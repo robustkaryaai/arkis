@@ -123,6 +123,53 @@ export default function Navbar() {
                                     <p style={{ margin: 0, fontWeight: '700', fontSize: '14px' }}>{user.name || 'User'}</p>
                                     <p style={{ margin: 0, fontSize: '12px', color: 'var(--muted)' }}>{user.email}</p>
                                 </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '6px 6px 10px' }}>
+                                    <Link
+                                        href="/profile"
+                                        style={{
+                                            padding: '10px 10px',
+                                            borderRadius: '12px',
+                                            textDecoration: 'none',
+                                            color: 'var(--text)',
+                                            fontSize: '14px',
+                                            fontWeight: '600',
+                                            background: 'rgba(255,255,255,0.02)',
+                                            border: '1px solid var(--border)',
+                                        }}
+                                    >
+                                        Profile
+                                    </Link>
+                                    <Link
+                                        href="/orders"
+                                        style={{
+                                            padding: '10px 10px',
+                                            borderRadius: '12px',
+                                            textDecoration: 'none',
+                                            color: 'var(--text)',
+                                            fontSize: '14px',
+                                            fontWeight: '600',
+                                            background: 'rgba(255,255,255,0.02)',
+                                            border: '1px solid var(--border)',
+                                        }}
+                                    >
+                                        Orders
+                                    </Link>
+                                    <Link
+                                        href="/subscription"
+                                        style={{
+                                            padding: '10px 10px',
+                                            borderRadius: '12px',
+                                            textDecoration: 'none',
+                                            color: 'var(--text)',
+                                            fontSize: '14px',
+                                            fontWeight: '600',
+                                            background: 'rgba(255,255,255,0.02)',
+                                            border: '1px solid var(--border)',
+                                        }}
+                                    >
+                                        Subscription
+                                    </Link>
+                                </div>
                                 <button 
                                     onClick={handleLogout}
                                     style={{ 
@@ -187,7 +234,32 @@ export default function Navbar() {
                 <Link href="/products" className={isActive('/products')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/products') ? 'var(--blue)' : 'var(--text)' }}>Products</Link>
                 <Link href="/about" className={isActive('/about')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/about') ? 'var(--blue)' : 'var(--text)' }}>About</Link>
                 <Link href="/contact" className={isActive('/contact')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/contact') ? 'var(--blue)' : 'var(--text)' }}>Contact</Link>
-                {!user && (
+                {user ? (
+                    <>
+                        <div style={{ height: '1px', background: 'var(--border)', margin: '10px 0' }} />
+                        <Link href="/profile" style={{ fontSize: '18px', fontWeight: '700', textDecoration: 'none', color: isActive('/profile') ? 'var(--blue)' : 'var(--text)' }}>Profile</Link>
+                        <Link href="/orders" style={{ fontSize: '18px', fontWeight: '700', textDecoration: 'none', color: isActive('/orders') ? 'var(--blue)' : 'var(--text)' }}>Orders</Link>
+                        <Link href="/subscription" style={{ fontSize: '18px', fontWeight: '700', textDecoration: 'none', color: isActive('/subscription') ? 'var(--blue)' : 'var(--text)' }}>Subscription</Link>
+                        <button
+                            onClick={handleLogout}
+                            style={{
+                                marginTop: '18px',
+                                padding: '14px',
+                                textAlign: 'center',
+                                background: 'rgba(239, 68, 68, 0.12)',
+                                borderRadius: '50px',
+                                border: '1px solid rgba(239, 68, 68, 0.25)',
+                                color: '#ef4444',
+                                fontWeight: '800',
+                                cursor: 'pointer',
+                                fontSize: '14px',
+                                fontFamily: 'inherit'
+                            }}
+                        >
+                            Sign Out
+                        </button>
+                    </>
+                ) : (
                     <Link href="/login" style={{ marginTop: '20px', padding: '14px', textAlign: 'center', background: 'var(--blue)', borderRadius: '50px', textDecoration: 'none', color: '#fff', fontWeight: '700' }}>Login</Link>
                 )}
             </div>

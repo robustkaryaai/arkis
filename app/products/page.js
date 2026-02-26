@@ -123,9 +123,37 @@ function ProductCard({ product, onSelect }) {
                             🛒 {product.cta}
                         </button>
                     ) : product.comingSoon ? (
-                        <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '50px', padding: '12px 20px', textAlign: 'center', color: 'var(--muted)', fontWeight: '600', fontSize: '14px' }}>
-                            🔔 Notify Me When Available
-                        </div>
+                        <Link
+                            href={`/notify?product=${encodeURIComponent(product.notifyProductKey || product.id)}`}
+                            style={{
+                                display: 'block',
+                                width: '100%',
+                                background: 'rgba(255,255,255,0.04)',
+                                border: `1px solid ${product.accentColor}44`,
+                                borderRadius: '50px',
+                                padding: '12px 20px',
+                                textAlign: 'center',
+                                color: product.accentColor,
+                                fontWeight: '700',
+                                fontSize: '14px',
+                                textDecoration: 'none',
+                                transition: 'all 0.3s ease',
+                                boxShadow: `0 0 18px ${product.accentColor}22`,
+                            }}
+                            onClick={e => {
+                                e.stopPropagation();
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
+                                e.currentTarget.style.boxShadow = `0 10px 25px ${product.accentColor}33`;
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.transform = '';
+                                e.currentTarget.style.boxShadow = `0 0 18px ${product.accentColor}22`;
+                            }}
+                        >
+                            🔔 Notify Me
+                        </Link>
                     ) : (
                         <button 
                             onClick={onSelect} 
@@ -268,7 +296,8 @@ const products = [
         badgeColor: 'linear-gradient(135deg, #f59e0b, #d97706)',
         cta: 'Learn More',
         href: '/products/light-key',
-        comingSoon: false,
+        comingSoon: true,
+        notifyProductKey: 'light-key',
         isBuyable: false
     },
     {

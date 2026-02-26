@@ -38,7 +38,7 @@ function LoginContent() {
 
     const handleGoogleLogin = () => {
         setLocalLoading(true);
-        loginWithGoogle();
+        loginWithGoogle(redirectTo);
     };
 
     return (

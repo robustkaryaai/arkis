@@ -56,7 +56,7 @@ export default function LuminaOSProduct() {
                         justifyContent: 'center'
                     }}>
                         <Link 
-                            href="/login?redirect=/products/lumina-os" 
+                            href="/waitlist?product=lumina-os" 
                             className="btn-primary" 
                             style={{ 
                                 padding: '16px 48px', fontSize: '18px',
@@ -162,7 +162,7 @@ export default function LuminaOSProduct() {
             <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(16, 185, 129, 0.05))' }}>
                 <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>Witness the evolution of computing.</h2>
                 <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Early access spots for Lumina OS Alpha are limited. Secure yours now.</p>
-                <Link href="/login?redirect=/products/lumina-os" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
+                <Link href="/waitlist?product=lumina-os" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
             </section>
 
             <Footer />

@@ -1,9 +1,30 @@
 'use client';
+import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
+import Footer from '@/components/Footer';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function Subscription() {
+    const { user, loading } = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!loading && !user) {
+            router.push('/login?redirect=/subscription');
+        }
+    }, [loading, user, router]);
+
+    if (loading) {
+        return <div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text)' }}>Loading...</div>;
+    }
+
+    if (!user) {
+        return <div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text)' }}>Redirecting...</div>;
+    }
+
     return (
         <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
             <Navbar />
@@ -57,6 +78,7 @@ export default function Subscription() {
                     </div>
                 </div>
             </div>
+            <Footer />
             <ChatWidget />
         </div>
     );

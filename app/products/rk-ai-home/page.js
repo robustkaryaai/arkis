@@ -133,6 +133,35 @@ export default function RKHomeProduct() {
                 </div>
             </section>
 
+            <section style={{ padding: '60px 5% 20px', maxWidth: '1200px', margin: '0 auto' }}>
+                <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                    <div className="label">At a Glance</div>
+                    <h2 style={{ fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: '800' }}>Price, delivery, and warranty.</h2>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px' }}>
+                    <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '20px', padding: '22px' }}>
+                        <div style={{ fontSize: '12px', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--muted)' }}>Price</div>
+                        <div style={{ marginTop: '10px', fontSize: '28px', fontWeight: '900' }}>₹4,999</div>
+                        <div style={{ marginTop: '6px', color: 'var(--muted)', fontSize: '13px' }}>Hardware pre-order</div>
+                    </div>
+                    <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '20px', padding: '22px' }}>
+                        <div style={{ fontSize: '12px', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--muted)' }}>Delivery</div>
+                        <div style={{ marginTop: '10px', fontSize: '28px', fontWeight: '900' }}>Q3 2026</div>
+                        <div style={{ marginTop: '6px', color: 'var(--muted)', fontSize: '13px' }}>Estimated shipping window</div>
+                    </div>
+                    <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '20px', padding: '22px' }}>
+                        <div style={{ fontSize: '12px', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--muted)' }}>Warranty</div>
+                        <div style={{ marginTop: '10px', fontSize: '28px', fontWeight: '900' }}>1 Year</div>
+                        <div style={{ marginTop: '6px', color: 'var(--muted)', fontSize: '13px' }}>Limited hardware warranty</div>
+                    </div>
+                    <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '20px', padding: '22px' }}>
+                        <div style={{ fontSize: '12px', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--muted)' }}>Control</div>
+                        <div style={{ marginTop: '10px', fontSize: '28px', fontWeight: '900' }}>Anywhere</div>
+                        <div style={{ marginTop: '6px', color: 'var(--muted)', fontSize: '13px' }}>Manage via the ARKIS app</div>
+                    </div>
+                </div>
+            </section>
+
             {/* CORE FEATURES SECTION */}
             <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '80px' }}>
@@ -169,6 +198,30 @@ export default function RKHomeProduct() {
                         <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
                             Native music management, localized news, and weather with offline caching. Seamless 
                             provisioning via Bluetooth and real-time command polling from the mobile app.
+                        </p>
+                    </div>
+
+                    <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
+                        <div style={{ fontSize: '32px', marginBottom: '20px' }}>☁️</div>
+                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Cloud Creation Suite</h3>
+                        <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
+                            With ARKIS Cloud, generate notes, PPTs, timetables, DOCX files, planners, assignments, and tests—plus create AI images and videos—right from your home assistant.
+                        </p>
+                    </div>
+
+                    <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
+                        <div style={{ fontSize: '32px', marginBottom: '20px' }}>✨</div>
+                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Premium App Experience</h3>
+                        <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
+                            A polished mobile experience to configure your device, manage skills, and access your assistant instantly with a fast, premium interface.
+                        </p>
+                    </div>
+
+                    <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
+                        <div style={{ fontSize: '32px', marginBottom: '20px' }}>📲</div>
+                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Control From Anywhere</h3>
+                        <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
+                            Trigger commands remotely, monitor device status, and manage settings from your phone—securely—whether you’re in the next room or across the world.
                         </p>
                     </div>
                 </div>

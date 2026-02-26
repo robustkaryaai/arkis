@@ -43,13 +43,11 @@ export function AuthProvider({ children }) {
         }
     };
 
-    const loginWithGoogle = () => {
-        const origin = window.location.origin;
-        account.createOAuth2Session(
-            'google',
-            `${origin}/`,
-            `${origin}/login`
-        );
+    const loginWithGoogle = (redirectTo = '/') => {
+        const origin = window.location.origin.replace(/\/$/, '');
+        const successUrl = `${origin}${redirectTo.startsWith('/') ? redirectTo : `/${redirectTo}`}`;
+        const failureUrl = `${origin}/login?error=oauth_failed`;
+        account.createOAuth2Session('google', successUrl, failureUrl);
     };
 
     return (
