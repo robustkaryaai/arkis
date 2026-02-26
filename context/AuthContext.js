@@ -10,7 +10,28 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        checkUser();
+        const init = async () => {
+            try {
+                if (typeof window !== 'undefined') {
+                    const url = new URL(window.location.href);
+                    const userId = url.searchParams.get('userId');
+                    const secret = url.searchParams.get('secret');
+
+                    if (userId && secret) {
+                        await account.createSession(userId, secret);
+
+                        url.searchParams.delete('userId');
+                        url.searchParams.delete('secret');
+                        window.history.replaceState({}, '', url.toString());
+                    }
+                }
+            } catch (_) {
+            } finally {
+                await checkUser();
+            }
+        };
+
+        init();
     }, []);
 
     const checkUser = async () => {

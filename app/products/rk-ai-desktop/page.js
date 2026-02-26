@@ -105,6 +105,42 @@ export default function RKDesktopProduct() {
                 </div>
             </section>
 
+
+
+            {/* INSTALLATION NOTICE FOR MACOS */}
+            <section style={{ padding: '60px 5%', maxWidth: '800px', margin: '0 auto' }}>
+                <div style={{
+                    background: 'rgba(251,191,36,0.06)',
+                    border: '1px solid rgba(251,191,36,0.18)', 
+                    borderRadius: '24px',
+                    padding: '32px'
+                }}>
+                    <h3 style={{ color: '#fbbf24', fontSize: '18px', fontWeight: '800', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        ⚠️ macOS Installation Note
+                    </h3>
+                    <p style={{ fontSize: '14px', color: 'var(--muted)', marginBottom: '20px', lineHeight: '1.6' }}>
+                        If you see a "damaged" or "unverified developer" warning, Apple is blocking the app because it's unsigned. Run this command in your Terminal to fix it:
+                    </p>
+                    <code style={{ 
+                        display: 'block',
+                        background: 'rgba(0,0,0,0.3)', 
+                        padding: '16px', 
+                        borderRadius: '12px', 
+                        border: '1px solid rgba(251,191,36,0.1)', 
+                        fontFamily: 'JetBrains Mono, monospace', 
+                        fontSize: '12px', 
+                        color: '#e2e8f0',
+                        marginBottom: '20px',
+                        overflowX: 'auto'
+                    }}>
+                        xattr -rd com.apple.quarantine ~/Downloads/RK-AI.dmg && open ~/Downloads/RK-AI.dmg
+                    </code>
+                    <p style={{ fontSize: '12px', color: '#64748b' }}>
+                        Don't worry the app is completely safe to use
+                    </p>
+                </div>
+            </section>
+
             {/* FEATURES SECTION */}
             <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '80px' }}>
@@ -137,40 +173,6 @@ export default function RKDesktopProduct() {
                             <p style={{ color: 'var(--muted)', fontSize: '16px', lineHeight: '1.7' }}>{f.desc}</p>
                         </div>
                     ))}
-                </div>
-            </section>
-
-            {/* INSTALLATION NOTICE FOR MACOS */}
-            <section style={{ padding: '60px 5%', maxWidth: '800px', margin: '0 auto' }}>
-                <div style={{
-                    background: 'rgba(251,191,36,0.06)',
-                    border: '1px solid rgba(251,191,36,0.18)', 
-                    borderRadius: '24px',
-                    padding: '32px'
-                }}>
-                    <h3 style={{ color: '#fbbf24', fontSize: '18px', fontWeight: '800', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        ⚠️ macOS Installation Note
-                    </h3>
-                    <p style={{ fontSize: '14px', color: 'var(--muted)', marginBottom: '20px', lineHeight: '1.6' }}>
-                        If you see a "damaged" or "unverified developer" warning, Apple is blocking the app because it's unsigned. Run this command in your Terminal to fix it:
-                    </p>
-                    <code style={{ 
-                        display: 'block',
-                        background: 'rgba(0,0,0,0.3)', 
-                        padding: '16px', 
-                        borderRadius: '12px', 
-                        border: '1px solid rgba(251,191,36,0.1)', 
-                        fontFamily: 'JetBrains Mono, monospace', 
-                        fontSize: '12px', 
-                        color: '#e2e8f0',
-                        marginBottom: '20px',
-                        overflowX: 'auto'
-                    }}>
-                        xattr -rd com.apple.quarantine ~/Downloads/RK-AI.dmg && open ~/Downloads/RK-AI.dmg
-                    </code>
-                    <p style={{ fontSize: '12px', color: '#64748b' }}>
-                        Or: Right-click → Open → Click "Open" in the dialog.
-                    </p>
                 </div>
             </section>
 
