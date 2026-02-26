@@ -1,7 +1,7 @@
  'use client';
  import { Suspense, useEffect, useState } from 'react';
  import { useRouter, useSearchParams } from 'next/navigation';
- import { account } from '@/lib/appwrite';
+ import { account, client } from '@/lib/appwrite';
  
  function CallbackContent() {
    const router = useRouter();
@@ -16,6 +16,11 @@
          const next = searchParams.get('next') || '/';
          if (userId && secret) {
            await account.createSession(userId, secret);
+           try {
+             const jwt = await account.createJWT();
+             localStorage.setItem('auth_jwt', jwt.jwt);
+             client.setJWT(jwt.jwt);
+           } catch (_) {}
            const url = new URL(window.location.href);
            url.searchParams.delete('userId');
            url.searchParams.delete('secret');

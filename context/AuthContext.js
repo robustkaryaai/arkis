@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { account } from '@/lib/appwrite';
+import { account, client } from '@/lib/appwrite';
 
 const AuthContext = createContext();
 
@@ -13,6 +13,10 @@ export function AuthProvider({ children }) {
         const init = async () => {
             try {
                 if (typeof window !== 'undefined') {
+                    try {
+                        const stored = localStorage.getItem('auth_jwt');
+                        if (stored) client.setJWT(stored);
+                    } catch (_) {}
                     const url = new URL(window.location.href);
                     const userId = url.searchParams.get('userId');
                     const secret = url.searchParams.get('secret');
