@@ -93,15 +93,15 @@ export default function Home() {
       <section className="hero">
         <div className="badge float-anim"><span className="dot" />Engineered in India</div>
         <h1>An AI-first ecosystem.<br /><HeroTypewriter /></h1>
-        <p>ARKIS is a technology company building privacy-focused, ecosystem-driven products that respect your autonomy.</p>
+        <p>RexyCore is a technology company building privacy-focused, ecosystem-driven products that respect your autonomy.</p>
         <div className="hero-btns">
           <Link className="btn-primary" href="/products">Explore Products</Link>
         </div>
       </section>
 
-      {/* FEATURES / WHY ARKIS */}
+      {/* FEATURES / WHY REXYCORE */}
       <section id="features">
-        <div className="label reveal">Why ARKIS</div>
+        <div className="label reveal">Why RexyCore</div>
         <h2 className="section-title reveal reveal-delay-1">Built different.<br />By design.</h2>
         <div className="feature-grid" style={{ marginTop: '40px' }}>
           {[
