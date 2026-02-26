@@ -1,21 +1,62 @@
 'use client';
-import { useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import { DATABASE_ID, Query, TABLES, tables } from '@/lib/appwrite';
 
 export default function Subscription() {
     const { user, loading } = useAuth();
     const router = useRouter();
+    const [subRow, setSubRow] = useState(null);
+    const [subLoading, setSubLoading] = useState(false);
 
     useEffect(() => {
         if (!loading && !user) {
             router.push('/login?redirect=/subscription');
         }
     }, [loading, user, router]);
+
+    useEffect(() => {
+        const load = async () => {
+            if (loading || !user) return;
+            setSubLoading(true);
+            try {
+                if (DATABASE_ID) {
+                    const res = await tables.listRows(
+                        DATABASE_ID,
+                        TABLES.SUBSCRIPTION,
+                        [Query.equal('userId', user.$id), Query.orderDesc('$createdAt'), Query.limit(1)]
+                    );
+                    const row = Array.isArray(res?.rows) && res.rows.length > 0 ? res.rows[0] : null;
+                    setSubRow(row);
+                } else {
+                    setSubRow(null);
+                }
+            } catch (_) {
+                setSubRow(null);
+            } finally {
+                setSubLoading(false);
+            }
+        };
+
+        load();
+    }, [loading, user]);
+
+    const planLabel = useMemo(() => {
+        const planId = subRow?.planId;
+        if (!planId) return 'Free';
+        return `${planId}`.toUpperCase();
+    }, [subRow]);
+
+    const statusLabel = useMemo(() => {
+        const status = subRow?.status;
+        if (!status) return 'active';
+        return `${status}`;
+    }, [subRow]);
 
     if (loading) {
         return <div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text)' }}>Loading...</div>;
@@ -37,6 +78,19 @@ export default function Subscription() {
                     <Link href="/products" className="nav-cta" style={{ borderRadius: '50px', padding: '10px 24px', fontSize: '14px' }}>View All Plans</Link>
                 </div>
 
+                <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '24px', padding: '22px', marginBottom: '24px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap' }}>
+                        <div>
+                            <div style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '2px', color: 'var(--muted)', textTransform: 'uppercase' }}>Current Plan</div>
+                            <div style={{ fontSize: '18px', fontWeight: '900', marginTop: '6px' }}>{subLoading ? 'Loading…' : planLabel}</div>
+                        </div>
+                        <div style={{ textAlign: 'right' }}>
+                            <div style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '2px', color: 'var(--muted)', textTransform: 'uppercase' }}>Status</div>
+                            <div style={{ fontSize: '14px', fontWeight: '800', marginTop: '6px', color: statusLabel === 'active' ? '#34d399' : 'var(--muted)' }}>{subLoading ? '—' : statusLabel}</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
                     <div style={{
                         background: 'var(--surface)', border: '2px solid var(--blue)',
@@ -47,7 +101,7 @@ export default function Subscription() {
                             position: 'absolute', top: '20px', right: '20px',
                             background: 'var(--blue)', color: '#fff', fontSize: '10px',
                             fontWeight: '800', padding: '4px 12px', borderRadius: '50px'
-                        }}>ACTIVE</div>
+                        }}>{statusLabel === 'active' ? 'ACTIVE' : 'INACTIVE'}</div>
                         <div style={{ fontSize: '12px', fontWeight: '700', color: 'var(--blue)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '10px' }}>FREE TIER</div>
                         <h2 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '8px' }}>Personal</h2>
                         <p style={{ color: 'var(--muted)', fontSize: '14px', marginBottom: '24px' }}>Base personal assistant access.</p>

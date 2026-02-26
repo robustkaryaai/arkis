@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { DATABASE_ID, ID, Permission, Role, TABLES, tables } from '@/lib/appwrite';
 
 function PreOrderContent() {
     const { user, loading: authLoading } = useAuth();
@@ -21,6 +22,7 @@ function PreOrderContent() {
         country: 'India'
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         if (!authLoading && !user) {
@@ -45,15 +47,46 @@ function PreOrderContent() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setIsSubmitting(true);
+        setError('');
 
         const productName = 'RK AI Home';
         const price = '₹4,999';
 
+        let preorderRowId = null;
         try {
+            if (DATABASE_ID) {
+                preorderRowId = ID.unique();
+                await tables.createRow(
+                    DATABASE_ID,
+                    TABLES.PREORDER,
+                    preorderRowId,
+                    {
+                        userId: user.$id,
+                        email: formData.email,
+                        productId,
+                        productName,
+                        price,
+                        shippingFullName: formData.fullName,
+                        shippingAddress: formData.address,
+                        shippingCity: formData.city,
+                        shippingZip: formData.zipCode,
+                        shippingCountry: formData.country,
+                        status: 'submitted',
+                        createdAt: new Date().toISOString(),
+                        source: 'web',
+                    },
+                    [
+                        Permission.read(Role.user(user.$id)),
+                        Permission.update(Role.user(user.$id)),
+                        Permission.delete(Role.user(user.$id)),
+                    ]
+                );
+            }
+
             const raw = localStorage.getItem('arkis_orders') || '[]';
             const list = JSON.parse(raw);
             const order = {
-                id: `ORD-${Date.now()}`,
+                id: preorderRowId || `ORD-${Date.now()}`,
                 productId,
                 productName,
                 price,
@@ -70,7 +103,9 @@ function PreOrderContent() {
             };
             const next = Array.isArray(list) ? [order, ...list] : [order];
             localStorage.setItem('arkis_orders', JSON.stringify(next));
-        } catch (_) { }
+        } catch (e2) {
+            setError(e2?.message || 'Failed to submit pre-order');
+        }
 
         setTimeout(() => {
             setIsSubmitting(false);
@@ -95,6 +130,11 @@ function PreOrderContent() {
                     <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '24px', padding: '40px' }}>
                         <h2 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '24px' }}>Shipping Details</h2>
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                            {error ? (
+                                <div style={{ background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', color: '#fecaca', padding: '12px 14px', borderRadius: '14px', fontSize: '13px' }}>
+                                    {error}
+                                </div>
+                            ) : null}
                             <div>
                                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Full Name</label>
                                 <input name="fullName" value={formData.fullName} onChange={handleChange} required style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '10px', padding: '12px', color: 'var(--text)' }} />

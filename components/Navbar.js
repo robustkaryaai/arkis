@@ -69,7 +69,18 @@ export default function Navbar() {
             height: '70px'
         }}>
             <Link className="nav-logo" href="/" style={{ zIndex: 1001 }}>
-                <span style={{ fontSize: '24px', fontWeight: '800', letterSpacing: '-1px' }}>ARKIS</span>
+                <span style={{ fontSize: '24px', fontWeight: '800', letterSpacing: '-1px', display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
+                    ARKIS
+                    <span style={{
+                        width: '14px',
+                        height: '14px',
+                        borderRadius: '50%',
+                        background: 'conic-gradient(from 90deg, #FF9933, #f8fafc, #138808, #FF9933)',
+                        boxShadow: '0 0 16px rgba(255, 153, 51, 0.18)',
+                        border: '1px solid rgba(255,255,255,0.18)',
+                        display: 'inline-block'
+                    }} />
+                </span>
             </Link>
 
             {/* Desktop Links */}

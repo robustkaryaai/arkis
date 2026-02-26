@@ -6,11 +6,13 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import { DATABASE_ID, Query, TABLES, tables } from '@/lib/appwrite';
 
 export default function Orders() {
     const { user, loading } = useAuth();
     const router = useRouter();
     const [orders, setOrders] = useState([]);
+    const [remoteLoading, setRemoteLoading] = useState(false);
 
     useEffect(() => {
         if (!loading && !user) {
@@ -20,13 +22,69 @@ export default function Orders() {
 
     useEffect(() => {
         if (!loading && user) {
-            try {
-                const raw = localStorage.getItem('arkis_orders') || '[]';
-                const list = JSON.parse(raw);
-                setOrders(Array.isArray(list) ? list : []);
-            } catch (_) {
-                setOrders([]);
-            }
+            const load = async () => {
+                setRemoteLoading(true);
+                try {
+                    if (DATABASE_ID) {
+                        const [orderRes, preorderRes] = await Promise.all([
+                            tables.listRows(
+                                DATABASE_ID,
+                                TABLES.ORDER,
+                                [Query.equal('userId', user.$id), Query.orderDesc('$createdAt'), Query.limit(50)]
+                            ),
+                            tables.listRows(
+                                DATABASE_ID,
+                                TABLES.PREORDER,
+                                [Query.equal('userId', user.$id), Query.orderDesc('$createdAt'), Query.limit(50)]
+                            )
+                        ]);
+
+                        const orderRows = Array.isArray(orderRes?.rows) ? orderRes.rows : [];
+                        const preorderRows = Array.isArray(preorderRes?.rows) ? preorderRes.rows : [];
+
+                        const normalized = [
+                            ...orderRows.map((r) => ({
+                                id: r.orderNumber || r.$id,
+                                productId: r.productId,
+                                productName: r.productName || 'Order',
+                                price: r.amount ? `${r.amount}` : r.price,
+                                email: r.email,
+                                status: r.status,
+                                createdAt: r.createdAt || r.$createdAt,
+                                kind: 'order',
+                            })),
+                            ...preorderRows.map((r) => ({
+                                id: r.$id,
+                                productId: r.productId,
+                                productName: r.productName || 'Pre-order',
+                                price: r.price,
+                                email: r.email,
+                                status: r.status || 'submitted',
+                                createdAt: r.createdAt || r.$createdAt,
+                                kind: 'preorder',
+                            })),
+                        ].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+                        setOrders(normalized);
+                    } else {
+                        const raw = localStorage.getItem('arkis_orders') || '[]';
+                        const list = JSON.parse(raw);
+                        setOrders(Array.isArray(list) ? list : []);
+                    }
+                } catch (_) {
+                    try {
+                        const raw = localStorage.getItem('arkis_orders') || '[]';
+                        const list = JSON.parse(raw);
+                        setOrders(Array.isArray(list) ? list : []);
+                    } catch (_) {
+                        setOrders([]);
+                    }
+                } finally {
+                    setRemoteLoading(false);
+                }
+            };
+
+            load();
         }
     }, [loading, user]);
 
@@ -50,6 +108,7 @@ export default function Orders() {
             <div style={{ padding: '120px 20px 60px', maxWidth: '800px', margin: '0 auto' }}>
                 <h1 style={{ fontSize: '40px', fontWeight: '800', marginBottom: '12px' }}>Order History</h1>
                 <p style={{ color: 'var(--muted)', marginBottom: '40px' }}>Manage your purchases and hardware orders.</p>
+                {remoteLoading ? <div style={{ color: 'var(--muted)', marginBottom: '18px', fontSize: '13px' }}>Syncing…</div> : null}
 
                 {myOrders.length === 0 ? (
                     <div style={{

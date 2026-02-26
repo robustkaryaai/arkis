@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { DATABASE_ID, ID, Permission, Role, TABLES, tables } from '@/lib/appwrite';
 
 function WaitlistContent() {
     const { user, loading: authLoading } = useAuth();
@@ -26,6 +27,8 @@ function WaitlistContent() {
         notes: '',
     });
     const [submitted, setSubmitted] = useState(false);
+    const [submitting, setSubmitting] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         if (!authLoading && !user) {
@@ -41,28 +44,60 @@ function WaitlistContent() {
         }
     }, [authLoading, user, router, product]);
 
-    const submit = (e) => {
+    const submit = async (e) => {
         e.preventDefault();
+        if (!user) return;
+        setError('');
+        setSubmitting(true);
+
         const entry = {
-            id: `${Date.now()}`,
             product: productLabel,
             productKey: product || null,
+            userId: user.$id,
             name: form.name,
             email: form.email,
             phone: form.phone,
             country: form.country,
             notes: form.notes,
-            createdAt: new Date().toISOString(),
+            source: 'web',
         };
 
         try {
-            const raw = localStorage.getItem('arkis_waitlist') || '[]';
-            const list = JSON.parse(raw);
-            list.unshift(entry);
-            localStorage.setItem('arkis_waitlist', JSON.stringify(list));
-        } catch (_) { }
+            if (!DATABASE_ID) {
+                throw new Error('Missing database configuration');
+            }
 
-        setSubmitted(true);
+            const rowId = ID.unique();
+
+            await tables.createRow(
+                DATABASE_ID,
+                TABLES.WAITLIST,
+                rowId,
+                {
+                    ...entry,
+                    createdAt: new Date().toISOString(),
+                },
+                [
+                    Permission.read(Role.user(user.$id)),
+                    Permission.update(Role.user(user.$id)),
+                    Permission.delete(Role.user(user.$id)),
+                ]
+            );
+
+            try {
+                const raw = localStorage.getItem('arkis_waitlist') || '[]';
+                const list = JSON.parse(raw);
+                list.unshift({ id: rowId, ...entry, createdAt: new Date().toISOString() });
+                localStorage.setItem('arkis_waitlist', JSON.stringify(list));
+            } catch (_) { }
+
+            setSubmitted(true);
+        } catch (e2) {
+            setError(e2?.message || 'Failed to join waitlist');
+        } finally {
+            setSubmitting(false);
+        }
+
     };
 
     return (
@@ -105,6 +140,11 @@ function WaitlistContent() {
                         background: 'var(--surface)', border: '1px solid var(--border)',
                         borderRadius: '24px', padding: '40px'
                     }}>
+                        {error ? (
+                            <div style={{ marginBottom: '18px', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', color: '#fecaca', padding: '12px 14px', borderRadius: '14px', fontSize: '13px' }}>
+                                {error}
+                            </div>
+                        ) : null}
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '18px' }}>
                             <div>
                                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Full Name</label>
@@ -156,9 +196,10 @@ function WaitlistContent() {
                         <button
                             type="submit"
                             className="btn-primary"
-                            style={{ marginTop: '24px', padding: '16px 34px', borderRadius: '50px', cursor: 'pointer' }}
+                            disabled={submitting}
+                            style={{ marginTop: '24px', padding: '16px 34px', borderRadius: '50px', cursor: submitting ? 'default' : 'pointer', opacity: submitting ? 0.7 : 1 }}
                         >
-                            Join Waitlist →
+                            {submitting ? 'Joining…' : 'Join Waitlist →'}
                         </button>
                     </form>
                 )}

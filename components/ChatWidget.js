@@ -61,6 +61,7 @@ export default function ChatWidget() {
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
+    const [modelLabel, setModelLabel] = useState('Gemma');
     const messagesEndRef = useRef(null);
 
     useEffect(() => {
@@ -104,51 +105,72 @@ export default function ChatWidget() {
         setMessages(prev => [...prev, { text: userMsg, role: 'user' }]);
         setLoading(true);
 
-        const maxRetries = 3;
-        let retryCount = 0;
-        let success = false;
+        const apiKey = process.env.NEXT_PUBLIC_GEMINI_KEY;
+        if (!apiKey) {
+            setMessages(prev => [...prev, { text: '⚠️ Gemini API Key not found.', role: 'bot' }]);
+            setLoading(false);
+            return;
+        }
 
-        while (retryCount < maxRetries && !success) {
+        const rawModels = (process.env.NEXT_PUBLIC_GEMINI_MODELS || '').trim();
+        const fallbackModels = rawModels
+            ? rawModels.split(',').map(s => s.trim()).filter(Boolean)
+            : ['gemma-3-12b-it', 'gemini-1.5-flash', 'gemini-1.5-pro'];
+
+        const genAI = new GoogleGenerativeAI(apiKey);
+
+        const history = messages.map(m => `${m.role === 'user' ? 'User' : 'AI Assistant'}: ${m.text}`).join('\n');
+        const prompt = `${SYSTEM_PROMPT}\n\n${history}\nUser: ${userMsg}\nAI Assistant:`;
+
+        const isRetryable = (e) => {
+            const msg = `${e?.message || ''}`.toLowerCase();
+            return msg.includes('503') || msg.includes('429') || msg.includes('high demand') || msg.includes('timeout') || msg.includes('temporar');
+        };
+
+        const withTimeout = async (promise, ms) => {
+            let timeoutId;
+            const timeoutPromise = new Promise((_, reject) => {
+                timeoutId = setTimeout(() => reject(new Error('timeout')), ms);
+            });
             try {
-                const apiKey = process.env.NEXT_PUBLIC_GEMINI_KEY;
-                if (!apiKey) {
-                    console.error("❌ Please set the GEMINI_KEY environment variable.");
-                    setMessages(prev => [...prev, { text: '⚠️ Gemini API Key not found.', role: 'bot' }]);
+                return await Promise.race([promise, timeoutPromise]);
+            } finally {
+                clearTimeout(timeoutId);
+            }
+        };
+
+        const maxAttemptsPerModel = 2;
+        const timeoutMs = Number(process.env.NEXT_PUBLIC_GEMINI_TIMEOUT_MS || 20000);
+
+        let lastError = null;
+        for (let modelIndex = 0; modelIndex < fallbackModels.length; modelIndex++) {
+            const modelName = fallbackModels[modelIndex];
+            setModelLabel(modelName.startsWith('gemma') ? 'Gemma' : 'Gemini');
+
+            for (let attempt = 1; attempt <= maxAttemptsPerModel; attempt++) {
+                try {
+                    const model = genAI.getGenerativeModel({ model: modelName });
+                    const result = await withTimeout(model.generateContent(prompt), timeoutMs);
+                    const responseText = result.response.text();
                     setLoading(false);
+                    await typewriter(responseText);
                     return;
+                } catch (e) {
+                    lastError = e;
+                    const retryable = isRetryable(e);
+                    if (!retryable) break;
+
+                    const base = 1000 * Math.pow(2, attempt - 1);
+                    const jitter = Math.floor(Math.random() * 400);
+                    const waitTime = Math.min(8000, base + jitter);
+                    await new Promise(resolve => setTimeout(resolve, waitTime));
                 }
-
-                const genAI = new GoogleGenerativeAI(apiKey);
-                const model = genAI.getGenerativeModel({ model: "gemma-3-12b-it" });
-
-                // Construct chat history for Gemma
-                const history = messages.map(m => `${m.role === 'user' ? 'User' : 'AI Assistant'}: ${m.text}`).join('\n');
-                const prompt = `${SYSTEM_PROMPT}\n\n${history}\nUser: ${userMsg}\nAI Assistant:`;
-                
-                const result = await model.generateContent(prompt);
-                const responseText = result.response.text();
-
-                setLoading(false);
-                await typewriter(responseText);
-                success = true;
-            } catch (error) {
-                console.error(`❌ Gemini API Error (Attempt ${retryCount + 1}):`, error);
-                
-                if (error.message?.includes("503") || error.message?.includes("high demand")) {
-                    retryCount++;
-                    if (retryCount < maxRetries) {
-                        const waitTime = Math.pow(2, retryCount) * 1000;
-                        console.log(`⚠️ High demand. Retrying in ${waitTime}ms...`);
-                        await new Promise(resolve => setTimeout(resolve, waitTime));
-                        continue;
-                    }
-                }
-                
-                setMessages(prev => [...prev, { text: 'I experienced a connection issue. Please try again in a moment.', role: 'bot' }]);
-                setLoading(false);
-                break;
             }
         }
+
+        console.error('Gemini/Gemma request failed:', lastError);
+        setMessages(prev => [...prev, { text: 'The chat model is busy right now. Please try again in a moment.', role: 'bot' }]);
+        setLoading(false);
     };
 
     return (
@@ -178,7 +200,7 @@ export default function ChatWidget() {
                         <button id="chat-send" onClick={send} disabled={loading}>↑</button>
                     </div>
                     <div style={{ fontSize: '10px', color: 'var(--muted)', textAlign: 'center', opacity: 0.6 }}>
-                        Powered by Gemma
+                        Powered by {modelLabel}
                     </div>
                 </div>
             </div>
