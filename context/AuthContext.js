@@ -62,8 +62,9 @@ export function AuthProvider({ children }) {
 
     const loginWithGoogle = (redirectTo = '/') => {
         const origin = window.location.origin.replace(/\/$/, '');
-        const successUrl = `${origin}${redirectTo.startsWith('/') ? redirectTo : `/${redirectTo}`}`;
-        const failureUrl = `${origin}/login?error=oauth_failed`;
+        const next = redirectTo.startsWith('/') ? redirectTo : `/${redirectTo}`;
+        const successUrl = `${origin}/auth/callback?next=${encodeURIComponent(next)}`;
+        const failureUrl = `${origin}/auth/callback?error=oauth_failed`;
         account.createOAuth2Session('google', successUrl, failureUrl);
     };
 
