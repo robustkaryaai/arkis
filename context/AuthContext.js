@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { account } from '@/lib/appwrite';
+import { account, client } from '@/lib/appwrite';
 
 const AuthContext = createContext();
 
@@ -13,6 +13,13 @@ export function AuthProvider({ children }) {
         const init = async () => {
             try {
                 if (typeof window !== 'undefined') {
+
+                    // 🔥 Attach JWT if exists
+                    const storedJWT = localStorage.getItem('auth_jwt');
+                    if (storedJWT) {
+                        client.setJWT(storedJWT);
+                    }
+
                     const url = new URL(window.location.href);
                     const userId = url.searchParams.get('userId');
                     const secret = url.searchParams.get('secret');
@@ -20,12 +27,18 @@ export function AuthProvider({ children }) {
                     if (userId && secret) {
                         await account.createSession(userId, secret);
 
+                        // 🔥 Create JWT after session
+                        const jwt = await account.createJWT();
+                        localStorage.setItem('auth_jwt', jwt.jwt);
+                        client.setJWT(jwt.jwt);
+
                         url.searchParams.delete('userId');
                         url.searchParams.delete('secret');
                         window.history.replaceState({}, '', url.toString());
                     }
                 }
             } catch (_) {
+                setUser(null);
             } finally {
                 await checkUser();
             }
@@ -48,6 +61,12 @@ export function AuthProvider({ children }) {
     const login = async (email, password) => {
         try {
             await account.createEmailPasswordSession(email, password);
+
+            // 🔥 Generate JWT for email login too
+            const jwt = await account.createJWT();
+            localStorage.setItem('auth_jwt', jwt.jwt);
+            client.setJWT(jwt.jwt);
+
             await checkUser();
             return { success: true };
         } catch (error) {
@@ -58,6 +77,7 @@ export function AuthProvider({ children }) {
     const logout = async () => {
         try {
             await account.deleteSession('current');
+            localStorage.removeItem('auth_jwt'); // 🔥 clear JWT
             setUser(null);
         } catch (error) {
             console.error('Logout failed:', error);
