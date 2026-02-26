@@ -69,27 +69,15 @@ export default function Navbar() {
             height: '70px'
         }}>
             <Link className="nav-logo" href="/" style={{ zIndex: 1001 }}>
-                <span style={{ fontSize: '24px', fontWeight: '800', letterSpacing: '-1px', display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
-                    <span style={{
-                        background: 'linear-gradient(90deg, #FF9933 0%, #FF9933 33%, #f8fafc 33%, #f8fafc 66%, #138808 66%, #138808 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        textShadow: '0 0 18px rgba(255, 153, 51, 0.12)',
-                        display: 'inline-flex',
-                        alignItems: 'center'
-                    }}>
-                        ARK
-                        <span style={{
-                            width: '8px',
-                            height: '8px',
-                            borderRadius: '999px',
-                            background: '#1d4ed8',
-                            margin: '0 4px',
-                            boxShadow: '0 0 14px rgba(29, 78, 216, 0.35)'
-                        }} />
-                        IS
-                    </span>
-                </span>
+                <span style={{
+                    fontSize: '24px',
+                    fontWeight: '800',
+                    letterSpacing: '-1px',
+                    background: 'linear-gradient(115deg, #ff8500, #ffffff, #13bb1a)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    textShadow: '0 0 18px rgba(255, 133, 0, 0.12)',
+                }}>ARKIS</span>
             </Link>
 
             {/* Desktop Links */}

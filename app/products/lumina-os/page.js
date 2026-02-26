@@ -136,10 +136,10 @@ export default function LuminaOSProduct() {
                     gap: '40px'
                 }}>
                     {[
-                        { icon: '�', title: 'AI Disable Switch', desc: 'The ultimate control. A system-level toggle to completely disable all AI features, reverting to a pure, high-performance Linux environment whenever you choose.' },
+                        { icon: '⛔️', title: 'AI Disable Switch', desc: 'The ultimate control. A system-level toggle to completely disable all AI features, reverting to a pure, high-performance Linux environment whenever you choose.' },
                         { icon: '🧠', title: 'Native AI Stack', desc: 'A built-in AI layer that manages your tasks, search, and system configurations with intuitive ease, processed 100% locally.' },
                         { icon: '🔒', title: 'Hardened Privacy', desc: 'No data collection. No telemetry. Your machine belongs to you, and Lumina OS ensures it stays that way.' },
-                        { icon: '�', title: 'Speed Engine', desc: 'Custom kernel optimizations for lightning-fast application launches and system responsiveness.' },
+                        { icon: '⚡️', title: 'Speed Engine', desc: 'Custom kernel optimizations for lightning-fast application launches and system responsiveness.' },
                         { icon: '🎨', title: 'Adaptive UI', desc: 'A visual ecosystem that morphs based on your current task, maximizing focus and reducing noise.' },
                         { icon: '🐧', title: 'Linux Based', desc: 'The security and stability of Linux, transformed into a modern, user-friendly AI environment.' },
                     ].map(f => (
