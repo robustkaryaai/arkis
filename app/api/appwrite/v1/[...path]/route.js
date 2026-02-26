@@ -10,6 +10,14 @@ async function proxy(request, params) {
     const headers = new Headers(request.headers);
     headers.delete('host');
     headers.delete('connection');
+    headers.delete('forwarded');
+    headers.delete('x-forwarded-for');
+    headers.delete('x-forwarded-host');
+    headers.delete('x-forwarded-port');
+    headers.delete('x-forwarded-proto');
+    headers.delete('x-real-ip');
+    headers.delete('origin');
+    headers.delete('referer');
 
     const init = {
         method: request.method,
