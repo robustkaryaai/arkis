@@ -121,7 +121,7 @@ export default function Navbar() {
                         {dropdownOpen && (
                             <div style={{
                                 position: 'absolute', top: '50px', right: '0',
-                                width: '240px', background: 'rgba(15, 15, 25, 0.98)',
+                                width: '240px', background: 'transparent',
                                 backdropFilter: 'blur(20px)', border: '1px solid var(--border)',
                                 borderRadius: '20px', padding: '12px',
                                 boxShadow: '0 20px 60px rgba(0,0,0,0.5)',

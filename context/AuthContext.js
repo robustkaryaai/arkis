@@ -83,7 +83,8 @@ export function AuthProvider({ children }) {
     };
 
     const loginWithGoogle = (redirectTo = '/') => {
-        const origin = window.location.origin.replace(/\/$/, '');
+        const configuredOrigin = process.env.NEXT_PUBLIC_PUBLIC_ORIGIN;
+        const origin = (configuredOrigin && typeof configuredOrigin === 'string' ? configuredOrigin : window.location.origin).replace(/\/$/, '');
         const successUrl = `${origin}${redirectTo.startsWith('/') ? redirectTo : `/${redirectTo}`}`;
         const failureUrl = `${origin}/login?error=oauth_failed`;
 

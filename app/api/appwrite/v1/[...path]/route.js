@@ -18,8 +18,6 @@ async function proxy(request) {
     headers.delete('x-forwarded-port');
     headers.delete('x-forwarded-proto');
     headers.delete('x-real-ip');
-    headers.delete('origin');
-    headers.delete('referer');
 
     const init = {
         method: request.method,

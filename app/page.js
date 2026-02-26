@@ -101,7 +101,7 @@ export default function Home() {
 
       {/* FEATURES / WHY REXYCORE */}
       <section id="features">
-        <div className="label reveal">Why RexyCore</div>
+        <div className="label reveal">Why Rexycore</div>
         <h2 className="section-title reveal reveal-delay-1">Built different.<br />By design.</h2>
         <div className="feature-grid" style={{ marginTop: '40px' }}>
           {[
