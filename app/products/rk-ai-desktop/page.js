@@ -77,36 +77,6 @@ export default function RKDesktopProduct() {
                         </button>
                     </div>
 
-                    {/* PRODUCT IMAGE PLACEHOLDER */}
-                    <div style={{ 
-                        marginTop: '80px', 
-                        width: '100%', 
-                        maxWidth: '900px', 
-                        aspectRatio: '16/9',
-                        background: 'var(--surface)',
-                        border: '1px solid var(--border)',
-                        borderRadius: '32px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '120px',
-                        boxShadow: '0 40px 100px rgba(0,0,0,0.5), inset 0 0 80px rgba(79, 156, 249, 0.05)',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        animation: 'scale-up 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
-                    }}>
-                        💻
-                        <div style={{
-                            position: 'absolute', inset: 0,
-                            background: 'radial-gradient(circle at center, var(--blue)22, transparent 70%)',
-                            pointerEvents: 'none'
-                        }} />
-                    </div>
-                </div>
-            </section>
-
-
-
             {/* INSTALLATION NOTICE FOR MACOS */}
             <section style={{ padding: '60px 5%', maxWidth: '800px', margin: '0 auto' }}>
                 <div style={{
@@ -140,6 +110,37 @@ export default function RKDesktopProduct() {
                     </p>
                 </div>
             </section>
+
+                    {/* PRODUCT IMAGE PLACEHOLDER */}
+                    <div style={{ 
+                        marginTop: '80px', 
+                        width: '100%', 
+                        maxWidth: '900px', 
+                        aspectRatio: '16/9',
+                        background: 'var(--surface)',
+                        border: '1px solid var(--border)',
+                        borderRadius: '32px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '120px',
+                        boxShadow: '0 40px 100px rgba(0,0,0,0.5), inset 0 0 80px rgba(79, 156, 249, 0.05)',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        animation: 'scale-up 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}>
+                        💻
+                        <div style={{
+                            position: 'absolute', inset: 0,
+                            background: 'radial-gradient(circle at center, var(--blue)22, transparent 70%)',
+                            pointerEvents: 'none'
+                        }} />
+                    </div>
+                </div>
+            </section>
+
+
+
 
             {/* FEATURES SECTION */}
             <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto' }}>
