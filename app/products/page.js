@@ -344,7 +344,8 @@ const products = [
         badge: 'Live',
         badgeColor: 'linear-gradient(135deg, #0ea5e9, #38bdf8)',
         cta: 'Manage Tiers',
-        isModal: true,
+        href: '/tiers',
+        isModal: false,
         comingSoon: false,
     },
 ];
