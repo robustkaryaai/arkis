@@ -18,7 +18,7 @@
  
        <section className="hero" style={{ minHeight: '50vh', paddingTop: '120px', paddingBottom: '40px', textAlign: 'center' }}>
          <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-           <div className="badge" style={{ margin: '0 auto 16px' }}><span className="dot" />rexycore Cloud</div>
+           <div className="badge" style={{ margin: '0 auto 16px' }}><span className="dot" />Rexycore Cloud</div>
            <h1 style={{ fontSize: 'clamp(36px,6vw,72px)', lineHeight: '1.2' }}>Choose Your <span className="grad">Tier</span></h1>
            <p style={{ fontSize: '1.1rem', color: 'var(--muted)', marginTop: '16px' }}>Flexible plans for students, creators, and professionals.</p>
          </div>
@@ -40,7 +40,6 @@
                  {p.locked.map(f => (<li key={f}><span className="cross">✗</span>{f}</li>))}
                </ul>
                <a href={p.href || '#'} className={`tier-btn ${p.ghost ? 'ghost' : ''}`} onClick={!p.href ? (e) => { e.preventDefault(); alert(`Payments launching soon!\nEmail rexycoreofficial@gmail.com for early access to ${p.name}.`); } : undefined}>
-                 {p.cta}
                </a>
              </div>
            ))}

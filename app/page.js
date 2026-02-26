@@ -93,7 +93,7 @@ export default function Home() {
       <section className="hero">
         <div className="badge float-anim"><span className="dot" />Engineered in India</div>
         <h1>An AI-first ecosystem.<br /><HeroTypewriter /></h1>
-        <p>RexyCore is a technology company building privacy-focused, ecosystem-driven products that respect your autonomy.</p>
+        <p>Rexycore is a technology company building privacy-focused, ecosystem-driven products that respect your autonomy.</p>
         <div className="hero-btns">
           <Link className="btn-primary" href="/products">Explore Products</Link>
         </div>
