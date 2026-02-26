@@ -86,7 +86,7 @@ export default function Contact() {
                 </div>
 
                 <div style={{ display: 'flex', gap: '24px', marginTop: '60px', flexWrap: 'wrap' }}>
-                    {[['📧', 'Email', 'arkisglobal.official@gmail.com'], ['🐦', 'Twitter / X', '@arkisglobal'], ['💬', 'Discord', 'Coming soon']].map(([icon, label, val], i) => (
+                    {[['📧', 'Email', 'rexycoreofficial@gmail.com'], ['🐦', 'Twitter / X', '@rexycoreofficial'], ['💬', 'Discord', 'Coming soon']].map(([icon, label, val], i) => (
                         <div key={label} className={`reveal reveal-delay-${i + 1}`} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 'var(--radius)', padding: '24px', flex: '1', minWidth: '220px' }}>
                             <div style={{ fontSize: '32px', marginBottom: '12px' }}>{icon}</div>
                             <div style={{ fontSize: '12px', color: 'var(--muted)', fontWeight: '700', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '6px' }}>{label}</div>

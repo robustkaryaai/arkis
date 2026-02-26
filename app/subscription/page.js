@@ -73,7 +73,7 @@ export default function Subscription() {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px' }}>
                     <div>
                         <h1 style={{ fontSize: '40px', fontWeight: '800', marginBottom: '12px' }}>Subscription</h1>
-                        <p style={{ color: 'var(--muted)' }}>Manage your ARKIS ecosystem plans and billing.</p>
+                        <p style={{ color: 'var(--muted)' }}>Manage your RexyCore ecosystem plans and billing.</p>
                     </div>
                     <Link href="/products" className="nav-cta" style={{ borderRadius: '50px', padding: '10px 24px', fontSize: '14px' }}>View All Plans</Link>
                 </div>

@@ -83,7 +83,7 @@ function PreOrderContent() {
                 );
             }
 
-            const raw = localStorage.getItem('arkis_orders') || '[]';
+            const raw = localStorage.getItem('rexycore_orders') || '[]';
             const list = JSON.parse(raw);
             const order = {
                 id: preorderRowId || `ORD-${Date.now()}`,
@@ -102,7 +102,7 @@ function PreOrderContent() {
                 createdAt: new Date().toISOString(),
             };
             const next = Array.isArray(list) ? [order, ...list] : [order];
-            localStorage.setItem('arkis_orders', JSON.stringify(next));
+            localStorage.setItem('rexycore_orders', JSON.stringify(next));
         } catch (e2) {
             setError(e2?.message || 'Failed to submit pre-order');
         }

@@ -16,7 +16,7 @@ function NotifyContent() {
         if (product === 'rk-ai-home') return 'RK AI Home';
         if (product === 'light-key') return 'Light Key';
         if (product === 'lumina-os') return 'Lumina OS';
-        return 'ARKIS';
+        return 'rexycore';
     }, [product]);
 
     const [email, setEmail] = useState('');
@@ -35,7 +35,7 @@ function NotifyContent() {
     const submit = (e) => {
         e.preventDefault();
         try {
-            const raw = localStorage.getItem('arkis_notify') || '[]';
+            const raw = localStorage.getItem('rexycore_notify') || '[]';
             const list = JSON.parse(raw);
             list.unshift({
                 id: `${Date.now()}`,
@@ -44,7 +44,7 @@ function NotifyContent() {
                 email,
                 createdAt: new Date().toISOString(),
             });
-            localStorage.setItem('arkis_notify', JSON.stringify(list));
+            localStorage.setItem('rexycore_notify', JSON.stringify(list));
         } catch (_) { }
         setSubmitted(true);
     };

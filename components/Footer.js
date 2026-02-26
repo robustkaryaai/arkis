@@ -35,13 +35,13 @@ export default function Footer() {
                     gap: '12px',
                     alignItems: 'center'
                 }}>
-                    <a href="mailto:arkisglobal.official@gmail.com" style={{ 
+                    <a href="mailto:rexycoreofficial@gmail.com" style={{ 
                         color: 'var(--blue)', 
                         textDecoration: 'none', 
                         fontSize: '14px',
                         fontWeight: '600'
                     }}>
-                        arkisglobal.official@gmail.com
+                        rexycoreofficial@gmail.com
                     </a>
                     <p style={{ color: 'var(--muted)', fontSize: '13px', opacity: 0.8 }}>
                         © 2026 Rexycore. All rights reserved. Built for the local AI era.

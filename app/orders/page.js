@@ -67,13 +67,13 @@ export default function Orders() {
 
                         setOrders(normalized);
                     } else {
-                        const raw = localStorage.getItem('arkis_orders') || '[]';
+                        const raw = localStorage.getItem('rexycore_orders') || '[]';
                         const list = JSON.parse(raw);
                         setOrders(Array.isArray(list) ? list : []);
                     }
                 } catch (_) {
                     try {
-                        const raw = localStorage.getItem('arkis_orders') || '[]';
+                        const raw = localStorage.getItem('rexycore_orders') || '[]';
                         const list = JSON.parse(raw);
                         setOrders(Array.isArray(list) ? list : []);
                     } catch (_) {

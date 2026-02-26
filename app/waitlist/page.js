@@ -85,7 +85,7 @@ function WaitlistContent() {
             );
 
             try {
-                const legacyRaw = localStorage.getItem('arkis_waitlist');
+                const legacyRaw = localStorage.getItem('rexycore_waitlist');
                 const raw = legacyRaw || localStorage.getItem('rexycore_waitlist') || '[]';
                 const list = JSON.parse(raw);
                 list.unshift({ id: rowId, ...entry, createdAt: new Date().toISOString() });

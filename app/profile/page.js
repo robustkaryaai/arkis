@@ -37,7 +37,7 @@ export default function Profile() {
                     );
                     setWaitlistRows(Array.isArray(res?.rows) ? res.rows : []);
                 } else {
-                    const raw = localStorage.getItem('arkis_waitlist') || '[]';
+                    const raw = localStorage.getItem('rexycore_waitlist') || '[]';
                     const list = JSON.parse(raw);
                     const filtered = Array.isArray(list) ? list.filter((x) => x?.userId === user.$id || x?.email === user.email) : [];
                     setWaitlistRows(filtered);
