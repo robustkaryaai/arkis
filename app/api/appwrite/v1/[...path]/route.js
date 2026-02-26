@@ -2,9 +2,11 @@
 
 const UPSTREAM = 'https://cloud.appwrite.io/v1';
 
-async function proxy(request, params) {
+async function proxy(request) {
     const url = new URL(request.url);
-    const upstreamUrl = new URL(`${UPSTREAM}/${(params?.path || []).join('/')}`);
+    const prefix = '/api/appwrite/v1/';
+    const relativePath = url.pathname.startsWith(prefix) ? url.pathname.slice(prefix.length) : '';
+    const upstreamUrl = new URL(`${UPSTREAM}/${relativePath}`);
     upstreamUrl.search = url.search;
 
     const headers = new Headers(request.headers);
@@ -43,25 +45,25 @@ async function proxy(request, params) {
 }
 
 export async function GET(request, { params }) {
-    return proxy(request, params);
+    return proxy(request);
 }
 
 export async function POST(request, { params }) {
-    return proxy(request, params);
+    return proxy(request);
 }
 
 export async function PUT(request, { params }) {
-    return proxy(request, params);
+    return proxy(request);
 }
 
 export async function PATCH(request, { params }) {
-    return proxy(request, params);
+    return proxy(request);
 }
 
 export async function DELETE(request, { params }) {
-    return proxy(request, params);
+    return proxy(request);
 }
 
 export async function OPTIONS(request, { params }) {
-    return proxy(request, params);
+    return proxy(request);
 }
