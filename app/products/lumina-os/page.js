@@ -13,7 +13,7 @@ export default function LuminaOSProduct() {
             <section className="hero" style={{ minHeight: '80vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div className="badge float-anim" style={{ marginBottom: '24px' }}>
-                        <span className="dot" style={{ background: '#06b6d4' }} /> Alpha Development Phase
+                        <span className="dot" style={{ background: '#a855f7' }} /> Alpha Development Phase
                     </div>
                     
                     <h1 style={{ 
@@ -60,17 +60,17 @@ export default function LuminaOSProduct() {
                             className="btn-primary" 
                             style={{ 
                                 padding: '16px 48px', fontSize: '18px',
-                                background: 'linear-gradient(135deg, #06b6d4, #3b82f6)',
-                                boxShadow: '0 0 30px rgba(59, 130, 246, 0.25)',
+                                background: 'linear-gradient(135deg, #a855f7, #6366f1)',
+                                boxShadow: '0 0 30px rgba(168, 85, 247, 0.22)',
                                 transition: 'all 0.3s ease'
                             }}
                             onMouseEnter={e => {
                                 e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
-                                e.currentTarget.style.boxShadow = '0 10px 30px rgba(59, 130, 246, 0.45)';
+                                e.currentTarget.style.boxShadow = '0 10px 30px rgba(168, 85, 247, 0.42)';
                             }}
                             onMouseLeave={e => {
                                 e.currentTarget.style.transform = '';
-                                e.currentTarget.style.boxShadow = '0 0 30px rgba(59, 130, 246, 0.25)';
+                                e.currentTarget.style.boxShadow = '0 0 30px rgba(168, 85, 247, 0.22)';
                             }}
                         >
                             Join the Waitlist
@@ -84,8 +84,8 @@ export default function LuminaOSProduct() {
                                 transition: 'all 0.3s ease'
                             }}
                             onMouseEnter={e => {
-                                e.currentTarget.style.borderColor = '#3b82f6';
-                                e.currentTarget.style.boxShadow = '0 0 20px rgba(59, 130, 246, 0.12)';
+                                e.currentTarget.style.borderColor = '#a855f7';
+                                e.currentTarget.style.boxShadow = '0 0 20px rgba(168, 85, 247, 0.12)';
                             }}
                             onMouseLeave={e => {
                                 e.currentTarget.style.borderColor = 'var(--border)';
@@ -109,14 +109,14 @@ export default function LuminaOSProduct() {
                         alignItems: 'center',
                         justifyContent: 'center',
                         fontSize: '120px',
-                        boxShadow: '0 40px 100px rgba(0,0,0,0.5), inset 0 0 80px rgba(16, 185, 129, 0.05)',
+                        boxShadow: '0 40px 100px rgba(0,0,0,0.5), inset 0 0 80px rgba(168, 85, 247, 0.06)',
                         position: 'relative',
                         overflow: 'hidden'
                     }}>
                         💿
                         <div style={{
                             position: 'absolute', inset: 0,
-                            background: 'radial-gradient(circle at center, #10b98122, transparent 70%)',
+                            background: 'radial-gradient(circle at center, rgba(168, 85, 247, 0.18), transparent 70%)',
                             pointerEvents: 'none'
                         }} />
                     </div>
@@ -159,7 +159,7 @@ export default function LuminaOSProduct() {
             </section>
 
             {/* CTA SECTION */}
-            <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.06))' }}>
+            <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(168, 85, 247, 0.06))' }}>
                 <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>Witness the evolution of computing.</h2>
                 <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Early access spots for Lumina OS Alpha are limited. Secure yours now.</p>
                 <Link href="/waitlist?product=lumina-os" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>

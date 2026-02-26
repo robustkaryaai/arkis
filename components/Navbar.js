@@ -70,16 +70,25 @@ export default function Navbar() {
         }}>
             <Link className="nav-logo" href="/" style={{ zIndex: 1001 }}>
                 <span style={{ fontSize: '24px', fontWeight: '800', letterSpacing: '-1px', display: 'inline-flex', alignItems: 'center', gap: '10px' }}>
-                    ARKIS
                     <span style={{
-                        width: '14px',
-                        height: '14px',
-                        borderRadius: '50%',
-                        background: 'conic-gradient(from 90deg, #FF9933, #f8fafc, #138808, #FF9933)',
-                        boxShadow: '0 0 16px rgba(255, 153, 51, 0.18)',
-                        border: '1px solid rgba(255,255,255,0.18)',
-                        display: 'inline-block'
-                    }} />
+                        background: 'linear-gradient(90deg, #FF9933 0%, #FF9933 33%, #f8fafc 33%, #f8fafc 66%, #138808 66%, #138808 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        textShadow: '0 0 18px rgba(255, 153, 51, 0.12)',
+                        display: 'inline-flex',
+                        alignItems: 'center'
+                    }}>
+                        ARK
+                        <span style={{
+                            width: '8px',
+                            height: '8px',
+                            borderRadius: '999px',
+                            background: '#1d4ed8',
+                            margin: '0 4px',
+                            boxShadow: '0 0 14px rgba(29, 78, 216, 0.35)'
+                        }} />
+                        IS
+                    </span>
                 </span>
             </Link>
 
