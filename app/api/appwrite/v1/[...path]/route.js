@@ -1,6 +1,6 @@
 'use server';
 
-const UPSTREAM = 'https://fra.cloud.appwrite.io/v1';
+const UPSTREAM = 'https://cloud.appwrite.io/v1';
 
 async function proxy(request, params) {
     const url = new URL(request.url);
@@ -57,4 +57,3 @@ export async function DELETE(request, { params }) {
 export async function OPTIONS(request, { params }) {
     return proxy(request, params);
 }
-
