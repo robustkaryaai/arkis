@@ -26,7 +26,7 @@ export default function Footer() {
                         background: 'linear-gradient(135deg, var(--blue), var(--violet))',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent'
-                    }}>ARKIS</span>
+                    }}>Rexycore</span>
                 </div>
 
                 <div style={{ 
@@ -44,7 +44,7 @@ export default function Footer() {
                         arkisglobal.official@gmail.com
                     </a>
                     <p style={{ color: 'var(--muted)', fontSize: '13px', opacity: 0.8 }}>
-                        © 2026 ARKIS. All rights reserved. Built for the local AI era.
+                        © 2026 Rexycore. All rights reserved. Built for the local AI era.
                     </p>
                 </div>
             </div>

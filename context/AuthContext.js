@@ -24,6 +24,9 @@ export function AuthProvider({ children }) {
         const init = async () => {
             try {
                 if (typeof window !== 'undefined') {
+                    try {
+                        client.setEndpoint('/api/appwrite/v1');
+                    } catch (_) {}
 
                     // Attach JWT if stored
                     const stored = localStorage.getItem('auth_jwt');

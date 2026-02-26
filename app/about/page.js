@@ -32,7 +32,7 @@ export default function About() {
                 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
                     <div className="badge float-anim" style={{ margin: '0 auto 16px' }}><span className="dot" />Our Vision</div>
                     <h1 style={{ fontSize: 'clamp(36px,6vw,72px)', lineHeight: '1.2' }}>Built for,<br /><span className="grad">everyone.</span></h1>
-                    <p style={{ fontSize: '1.2rem', opacity: 0.8, marginTop: '20px' }}>ARKIS is a technology company focused on building intelligent systems — from AI assistants to operating systems.</p>
+                    <p style={{ fontSize: '1.2rem', opacity: 0.8, marginTop: '20px' }}>Rexycore is a technology company focused on building intelligent systems — from AI assistants to operating systems.</p>
                 </div>
             </section>
 
@@ -41,10 +41,10 @@ export default function About() {
                 <h2 className="section-title reveal reveal-delay-1">AI that respects you.</h2>
                 <div className="section-sub reveal reveal-delay-2" style={{ maxWidth: '900px', lineHeight: '1.8', opacity: 0.9 }}>
                     <p style={{ marginBottom: '24px' }}>
-                        ARKIS is a technology company dedicated to building the intelligent systems of the future — from specialized AI assistants to native operating systems. Our mission is to bridge the gap between high-performance computing and true personal privacy. We believe that technology should empower human potential without requiring the sacrifice of digital autonomy.
+                        Rexycore is a technology company dedicated to building the intelligent systems of the future — from specialized AI assistants to native operating systems. Our mission is to bridge the gap between high-performance computing and true personal privacy. We believe that technology should empower human potential without requiring the sacrifice of digital autonomy.
                     </p>
                     <p style={{ marginBottom: '24px' }}>
-                        At the core of our philosophy is the belief that the future of AI is local. By shifting processing power from the cloud back to the edge, we enable experiences that are fast, private, and entirely under your control. Whether you are using our <strong>RK AI Desktop</strong> for professional workflows or our <strong>RK AI Home</strong> assistant for hands-free coordination, ARKIS builds the infrastructure that keeps your data where it belongs: with you.
+                        At the core of our philosophy is the belief that the future of AI is local. By shifting processing power from the cloud back to the edge, we enable experiences that are fast, private, and entirely under your control. Whether you are using our <strong>RK AI Desktop</strong> for professional workflows or our <strong>RK AI Home</strong> assistant for hands-free coordination, Rexycore builds the infrastructure that keeps your data where it belongs: with you.
                     </p>
                     <p>
                         We aren't just building tools; we are designing an ecosystem. From the custom-engineered hardware of our <strong>Home Assistant</strong> to the AI-native kernel of <strong>Lumina OS</strong>, every product we create is a pillar in a new standard of computing. One where privacy is the default, ownership is real, and innovation is relentless.
@@ -60,8 +60,8 @@ export default function About() {
                     gap: '40px', marginTop: '60px'
                 }}>
                     {[
-                        ['💻', 'ARKIS Desktop', 'The flagship AI layer for Windows & macOS. Local model execution, system-wide automation, and privacy-first intelligence.'],
-                        ['🏠', 'ARKIS Home', 'Hardware-integrated ambient intelligence powered by Gemini. Optimized for Raspberry Pi Zero W with offline fallback and intent routing.'],
+                        ['💻', 'Rexycore Desktop', 'The flagship AI layer for Windows & macOS. Local model execution, system-wide automation, and privacy-first intelligence.'],
+                        ['🏠', 'Rexycore Home', 'Hardware-integrated ambient intelligence powered by Gemini. Optimized for Raspberry Pi Zero W with offline fallback and intent routing.'],
                         ['💿', 'Lumina OS', 'A next-generation, AI-native operating system built on Linux. Includes a system-level AI disable switch for total user control.'],
                         ['⌨️', 'Light Key', 'An intelligent input system that bridges the gap between thoughts and machines with contextual suggestions and smart commands.'],
                     ].map(([icon, title, desc], i) => (
@@ -80,7 +80,7 @@ export default function About() {
             <section style={{ textAlign: 'center', padding: '100px 5%' }} className="reveal">
                 <h2 className="section-title">Join the ecosystem.</h2>
                 <p className="section-sub" style={{ margin: '0 auto 32px' }}>Be part of the future of intelligent computing.</p>
-                <Link className="btn-primary" href="/products" style={{ padding: '18px 40px', borderRadius: '50px' }}>Explore ARKIS Products →</Link>
+                <Link className="btn-primary" href="/products" style={{ padding: '18px 40px', borderRadius: '50px' }}>Explore Rexycore Products →</Link>
             </section>
 
             <Footer />

@@ -224,7 +224,7 @@ function TierModal({ onClose }) {
             <div style={{ width: '100%', maxWidth: '1000px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                     <div>
-                        <h2 style={{ fontSize: '32px', fontWeight: '800' }}>🎙️ ARKIS Home Assistant — Plans</h2>
+                        <h2 style={{ fontSize: '32px', fontWeight: '800' }}>🎙️ Rexycore Home Assistant — Plans</h2>
                         <p style={{ color: 'var(--muted)', marginTop: '6px' }}>Choose the plan that's right for you.</p>
                     </div>
                     <button onClick={onClose} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '50%', width: '44px', height: '44px', color: 'var(--text)', cursor: 'pointer', fontSize: '18px', fontFamily: 'inherit' }}>✕</button>
@@ -335,8 +335,8 @@ const products = [
     {
         id: 'cloud',
         icon: '☁️',
-        category: 'ARKIS Ecosystem',
-        name: 'ARKIS Cloud',
+        category: 'Rexycore Ecosystem',
+        name: 'Rexycore Cloud',
         desc: 'The backbone of your AI experience. Securely sync your preferences and manage your subscriptions.',
         tags: ['Cloud AI', 'Sync', 'Live'],
         accentColor: '#0ea5e9',
@@ -388,7 +388,7 @@ export default function Products() {
             <section className="hero" style={{ minHeight: '60vh', paddingTop: '120px', paddingBottom: '60px', textAlign: 'center' }}>
                 <div style={{ maxWidth: '800px', margin: '0 auto' }}>
                     <div className="badge float-anim" style={{ margin: '0 auto 16px' }}><span className="dot" />Ecosystem</div>
-                    <h1 style={{ fontSize: 'clamp(36px,6vw,72px)', lineHeight: '1.2' }}>The ARKIS<br /><span className="grad">Product Suite.</span></h1>
+                    <h1 style={{ fontSize: 'clamp(36px,6vw,72px)', lineHeight: '1.2' }}>The Rexycore<br /><span className="grad">Product Suite.</span></h1>
                     <p style={{ fontSize: '1.2rem', opacity: 0.8, marginTop: '20px' }}>Explore our range of AI-first products designed for privacy, performance, and control.</p>
                 </div>
             </section>

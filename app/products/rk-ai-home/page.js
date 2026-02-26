@@ -157,7 +157,7 @@ export default function RKHomeProduct() {
                     <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '20px', padding: '22px' }}>
                         <div style={{ fontSize: '12px', fontWeight: '800', letterSpacing: '2px', textTransform: 'uppercase', color: 'var(--muted)' }}>Control</div>
                         <div style={{ marginTop: '10px', fontSize: '28px', fontWeight: '900' }}>Anywhere</div>
-                        <div style={{ marginTop: '6px', color: 'var(--muted)', fontSize: '13px' }}>Manage via the ARKIS app</div>
+                        <div style={{ marginTop: '6px', color: 'var(--muted)', fontSize: '13px' }}>Manage via the Rexycore app</div>
                     </div>
                 </div>
             </section>
@@ -205,7 +205,7 @@ export default function RKHomeProduct() {
                         <div style={{ fontSize: '32px', marginBottom: '20px' }}>☁️</div>
                         <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Cloud Creation Suite</h3>
                         <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
-                            With ARKIS Cloud, generate notes, PPTs, timetables, DOCX files, planners, assignments, and tests—plus create AI images and videos—right from your home assistant.
+                            With Rexycore Cloud, generate notes, PPTs, timetables, DOCX files, planners, assignments, and tests—plus create AI images and videos—right from your home assistant.
                         </p>
                     </div>
 

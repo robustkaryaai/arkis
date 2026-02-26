@@ -77,7 +77,7 @@ export default function Navbar() {
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     textShadow: '0 0 18px rgba(255, 133, 0, 0.12)',
-                }}>ARKIS</span>
+                }}>Rexycore</span>
             </Link>
 
             {/* Desktop Links */}

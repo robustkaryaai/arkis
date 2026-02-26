@@ -46,7 +46,7 @@ export default function LightKeyProduct() {
                     }}>
                         Light Key is an intelligent input layer that bridges the gap between your thoughts and your machine. 
                         It uses on-device context to provide real-time suggestions, execute smart commands, 
-                        and automate typing tasks across the entire ARKIS ecosystem.
+                        and automate typing tasks across the entire Rexycore ecosystem.
                     </p>
 
                     <div style={{ 
@@ -122,7 +122,7 @@ export default function LightKeyProduct() {
                         { icon: '⌨️', title: 'Smart Commands', desc: 'Execute system actions directly from your keyboard. Use simple shortcuts to trigger complex AI workflows and automations.' },
                         { icon: '🔒', title: 'Private by Design', desc: 'Your keystrokes are never uploaded. All learning and prediction happens locally on your machine for absolute privacy.' },
                         { icon: '🚀', title: 'Speed & Focus', desc: 'Reduce friction between your thoughts and the screen. Designed to keep you in the flow state with minimal interruptions.' },
-                        { icon: '🔗', title: 'Unified Ecosystem', desc: 'One input system for all your ARKIS devices. Seamlessly transition your typing experience across Desktop and Mobile.' },
+                        { icon: '🔗', title: 'Unified Ecosystem', desc: 'One input system for all your Rexycore devices. Seamlessly transition your typing experience across Desktop and Mobile.' },
                         { icon: '🛠️', title: 'Customizable', desc: 'Tailor Light Key to your specific needs. Create your own commands and fine-tune suggestion sensitivity.' },
                     ].map(f => (
                         <div key={f.title} className="feature-card" style={{

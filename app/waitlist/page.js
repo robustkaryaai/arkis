@@ -16,7 +16,7 @@ function WaitlistContent() {
     const productLabel = useMemo(() => {
         if (product === 'lumina-os') return 'Lumina OS';
         if (product === 'light-key') return 'Light Key';
-        return 'ARKIS';
+        return 'Rexycore';
     }, [product]);
 
     const [form, setForm] = useState({
@@ -85,10 +85,11 @@ function WaitlistContent() {
             );
 
             try {
-                const raw = localStorage.getItem('arkis_waitlist') || '[]';
+                const legacyRaw = localStorage.getItem('arkis_waitlist');
+                const raw = legacyRaw || localStorage.getItem('rexycore_waitlist') || '[]';
                 const list = JSON.parse(raw);
                 list.unshift({ id: rowId, ...entry, createdAt: new Date().toISOString() });
-                localStorage.setItem('arkis_waitlist', JSON.stringify(list));
+                localStorage.setItem('rexycore_waitlist', JSON.stringify(list));
             } catch (_) { }
 
             setSubmitted(true);

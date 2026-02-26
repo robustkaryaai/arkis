@@ -2,12 +2,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// ARKIS KNOWLEDGE BASE
+// Rexycore KNOWLEDGE BASE
 const SYSTEM_PROMPT = `
-You are the ARKIS AI Assistant, a helpful and professional representative of ARKIS.
-Your goal is to assist users with information about the ARKIS Ecosystem.
+You are the Rexycore AI Assistant, a helpful and professional representative of Rexycore.
+Your goal is to assist users with information about the Rexycore Ecosystem.
 
-ARKIS Products:
+Rexycore Products:
 1. RK AI Desktop: 
    - A local-first AI system built for personal computing (Windows/macOS).
    - Features: Local model execution (Ollama), system-wide automation, professional PPT/DOCX generation.
@@ -35,9 +35,9 @@ ARKIS Products:
 Pre-order & Waitlist Process:
 - RK AI Home: Click "Pre-order Now" on its product page. Price is ₹4,999 with free shipping. It requires an ARKIS account.
 - Lumina OS & Light Key: Click "Join the Waitlist" on their respective pages to secure your spot for the Alpha/Beta phases.
-- Account: All actions require being logged into your ARKIS ecosystem account.
+- Account: All actions require being logged into your Rexycore ecosystem account.
 
-5. ARKIS Cloud: 
+5. Rexycore Cloud: 
    - Subscription and resource management layer for syncing preferences and accessing premium hosted models.
 
 Key Philosophies:
@@ -50,9 +50,9 @@ Instructions:
 - Be concise and premium in your tone.
 - If asked about technical details, emphasize privacy and local execution.
 - If asked about RK AI Home, use the technical summary: It's optimized for Raspberry Pi Zero W (512MB RAM), features Gemini integration, Smart Intent Routing, 100+ Offline Commands, and a Self-Diagnosis engine. It is available for Pre-order at ₹4,999.
-- Pre-order process: Users must go to the product page and click "Pre-order Now". They will be asked to login to their ARKIS account and then enter shipping details for payment.
+- Pre-order process: Users must go to the product page and click "Pre-order Now". They will be asked to login to their Rexycore account and then enter shipping details for payment.
 - Waitlist process: For Lumina OS and Light Key, users should click "Join the Waitlist" on the respective product pages.
-- Always be polite and representative of the ARKIS brand.
+- Always be polite and representative of the Rexycore brand.
 `;
 
 export default function ChatWidget() {
@@ -73,7 +73,7 @@ export default function ChatWidget() {
     const handleOpen = () => {
         setOpen(o => !o);
         if (!open && messages.length === 0) {
-            typewriter('👋 Hi! I\'m the ARKIS Assistant. How can I help you explore our ecosystem today?');
+            typewriter('👋 Hi! I\'m the Rexycore Assistant. How can I help you explore our ecosystem today?');
         }
     };
 
@@ -177,7 +177,7 @@ export default function ChatWidget() {
         <div id="chat-widget">
             <div id="chat-panel" className={open ? 'open' : ''}>
                 <div id="chat-header">
-                    ARKIS Assistant
+                    Rexycore Assistant
                     <button onClick={() => setOpen(false)}>✕</button>
                 </div>
                 <div id="chat-messages">
@@ -196,7 +196,7 @@ export default function ChatWidget() {
                 <div id="chat-input-row" style={{ flexDirection: 'column', gap: '8px' }}>
                     <div style={{ display: 'flex', width: '100%', gap: '8px' }}>
                         <input id="chat-input" value={input} onChange={e => setInput(e.target.value)}
-                            onKeyDown={e => e.key === 'Enter' && send()} placeholder="Ask ARKIS anything..." />
+                            onKeyDown={e => e.key === 'Enter' && send()} placeholder="Ask Rexycore anything..." />
                         <button id="chat-send" onClick={send} disabled={loading}>↑</button>
                     </div>
                     <div style={{ fontSize: '10px', color: 'var(--muted)', textAlign: 'center', opacity: 0.6 }}>
@@ -204,7 +204,7 @@ export default function ChatWidget() {
                     </div>
                 </div>
             </div>
-            <button id="chat-toggle" onClick={handleOpen} title="Chat with ARKIS">💬</button>
+            <button id="chat-toggle" onClick={handleOpen} title="Chat with Rexycore">💬</button>
         </div>
     );
 }
