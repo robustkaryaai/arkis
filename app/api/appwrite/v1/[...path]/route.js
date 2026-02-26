@@ -31,7 +31,18 @@ async function proxy(request) {
 
     const upstreamRes = await fetch(upstreamUrl, init);
 
-    const resHeaders = new Headers(upstreamRes.headers);
+    const resHeaders = new Headers();
+    for (const [key, value] of upstreamRes.headers) {
+        if (key.toLowerCase() === 'set-cookie') {
+            resHeaders.append('set-cookie', value);
+        } else {
+            resHeaders.set(key, value);
+        }
+    }
+    const fallbackCookies = upstreamRes.headers.get('x-fallback-cookies');
+    if (fallbackCookies) {
+        resHeaders.append('set-cookie', fallbackCookies);
+    }
     resHeaders.delete('content-encoding');
     resHeaders.delete('content-length');
 
