@@ -228,8 +228,7 @@ export default function Navbar() {
                 style={{
                     position: 'fixed', top: 0, right: 0, bottom: 0,
                     width: '100%', maxWidth: '300px',
-                    background: 'rgba(7, 7, 15, 0.98)',
-                    backdropFilter: 'blur(20px)',
+                    background: 'var(--bg)',
                     borderLeft: '1px solid var(--border)',
                     padding: '100px 40px 40px',
                     display: 'flex', flexDirection: 'column', gap: '24px',

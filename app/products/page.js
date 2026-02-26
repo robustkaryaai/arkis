@@ -112,12 +112,12 @@ function ProductCard({ product, onSelect }) {
                 <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
                     {product.isBuyable ? (
                         <button onClick={onSelect} style={{
-                            width: '100%', background: `linear-gradient(135deg, #f59e0b, #d97706)`,
+                            width: '100%', background: `linear-gradient(135deg, ${product.accentColor}, ${product.accentColor2 || product.accentColor}cc)`,
                             color: '#fff', border: 'none', borderRadius: '50px', padding: '13px 20px',
                             fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
                             transition: 'transform 0.2s, box-shadow 0.2s',
                         }}
-                        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = '0 10px 20px rgba(245, 158, 11, 0.3)'; }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = `0 10px 20px ${product.accentColor}33`; }}
                         onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}
                         >
                             🛒 {product.cta}
