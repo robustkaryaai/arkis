@@ -1,6 +1,6 @@
 'use server';
 
-const UPSTREAM = 'https://cloud.appwrite.io/v1';
+const UPSTREAM = process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT || 'https://fra.cloud.appwrite.io/v1';
 
 async function proxy(request) {
     const url = new URL(request.url);
