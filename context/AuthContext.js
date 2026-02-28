@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { account, client } from '@/lib/appwrite';
+import { account } from '@/lib/appwrite';
 
 const AuthContext = createContext();
 
@@ -13,15 +13,13 @@ export function AuthProvider({ children }) {
         const init = async () => {
             try {
                 if (typeof window !== 'undefined') {
-                    try {
-                        const stored = localStorage.getItem('auth_jwt');
-                        if (stored) client.setJWT(stored);
-                    } catch (_) {}
                     const url = new URL(window.location.href);
                     const userId = url.searchParams.get('userId');
                     const secret = url.searchParams.get('secret');
+
                     if (userId && secret) {
                         await account.createSession(userId, secret);
+
                         url.searchParams.delete('userId');
                         url.searchParams.delete('secret');
                         window.history.replaceState({}, '', url.toString());
@@ -32,6 +30,7 @@ export function AuthProvider({ children }) {
                 await checkUser();
             }
         };
+
         init();
     }, []);
 
@@ -61,14 +60,14 @@ export function AuthProvider({ children }) {
             await account.deleteSession('current');
             setUser(null);
         } catch (error) {
+            console.error('Logout failed:', error);
         }
     };
 
     const loginWithGoogle = (redirectTo = '/') => {
         const origin = window.location.origin.replace(/\/$/, '');
-        const next = redirectTo.startsWith('/') ? redirectTo : `/${redirectTo}`;
-        const successUrl = `${origin}/auth/callback?next=${encodeURIComponent(next)}`;
-        const failureUrl = `${origin}/auth/callback?error=oauth_failed`;
+        const successUrl = `${origin}${redirectTo.startsWith('/') ? redirectTo : `/${redirectTo}`}`;
+        const failureUrl = `${origin}/login?error=oauth_failed`;
         account.createOAuth2Session('google', successUrl, failureUrl);
     };
 

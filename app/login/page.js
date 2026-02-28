@@ -56,7 +56,7 @@ function LoginContent() {
                 }}>
                     <div style={{ textAlign: 'center', marginBottom: '30px' }}>
                         <h1 style={{ fontSize: '28px', fontWeight: '800', letterSpacing: '-0.5px' }}>Welcome Back</h1>
-                        <p style={{ color: 'var(--muted)', marginTop: '8px', fontSize: '14px' }}>Sign in to your RexyCore ecosystem account.</p>
+                        <p style={{ color: 'var(--muted)', marginTop: '8px', fontSize: '14px' }}>Sign in to your Rexycore ecosystem account.</p>
                     </div>
 
                     {error && (
