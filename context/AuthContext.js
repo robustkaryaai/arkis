@@ -12,25 +12,10 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         const init = async () => {
             try {
-                if (typeof window !== 'undefined') {
-                    const url = new URL(window.location.href);
-                    const userId = url.searchParams.get('userId');
-                    const secret = url.searchParams.get('secret');
-
-                    if (userId && secret) {
-                        await account.createSession(userId, secret);
-
-                        url.searchParams.delete('userId');
-                        url.searchParams.delete('secret');
-                        window.history.replaceState({}, '', url.toString());
-                    }
-                }
-            } catch (_) {
-            } finally {
                 await checkUser();
+            } catch (_) {
             }
         };
-
         init();
     }, []);
 
@@ -66,7 +51,7 @@ export function AuthProvider({ children }) {
 
     const loginWithGoogle = (redirectTo = '/') => {
         const origin = window.location.origin.replace(/\/$/, '');
-        const successUrl = `${origin}${redirectTo.startsWith('/') ? redirectTo : `/${redirectTo}`}`;
+        const successUrl = `${origin}/auth/callback?redirect=${encodeURIComponent(redirectTo.startsWith('/') ? redirectTo : `/${redirectTo}`)}`;
         const failureUrl = `${origin}/login?error=oauth_failed`;
         account.createOAuth2Session('google', successUrl, failureUrl);
     };
