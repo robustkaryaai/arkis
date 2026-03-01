@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { account } from '@/lib/appwrite';
+import { account, client } from '@/lib/appwrite';
 
 export default function CallbackClient() {
   const router = useRouter();
@@ -18,6 +18,13 @@ export default function CallbackClient() {
         if (userId && secret) {
           await account.createSession(userId, secret);
         }
+        try {
+          const current = await account.getSession('current');
+          if (current?.$id) {
+            client.setHeader('X-Appwrite-Session', current.$id);
+            try { window.localStorage.setItem('appwrite_session_id', current.$id); } catch (_) {}
+          }
+        } catch (_) {}
         try {
           await account.get();
           router.replace(redirect.startsWith('/') ? redirect : `/${redirect}`);
@@ -40,4 +47,3 @@ export default function CallbackClient() {
     </div>
   );
 }
-

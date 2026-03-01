@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { account } from '@/lib/appwrite';
+import { account, client } from '@/lib/appwrite';
 
 const AuthContext = createContext();
 
@@ -44,6 +44,8 @@ export function AuthProvider({ children }) {
         try {
             await account.deleteSession('current');
             setUser(null);
+            try { window.localStorage.removeItem('appwrite_session_id'); } catch (_) {}
+            client.setHeader('X-Appwrite-Session', '');
         } catch (error) {
             console.error('Logout failed:', error);
         }
