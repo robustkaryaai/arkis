@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 import Image from 'next/image';
+import ChatWidget from '@/components/ChatWidget';
 
 export default function LuminaOSProduct() {
     const images = [
