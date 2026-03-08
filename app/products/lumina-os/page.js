@@ -1,10 +1,26 @@
 'use client';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
 
 export default function LuminaOSProduct() {
+    const images = [
+        '/luminaos-home-page.jpeg',
+        '/lumianos-start-menu.jpeg',
+        '/luminaos-widgets.jpeg',
+        '/starting-screen.jpeg',
+        '/lock-screen.jpeg'
+    ];
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentImageIndex((prev) => (prev + 1) % images.length);
+        }, 4000);
+        return () => clearInterval(timer);
+    }, [images.length]);
     return (
         <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
             <Navbar />
@@ -15,20 +31,20 @@ export default function LuminaOSProduct() {
                     <div className="badge float-anim" style={{ marginBottom: '24px' }}>
                         <span className="dot" style={{ background: '#a855f7' }} /> Alpha Development Phase
                     </div>
-                    
-                    <h1 style={{ 
-                        fontSize: 'clamp(48px, 8vw, 92px)', 
-                        fontWeight: '900', 
-                        lineHeight: '1.1', 
+
+                    <h1 style={{
+                        fontSize: 'clamp(48px, 8vw, 92px)',
+                        fontWeight: '900',
+                        lineHeight: '1.1',
                         letterSpacing: '-2px',
                         marginBottom: '24px'
                     }}>
                         Lumina <span className="grad">OS</span>
                     </h1>
-                    
-                    <p style={{ 
-                        fontSize: 'clamp(18px, 2.5vw, 24px)', 
-                        color: 'var(--blue)', 
+
+                    <p style={{
+                        fontSize: 'clamp(18px, 2.5vw, 24px)',
+                        color: 'var(--blue)',
                         fontWeight: '600',
                         marginBottom: '16px',
                         letterSpacing: '1px',
@@ -37,28 +53,28 @@ export default function LuminaOSProduct() {
                         A Privacy-First, AI-Native Operating System.
                     </p>
 
-                    <p style={{ 
-                        fontSize: 'clamp(16px, 1.8vw, 20px)', 
-                        color: 'var(--muted)', 
-                        maxWidth: '800px', 
+                    <p style={{
+                        fontSize: 'clamp(16px, 1.8vw, 20px)',
+                        color: 'var(--muted)',
+                        maxWidth: '800px',
                         lineHeight: '1.7',
                         marginBottom: '40px'
                     }}>
-                        Lumina OS is built from the ground up to rethink how humans interact with machines in the AI era. 
-                        It integrates artificial intelligence directly into the kernel, providing a seamless, fast, and 
+                        Lumina OS is built from the ground up to rethink how humans interact with machines in the AI era.
+                        It integrates artificial intelligence directly into the kernel, providing a seamless, fast, and
                         private workspace that adapts to your needs.
                     </p>
 
-                    <div style={{ 
-                        display: 'flex', 
-                        flexWrap: 'wrap', 
-                        gap: '16px', 
+                    <div style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: '16px',
                         justifyContent: 'center'
                     }}>
-                        <Link 
-                            href="/waitlist?product=lumina-os" 
-                            className="btn-primary" 
-                            style={{ 
+                        <Link
+                            href="/waitlist?product=lumina-os"
+                            className="btn-primary"
+                            style={{
                                 padding: '16px 48px', fontSize: '18px',
                                 background: 'linear-gradient(135deg, #a855f7, #6366f1)',
                                 boxShadow: '0 0 30px rgba(168, 85, 247, 0.22)',
@@ -75,11 +91,11 @@ export default function LuminaOSProduct() {
                         >
                             Join the Waitlist
                         </Link>
-                        <a 
-                            href="https://luminaos.vercel.app" 
-                            target="_blank" rel="noopener noreferrer" 
-                            className="btn-secondary" 
-                            style={{ 
+                        <a
+                            href="https://luminaos.vercel.app"
+                            target="_blank" rel="noopener noreferrer"
+                            className="btn-secondary"
+                            style={{
                                 padding: '16px 48px', fontSize: '18px', textDecoration: 'none',
                                 transition: 'all 0.3s ease'
                             }}
@@ -96,28 +112,76 @@ export default function LuminaOSProduct() {
                         </a>
                     </div>
 
-                    {/* PRODUCT IMAGE PLACEHOLDER */}
-                    <div style={{ 
-                        marginTop: '80px', 
-                        width: '100%', 
-                        maxWidth: '900px', 
+                    {/* PRODUCT IMAGE SLIDER */}
+                    <div style={{
+                        marginTop: '80px',
+                        width: '100%',
+                        maxWidth: '900px',
                         aspectRatio: '16/9',
                         background: 'var(--surface)',
                         border: '1px solid var(--border)',
                         borderRadius: '32px',
                         display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '120px',
-                        boxShadow: '0 40px 100px rgba(0,0,0,0.5), inset 0 0 80px rgba(168, 85, 247, 0.06)',
                         position: 'relative',
-                        overflow: 'hidden'
+                        overflow: 'hidden',
+                        boxShadow: '0 40px 100px rgba(0,0,0,0.5)'
                     }}>
-                        💿
+                        {images.map((src, index) => (
+                            <img
+                                key={src}
+                                src={src}
+                                alt={`Lumina OS Preview ${index + 1}`}
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover',
+                                    opacity: currentImageIndex === index ? 1 : 0,
+                                    transition: 'opacity 0.8s ease-in-out',
+                                    pointerEvents: currentImageIndex === index ? 'auto' : 'none'
+                                }}
+                            />
+                        ))}
+
+                        {/* Slider Controls */}
+                        <div style={{
+                            position: 'absolute',
+                            bottom: '24px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            display: 'flex',
+                            gap: '12px',
+                            zIndex: 10
+                        }}>
+                            {images.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setCurrentImageIndex(index)}
+                                    style={{
+                                        width: '12px',
+                                        height: '12px',
+                                        borderRadius: '50%',
+                                        background: currentImageIndex === index ? '#a855f7' : 'rgba(255, 255, 255, 0.4)',
+                                        border: '1px solid rgba(0,0,0,0.2)',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.3s ease',
+                                        padding: 0
+                                    }}
+                                    aria-label={`Go to slide ${index + 1}`}
+                                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.2)'}
+                                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                                />
+                            ))}
+                        </div>
+
+                        {/* Optional Gradient overlay for extra depth on the edges */}
                         <div style={{
                             position: 'absolute', inset: 0,
-                            background: 'radial-gradient(circle at center, rgba(168, 85, 247, 0.18), transparent 70%)',
-                            pointerEvents: 'none'
+                            background: 'radial-gradient(circle at center, transparent 70%, rgba(0,0,0,0.3) 100%)',
+                            pointerEvents: 'none',
+                            zIndex: 5
                         }} />
                     </div>
                 </div>
@@ -131,7 +195,7 @@ export default function LuminaOSProduct() {
                 </div>
 
                 <div style={{
-                    display: 'grid', 
+                    display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
                     gap: '40px'
                 }}>
@@ -144,8 +208,8 @@ export default function LuminaOSProduct() {
                         { icon: '🐧', title: 'Linux Based', desc: 'The security and stability of Linux, transformed into a modern, user-friendly AI environment.' },
                     ].map(f => (
                         <div key={f.title} className="feature-card" style={{
-                            background: 'var(--surface)', 
-                            padding: '40px', 
+                            background: 'var(--surface)',
+                            padding: '40px',
                             borderRadius: '24px',
                             border: '1px solid var(--border)',
                             transition: 'all 0.3s ease'
