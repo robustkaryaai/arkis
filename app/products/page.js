@@ -7,7 +7,6 @@ import Footer from '@/components/Footer';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import luminaLogo from '@/public/luminaos.png';
 
 // ─── Tier data (matches rk-main subscription page) ─────────────────────────
 const plans = [
@@ -304,7 +303,7 @@ const products = [
     },
     {
         id: 'lumina_os',
-        icon: <Image src={luminaLogo} alt="Lumina OS" width={90} height={90} style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.4))' }} />,
+        icon: <Image src="/luminaos.png" alt="Lumina OS" width={90} height={90} style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.4))' }} />,
         category: 'Operating System',
         name: 'Lumina OS',
         desc: 'A lightweight, AI-integrated operating system built around speed, privacy, and intelligent workflows.',
