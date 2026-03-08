@@ -6,6 +6,8 @@ import ChatWidget from '@/components/ChatWidget';
 import Footer from '@/components/Footer';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import luminaLogo from '@/public/luminaos.png';
 
 // ─── Tier data (matches rk-main subscription page) ─────────────────────────
 const plans = [
@@ -63,15 +65,15 @@ function ProductCard({ product, onSelect }) {
             cursor: 'pointer', display: 'flex', flexDirection: 'column',
             height: '100%' // Ensure all cards take full height of their container
         }}
-            onMouseEnter={e => { 
-                e.currentTarget.style.transform = 'translateY(-6px)'; 
-                e.currentTarget.style.borderColor = product.accentColor; 
-                e.currentTarget.style.boxShadow = `0 20px 60px ${shadowColor}`; 
+            onMouseEnter={e => {
+                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.borderColor = product.accentColor;
+                e.currentTarget.style.boxShadow = `0 20px 60px ${shadowColor}`;
             }}
-            onMouseLeave={e => { 
-                e.currentTarget.style.transform = ''; 
-                e.currentTarget.style.borderColor = 'var(--border)'; 
-                e.currentTarget.style.boxShadow = ''; 
+            onMouseLeave={e => {
+                e.currentTarget.style.transform = '';
+                e.currentTarget.style.borderColor = 'var(--border)';
+                e.currentTarget.style.boxShadow = '';
             }}
         >
             {/* Product image / banner */}
@@ -117,8 +119,8 @@ function ProductCard({ product, onSelect }) {
                             fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
                             transition: 'transform 0.2s, box-shadow 0.2s',
                         }}
-                        onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = `0 10px 20px ${product.accentColor}33`; }}
-                        onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}
+                            onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = `0 10px 20px ${product.accentColor}33`; }}
+                            onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}
                         >
                             🛒 {product.cta}
                         </button>
@@ -187,8 +189,8 @@ function ProductCard({ product, onSelect }) {
                             </Link>
                         </div>
                     ) : (
-                        <button 
-                            onClick={onSelect} 
+                        <button
+                            onClick={onSelect}
                             style={{
                                 width: '100%', background: `linear-gradient(135deg, ${product.accentColor}, ${product.accentColor2 || product.accentColor}cc)`,
                                 color: '#fff', border: 'none', borderRadius: '50px', padding: '13px 20px',
@@ -302,7 +304,7 @@ const products = [
     },
     {
         id: 'lumina_os',
-        icon: '💿',
+        icon: <Image src={luminaLogo} alt="Lumina OS" width={90} height={90} style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.4))' }} />,
         category: 'Operating System',
         name: 'Lumina OS',
         desc: 'A lightweight, AI-integrated operating system built around speed, privacy, and intelligent workflows.',
@@ -396,7 +398,7 @@ export default function Products() {
             <section style={{ padding: '40px 5%' }}>
                 <div className="label reveal">Our Products</div>
                 <div style={{
-                    display: 'grid', 
+                    display: 'grid',
                     gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
                     gap: '32px',
                     marginTop: '40px',

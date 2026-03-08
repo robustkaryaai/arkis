@@ -4,15 +4,16 @@ import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Footer from '@/components/Footer';
 import Link from 'next/link';
+import Image from 'next/image';
+
+import img1 from '@/public/luminaos-home-page.jpeg';
+import img2 from '@/public/lumianos-start-menu.jpeg';
+import img3 from '@/public/luminaos-widgets.jpeg';
+import img4 from '@/public/starting-screen.jpeg';
+import img5 from '@/public/lock-screen.jpeg';
 
 export default function LuminaOSProduct() {
-    const images = [
-        '/luminaos-home-page.jpeg',
-        '/lumianos-start-menu.jpeg',
-        '/luminaos-widgets.jpeg',
-        '/starting-screen.jpeg',
-        '/lock-screen.jpeg'
-    ];
+    const images = [img1, img2, img3, img4, img5];
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     useEffect(() => {
