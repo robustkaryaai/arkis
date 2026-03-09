@@ -303,7 +303,7 @@ const products = [
     },
     {
         id: 'lumina_os',
-        icon: <Image src="/luminaos.png" alt="Lumina OS" width={90} height={90} style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.4))', transform: 'translateY(10px)' }} />,
+        icon: <Image src="/luminaos.png" alt="Lumina OS" width={90} height={90} style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.4))', transform: 'translateY(15px)' }} />,
         category: 'Operating System',
         name: 'Lumina OS',
         desc: 'A lightweight, AI-integrated operating system built around speed, privacy, and intelligent workflows.',
