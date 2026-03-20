@@ -1,4 +1,5 @@
 'use client';
+import { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Footer from '@/components/Footer';
@@ -9,6 +10,14 @@ import { useRouter } from 'next/navigation';
 export default function RKHomeProduct() {
     const { user, loading: authLoading } = useAuth();
     const router = useRouter();
+
+    const videos = [
+        '/rk ai home images/IMG_2565.MOV',
+        '/rk ai home images/IMG_2566.MOV',
+        '/rk ai home images/IMG_2567.MOV',
+        '/rk ai home images/IMG_2568.MOV'
+    ];
+    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
     const handlePreOrder = (e) => {
         e.preventDefault();
@@ -229,51 +238,84 @@ export default function RKHomeProduct() {
             </section>
 
             {/* HARDWARE IN ACTION VIDEO GALLERY - SLIDER */}
-            <section style={{ padding: '100px 0', borderTop: '1px solid var(--border)', overflow: 'hidden' }}>
-                <div style={{ textAlign: 'center', marginBottom: '60px', padding: '0 5%' }}>
+            <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto', borderTop: '1px solid var(--border)' }}>
+                <div style={{ textAlign: 'center', marginBottom: '60px' }}>
                     <div className="label">In Action</div>
                     <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800' }}>See RK AI at Work.</h2>
                 </div>
                 
-                {/* Scrollable Container */}
                 <div style={{
-                    display: 'flex', 
-                    gap: '24px',
-                    overflowX: 'auto',
-                    scrollSnapType: 'x mandatory',
-                    padding: '0 5% 40px',
-                    scrollbarWidth: 'none',
-                    msOverflowStyle: 'none'
+                    width: '100%',
+                    maxWidth: '900px',
+                    margin: '0 auto',
+                    aspectRatio: '16/9',
+                    background: 'var(--surface)',
+                    border: '1px solid var(--border)',
+                    borderRadius: '32px',
+                    display: 'flex',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    boxShadow: '0 40px 100px rgba(236, 72, 153, 0.2)'
                 }}>
-                    <style dangerouslySetInnerHTML={{__html: `
-                        div::-webkit-scrollbar { display: none; }
-                    `}} />
-                    
-                    {['IMG_2565.MOV', 'IMG_2566.MOV', 'IMG_2567.MOV', 'IMG_2568.MOV'].map((videoName, idx) => (
-                        <div key={idx} style={{ 
-                            flex: '0 0 85%',
-                            maxWidth: '700px',
-                            scrollSnapAlign: 'center',
-                            background: 'var(--surface)', 
-                            borderRadius: '24px', 
-                            border: '1px solid var(--border)',
-                            overflow: 'hidden',
-                            aspectRatio: '16/9',
-                            boxShadow: '0 20px 60px rgba(236, 72, 153, 0.15)',
-                            position: 'relative'
-                        }}>
-                            <video 
-                                src={`/rk ai home images/${videoName}`}
-                                controls
-                                muted
-                                playsInline
-                                style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }}
-                            />
-                        </div>
+                    {videos.map((src, index) => (
+                        <video
+                            key={src}
+                            src={src}
+                            controls={currentVideoIndex === index}
+                            muted
+                            playsInline
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                opacity: currentVideoIndex === index ? 1 : 0,
+                                transition: 'opacity 0.8s ease-in-out',
+                                pointerEvents: currentVideoIndex === index ? 'auto' : 'none',
+                                zIndex: currentVideoIndex === index ? 2 : 1
+                            }}
+                        />
                     ))}
-                </div>
-                <div style={{ textAlign: 'center', color: 'var(--muted)', fontSize: '14px', paddingTop: '10px' }}>
-                    ← Swipe to view more →
+
+                    {/* Slider Controls */}
+                    <div style={{
+                        position: 'absolute',
+                        bottom: '24px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        display: 'flex',
+                        gap: '12px',
+                        zIndex: 10
+                    }}>
+                        {videos.map((_, index) => (
+                            <button
+                                key={index}
+                                onClick={() => setCurrentVideoIndex(index)}
+                                style={{
+                                    width: '12px',
+                                    height: '12px',
+                                    borderRadius: '50%',
+                                    background: currentVideoIndex === index ? '#ec4899' : 'rgba(255, 255, 255, 0.4)',
+                                    border: '1px solid rgba(0,0,0,0.2)',
+                                    cursor: 'pointer',
+                                    transition: 'all 0.3s ease',
+                                    padding: 0
+                                }}
+                                aria-label={`Go to video ${index + 1}`}
+                                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.2)'}
+                                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                            />
+                        ))}
+                    </div>
+
+                    <div style={{
+                        position: 'absolute', inset: 0,
+                        background: 'radial-gradient(circle at center, transparent 70%, rgba(236,72,153,0.1) 100%)',
+                        pointerEvents: 'none',
+                        zIndex: 5
+                    }} />
                 </div>
             </section>
 
