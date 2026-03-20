@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Footer from '@/components/Footer';
@@ -18,6 +18,34 @@ export default function RKHomeProduct() {
         '/rk ai home images/IMG_2568.MOV'
     ];
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(true);
+    const videoRefs = useRef([]);
+
+    const togglePlayPause = (e) => {
+        e.stopPropagation();
+        const currentVideo = videoRefs.current[currentVideoIndex];
+        if (currentVideo) {
+            if (isPlaying) {
+                currentVideo.pause();
+            } else {
+                currentVideo.play().catch(e => console.error(e));
+            }
+            setIsPlaying(!isPlaying);
+        }
+    };
+
+    const handleVideoEnd = () => {
+        setCurrentVideoIndex((prev) => (prev + 1) % videos.length);
+        setIsPlaying(true);
+    };
+
+    useEffect(() => {
+        const currentVideo = videoRefs.current[currentVideoIndex];
+        if (currentVideo && isPlaying) {
+            currentVideo.currentTime = 0; // Restart if desired, or just play contiguous
+            currentVideo.play().catch(e => console.error("AutoPlay failed", e));
+        }
+    }, [currentVideoIndex, isPlaying]);
 
     const handlePreOrder = (e) => {
         e.preventDefault();
@@ -127,16 +155,18 @@ export default function RKHomeProduct() {
                         display: 'flex',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.5), 0 0 100px rgba(236, 72, 153, 0.4)',
                         position: 'relative',
-                        overflow: 'hidden'
-                    }}>
+                        overflow: 'hidden',
+                        cursor: 'pointer'
+                    }} onClick={togglePlayPause}>
                         {videos.map((src, index) => (
                             <video
                                 key={src}
                                 src={src}
-                                controls={currentVideoIndex === index}
+                                ref={el => videoRefs.current[index] = el}
                                 autoPlay={currentVideoIndex === index}
                                 muted
                                 playsInline
+                                onEnded={handleVideoEnd}
                                 style={{
                                     position: 'absolute',
                                     top: 0,
@@ -152,6 +182,31 @@ export default function RKHomeProduct() {
                             />
                         ))}
 
+                        {/* Play/Pause Overlay Component */}
+                        <div style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            width: '80px',
+                            height: '80px',
+                            borderRadius: '50%',
+                            background: 'rgba(0,0,0,0.4)',
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            backdropFilter: 'blur(8px)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '32px',
+                            color: 'white',
+                            opacity: isPlaying ? 0 : 1,
+                            transition: 'opacity 0.3s ease',
+                            pointerEvents: 'none',
+                            zIndex: 15
+                        }}>
+                            {isPlaying ? '' : '▶'}
+                        </div>
+
                         {/* Slider Controls */}
                         <div style={{
                             position: 'absolute',
@@ -165,7 +220,7 @@ export default function RKHomeProduct() {
                             {videos.map((_, index) => (
                                 <button
                                     key={index}
-                                    onClick={() => setCurrentVideoIndex(index)}
+                                    onClick={(e) => { e.stopPropagation(); setCurrentVideoIndex(index); setIsPlaying(true); }}
                                     style={{
                                         width: '12px',
                                         height: '12px',
