@@ -118,12 +118,15 @@ export default function RKHomeProduct() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '120px',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.5), inset 0 0 80px rgba(236, 72, 153, 0.05)',
                         position: 'relative',
                         overflow: 'hidden'
                     }}>
-                        🎙️
+                        <img 
+                            src="/rk ai home images/4DC67E0F-87BB-4C1A-8717-C30D1D560D85.JPG" 
+                            alt="RK AI Home Assistant Hardware" 
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
                         <div style={{
                             position: 'absolute', inset: 0,
                             background: 'radial-gradient(circle at center, #ec489922, transparent 70%)',
@@ -221,6 +224,38 @@ export default function RKHomeProduct() {
                             System tasks process locally. Hardware is anonymized behind 9-digit Slugs. All remote communications are secured with Base64 audio buffers and AES-256 encryption.
                         </p>
                     </div>
+                </div>
+            </section>
+
+            {/* HARDWARE IN ACTION VIDEO GALLERY */}
+            <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto', borderTop: '1px solid var(--border)' }}>
+                <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+                    <div className="label">In Action</div>
+                    <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800' }}>See RK AI at Work.</h2>
+                </div>
+                <div style={{
+                    display: 'grid', 
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
+                    gap: '32px'
+                }}>
+                    {['IMG_2565.MOV', 'IMG_2566.MOV', 'IMG_2567.MOV', 'IMG_2568.MOV'].map((videoName, idx) => (
+                        <div key={idx} style={{ 
+                            background: 'var(--surface)', 
+                            borderRadius: '24px', 
+                            border: '1px solid var(--border)',
+                            overflow: 'hidden',
+                            aspectRatio: '16/9',
+                            boxShadow: '0 20px 50px rgba(0,0,0,0.3)'
+                        }}>
+                            <video 
+                                src={`/rk ai home images/${videoName}`}
+                                controls
+                                muted
+                                playsInline
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            />
+                        </div>
+                    ))}
                 </div>
             </section>
 
