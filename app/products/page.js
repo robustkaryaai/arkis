@@ -13,8 +13,8 @@ const plans = [
     {
         emoji: '🆓', name: 'Free', color: '#9333ea',
         price: '₹0', period: '/mo', desc: 'Personal exploration & testing.',
-        storage: '500 MB', videos: 'No videos',
-        features: ['Voice chat + wake word', 'Any local Ollama model', 'Music playback', '500 MB storage'],
+        storage: '50 MB', videos: 'No videos',
+        features: ['Voice chat + wake word', 'Any local Ollama model', 'Music playback', '50 MB storage'],
         locked: ['Video generation', 'PPT / DOCX gen', 'AI image generation'],
         cta: 'Download Free', href: '/#download', ghost: true,
     },

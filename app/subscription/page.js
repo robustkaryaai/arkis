@@ -109,7 +109,7 @@ export default function Subscription() {
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
                             <div style={{ fontSize: '14px', display: 'flex', gap: '10px' }}>✅ Voice AI Assistant</div>
                             <div style={{ fontSize: '14px', display: 'flex', gap: '10px' }}>✅ Local LLM Support</div>
-                            <div style={{ fontSize: '14px', display: 'flex', gap: '10px' }}>✅ 500 MB Storage</div>
+                            <div style={{ fontSize: '14px', display: 'flex', gap: '10px' }}>✅ 50 MB Storage</div>
                         </div>
 
                         <button disabled style={{
