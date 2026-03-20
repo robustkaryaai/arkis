@@ -78,20 +78,27 @@ function ProductCard({ product, onSelect }) {
             {/* Product image / banner */}
             <div style={{
                 height: '180px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: `linear-gradient(135deg, ${product.accentColor}22, ${product.accentColor2 || product.accentColor}11)`,
+                background: product.bgImage ? `url("${product.bgImage}") center/cover no-repeat` : `linear-gradient(135deg, ${product.accentColor}22, ${product.accentColor2 || product.accentColor}11)`,
                 borderBottom: '1px solid var(--border)', position: 'relative',
             }}>
+                {product.bgImage && (
+                    <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, var(--surface) 0%, transparent 40%, ${product.accentColor}66 100%)` }} />
+                )}
                 {product.badge && (
                     <div style={{
                         position: 'absolute', top: '14px', right: '14px',
                         background: product.badgeColor || 'linear-gradient(135deg, #f59e0b, #d97706)',
                         color: '#fff', fontSize: '11px', fontWeight: '700', padding: '4px 12px',
                         borderRadius: '50px', letterSpacing: '1px', textTransform: 'uppercase',
+                        zIndex: 2,
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
                     }}>{product.badge}</div>
                 )}
-                <div style={{ fontSize: '72px', filter: product.dimmed ? 'grayscale(0.4) opacity(0.7)' : '' }}>
-                    {product.icon}
-                </div>
+                {!product.bgImage && (
+                    <div style={{ fontSize: '72px', filter: product.dimmed ? 'grayscale(0.4) opacity(0.7)' : '' }}>
+                        {product.icon}
+                    </div>
+                )}
             </div>
 
             {/* Info */}
@@ -286,7 +293,8 @@ const products = [
     },
     {
         id: 'rkai_home',
-        icon: <img src="/rk ai home images/4DC67E0F-87BB-4C1A-8717-C30D1D560D85.JPG" alt="RK AI Home" style={{ width: '120px', height: '120px', objectFit: 'cover', borderRadius: '16px', boxShadow: '0 10px 30px rgba(236,72,153,0.3)', transform: 'translateY(5px)' }} />,
+        icon: null,
+        bgImage: '/rk ai home images/4DC67E0F-87BB-4C1A-8717-C30D1D560D85.JPG',
         category: 'Smart Home Device',
         name: 'RK AI Home',
         desc: 'An AI system designed for physical environments — enabling voice control, automation, and intelligent coordination.',

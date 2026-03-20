@@ -106,7 +106,7 @@ export default function RKHomeProduct() {
                         </div>
                     </div>
 
-                    {/* PRODUCT IMAGE PLACEHOLDER */}
+                    {/* PRODUCT IMAGE HERO */}
                     <div style={{ 
                         marginTop: '80px', 
                         width: '100%', 
@@ -118,7 +118,7 @@ export default function RKHomeProduct() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        boxShadow: '0 40px 100px rgba(0,0,0,0.5), inset 0 0 80px rgba(236, 72, 153, 0.05)',
+                        boxShadow: '0 40px 100px rgba(0,0,0,0.5), 0 0 100px rgba(236, 72, 153, 0.4)',
                         position: 'relative',
                         overflow: 'hidden'
                     }}>
@@ -129,8 +129,9 @@ export default function RKHomeProduct() {
                         />
                         <div style={{
                             position: 'absolute', inset: 0,
-                            background: 'radial-gradient(circle at center, #ec489922, transparent 70%)',
-                            pointerEvents: 'none'
+                            background: 'radial-gradient(circle at center, transparent 30%, rgba(236, 72, 153, 0.4) 100%)',
+                            pointerEvents: 'none',
+                            mixBlendMode: 'screen'
                         }} />
                     </div>
                 </div>
@@ -227,35 +228,52 @@ export default function RKHomeProduct() {
                 </div>
             </section>
 
-            {/* HARDWARE IN ACTION VIDEO GALLERY */}
-            <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto', borderTop: '1px solid var(--border)' }}>
-                <div style={{ textAlign: 'center', marginBottom: '80px' }}>
+            {/* HARDWARE IN ACTION VIDEO GALLERY - SLIDER */}
+            <section style={{ padding: '100px 0', borderTop: '1px solid var(--border)', overflow: 'hidden' }}>
+                <div style={{ textAlign: 'center', marginBottom: '60px', padding: '0 5%' }}>
                     <div className="label">In Action</div>
                     <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800' }}>See RK AI at Work.</h2>
                 </div>
+                
+                {/* Scrollable Container */}
                 <div style={{
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))',
-                    gap: '32px'
+                    display: 'flex', 
+                    gap: '24px',
+                    overflowX: 'auto',
+                    scrollSnapType: 'x mandatory',
+                    padding: '0 5% 40px',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none'
                 }}>
+                    <style dangerouslySetInnerHTML={{__html: `
+                        div::-webkit-scrollbar { display: none; }
+                    `}} />
+                    
                     {['IMG_2565.MOV', 'IMG_2566.MOV', 'IMG_2567.MOV', 'IMG_2568.MOV'].map((videoName, idx) => (
                         <div key={idx} style={{ 
+                            flex: '0 0 85%',
+                            maxWidth: '700px',
+                            scrollSnapAlign: 'center',
                             background: 'var(--surface)', 
                             borderRadius: '24px', 
                             border: '1px solid var(--border)',
                             overflow: 'hidden',
                             aspectRatio: '16/9',
-                            boxShadow: '0 20px 50px rgba(0,0,0,0.3)'
+                            boxShadow: '0 20px 60px rgba(236, 72, 153, 0.15)',
+                            position: 'relative'
                         }}>
                             <video 
                                 src={`/rk ai home images/${videoName}`}
                                 controls
                                 muted
                                 playsInline
-                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', inset: 0 }}
                             />
                         </div>
                     ))}
+                </div>
+                <div style={{ textAlign: 'center', color: 'var(--muted)', fontSize: '14px', paddingTop: '10px' }}>
+                    ← Swipe to view more →
                 </div>
             </section>
 
