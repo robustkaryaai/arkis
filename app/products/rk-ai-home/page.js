@@ -176,28 +176,17 @@ export default function RKHomeProduct() {
                 }}>
                     <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
                         <div style={{ fontSize: '32px', marginBottom: '20px' }}>🧠</div>
-                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Advanced AI & Intent Routing</h3>
+                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Advanced AI & 101+ Local Commands</h3>
                         <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
-                            Powered by Google's Gemini for complex reasoning and an AI-driven intent classifier for zero-latency local commands.
-                            Built-in memory engine ensures contextual awareness across conversations.
-                        </p>
-                    </div>
-
-                    <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
-                        <div style={{ fontSize: '32px', marginBottom: '20px' }}>🛡️</div>
-                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Autonomous Resilience</h3>
-                        <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
-                            Offline fallback with 50+ whitelisted commands. Continuous self-diagnosis and error monitoring 
-                            ensure maximum uptime and reliability without cloud dependence.
+                            Powered by Google Gemini for complex reasoning. If the internet goes down, RK automatically falls back to over 100 perfectly optimized local offline commands.
                         </p>
                     </div>
 
                     <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
                         <div style={{ fontSize: '32px', marginBottom: '20px' }}>🎵</div>
-                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Integrated Utilities</h3>
+                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Spotify & 64GB Local Library</h3>
                         <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
-                            Native music management, localized news, and weather with offline caching. Seamless 
-                            provisioning via Bluetooth and real-time command polling from the mobile app.
+                            Seamless Spotify OAuth integration, YouTube-to-MP3 fallback, and a massive 64GB local cache. Mind Reading Autoplay keeps the music going forever using AI matching.
                         </p>
                     </div>
 
@@ -205,23 +194,31 @@ export default function RKHomeProduct() {
                         <div style={{ fontSize: '32px', marginBottom: '20px' }}>☁️</div>
                         <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Cloud Creation Suite</h3>
                         <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
-                            With Rexycore Cloud, generate notes, PPTs, timetables, DOCX files, planners, assignments, and tests—plus create AI images and videos—right from your home assistant.
+                            With Rexycore Cloud, generate assignments, PPT presentations, DOCX essays, timetables, and even AI artwork or videos directly from your voice.
                         </p>
                     </div>
 
                     <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
                         <div style={{ fontSize: '32px', marginBottom: '20px' }}>✨</div>
-                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Premium App Experience</h3>
+                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Premium Companion App</h3>
                         <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
-                            A polished mobile experience to configure your device, manage skills, and access your assistant instantly with a fast, premium interface.
+                            Manage your smart alarms, view command history, pair via BLE, and access the file studio through a stunning mobile companion interface (`rk-auth-app`).
                         </p>
                     </div>
 
                     <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
                         <div style={{ fontSize: '32px', marginBottom: '20px' }}>📲</div>
-                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Control From Anywhere</h3>
+                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Night Protocol & Uplink</h3>
                         <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
-                            Trigger commands remotely, monitor device status, and manage settings from your phone—securely—whether you’re in the next room or across the world.
+                            Send text commands remotely via the Command Uplink. Use 'Night Protocol' to instantly mute all audio responses when your household needs complete silence.
+                        </p>
+                    </div>
+
+                    <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
+                        <div style={{ fontSize: '32px', marginBottom: '20px' }}>🛡️</div>
+                        <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Privacy & Security Core</h3>
+                        <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
+                            System tasks process locally. Hardware is anonymized behind 9-digit Slugs. All remote communications are secured with Base64 audio buffers and AES-256 encryption.
                         </p>
                     </div>
                 </div>
