@@ -115,7 +115,7 @@ export default function RKHomeProduct() {
                         </div>
                     </div>
 
-                    {/* PRODUCT IMAGE HERO */}
+                    {/* PRODUCT HERO SLIDER */}
                     <div style={{ 
                         marginTop: '80px', 
                         width: '100%', 
@@ -125,22 +125,70 @@ export default function RKHomeProduct() {
                         border: '1px solid var(--border)',
                         borderRadius: '32px',
                         display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
                         boxShadow: '0 40px 100px rgba(0,0,0,0.5), 0 0 100px rgba(236, 72, 153, 0.4)',
                         position: 'relative',
                         overflow: 'hidden'
                     }}>
-                        <img 
-                            src="/rk ai home images/4DC67E0F-87BB-4C1A-8717-C30D1D560D85.JPG" 
-                            alt="RK AI Home Assistant Hardware" 
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
+                        {videos.map((src, index) => (
+                            <video
+                                key={src}
+                                src={src}
+                                controls={currentVideoIndex === index}
+                                autoPlay={currentVideoIndex === index}
+                                muted
+                                playsInline
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover',
+                                    opacity: currentVideoIndex === index ? 1 : 0,
+                                    transition: 'opacity 0.8s ease-in-out',
+                                    pointerEvents: currentVideoIndex === index ? 'auto' : 'none',
+                                    zIndex: currentVideoIndex === index ? 2 : 1
+                                }}
+                            />
+                        ))}
+
+                        {/* Slider Controls */}
+                        <div style={{
+                            position: 'absolute',
+                            bottom: '24px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            display: 'flex',
+                            gap: '12px',
+                            zIndex: 10
+                        }}>
+                            {videos.map((_, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setCurrentVideoIndex(index)}
+                                    style={{
+                                        width: '12px',
+                                        height: '12px',
+                                        borderRadius: '50%',
+                                        background: currentVideoIndex === index ? '#ec4899' : 'rgba(255, 255, 255, 0.4)',
+                                        border: '1px solid rgba(0,0,0,0.2)',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.3s ease',
+                                        padding: 0
+                                    }}
+                                    aria-label={`Go to video ${index + 1}`}
+                                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.2)'}
+                                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                                />
+                            ))}
+                        </div>
+
                         <div style={{
                             position: 'absolute', inset: 0,
                             background: 'radial-gradient(circle at center, transparent 30%, rgba(236, 72, 153, 0.4) 100%)',
                             pointerEvents: 'none',
-                            mixBlendMode: 'screen'
+                            mixBlendMode: 'screen',
+                            zIndex: 5
                         }} />
                     </div>
                 </div>
@@ -237,87 +285,7 @@ export default function RKHomeProduct() {
                 </div>
             </section>
 
-            {/* HARDWARE IN ACTION VIDEO GALLERY - SLIDER */}
-            <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto', borderTop: '1px solid var(--border)' }}>
-                <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-                    <div className="label">In Action</div>
-                    <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800' }}>See RK AI at Work.</h2>
-                </div>
-                
-                <div style={{
-                    width: '100%',
-                    maxWidth: '900px',
-                    margin: '0 auto',
-                    aspectRatio: '16/9',
-                    background: 'var(--surface)',
-                    border: '1px solid var(--border)',
-                    borderRadius: '32px',
-                    display: 'flex',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    boxShadow: '0 40px 100px rgba(236, 72, 153, 0.2)'
-                }}>
-                    {videos.map((src, index) => (
-                        <video
-                            key={src}
-                            src={src}
-                            controls={currentVideoIndex === index}
-                            muted
-                            playsInline
-                            style={{
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                width: '100%',
-                                height: '100%',
-                                objectFit: 'cover',
-                                opacity: currentVideoIndex === index ? 1 : 0,
-                                transition: 'opacity 0.8s ease-in-out',
-                                pointerEvents: currentVideoIndex === index ? 'auto' : 'none',
-                                zIndex: currentVideoIndex === index ? 2 : 1
-                            }}
-                        />
-                    ))}
 
-                    {/* Slider Controls */}
-                    <div style={{
-                        position: 'absolute',
-                        bottom: '24px',
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        display: 'flex',
-                        gap: '12px',
-                        zIndex: 10
-                    }}>
-                        {videos.map((_, index) => (
-                            <button
-                                key={index}
-                                onClick={() => setCurrentVideoIndex(index)}
-                                style={{
-                                    width: '12px',
-                                    height: '12px',
-                                    borderRadius: '50%',
-                                    background: currentVideoIndex === index ? '#ec4899' : 'rgba(255, 255, 255, 0.4)',
-                                    border: '1px solid rgba(0,0,0,0.2)',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.3s ease',
-                                    padding: 0
-                                }}
-                                aria-label={`Go to video ${index + 1}`}
-                                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.2)'}
-                                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-                            />
-                        ))}
-                    </div>
-
-                    <div style={{
-                        position: 'absolute', inset: 0,
-                        background: 'radial-gradient(circle at center, transparent 70%, rgba(236,72,153,0.1) 100%)',
-                        pointerEvents: 'none',
-                        zIndex: 5
-                    }} />
-                </div>
-            </section>
 
             {/* UPCOMING FEATURES SECTION */}
             <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto', borderTop: '1px solid var(--border)' }}>
