@@ -25,6 +25,7 @@ const plans = [
         features: ['5 GB storage', 'Unlimited text documents', 'PPT & DOCX generation', 'Priority support'],
         locked: ['AI video generation'],
         cta: 'Get Student Plan',
+        href: 'https://rexycore.vercel.app/waitlist'
     },
     {
         emoji: '🔵', name: 'Creator', color: '#2196f3', featured: true,
@@ -33,6 +34,7 @@ const plans = [
         features: ['20 GB storage', '2 AI videos/month', 'Thumbnail generation', 'All document types', 'Advanced AI'],
         locked: [],
         cta: 'Get Creator Plan',
+        href: 'https://rexycore.vercel.app/waitlist'
     },
     {
         emoji: '🟣', name: 'Pro', color: '#9c27b0',
@@ -41,6 +43,7 @@ const plans = [
         features: ['50 GB storage', '10 AI videos/month', 'Unlimited documents', 'Priority processing', 'API access'],
         locked: [],
         cta: 'Get Pro Plan',
+        href: 'https://rexycore.vercel.app/waitlist'
     },
     {
         emoji: '🔴', name: 'Studio', color: '#f44336',
@@ -49,6 +52,7 @@ const plans = [
         features: ['120 GB storage', '30 AI videos/month', 'Team collaboration', 'White-label', 'Dedicated support'],
         locked: [],
         cta: 'Get Studio Plan',
+        href: 'https://rexycore.vercel.app/waitlist'
     },
 ];
 
@@ -278,7 +282,7 @@ function TierModal({ onClose }) {
 const products = [
     {
         id: 'rkai_desktop',
-        icon: '💻',
+        icon: <Image src="/RK AI logo.png" alt="RK AI" width={80} height={80} style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 20px rgba(79, 156, 249, 0.4))' }} />,
         category: 'AI Desktop Assistant',
         name: 'RK AI Desktop',
         desc: 'A local-first AI system built for personal computing. Voice-enabled, automation-ready, and powered by on-device models.',

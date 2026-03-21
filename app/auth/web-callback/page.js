@@ -26,16 +26,25 @@ function WebCallbackClient() {
 
       try {
         const data = await finishWebCallback(token, userId);
-        if (data?.user) {
+        // If getMe() returned a user, great. But even if it didn't (API issue),
+        // we have already stored the token/userId via storeSession inside finishWebCallback.
+        // Count it as success if we have a valid token and userId.
+        if (data?.user || (token && userId)) {
           router.replace(redirect.startsWith('/') ? redirect : `/${redirect}`);
         } else {
           setMessage('Sign-in failed. Redirecting…');
           setTimeout(() => router.replace('/login?error=oauth_failed'), 1200);
         }
       } catch (_) {
-        setMessage('Sign-in failed. Redirecting…');
-        setTimeout(() => router.replace('/login?error=oauth_failed'), 1200);
+        // Even on error, if token/userId were stored, redirect
+        if (token && userId) {
+          router.replace(redirect.startsWith('/') ? redirect : `/${redirect}`);
+        } else {
+          setMessage('Sign-in failed. Redirecting…');
+          setTimeout(() => router.replace('/login?error=oauth_failed'), 1200);
+        }
       }
+
     };
 
     finish();

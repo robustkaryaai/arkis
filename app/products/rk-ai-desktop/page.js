@@ -20,7 +20,7 @@ export default function RKDesktopProduct() {
             {/* PRODUCT HERO */}
             <section className="hero" style={{ minHeight: '80vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div className="badge" style={{ marginBottom: '24px', animation: 'fade-in 1s ease-out' }}>
+                    <div className="badge float-anim" style={{ marginBottom: '24px', animation: 'fade-in 1s ease-out' }}>
                         <span className="dot" /> Now Live for macOS & Windows
                     </div>
                     
