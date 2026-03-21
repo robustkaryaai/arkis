@@ -298,7 +298,8 @@ const products = [
     {
         id: 'rkai_home',
         icon: null,
-        bgImage: '/rk ai home images/4DC67E0F-87BB-4C1A-8717-C30D1D560D85.JPG',
+        bgImage: '/rk-ai-home-images/feature.jpg',
+        logo: '/rkhome.png',
         category: 'Smart Home Device',
         name: 'RK AI Home',
         desc: 'An AI system designed for physical environments — enabling voice control, automation, and intelligent coordination.',
