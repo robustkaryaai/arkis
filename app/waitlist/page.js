@@ -137,7 +137,7 @@ function WaitlistContent() {
                         RK AI Home learns your habits, automates everything, and works offline.
                     </p>
                     <p style={{ color: 'var(--blue)', fontSize: '14px', marginTop: '12px', fontWeight: '700' }}>
-                        ⚡ Only 100 early users will get lifetime ₹49/month
+                        ⚡ Only 100 early users will get lifetime ₹49/month. Pay later when your slot is ready.
                     </p>
                 </div>
 
