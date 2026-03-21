@@ -5,7 +5,6 @@ import Footer from '@/components/Footer';
 import { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { DATABASE_ID, ID, Permission, Role, TABLES, tables } from '@/lib/appwrite';
 
 function PreOrderContent() {
     const { user, loading: authLoading } = useAuth();
@@ -52,41 +51,36 @@ function PreOrderContent() {
         const productName = 'RK AI Home';
         const price = '₹4,999';
 
-        let preorderRowId = null;
         try {
-            if (DATABASE_ID) {
-                preorderRowId = ID.unique();
-                await tables.createRow(
-                    DATABASE_ID,
-                    TABLES.PREORDER,
-                    preorderRowId,
-                    {
-                        userId: user.$id,
-                        email: formData.email,
-                        productId,
-                        productName,
-                        price,
-                        shippingFullName: formData.fullName,
-                        shippingAddress: formData.address,
-                        shippingCity: formData.city,
-                        shippingZip: formData.zipCode,
-                        shippingCountry: formData.country,
-                        status: 'submitted',
-                        createdAt: new Date().toISOString(),
-                        source: 'web',
-                    },
-                    [
-                        Permission.read(Role.user(user.$id)),
-                        Permission.update(Role.user(user.$id)),
-                        Permission.delete(Role.user(user.$id)),
-                    ]
-                );
+            // 🚀 Proxy through Backend to bypass Appwrite Platform Limits
+            const res = await fetch('https://rk-ai-backend.onrender.com/web/preorder', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userId: user.$id,
+                    email: formData.email,
+                    productId,
+                    productName,
+                    price,
+                    shippingFullName: formData.fullName,
+                    shippingAddress: formData.address,
+                    shippingCity: formData.city,
+                    shippingZip: formData.zipCode,
+                    shippingCountry: formData.country,
+                    source: 'web'
+                })
+            });
+
+            if (!res.ok) {
+                const data = await res.json().catch(() => ({}));
+                throw new Error(data.error || 'Pre-order submission failed');
             }
 
+            // Local persistence
             const raw = localStorage.getItem('rexycore_orders') || '[]';
             const list = JSON.parse(raw);
             const order = {
-                id: preorderRowId || `ORD-${Date.now()}`,
+                id: `ORD-${Date.now()}`,
                 productId,
                 productName,
                 price,
@@ -103,14 +97,15 @@ function PreOrderContent() {
             };
             const next = Array.isArray(list) ? [order, ...list] : [order];
             localStorage.setItem('rexycore_orders', JSON.stringify(next));
+
+            setTimeout(() => {
+                setIsSubmitting(false);
+                router.push('/orders');
+            }, 700);
         } catch (e2) {
             setError(e2?.message || 'Failed to submit pre-order');
-        }
-
-        setTimeout(() => {
             setIsSubmitting(false);
-            router.push('/orders');
-        }, 700);
+        }
     };
 
     if (authLoading || !user) {

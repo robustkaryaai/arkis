@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { DATABASE_ID, Query, TABLES, tables } from '@/lib/appwrite';
+import { getProfile } from '@/lib/api';
 
 export default function Orders() {
     const { user, loading } = useAuth();
@@ -25,60 +25,40 @@ export default function Orders() {
             const load = async () => {
                 setRemoteLoading(true);
                 try {
-                    if (DATABASE_ID) {
-                        const [orderRes, preorderRes] = await Promise.all([
-                            tables.listRows(
-                                DATABASE_ID,
-                                TABLES.ORDER,
-                                [Query.equal('userId', user.$id), Query.orderDesc('$createdAt'), Query.limit(50)]
-                            ),
-                            tables.listRows(
-                                DATABASE_ID,
-                                TABLES.PREORDER,
-                                [Query.equal('userId', user.$id), Query.orderDesc('$createdAt'), Query.limit(50)]
-                            )
-                        ]);
+                    // 🚀 Proxy through Backend to bypass Appwrite Platform Limits
+                    const res = await getProfile(user.$id);
+                    const orderRows = Array.isArray(res?.orders) ? res.orders : [];
+                    const preorderRows = Array.isArray(res?.preorders) ? res.preorders : [];
 
-                        const orderRows = Array.isArray(orderRes?.rows) ? orderRes.rows : [];
-                        const preorderRows = Array.isArray(preorderRes?.rows) ? preorderRes.rows : [];
+                    const normalized = [
+                        ...orderRows.map((r) => ({
+                            id: r.orderNumber || r.$id,
+                            productId: r.productId,
+                            productName: r.productName || 'Order',
+                            price: r.amount ? `${r.amount}` : r.price,
+                            email: r.email,
+                            status: r.status,
+                            createdAt: r.createdAt || r.$createdAt,
+                            kind: 'order',
+                        })),
+                        ...preorderRows.map((r) => ({
+                            id: r.$id,
+                            productId: r.productId,
+                            productName: r.productName || 'Pre-order',
+                            price: r.price,
+                            email: r.email,
+                            status: r.status || 'submitted',
+                            createdAt: r.createdAt || r.$createdAt,
+                            kind: 'preorder',
+                        })),
+                    ].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
-                        const normalized = [
-                            ...orderRows.map((r) => ({
-                                id: r.orderNumber || r.$id,
-                                productId: r.productId,
-                                productName: r.productName || 'Order',
-                                price: r.amount ? `${r.amount}` : r.price,
-                                email: r.email,
-                                status: r.status,
-                                createdAt: r.createdAt || r.$createdAt,
-                                kind: 'order',
-                            })),
-                            ...preorderRows.map((r) => ({
-                                id: r.$id,
-                                productId: r.productId,
-                                productName: r.productName || 'Pre-order',
-                                price: r.price,
-                                email: r.email,
-                                status: r.status || 'submitted',
-                                createdAt: r.createdAt || r.$createdAt,
-                                kind: 'preorder',
-                            })),
-                        ].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
-
-                        setOrders(normalized);
-                    } else {
-                        const raw = localStorage.getItem('rexycore_orders') || '[]';
-                        const list = JSON.parse(raw);
-                        setOrders(Array.isArray(list) ? list : []);
-                    }
+                    setOrders(normalized);
                 } catch (_) {
-                    try {
-                        const raw = localStorage.getItem('rexycore_orders') || '[]';
-                        const list = JSON.parse(raw);
-                        setOrders(Array.isArray(list) ? list : []);
-                    } catch (_) {
-                        setOrders([]);
-                    }
+                    // Fallback to local storage if backend fails
+                    const raw = localStorage.getItem('rexycore_orders') || '[]';
+                    const list = JSON.parse(raw);
+                    setOrders(Array.isArray(list) ? list : []);
                 } finally {
                     setRemoteLoading(false);
                 }

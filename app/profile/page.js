@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { DATABASE_ID, Query, TABLES, tables } from '@/lib/appwrite';
+import { getProfile } from '@/lib/api';
 
 export default function Profile() {
     const { user, loading } = useAuth();
@@ -25,25 +25,15 @@ export default function Profile() {
             if (loading || !user) return;
             setWaitlistLoading(true);
             try {
-                if (DATABASE_ID) {
-                    const res = await tables.listRows(
-                        DATABASE_ID,
-                        TABLES.WAITLIST,
-                        [
-                            Query.equal('userId', user.$id),
-                            Query.orderDesc('$createdAt'),
-                            Query.limit(25),
-                        ]
-                    );
-                    setWaitlistRows(Array.isArray(res?.rows) ? res.rows : []);
-                } else {
-                    const raw = localStorage.getItem('rexycore_waitlist') || '[]';
-                    const list = JSON.parse(raw);
-                    const filtered = Array.isArray(list) ? list.filter((x) => x?.userId === user.$id || x?.email === user.email) : [];
-                    setWaitlistRows(filtered);
-                }
+                // 🚀 Proxy through Backend to bypass Appwrite Platform Limits
+                const res = await getProfile(user.$id);
+                setWaitlistRows(Array.isArray(res?.waitlist) ? res.waitlist : []);
             } catch (_) {
-                setWaitlistRows([]);
+                // Fallback to local storage if backend fails
+                const raw = localStorage.getItem('rexycore_waitlist') || '[]';
+                const list = JSON.parse(raw);
+                const filtered = Array.isArray(list) ? list.filter((x) => x?.userId === user.$id || x?.email === user.email) : [];
+                setWaitlistRows(filtered);
             } finally {
                 setWaitlistLoading(false);
             }

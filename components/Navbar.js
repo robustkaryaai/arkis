@@ -2,11 +2,11 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState, useRef } from 'react';
-import { account } from '@/lib/appwrite';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Navbar() {
     const path = usePathname();
-    const [user, setUser] = useState(null);
+    const { user, logout } = useAuth();
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -14,8 +14,6 @@ export default function Navbar() {
     const isActive = (href) => path === href ? 'active' : '';
 
     useEffect(() => {
-        checkUser();
-
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setDropdownOpen(false);
@@ -33,19 +31,9 @@ export default function Navbar() {
         setMobileMenuOpen(false);
     }, [path]);
 
-    const checkUser = async () => {
-        try {
-            const session = await account.get();
-            setUser(session);
-        } catch (error) {
-            setUser(null);
-        }
-    };
-
     const handleLogout = async () => {
         try {
-            await account.deleteSession('current');
-            setUser(null);
+            await logout();
             window.location.href = '/';
         } catch (error) {
             console.error('Logout failed', error);

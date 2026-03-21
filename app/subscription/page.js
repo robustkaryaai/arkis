@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { DATABASE_ID, Query, TABLES, tables } from '@/lib/appwrite';
+import { getProfile } from '@/lib/api';
 
 export default function Subscription() {
     const { user, loading } = useAuth();
@@ -25,17 +25,10 @@ export default function Subscription() {
             if (loading || !user) return;
             setSubLoading(true);
             try {
-                if (DATABASE_ID) {
-                    const res = await tables.listRows(
-                        DATABASE_ID,
-                        TABLES.SUBSCRIPTION,
-                        [Query.equal('userId', user.$id), Query.orderDesc('$createdAt'), Query.limit(1)]
-                    );
-                    const row = Array.isArray(res?.rows) && res.rows.length > 0 ? res.rows[0] : null;
-                    setSubRow(row);
-                } else {
-                    setSubRow(null);
-                }
+                // 🚀 Proxy through Backend to bypass Appwrite Platform Limits
+                const res = await getProfile(user.$id);
+                const row = Array.isArray(res?.subscriptions) && res.subscriptions.length > 0 ? res.subscriptions[0] : null;
+                setSubRow(row);
             } catch (_) {
                 setSubRow(null);
             } finally {

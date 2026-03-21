@@ -5,7 +5,6 @@ import Footer from '@/components/Footer';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { DATABASE_ID, ID, Permission, Role, TABLES, tables } from '@/lib/appwrite';
 
 function WaitlistContent() {
     const { user, loading: authLoading } = useAuth();
@@ -53,7 +52,7 @@ function WaitlistContent() {
 
         const entry = {
             product: productLabel,
-            productKey: product || null,
+            productKey: product || 'rexycore',
             userId: user.$id,
             name: form.name,
             email: form.email,
@@ -65,60 +64,33 @@ function WaitlistContent() {
         };
 
         try {
-            if (!DATABASE_ID) {
-                throw new Error('Missing database configuration');
+            // 🚀 Proxy all Appwrite calls through the Backend to bypass Platform Limits
+            const response = await fetch('https://rk-ai-backend.onrender.com/web/waitlist', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(entry)
+            });
+
+            if (!response.ok) {
+                const data = await response.json().catch(() => ({}));
+                throw new Error(data.error || 'Failed to join waitlist via backend');
             }
 
-            const rowId = ID.unique();
-
-            // 1. Appwrite (Existing system)
-            await tables.createRow(
-                DATABASE_ID,
-                TABLES.WAITLIST,
-                rowId,
-                {
-                    ...entry,
-                    createdAt: new Date().toISOString(),
-                },
-                [
-                    Permission.read(Role.user(user.$id)),
-                    Permission.update(Role.user(user.$id)),
-                    Permission.delete(Role.user(user.$id)),
-                ]
-            );
-
-            // 2. Backend (New Waitlist Tracker)
-            try {
-                await fetch('https://rk-ai-backend.onrender.com/waitlist', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: entry.name,
-                        email: entry.email,
-                        paymentIntent: entry.paymentIntent,
-                        featureDemand: entry.notes,
-                        slug: 'rexycore-web'
-                    })
-                });
-            } catch (backendErr) {
-                console.warn('Backend waitlist sync failed, but Appwrite succeeded');
-            }
-
+            // Local persistence for UX
             try {
                 const legacyRaw = localStorage.getItem('rexycore_waitlist');
-                const raw = legacyRaw || localStorage.getItem('rexycore_waitlist') || '[]';
+                const raw = legacyRaw || '[]';
                 const list = JSON.parse(raw);
-                list.unshift({ id: rowId, ...entry, createdAt: new Date().toISOString() });
+                list.unshift({ ...entry, createdAt: new Date().toISOString() });
                 localStorage.setItem('rexycore_waitlist', JSON.stringify(list));
             } catch (_) { }
 
             setSubmitted(true);
-        } catch (e2) {
-            setError(e2?.message || 'Failed to join waitlist');
+        } catch (err) {
+            setError(err.message || 'Failed to join waitlist');
         } finally {
             setSubmitting(false);
         }
-
     };
 
     return (
