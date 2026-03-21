@@ -52,51 +52,27 @@ function PreOrderContent() {
         const price = '₹4,999';
 
         try {
-            // 🚀 Proxy through Backend to bypass Appwrite Platform Limits
-            const res = await fetch('https://rk-ai-backend.onrender.com/web/preorder', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    userId: user.$id,
-                    email: formData.email,
-                    productId,
-                    productName,
-                    price,
-                    shippingFullName: formData.fullName,
-                    shippingAddress: formData.address,
-                    shippingCity: formData.city,
-                    shippingZip: formData.zipCode,
-                    shippingCountry: formData.country,
-                    source: 'web'
-                })
-            });
-
-            if (!res.ok) {
-                const data = await res.json().catch(() => ({}));
-                throw new Error(data.error || 'Pre-order submission failed');
-            }
-
-            // Local persistence
-            const raw = localStorage.getItem('rexycore_orders') || '[]';
-            const list = JSON.parse(raw);
-            const order = {
-                id: `ORD-${Date.now()}`,
+            const { submitPreorder } = await import('@/lib/api');
+            
+            const reqData = {
+                userId: user.$id || user.id,
+                email: formData.email,
                 productId,
                 productName,
                 price,
-                email: formData.email,
-                shipping: {
-                    fullName: formData.fullName,
-                    address: formData.address,
-                    city: formData.city,
-                    zipCode: formData.zipCode,
-                    country: formData.country,
-                },
-                status: 'Pre-order Submitted',
-                createdAt: new Date().toISOString(),
+                shippingFullName: formData.fullName,
+                shippingAddress: formData.address,
+                shippingCity: formData.city,
+                shippingZip: formData.zipCode,
+                shippingCountry: formData.country,
+                source: 'web'
             };
-            const next = Array.isArray(list) ? [order, ...list] : [order];
-            localStorage.setItem('rexycore_orders', JSON.stringify(next));
+
+            const res = await submitPreorder(reqData);
+
+            if (!res.ok) {
+                throw new Error(res.error || 'Pre-order submission failed');
+            }
 
             setTimeout(() => {
                 setIsSubmitting(false);
