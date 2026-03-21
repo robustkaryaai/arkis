@@ -15,6 +15,7 @@ function PreOrderContent() {
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
+        phone: '',
         address: '',
         city: '',
         zipCode: '',
@@ -57,6 +58,7 @@ function PreOrderContent() {
             const reqData = {
                 userId: user.$id || user.id,
                 email: formData.email,
+                phone: formData.phone,
                 productId,
                 productName,
                 price,
@@ -113,6 +115,10 @@ function PreOrderContent() {
                             <div>
                                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Email Address</label>
                                 <input name="email" type="email" value={formData.email} onChange={handleChange} required style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '10px', padding: '12px', color: 'var(--text)' }} />
+                            </div>
+                            <div>
+                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Phone Number</label>
+                                <input name="phone" type="tel" value={formData.phone} onChange={handleChange} required style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '10px', padding: '12px', color: 'var(--text)' }} />
                             </div>
                             <div>
                                 <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Shipping Address</label>
