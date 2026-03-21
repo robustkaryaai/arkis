@@ -317,8 +317,8 @@ export default function RKHomeProduct() {
                     <div className="feature-card" style={{ background: 'var(--surface)', padding: '40px', borderRadius: '24px', border: '1px solid var(--border)' }}>
                         <div style={{ fontSize: '32px', marginBottom: '20px' }}>✨</div>
                         <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '16px' }}>Premium Companion App</h3>
-                        <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
-                            Manage your smart alarms, view command history, pair via BLE, and access the file studio through a stunning mobile companion interface (`rk-auth-app`).
+                        <p style={{ fontSize: '1.2rem', color: 'var(--muted)', lineHeight: '1.8' }}>
+                            Manage your smart alarms, view command history, pair via BLE, and access the file studio through a stunning mobile companion interface (RexyCore Home).
                         </p>
                     </div>
 

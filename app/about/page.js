@@ -60,8 +60,8 @@ export default function About() {
                     gap: '40px', marginTop: '60px'
                 }}>
                     {[
-                        ['💻', 'Rexycore Desktop', 'The flagship AI layer for Windows & macOS. Local model execution, system-wide automation, and privacy-first intelligence.'],
-                        ['🏠', 'Rexycore Home', 'Hardware-integrated ambient intelligence powered by Gemini. Optimized for Raspberry Pi Zero W with offline fallback and intent routing.'],
+                        ['💻', 'RK AI Desktop', 'The flagship AI layer for Windows & macOS. Local model execution, system-wide automation, and privacy-first intelligence.'],
+                        ['🏠', 'RK AI Home', 'Hardware-integrated ambient intelligence powered by Gemini. Optimized for Raspberry Pi Zero W with offline fallback and intent routing.'],
                         ['💿', 'Lumina OS', 'A next-generation, AI-native operating system built on Linux. Includes a system-level AI disable switch for total user control.'],
                         ['⌨️', 'Light Key', 'An intelligent input system that bridges the gap between thoughts and machines with contextual suggestions and smart commands.'],
                     ].map(([icon, title, desc], i) => (
