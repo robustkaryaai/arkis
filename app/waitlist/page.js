@@ -25,6 +25,7 @@ function WaitlistContent() {
         phone: '',
         country: 'India',
         notes: '',
+        paymentIntent: 'Maybe',
     });
     const [submitted, setSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
@@ -59,6 +60,7 @@ function WaitlistContent() {
             phone: form.phone,
             country: form.country,
             notes: form.notes,
+            paymentIntent: form.paymentIntent,
             source: 'web',
         };
 
@@ -69,6 +71,7 @@ function WaitlistContent() {
 
             const rowId = ID.unique();
 
+            // 1. Appwrite (Existing system)
             await tables.createRow(
                 DATABASE_ID,
                 TABLES.WAITLIST,
@@ -83,6 +86,23 @@ function WaitlistContent() {
                     Permission.delete(Role.user(user.$id)),
                 ]
             );
+
+            // 2. Backend (New Waitlist Tracker)
+            try {
+                await fetch('https://rk-ai-backend.onrender.com/waitlist', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: entry.name,
+                        email: entry.email,
+                        paymentIntent: entry.paymentIntent,
+                        featureDemand: entry.notes,
+                        slug: 'rexycore-web'
+                    })
+                });
+            } catch (backendErr) {
+                console.warn('Backend waitlist sync failed, but Appwrite succeeded');
+            }
 
             try {
                 const legacyRaw = localStorage.getItem('rexycore_waitlist');
@@ -111,10 +131,13 @@ function WaitlistContent() {
                         Early Access
                     </div>
                     <h1 style={{ fontSize: 'clamp(36px, 6vw, 64px)', fontWeight: '900', letterSpacing: '-1px' }}>
-                        Join the <span className="grad">Waitlist</span>
+                        Control your entire home with AI — <span className="grad">better than Alexa</span>
                     </h1>
                     <p style={{ color: 'var(--muted)', fontSize: '18px', marginTop: '14px' }}>
-                        Reserve your spot for {productLabel} updates, Alpha/Beta access, and launch priority.
+                        RK AI Home learns your habits, automates everything, and works offline.
+                    </p>
+                    <p style={{ color: 'var(--blue)', fontSize: '14px', marginTop: '12px', fontWeight: '700' }}>
+                        ⚡ Only 100 early users will get lifetime ₹49/month
                     </p>
                 </div>
 
@@ -128,6 +151,10 @@ function WaitlistContent() {
                         <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
                             We’ll email you when {productLabel} opens for early access.
                         </p>
+                        <div style={{ marginTop: '24px', padding: '20px', background: 'rgba(59,130,246,0.05)', borderRadius: '16px', border: '1px solid rgba(59,130,246,0.1)' }}>
+                            <p style={{ fontSize: '14px', fontWeight: '700', color: 'var(--blue)' }}>🔥 PRO MOVE</p>
+                            <p style={{ fontSize: '13px', color: 'var(--muted)', marginTop: '4px' }}>Want priority access? Share this with 3 friends to jump the queue!</p>
+                        </div>
                         <button
                             className="btn-secondary"
                             style={{ marginTop: '28px', padding: '14px 28px', borderRadius: '50px', cursor: 'pointer' }}
@@ -166,30 +193,42 @@ function WaitlistContent() {
                                     style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '12px', padding: '14px', color: 'var(--text)', outline: 'none' }}
                                 />
                             </div>
-                            <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Phone (Optional)</label>
-                                <input
-                                    value={form.phone}
-                                    onChange={(e) => setForm((p) => ({ ...p, phone: e.target.value }))}
-                                    style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '12px', padding: '14px', color: 'var(--text)', outline: 'none' }}
-                                />
-                            </div>
-                            <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Country</label>
-                                <input
-                                    value={form.country}
-                                    onChange={(e) => setForm((p) => ({ ...p, country: e.target.value }))}
-                                    style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '12px', padding: '14px', color: 'var(--text)', outline: 'none' }}
-                                />
+                            <div style={{ gridColumn: 'span 2' }}>
+                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Would you pay ₹99/month for this?</label>
+                                <div style={{ display: 'flex', gap: '12px' }}>
+                                    {['Yes', 'Maybe', 'No'].map((opt) => (
+                                        <button
+                                            key={opt}
+                                            type="button"
+                                            onClick={() => setForm((p) => ({ ...p, paymentIntent: opt }))}
+                                            style={{
+                                                flex: 1,
+                                                padding: '12px',
+                                                borderRadius: '12px',
+                                                border: '1px solid',
+                                                borderColor: form.paymentIntent === opt ? 'var(--blue)' : 'var(--border)',
+                                                background: form.paymentIntent === opt ? 'rgba(59,130,246,0.1)' : 'transparent',
+                                                color: form.paymentIntent === opt ? 'var(--blue)' : 'var(--text)',
+                                                fontSize: '14px',
+                                                fontWeight: '700',
+                                                cursor: 'pointer',
+                                                transition: '0.2s'
+                                            }}
+                                        >
+                                            {opt}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
                         </div>
 
                         <div style={{ marginTop: '18px' }}>
-                            <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>What do you want from {productLabel}?</label>
+                            <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>What feature would make you pay?</label>
                             <textarea
                                 value={form.notes}
                                 onChange={(e) => setForm((p) => ({ ...p, notes: e.target.value }))}
                                 rows={4}
+                                placeholder="Example: Better local control, more storage, etc."
                                 style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '12px', padding: '14px', color: 'var(--text)', outline: 'none', resize: 'vertical' }}
                             />
                         </div>
@@ -198,9 +237,9 @@ function WaitlistContent() {
                             type="submit"
                             className="btn-primary"
                             disabled={submitting}
-                            style={{ marginTop: '24px', padding: '16px 34px', borderRadius: '50px', cursor: submitting ? 'default' : 'pointer', opacity: submitting ? 0.7 : 1 }}
+                            style={{ marginTop: '24px', padding: '16px 34px', borderRadius: '50px', cursor: submitting ? 'default' : 'pointer', opacity: submitting ? 0.7 : 1, width: '100%' }}
                         >
-                            {submitting ? 'Joining…' : 'Join Waitlist →'}
+                            {submitting ? 'Joining…' : 'Get Early Access →'}
                         </button>
                     </form>
                 )}
