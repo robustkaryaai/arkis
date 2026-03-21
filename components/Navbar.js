@@ -90,6 +90,7 @@ export default function Navbar() {
             }}>
                 <li><Link href="/" className={isActive('/')}>Home</Link></li>
                 <li><Link href="/products" className={isActive('/products')}>Products</Link></li>
+                <li><Link href="/waitlist" className={isActive('/waitlist')}>Waitlist</Link></li>
                 <li><Link href="/about" className={isActive('/about')}>About</Link></li>
                 <li><Link href="/contact" className={isActive('/contact')}>Contact</Link></li>
             </ul>
@@ -239,6 +240,7 @@ export default function Navbar() {
             >
                 <Link href="/" className={isActive('/')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/') ? 'var(--blue)' : 'var(--text)' }}>Home</Link>
                 <Link href="/products" className={isActive('/products')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/products') ? 'var(--blue)' : 'var(--text)' }}>Products</Link>
+                <Link href="/waitlist" className={isActive('/waitlist')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/waitlist') ? 'var(--blue)' : 'var(--text)' }}>Waitlist</Link>
                 <Link href="/about" className={isActive('/about')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/about') ? 'var(--blue)' : 'var(--text)' }}>About</Link>
                 <Link href="/contact" className={isActive('/contact')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/contact') ? 'var(--blue)' : 'var(--text)' }}>Contact</Link>
                 {user ? (
