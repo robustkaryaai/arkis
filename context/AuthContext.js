@@ -1,68 +1,83 @@
 'use client';
+// context/AuthContext.js
+// Drop-in replacement — same API as before (user, loading, login, loginWithGoogle, logout, checkUser)
+// but now talks to your backend instead of Appwrite directly
 
 import { createContext, useContext, useEffect, useState } from 'react';
-import { account, client } from '@/lib/appwrite';
+import {
+  loginWithGoogle as apiLoginWithGoogle,
+  logout as apiLogout,
+  getMe,
+  getStoredToken,
+} from '@/lib/api';
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const init = async () => {
-            try {
-                await checkUser();
-            } catch (_) {
-            }
-        };
-        init();
-    }, []);
+  useEffect(() => {
+    checkUser();
+  }, []);
 
-    const checkUser = async () => {
-        try {
-            const session = await account.get();
-            setUser(session);
-        } catch (error) {
-            setUser(null);
-        } finally {
-            setLoading(false);
-        }
-    };
+  const checkUser = async () => {
+    try {
+      // Only attempt if we have a stored token
+      const token = getStoredToken();
+      if (!token) {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
 
-    const login = async (email, password) => {
-        try {
-            await account.createEmailPasswordSession(email, password);
-            await checkUser();
-            return { success: true };
-        } catch (error) {
-            return { success: false, error: error.message };
-        }
-    };
+      const data = await getMe();
+      setUser(data?.user || null);
+    } catch (_) {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    const logout = async () => {
-        try {
-            await account.deleteSession('current');
-            setUser(null);
-            try { window.localStorage.removeItem('appwrite_session_id'); } catch (_) {}
-            client.setHeader('X-Appwrite-Session', '');
-        } catch (error) {
-            console.error('Logout failed:', error);
-        }
-    };
+  // Email/password login still proxies through your existing /desktop/login route
+  const login = async (email, password) => {
+    try {
+      const BASE = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://rk-ai-backend.onrender.com';
+      const res = await fetch(`${BASE}/desktop/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
 
-    const loginWithGoogle = (redirectTo = '/') => {
-        const origin = window.location.origin.replace(/\/$/, '');
-        const successUrl = `${origin}/auth/callback?redirect=${encodeURIComponent(redirectTo.startsWith('/') ? redirectTo : `/${redirectTo}`)}`;
-        const failureUrl = `${origin}/login?error=oauth_failed`;
-        account.createOAuth2Session('google', successUrl, failureUrl);
-    };
+      if (!res.ok) return { success: false, error: data.error || 'Login failed' };
 
-    return (
-        <AuthContext.Provider value={{ user, loading, login, loginWithGoogle, logout, checkUser }}>
-            {children}
-        </AuthContext.Provider>
-    );
+      // data is an Appwrite session — store the userId + session $id as token
+      const { storeSession } = await import('@/lib/api');
+      storeSession(data.$id, data.userId);
+
+      await checkUser();
+      return { success: true };
+    } catch (err) {
+      return { success: false, error: err.message };
+    }
+  };
+
+  const loginWithGoogle = (redirectTo = '/') => {
+    apiLoginWithGoogle(redirectTo);
+  };
+
+  const logout = async () => {
+    await apiLogout();
+    setUser(null);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, loading, login, loginWithGoogle, logout, checkUser }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }
 
 export const useAuth = () => useContext(AuthContext);
