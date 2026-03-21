@@ -12,10 +12,10 @@ export default function RKHomeProduct() {
     const router = useRouter();
 
     const videos = [
-        '/rk ai home images/IMG_2565.MOV',
-        '/rk ai home images/IMG_2566.MOV',
-        '/rk ai home images/IMG_2567.MOV',
-        '/rk ai home images/IMG_2568.MOV'
+        '/rk-ai-home-images/img_2565.mov',
+        '/rk-ai-home-images/img_2566.mov',
+        '/rk-ai-home-images/img_2567.mov',
+        '/rk-ai-home-images/img_2568.mov'
     ];
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
