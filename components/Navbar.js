@@ -79,7 +79,7 @@ export default function Navbar() {
                 <li><Link href="/" className={isActive('/')}>Home</Link></li>
                 <li><Link href="/products" className={isActive('/products')}>Products</Link></li>
                 <li><Link href="/about" className={isActive('/about')}>About</Link></li>
-                <li><Link href="/theory" className={isActive('/theory')}>Theory</Link></li>
+                
                 <li><Link href="/contact" className={isActive('/contact')}>Contact</Link></li>
             </ul>
 
