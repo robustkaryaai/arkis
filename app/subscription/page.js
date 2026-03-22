@@ -456,7 +456,7 @@ export default function Subscription() {
         const load = async () => {
             if (!user) return;
             try {
-                const res = await getProfile(user.$id || user.id);
+                const res = await getProfile(user.$id || user.id, user.email || '');
                 const row = Array.isArray(res?.subscriptions) && res.subscriptions.length > 0 ? res.subscriptions[0] : null;
                 setSubRow(row);
                 setLinkedTrials(Array.isArray(res?.trials) ? res.trials : []);
@@ -507,7 +507,6 @@ export default function Subscription() {
                     productKey: selectedPlan.id,
                     paymentIntent: surveyData.paymentIntent,
                     notes: surveyData.notes,
-                    source: 'rexycore_website_subscription',
                 }),
             });
             if (res.ok) {

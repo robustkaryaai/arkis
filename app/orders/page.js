@@ -26,7 +26,7 @@ export default function Orders() {
                 setRemoteLoading(true);
                 try {
                     // 🚀 Proxy through Backend to bypass Appwrite Platform Limits
-                    const res = await getProfile(user.$id);
+                    const res = await getProfile(user.$id, user.email || '');
                     const orderRows = Array.isArray(res?.orders) ? res.orders : [];
                     const preorderRows = Array.isArray(res?.preorders) ? res.preorders : [];
 

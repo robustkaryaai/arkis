@@ -155,7 +155,7 @@ function PreOrderContent() {
                                     e.currentTarget.style.boxShadow = '0 0 30px rgba(245, 158, 11, 0.3)';
                                 }}
                             >
-                                {isSubmitting ? 'Processing...' : 'Proceed to Payment'}
+                                {isSubmitting ? 'Processing...' : 'Book RK AI Home!'}
                             </button>
                         </form>
                     </div>
@@ -183,6 +183,9 @@ function PreOrderContent() {
                             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '20px', fontWeight: '900', marginTop: '12px', paddingTop: '12px', borderTop: '1px solid var(--border)' }}>
                                 <span>Total</span>
                                 <span className="grad">₹4,999</span>
+                            </div>
+                            <div style={{ marginTop: '20px', padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '14px', fontSize: '13px', color: 'var(--muted)' }}>
+                                No Commitment, Cancel Anytime.
                             </div>
                         </div>
                     </div>

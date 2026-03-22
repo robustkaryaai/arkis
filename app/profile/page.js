@@ -26,7 +26,7 @@ export default function Profile() {
             setWaitlistLoading(true);
             try {
                 // 🚀 Proxy through Backend to bypass Appwrite Platform Limits
-                const res = await getProfile(user.$id);
+                const res = await getProfile(user.$id, user.email || '');
                 setWaitlistRows(Array.isArray(res?.waitlist) ? res.waitlist : []);
             } catch (_) {
                 // Fallback to local storage if backend fails

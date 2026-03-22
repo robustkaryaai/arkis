@@ -60,7 +60,6 @@ function WaitlistContent() {
             country: form.country,
             notes: form.notes,
             paymentIntent: form.paymentIntent,
-            source: 'web',
         };
 
         try {
