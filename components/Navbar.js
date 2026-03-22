@@ -79,6 +79,7 @@ export default function Navbar() {
                 <li><Link href="/" className={isActive('/')}>Home</Link></li>
                 <li><Link href="/products" className={isActive('/products')}>Products</Link></li>
                 <li><Link href="/about" className={isActive('/about')}>About</Link></li>
+                <li><Link href="/theory" className={isActive('/theory')}>Theory</Link></li>
                 <li><Link href="/contact" className={isActive('/contact')}>Contact</Link></li>
             </ul>
 
@@ -163,7 +164,7 @@ export default function Navbar() {
                                             border: '1px solid var(--border)',
                                         }}
                                     >
-                                        Subscription
+                                        RexyCore Cloud
                                     </Link>
                                 </div>
                                 <button 
@@ -228,13 +229,14 @@ export default function Navbar() {
                 <Link href="/" className={isActive('/')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/') ? 'var(--blue)' : 'var(--text)' }}>Home</Link>
                 <Link href="/products" className={isActive('/products')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/products') ? 'var(--blue)' : 'var(--text)' }}>Products</Link>
                 <Link href="/about" className={isActive('/about')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/about') ? 'var(--blue)' : 'var(--text)' }}>About</Link>
+                <Link href="/theory" className={isActive('/theory')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/theory') ? 'var(--blue)' : 'var(--text)' }}>Theory</Link>
                 <Link href="/contact" className={isActive('/contact')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/contact') ? 'var(--blue)' : 'var(--text)' }}>Contact</Link>
                 {user ? (
                     <>
                         <div style={{ height: '1px', background: 'var(--border)', margin: '10px 0' }} />
                         <Link href="/profile" style={{ fontSize: '18px', fontWeight: '700', textDecoration: 'none', color: isActive('/profile') ? 'var(--blue)' : 'var(--text)' }}>Profile</Link>
                         <Link href="/orders" style={{ fontSize: '18px', fontWeight: '700', textDecoration: 'none', color: isActive('/orders') ? 'var(--blue)' : 'var(--text)' }}>Orders</Link>
-                        <Link href="/subscription" style={{ fontSize: '18px', fontWeight: '700', textDecoration: 'none', color: isActive('/subscription') ? 'var(--blue)' : 'var(--text)' }}>Subscription</Link>
+                        <Link href="/subscription" style={{ fontSize: '18px', fontWeight: '700', textDecoration: 'none', color: isActive('/subscription') ? 'var(--blue)' : 'var(--text)' }}>RexyCore Cloud</Link>
                         <button
                             onClick={handleLogout}
                             style={{

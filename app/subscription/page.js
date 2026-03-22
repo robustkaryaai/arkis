@@ -15,6 +15,8 @@ import {
     AiOutlineClose,
     AiOutlineClockCircle,
     AiOutlineDatabase,
+    AiOutlineUser,
+    AiOutlineLink,
 } from 'react-icons/ai';
 import { getProfile } from '@/lib/api';
 
@@ -234,16 +236,36 @@ const PLANS = [
     },
 ];
 
+const TIER_INDEX_TO_PLAN = { 0: 'free', 1: 'student', 2: 'creator', 3: 'pro', 4: 'studio' };
+
+function normalizeActivePlanId(subRow) {
+    if (!subRow) return 'free';
+    const raw = subRow.planId ?? subRow.plan ?? subRow.tier ?? subRow.packageId;
+    if (raw == null || raw === '') return 'free';
+    if (typeof raw === 'string') {
+        const k = raw.toLowerCase().replace(/\s/g, '');
+        if (['free', 'student', 'creator', 'pro', 'studio', 'trial'].includes(k)) return k;
+    }
+    const n = Number(raw);
+    if (!Number.isNaN(n) && TIER_INDEX_TO_PLAN[n] !== undefined) return TIER_INDEX_TO_PLAN[n];
+    return 'free';
+}
+
+function trialLinkedActive(trials) {
+    if (!Array.isArray(trials) || trials.length === 0) return false;
+    const end = trials[0].trialEnd;
+    if (!end) return false;
+    return new Date(end).getTime() > Date.now();
+}
+
 /* ── Plan Card ──────────────────────────────────────────────────── */
-function PlanCard({ plan, currentTierId, onAction, isSaving, idx }) {
-    // In rexycore-website we match by id or tier number based on what getProfile returns.
-    // For simplicity, assumed currentTierId effectively defaults to 'free' or 0
-    const isActive = plan.id === currentTierId || plan.tier === currentTierId;
+function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) {
     const isTrial = plan.type === 'trial';
     const isWaitlist = plan.type === 'waitlist';
+    const isActive = isTrial ? trialActive : !trialActive && plan.id === activePlanId;
 
     const btnLabel = isActive
-        ? 'CURRENT PLAN'
+        ? (isTrial ? 'TRIAL ACTIVE' : 'CURRENT PLAN')
         : isTrial
         ? isSaving ? 'ACTIVATING...' : 'START FREE TRIAL'
         : isSaving ? 'JOINING...' : `JOIN WAITLIST →`;
@@ -416,6 +438,7 @@ export default function Subscription() {
     const router = useRouter();
 
     const [subRow, setSubRow] = useState(null);
+    const [linkedTrials, setLinkedTrials] = useState([]);
     const [subLoading, setSubLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
     
@@ -436,6 +459,7 @@ export default function Subscription() {
                 const res = await getProfile(user.$id || user.id);
                 const row = Array.isArray(res?.subscriptions) && res.subscriptions.length > 0 ? res.subscriptions[0] : null;
                 setSubRow(row);
+                setLinkedTrials(Array.isArray(res?.trials) ? res.trials : []);
             } catch (_) {
                 setSubRow(null);
             } finally {
@@ -446,8 +470,13 @@ export default function Subscription() {
         if (isLoaded && isSignedIn) load();
     }, [isLoaded, isSignedIn, router, user]);
 
-    // Use planId if exists, otherwise assume 0/'free'
-    const currentTierId = subRow?.planId || 0;
+    const trialActive = trialLinkedActive(linkedTrials);
+    const activePlanId = normalizeActivePlanId(subRow);
+    const activePlanSummary = PLANS.find((p) => {
+        if (trialActive && p.type === 'trial') return true;
+        if (!trialActive && p.id === activePlanId) return true;
+        return false;
+    }) || PLANS.find((p) => p.id === 'free');
 
     const handleAction = (plan) => {
         if (plan.type === 'trial') { handleTrial(); return; }
@@ -531,13 +560,97 @@ export default function Subscription() {
                             letterSpacing: '2px', marginBottom: '4px',
                             textShadow: '0 0 30px #4f9cf988', textTransform: 'uppercase'
                         }}>
-                            Matrix Tiers
+                            REXYCORE CLOUD
                         </h1>
                         <p style={{ fontSize: '11px', color: '#666', fontWeight: '800', letterSpacing: '2px' }}>
-                            SUBSCRIPTION HUB
+                            MATRIX TIERS · PRICING & ACCESS
                         </p>
                     </div>
                 </header>
+
+                {/* ── Account + device slug (RK Home app) ── */}
+                <motion.section
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    style={{
+                        marginBottom: '28px',
+                        padding: '20px 22px',
+                        borderRadius: '18px',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        background: 'rgba(79,156,249,0.06)',
+                        display: 'grid',
+                        gap: '14px',
+                    }}
+                >
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <AiOutlineUser size={22} color="#4f9cf9" />
+                        <div>
+                            <div style={{ fontSize: '11px', fontWeight: '800', color: '#666', letterSpacing: '1px' }}>SIGNED IN</div>
+                            <div style={{ fontSize: '15px', fontWeight: '700', color: '#fff' }}>{user.email || user.name || user.$id}</div>
+                        </div>
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'center' }}>
+                        <Link
+                            href="/profile"
+                            style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '8px',
+                                padding: '10px 18px',
+                                borderRadius: '12px',
+                                background: 'rgba(255,255,255,0.06)',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                color: '#4f9cf9',
+                                fontWeight: '800',
+                                fontSize: '13px',
+                                textDecoration: 'none',
+                            }}
+                        >
+                            <AiOutlineLink size={16} />
+                            Account & orders
+                        </Link>
+                    </div>
+                    <p style={{ margin: 0, fontSize: '12px', color: '#888', lineHeight: 1.55 }}>
+                        RK AI Home uses your <strong style={{ color: '#fff' }}>device slug</strong> (9 digits) from the mobile app after you connect the Pi. Open{' '}
+                        <strong style={{ color: '#fff' }}>RK Home → Connect</strong> to link; billing and limits follow that device.
+                    </p>
+                    {linkedTrials[0]?.deviceSlug && (
+                        <p style={{ margin: 0, fontSize: '12px', color: '#aaa' }}>
+                            Linked slug from trial:{' '}
+                            <code style={{ color: '#00ff9d', fontWeight: '700' }}>{linkedTrials[0].deviceSlug}</code>
+                        </p>
+                    )}
+                </motion.section>
+
+                {/* ── Active tier summary ── */}
+                {activePlanSummary && (
+                    <motion.section
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.05 }}
+                        style={{
+                            marginBottom: '28px',
+                            padding: '22px 24px',
+                            borderRadius: '18px',
+                            border: `1px solid ${activePlanSummary.glowColor}44`,
+                            background: `linear-gradient(145deg, ${activePlanSummary.glowColor}14, rgba(0,0,0,0) 55%)`,
+                        }}
+                    >
+                        <div style={{ fontSize: '10px', fontWeight: '900', letterSpacing: '2px', color: activePlanSummary.glowColor, marginBottom: '8px' }}>
+                            YOUR ACTIVE TIER
+                        </div>
+                        <h2 style={{ margin: '0 0 6px', fontSize: '22px', fontWeight: '900', color: '#fff' }}>{activePlanSummary.name}</h2>
+                        <p style={{ margin: '0 0 16px', fontSize: '12px', color: '#999' }}>{activePlanSummary.tagline}</p>
+                        <ul style={{ listStyle: 'none', margin: 0, padding: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            {activePlanSummary.features.map((f, i) => (
+                                <li key={i} style={{ display: 'flex', gap: '10px', fontSize: '13px', color: '#ccc' }}>
+                                    <AiOutlineCheck size={16} color={activePlanSummary.glowColor} style={{ flexShrink: 0, marginTop: 2 }} />
+                                    {f}
+                                </li>
+                            ))}
+                        </ul>
+                    </motion.section>
+                )}
 
                 {/* ── Early-access notice ── */}
                 <motion.div
@@ -563,7 +676,8 @@ export default function Subscription() {
                         <PlanCard
                             key={plan.id}
                             plan={plan}
-                            currentTierId={currentTierId}
+                            activePlanId={activePlanId}
+                            trialActive={trialActive}
                             onAction={handleAction}
                             isSaving={isSaving}
                             idx={idx}

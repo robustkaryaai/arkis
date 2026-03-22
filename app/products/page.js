@@ -8,51 +8,55 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
-// ─── Tier data (matches rk-main subscription page) ─────────────────────────
+// ─── RexyCore Cloud / Matrix tiers (aligned with rexycore-website /subscription) ──
 const plans = [
     {
-        emoji: '🆓', name: 'Free', color: '#9333ea',
-        price: '₹0', period: '/mo', desc: 'Personal exploration & testing.',
-        storage: '50 MB', videos: 'No videos',
-        features: ['Voice chat + wake word', 'Any local Ollama model', 'Music playback', '50 MB storage'],
-        locked: ['Video generation', 'PPT / DOCX gen', 'AI image generation'],
-        cta: 'Download Free', href: '/#download', ghost: true,
+        emoji: '🆓', name: 'FREE AGENT', color: '#888888',
+        price: '₹0', period: '/mo', desc: 'Enter the matrix.',
+        storage: '50 MB', videos: '1 AI video / week (5 sec)',
+        features: ['Voice chat + wake word', '1 AI Video / week (5 sec)', '24h data retention', 'Basic matrix commands'],
+        locked: ['Higher storage', 'Priority processing'],
+        cta: 'Open RexyCore Cloud', href: '/subscription', ghost: true,
     },
     {
-        emoji: '🟢', name: 'Student', color: '#4caf50',
-        price: '₹149', period: '/mo', desc: 'Students & Assignments.',
-        storage: '5 GB', videos: 'No videos',
-        features: ['5 GB storage', 'Unlimited text documents', 'PPT & DOCX generation', 'Priority support'],
-        locked: ['AI video generation'],
-        cta: 'Get Student Plan',
-        href: 'https://rexycore.vercel.app/waitlist'
-    },
-    {
-        emoji: '🔵', name: 'Creator', color: '#2196f3', featured: true,
-        price: '₹299', period: '/mo', desc: 'Content Creators.',
-        storage: '20 GB', videos: '2 videos/mo',
-        features: ['20 GB storage', '2 AI videos/month', 'Thumbnail generation', 'All document types', 'Advanced AI'],
+        emoji: '⚡', name: '7-DAY TRIAL', color: '#00ff9d',
+        price: '₹0', period: '/ 7 days', desc: 'Full access. Zero cost.',
+        storage: '500 MB', videos: '10 AI videos / day (trial)',
+        features: ['Everything in FREE', 'Unlimited AI images (7d)', '10 AI videos / day', '500 MB cloud', 'Priority processing'],
         locked: [],
-        cta: 'Get Creator Plan',
-        href: 'https://rexycore.vercel.app/waitlist'
+        cta: 'Start in app', href: '/subscription',
     },
     {
-        emoji: '🟣', name: 'Pro', color: '#9c27b0',
-        price: '₹599', period: '/mo', desc: 'Power Users & Pros.',
-        storage: '50 GB', videos: '10 videos/mo',
-        features: ['50 GB storage', '10 AI videos/month', 'Unlimited documents', 'Priority processing', 'API access'],
+        emoji: '🟢', name: 'STUDENT NODE', color: '#4f9cf9',
+        price: '₹151', period: '/mo', desc: 'Learn. Build. Dominate.',
+        storage: '500 MB', videos: '2 AI videos / week (5 sec)',
+        features: ['Everything in FREE', '2 AI Videos / week (5 sec)', '36h retention', 'Homework AI Buddy', 'Drive integration', 'Lifetime ₹151/mo locked'],
         locked: [],
-        cta: 'Get Pro Plan',
-        href: 'https://rexycore.vercel.app/waitlist'
+        cta: 'Join waitlist', href: '/subscription',
     },
     {
-        emoji: '🔴', name: 'Studio', color: '#f44336',
-        price: '₹999', period: '/mo', desc: 'Studios & Schools.',
-        storage: '120 GB', videos: '30 videos/mo',
-        features: ['120 GB storage', '30 AI videos/month', 'Team collaboration', 'White-label', 'Dedicated support'],
+        emoji: '🔵', name: 'CREATOR PROTOCOL', color: '#ff8500', featured: true,
+        price: '₹451', period: '/mo', desc: 'Create. Inspire. Expand.',
+        storage: '2 GB', videos: '3 AI videos / week (10 sec)',
+        features: ['Everything in STUDENT', '3 AI Videos / week (10 sec)', '5 days retention', 'LTX-2 Fast', 'Viral thumbnails', '2 GB cloud', 'Lifetime ₹451/mo locked'],
         locked: [],
-        cta: 'Get Studio Plan',
-        href: 'https://rexycore.vercel.app/waitlist'
+        cta: 'Join waitlist', href: '/subscription',
+    },
+    {
+        emoji: '🟣', name: 'PRO OPERATIVE', color: '#9b59f5',
+        price: '₹951', period: '/mo', desc: 'Unlimited. Unstoppable.',
+        storage: '5 GB', videos: '3 AI videos / week (2K Pro)',
+        features: ['Everything in CREATOR', '3 AI Videos / week (2K Pro)', '7 days retention', 'Custom voice (rk-voice)', 'Personalized files', '5 GB cloud', 'Lifetime ₹951/mo locked'],
+        locked: [],
+        cta: 'Join waitlist', href: '/subscription',
+    },
+    {
+        emoji: '🔴', name: 'STUDIO MATRIX', color: '#e8305f',
+        price: '₹1601', period: '/mo', desc: 'The ultimate AI arsenal.',
+        storage: '10 GB', videos: '3 AI videos / week (4K Pro)',
+        features: ['Everything in PRO', '3 AI Videos / week (4K Pro)', '2 weeks retention', 'Multi-character scenes', 'Best model tier (4K+)', '10 GB cloud', 'Lifetime ₹1601/mo locked'],
+        locked: [],
+        cta: 'Join waitlist', href: '/subscription',
     },
 ];
 
@@ -236,8 +240,8 @@ function TierModal({ onClose }) {
             <div style={{ width: '100%', maxWidth: '1000px' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                     <div>
-                        <h2 style={{ fontSize: '32px', fontWeight: '800' }}>🎙️ Rexycore Home Assistant — Plans</h2>
-                        <p style={{ color: 'var(--muted)', marginTop: '6px' }}>Choose the plan that's right for you.</p>
+                        <h2 style={{ fontSize: '32px', fontWeight: '800' }}>☁️ RexyCore Cloud — Matrix tiers</h2>
+                        <p style={{ color: 'var(--muted)', marginTop: '6px' }}>Same plans as the subscription hub. RK Home billing is tied to your linked device in the app.</p>
                     </div>
                     <button onClick={onClose} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '50%', width: '44px', height: '44px', color: 'var(--text)', cursor: 'pointer', fontSize: '18px', fontFamily: 'inherit' }}>✕</button>
                 </div>
@@ -350,15 +354,15 @@ const products = [
         id: 'cloud',
         icon: '☁️',
         category: 'Rexycore Ecosystem',
-        name: 'Rexycore Cloud',
-        desc: 'The backbone of your AI experience. Securely sync your preferences and manage your subscriptions.',
-        tags: ['Cloud AI', 'Sync', 'Live'],
+        name: 'RexyCore Cloud',
+        desc: 'Matrix tiers for RK AI — storage, video caps, and cloud features. View your active plan, waitlist, and account on the subscription hub.',
+        tags: ['Cloud AI', 'Matrix tiers', 'Live'],
         accentColor: '#0ea5e9',
         accentColor2: '#38bdf8',
         badge: 'Live',
         badgeColor: 'linear-gradient(135deg, #0ea5e9, #38bdf8)',
-        cta: 'Manage Tiers',
-        href: '/tiers',
+        cta: 'RexyCore Cloud',
+        href: '/subscription',
         isModal: false,
         comingSoon: false,
     },
