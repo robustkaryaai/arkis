@@ -18,7 +18,7 @@ import {
     AiOutlineUser,
     AiOutlineLink,
 } from 'react-icons/ai';
-import { getProfile } from '@/lib/api';
+import { getProfile, getWaitlistSlots } from '@/lib/api';
 
 /* ── Matrix Rain Canvas ─────────────────────────────────────────── */
 function MatrixRain({ color = '#00ff9d', opacity = 0.08 }) {
@@ -114,7 +114,7 @@ const PLANS = [
         badge: 'LIMITED',
         quote: '"Take the green pill. See how deep the matrix goes."',
         storage: '500 MB',
-        slots: '100 trials remaining',
+        slots: null,
         discount: null,
         type: 'trial',
         features: [
@@ -140,7 +140,7 @@ const PLANS = [
         badge: 'WAITLIST • 40% OFF',
         quote: '"The matrix rewards those who seek knowledge relentlessly."',
         storage: '500 MB',
-        slots: '43 slots left',
+        slots: null,
         discount: '₹249',
         type: 'waitlist',
         features: [
@@ -166,7 +166,7 @@ const PLANS = [
         badge: 'WAITLIST • 25% OFF',
         quote: '"Imagination is the only weapon in the war against reality."',
         storage: '2 GB',
-        slots: '28 slots left',
+        slots: null,
         discount: '₹599',
         type: 'waitlist',
         features: [
@@ -193,7 +193,7 @@ const PLANS = [
         badge: 'WAITLIST • 27% OFF',
         quote: '"I didn\'t come here to tell you how this is going to end. I came to tell you how it\'s going to begin."',
         storage: '5 GB',
-        slots: '17 slots left',
+        slots: null,
         discount: '₹1299',
         type: 'waitlist',
         popular: true,
@@ -221,7 +221,7 @@ const PLANS = [
         badge: 'WAITLIST • 25% OFF',
         quote: '"We are the architects of our own reality."',
         storage: '10 GB',
-        slots: '5 slots left',
+        slots: null,
         discount: '₹2199',
         type: 'waitlist',
         features: [
@@ -259,10 +259,15 @@ function trialLinkedActive(trials) {
 }
 
 /* ── Plan Card ──────────────────────────────────────────────────── */
-function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) {
+function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dynamicSlots, slotsReady }) {
     const isTrial = plan.type === 'trial';
     const isWaitlist = plan.type === 'waitlist';
     const isActive = isTrial ? trialActive : !trialActive && plan.id === activePlanId;
+    const slotsText = !slotsReady
+        ? 'Checking live slots...'
+        : typeof dynamicSlots === 'number'
+            ? `${dynamicSlots} price-lock slots left`
+            : plan.slots;
 
     const btnLabel = isActive
         ? (isTrial ? 'TRIAL ACTIVE' : 'CURRENT PLAN')
@@ -315,7 +320,7 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
                 </div>
             )}
 
-            {plan.slots && !isActive && (
+            {slotsText && !isActive && (
                 <div style={{
                     position: 'absolute', top: '16px', right: '16px',
                     fontSize: '9px', fontWeight: '900', letterSpacing: '1px',
@@ -326,7 +331,7 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
                         borderRadius: '50%', background: plan.glowColor,
                         animation: 'pulse 1.5s infinite',
                     }} />
-                    {plan.slots}
+                    {slotsText}
                 </div>
             )}
 
@@ -441,6 +446,14 @@ export default function Subscription() {
     const [linkedTrials, setLinkedTrials] = useState([]);
     const [subLoading, setSubLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
+    const [realSlots, setRealSlots] = useState({
+        trial: null,
+        student: null,
+        creator: null,
+        pro: null,
+        studio: null,
+    });
+    const [slotsReady, setSlotsReady] = useState(false);
     
     // Modal state
     const [showSurvey, setShowSurvey] = useState(false);
@@ -469,6 +482,31 @@ export default function Subscription() {
 
         if (isLoaded && isSignedIn) load();
     }, [isLoaded, isSignedIn, router, user]);
+
+    useEffect(() => {
+        if (!isLoaded || !isSignedIn) return;
+        let cancelled = false;
+        const loadSlots = async () => {
+            try {
+                const S = await getWaitlistSlots();
+                if (cancelled || !S?.remaining) return;
+                setRealSlots({
+                            trial: S.remaining.trial ?? 100,
+                            student: S.remaining.student ?? 100,
+                            creator: S.remaining.creator ?? 50,
+                            pro: S.remaining.pro ?? 25,
+                            studio: S.remaining.studio ?? 5
+                });
+            } catch (err) {
+                console.warn('[Subscription] Failed to load live slots:', err);
+            } finally {
+                if (!cancelled) setSlotsReady(true);
+            }
+        };
+
+        loadSlots();
+        return () => { cancelled = true; };
+    }, [isLoaded, isSignedIn]);
 
     const trialActive = trialLinkedActive(linkedTrials);
     const activePlanId = normalizeActivePlanId(subRow);
@@ -674,14 +712,28 @@ export default function Subscription() {
                     {PLANS.map((plan, idx) => (
                         <PlanCard
                             key={plan.id}
-                            plan={plan}
-                            activePlanId={activePlanId}
-                            trialActive={trialActive}
-                            onAction={handleAction}
-                            isSaving={isSaving}
-                            idx={idx}
-                        />
-                    ))}
+                        plan={plan}
+                        activePlanId={activePlanId}
+                        trialActive={trialActive}
+                        onAction={handleAction}
+                        isSaving={isSaving}
+                        idx={idx}
+                        dynamicSlots={
+                            plan.id === 'trial'
+                                ? realSlots.trial
+                                : plan.id === 'student'
+                                    ? realSlots.student
+                                    : plan.id === 'creator'
+                                        ? realSlots.creator
+                                        : plan.id === 'pro'
+                                            ? realSlots.pro
+                                            : plan.id === 'studio'
+                                                ? realSlots.studio
+                                                : null
+                        }
+                        slotsReady={slotsReady}
+                    />
+                ))}
                 </div>
 
                 {/* ── Enterprise section ── */}
