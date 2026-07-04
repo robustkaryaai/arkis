@@ -1,9 +1,20 @@
 'use client';
 
-import { useEffect, useState, Suspense } from 'react';
+import { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { AiOutlineCheck, AiOutlineArrowLeft } from 'react-icons/ai';
 import { PLANS } from '@/lib/plans';
+
+/* ── per-plan colour palette ── */
+function getPalette(id, color, accent) {
+    const palettes = {
+        free:    { c1: '#94a3b8', c2: '#64748b', c3: '#475569', c4: '#334155' },
+        pro:     { c1: '#34d399', c2: '#10b981', c3: '#059669', c4: '#047857' },
+        elite:   { c1: '#c4b5fd', c2: '#a78bfa', c3: '#8b5cf6', c4: '#6d28d9' },
+        quantum: { c1: '#fb7185', c2: '#f43f5e', c3: '#e11d48', c4: '#be123c' },
+    };
+    return palettes[id] || { c1: accent || color, c2: color, c3: color, c4: color };
+}
 
 function PaymentPageContent() {
     const searchParams = useSearchParams();
@@ -26,12 +37,13 @@ function PaymentPageContent() {
     const redirectUri = searchParams.get('redirect_uri') || 'rk-ai://payment-success';
     const BASE = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://rk-ai-backend.onrender.com';
 
+    const pal = getPalette(activePlan.id, activePlan.color, activePlan.accentColor);
+
     const handleCardNumberChange = (e) => {
         let v = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
         v = v.replace(/(\d{4})(?=\d)/g, '$1 ').slice(0, 19);
         setCardNumber(v);
     };
-
     const handleExpiryChange = (e) => {
         let v = e.target.value.replace(/\D/g, '');
         if (v.length >= 2) v = v.slice(0, 2) + '/' + v.slice(2, 4);
@@ -41,23 +53,20 @@ function PaymentPageContent() {
     const triggerConfetti = () => {
         const container = document.getElementById('confetti-container');
         if (!container) return;
-        const colors = [activePlan.color, '#fff', '#000'];
+        const colors = [activePlan.color, '#fff', pal.c1];
         for (let i = 0; i < 120; i++) {
             const el = document.createElement('div');
             el.style.cssText = `
-                position: absolute;
-                width: 8px;
-                height: ${Math.random() > 0.5 ? '8px' : '16px'};
-                background: ${colors[Math.floor(Math.random() * colors.length)]};
-                border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
-                left: ${Math.random() * 100}vw;
-                top: -20px;
-                animation-delay: ${Math.random() * 0.5}s;
-                animation-duration: ${Math.random() * 2 + 2}s;
-                animation-name: fall;
-                animation-fill-mode: forwards;
-                animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                opacity: ${Math.random() * 0.5 + 0.5};
+                position:absolute; width:8px;
+                height:${Math.random() > 0.5 ? '8px' : '16px'};
+                background:${colors[Math.floor(Math.random() * colors.length)]};
+                border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+                left:${Math.random() * 100}vw; top:-20px;
+                animation-delay:${Math.random() * 0.5}s;
+                animation-duration:${Math.random() * 2 + 2}s;
+                animation-name:fall; animation-fill-mode:forwards;
+                animation-timing-function:cubic-bezier(0.25,0.46,0.45,0.94);
+                opacity:${Math.random() * 0.5 + 0.5};
             `;
             container.appendChild(el);
             setTimeout(() => el.remove(), 5000);
@@ -99,476 +108,482 @@ function PaymentPageContent() {
         }
     };
 
-    const c      = activePlan.color;
-    const a1     = activePlan.accentColor || c;
-    const aurora2 = activePlan.id === 'pro'     ? '#6366f1'
-                  : activePlan.id === 'elite'   ? '#f43f5e'
-                  : activePlan.id === 'quantum'  ? '#8b5cf6'
-                  :                               '#10b981';
-    const aurora3 = activePlan.id === 'pro'     ? '#f59e0b'
-                  : activePlan.id === 'elite'   ? '#06b6d4'
-                  : activePlan.id === 'quantum'  ? '#f59e0b'
-                  :                               '#3b82f6';
+    /* Gradient string for static plan-tinted text */
+    const textGrad = `linear-gradient(135deg, ${pal.c1} 0%, ${pal.c2} 40%, ${pal.c3} 70%, ${pal.c4} 100%)`;
 
     return (
         <>
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
                 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-                body { font-family: 'Inter', system-ui, sans-serif; background: #06060e; color: #fff; overflow-x: hidden; }
+                body {
+                    font-family: 'Inter', system-ui, sans-serif;
+                    background: #06060e; color: #fff; overflow-x: hidden;
+                }
 
+                /* ── Keyframes ── */
                 @keyframes fall {
-                    0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
-                    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+                    0%   { transform: translateY(0) rotate(0deg); opacity:1; }
+                    100% { transform: translateY(110vh) rotate(720deg); opacity:0; }
                 }
                 @keyframes spinFast { to { transform: rotate(360deg); } }
                 @keyframes floatUp {
-                    from { transform: translateY(20px); opacity: 0; }
-                    to   { transform: translateY(0); opacity: 1; }
-                }
-                @keyframes auroraShift {
-                    0%   { background-position: 0% 50%; }
-                    50%  { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
-                }
-                @keyframes orbDrift1 {
-                    0%   { transform: translate(0,0) scale(1); }
-                    33%  { transform: translate(60px,-40px) scale(1.1); }
-                    66%  { transform: translate(-30px,50px) scale(0.95); }
-                    100% { transform: translate(0,0) scale(1); }
-                }
-                @keyframes orbDrift2 {
-                    0%   { transform: translate(0,0) scale(1); }
-                    33%  { transform: translate(-50px,30px) scale(1.08); }
-                    66%  { transform: translate(40px,-40px) scale(0.92); }
-                    100% { transform: translate(0,0) scale(1); }
-                }
-                @keyframes orbDrift3 {
-                    0%   { transform: translate(0,0) scale(1); }
-                    50%  { transform: translate(30px,60px) scale(1.12); }
-                    100% { transform: translate(0,0) scale(1); }
-                }
-                @keyframes textShimmer {
-                    0%   { background-position: -200% center; }
-                    100% { background-position:  200% center; }
+                    from { transform: translateY(18px); opacity:0; }
+                    to   { transform: translateY(0); opacity:1; }
                 }
                 @keyframes revealRow {
-                    from { opacity: 0; transform: translateX(12px); }
-                    to   { opacity: 1; transform: translateX(0); }
-                }
-                @keyframes pulseDot {
-                    0%, 100% { box-shadow: 0 0 0 0 ${c}66; }
-                    50%       { box-shadow: 0 0 0 5px transparent; }
+                    from { opacity:0; transform:translateY(8px); }
+                    to   { opacity:1; transform:translateY(0); }
                 }
 
-                .tri-layout {
-                    display: grid;
-                    grid-template-columns: 1fr 460px 1fr;
-                    min-height: 100vh;
-                    position: relative;
-                    overflow: hidden;
+                /* ── Fluid blob morphing ── */
+                @keyframes blob1 {
+                    0%   { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate(0,0) scale(1); }
+                    20%  { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: translate(40px,-30px) scale(1.05); }
+                    40%  { border-radius: 70% 30% 50% 50% / 30% 70% 60% 40%; transform: translate(-20px,50px) scale(0.95); }
+                    60%  { border-radius: 40% 60% 30% 70% / 70% 30% 50% 50%; transform: translate(50px,20px) scale(1.08); }
+                    80%  { border-radius: 50% 40% 60% 30% / 40% 60% 30% 70%; transform: translate(-30px,-20px) scale(0.98); }
+                    100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate(0,0) scale(1); }
+                }
+                @keyframes blob2 {
+                    0%   { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0,0) scale(1); }
+                    25%  { border-radius: 70% 30% 40% 60% / 60% 40% 50% 40%; transform: translate(-40px,30px) scale(1.06); }
+                    50%  { border-radius: 30% 70% 60% 40% / 50% 60% 40% 60%; transform: translate(30px,-50px) scale(0.94); }
+                    75%  { border-radius: 60% 40% 30% 70% / 30% 60% 70% 40%; transform: translate(-20px,40px) scale(1.03); }
+                    100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: translate(0,0) scale(1); }
+                }
+                @keyframes blob3 {
+                    0%   { border-radius: 50% 50% 60% 40% / 60% 40% 50% 50%; transform: translate(0,0) scale(1); }
+                    33%  { border-radius: 30% 70% 40% 60% / 50% 60% 30% 70%; transform: translate(60px,30px) scale(1.1); }
+                    66%  { border-radius: 70% 30% 60% 40% / 40% 50% 70% 30%; transform: translate(-40px,-40px) scale(0.9); }
+                    100% { border-radius: 50% 50% 60% 40% / 60% 40% 50% 50%; transform: translate(0,0) scale(1); }
+                }
+                @keyframes blob4 {
+                    0%   { border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%; transform: translate(0,0) scale(1); }
+                    30%  { border-radius: 40% 60% 30% 70% / 70% 30% 60% 40%; transform: translate(-50px,20px) scale(1.07); }
+                    60%  { border-radius: 70% 30% 70% 30% / 30% 70% 40% 60%; transform: translate(30px,-40px) scale(0.93); }
+                    100% { border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%; transform: translate(0,0) scale(1); }
+                }
+
+                /* ── Layout ── */
+                .page-root {
+                    position: relative; min-height: 100vh; overflow-x: hidden;
                     background: #06060e;
                 }
-                .aurora-bg {
-                    position: fixed; inset: 0;
-                    pointer-events: none; z-index: 0; overflow: hidden;
-                }
-                .aurora-mesh {
-                    position: absolute; top: 0; left: 0; right: 0; height: 3px;
-                    background: linear-gradient(90deg, ${c}, ${aurora2}, ${aurora3}, ${a1}, ${c});
-                    background-size: 400% 100%;
-                    animation: auroraShift 6s linear infinite;
-                    opacity: 0.9;
-                }
-                .aurora-orb {
-                    position: absolute; border-radius: 50%;
-                    filter: blur(120px); mix-blend-mode: screen;
-                }
-                .ao1 { width:700px; height:700px; background:${c};      opacity:0.13; top:-200px;  left:-150px;  animation: orbDrift1 14s ease-in-out infinite; }
-                .ao2 { width:600px; height:600px; background:${aurora2}; opacity:0.10; top:30%;    right:-200px; animation: orbDrift2 18s ease-in-out infinite; }
-                .ao3 { width:500px; height:500px; background:${aurora3}; opacity:0.09; bottom:-150px; left:30%;  animation: orbDrift3 22s ease-in-out infinite; }
-                .ao4 { width:400px; height:400px; background:${a1};      opacity:0.08; bottom:10%; right:10%;    animation: orbDrift1 26s ease-in-out infinite reverse; }
 
-                .col-video {
+                /* Fixed fluid blobs layer */
+                .fluid-bg {
+                    position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+                }
+                .blob {
+                    position: absolute; filter: blur(90px); opacity: 0.18;
+                }
+                .blob-1 {
+                    width: 600px; height: 600px; background: ${pal.c2};
+                    top: -150px; left: -100px;
+                    animation: blob1 18s ease-in-out infinite;
+                }
+                .blob-2 {
+                    width: 500px; height: 500px; background: ${pal.c4};
+                    top: 40%; right: -150px;
+                    animation: blob2 22s ease-in-out infinite;
+                }
+                .blob-3 {
+                    width: 450px; height: 450px; background: ${pal.c1};
+                    bottom: -100px; left: 30%;
+                    animation: blob3 26s ease-in-out infinite;
+                }
+                .blob-4 {
+                    width: 350px; height: 350px; background: ${pal.c3};
+                    top: 20%; left: 40%;
+                    animation: blob4 20s ease-in-out infinite;
+                }
+
+                /* Top-row: video left / payment right */
+                .top-row {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    min-height: 100vh;
                     position: relative; z-index: 2;
+                }
+
+                /* Video column */
+                .col-video {
                     display: flex; flex-direction: column;
                     justify-content: center; align-items: flex-end;
-                    padding: 80px 40px 80px 60px;
-                    border-right: 1px solid rgba(255,255,255,0.04);
-                }
-                .col-payment {
-                    position: relative; z-index: 2;
-                    display: flex; align-items: center; justify-content: center;
-                    padding: 40px 24px;
-                }
-                .col-features {
-                    position: relative; z-index: 2;
-                    display: flex; flex-direction: column;
-                    justify-content: center;
-                    padding: 80px 60px 80px 40px;
-                    border-left: 1px solid rgba(255,255,255,0.04);
-                    overflow-y: auto;
+                    padding: 80px 48px 60px 60px;
+                    border-right: 1px solid rgba(255,255,255,0.05);
                 }
 
+                /* Payment column */
+                .col-payment {
+                    display: flex; align-items: center; justify-content: center;
+                    padding: 80px 60px 60px 48px;
+                }
+
+                /* Video mockup */
                 .mockup-frame {
-                    width: 100%; max-width: 480px; aspect-ratio: 16/10;
-                    background: #000; border: 6px solid #1c1c28; border-radius: 14px;
-                    box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.06), 0 0 80px ${c}20;
+                    width: 100%; max-width: 520px; aspect-ratio: 16/10;
+                    background: rgba(0,0,0,0.6);
+                    border: 1px solid rgba(255,255,255,0.08);
+                    border-radius: 16px;
+                    box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04), 0 0 60px ${pal.c3}25;
                     display: flex; align-items: center; justify-content: center;
                     overflow: hidden; position: relative;
                 }
                 .mockup-frame::before {
                     content: ''; position: absolute; inset: 0;
-                    background: radial-gradient(circle at 40% 40%, ${c}15, transparent 70%);
+                    background: radial-gradient(circle at 40% 40%, ${pal.c3}18, transparent 65%);
                 }
 
+                /* Glass card */
                 .glass-card {
                     width: 100%; max-width: 440px;
-                    background: rgba(14, 14, 22, 0.55);
+                    background: rgba(12, 12, 20, 0.6);
                     border: 1px solid rgba(255,255,255,0.07);
-                    border-top: 1px solid rgba(255,255,255,0.12);
+                    border-top: 1px solid rgba(255,255,255,0.13);
                     border-radius: 28px; padding: 44px 40px;
-                    backdrop-filter: blur(48px); -webkit-backdrop-filter: blur(48px);
-                    box-shadow: 0 40px 80px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 60px ${c}15;
+                    backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
+                    box-shadow:
+                        0 40px 80px rgba(0,0,0,0.7),
+                        inset 0 1px 0 rgba(255,255,255,0.1),
+                        0 0 60px ${pal.c3}18;
                     position: relative; z-index: 10;
-                    animation: floatUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+                    animation: floatUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
                 }
 
-                .shimmer-text {
-                    background: linear-gradient(90deg, rgba(255,255,255,0.9) 0%, ${c} 40%, rgba(255,255,255,0.9) 60%, ${aurora2}cc 100%);
-                    background-size: 200% auto;
+                /* Static plan-tinted gradient text */
+                .plan-gradient-text {
+                    background: ${textGrad};
                     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
                     background-clip: text;
-                    animation: textShimmer 3.5s linear infinite;
-                }
-                .shimmer-label {
-                    background: linear-gradient(90deg, rgba(255,255,255,0.5) 0%, ${c}cc 50%, rgba(255,255,255,0.5) 100%);
-                    background-size: 200% auto;
-                    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-                    background-clip: text;
-                    animation: textShimmer 4s linear infinite;
                 }
 
+                /* Inputs */
                 .input-wrapper { position: relative; margin-bottom: 22px; }
                 .floating-label {
                     position: absolute; left: 16px; top: 18px;
                     font-size: 14px; color: rgba(255,255,255,0.35);
                     pointer-events: none;
-                    transition: all 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+                    transition: all 0.2s cubic-bezier(0.25,1,0.5,1);
                 }
                 .premium-input {
-                    width: 100%; background: rgba(0,0,0,0.35);
+                    width: 100%; background: rgba(0,0,0,0.4);
                     border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
                     padding: 24px 16px 10px 16px; font-size: 15px; color: #fff;
                     font-weight: 500; font-family: 'Inter', system-ui, sans-serif;
                     transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
-                    box-shadow: inset 0 2px 6px rgba(0,0,0,0.25);
+                    box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
                     outline: none; -webkit-appearance: none;
                 }
-                .premium-input:focus, .premium-input.has-val {
-                    border-color: ${c}88;
-                }
+                .premium-input:focus, .premium-input.has-val { border-color: ${pal.c3}99; }
                 .premium-input:focus {
                     background: rgba(255,255,255,0.02);
-                    box-shadow: 0 0 0 2px ${c}33, inset 0 2px 6px rgba(0,0,0,0.25);
+                    box-shadow: 0 0 0 2px ${pal.c3}40, inset 0 2px 6px rgba(0,0,0,0.3);
                 }
                 .premium-input:focus + .floating-label,
                 .premium-input.has-val + .floating-label {
-                    top: 7px; font-size: 10px; color: ${c}; font-weight: 700; letter-spacing: 0.6px;
+                    top: 7px; font-size: 10px; color: ${pal.c2}; font-weight: 700; letter-spacing: 0.6px;
                 }
                 .premium-input::placeholder { color: transparent; }
 
-                .feat-section-title {
-                    font-size: 10px; font-weight: 900; letter-spacing: 2.5px;
-                    text-transform: uppercase; margin-bottom: 14px;
-                    margin-top: 28px; padding-bottom: 8px;
-                    border-bottom: 1px solid ${c}22;
-                    display: block;
-                }
-                .feature-row {
-                    display: flex; align-items: center; gap: 12px;
-                    margin-bottom: 11px; opacity: 0;
-                    animation: revealRow 0.4s ease forwards;
+                /* ── Bottom feature row ── */
+                .features-row {
+                    position: relative; z-index: 2;
+                    border-top: 1px solid rgba(255,255,255,0.05);
+                    padding: 60px;
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    gap: 48px;
                 }
 
-                @media (max-width: 1100px) {
-                    .tri-layout { grid-template-columns: 1fr; }
-                    .col-video    { display: none; }
-                    .col-features { display: none; }
-                    .col-payment  { min-height: 100vh; padding: 40px 20px; }
-                    .glass-card   { padding: 32px 20px; max-width: 100%; }
+                .feat-col-head {
+                    font-size: 10px; font-weight: 900; letter-spacing: 2.5px;
+                    text-transform: uppercase; margin-bottom: 20px;
+                    padding-bottom: 10px;
+                    border-bottom: 1px solid ${pal.c3}30;
+                }
+                .feature-item {
+                    display: flex; align-items: flex-start; gap: 10px;
+                    margin-bottom: 12px; opacity: 0;
+                    animation: revealRow 0.35s ease forwards;
+                }
+
+                @media (max-width: 900px) {
+                    .top-row { grid-template-columns: 1fr; }
+                    .col-video { display: none; }
+                    .col-payment { min-height: 100vh; padding: 40px 20px; }
+                    .glass-card { padding: 32px 20px; max-width: 100%; }
+                    .features-row { grid-template-columns: 1fr; padding: 40px 24px; }
                 }
             `}</style>
 
             <div id="confetti-container" style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 9999 }} />
 
-            <div className="aurora-bg">
-                <div className="aurora-mesh" />
-                <div className="aurora-orb ao1" />
-                <div className="aurora-orb ao2" />
-                <div className="aurora-orb ao3" />
-                <div className="aurora-orb ao4" />
+            {/* ── Fluid blob background ── */}
+            <div className="fluid-bg">
+                <div className="blob blob-1" />
+                <div className="blob blob-2" />
+                <div className="blob blob-3" />
+                <div className="blob blob-4" />
             </div>
 
-            <div className="tri-layout">
+            <div className="page-root">
 
-                {/* COL 1: VIDEO */}
-                <div className="col-video">
-                    <button
-                        onClick={() => router.back()}
-                        style={{
-                            position: 'absolute', top: '40px', left: '40px',
-                            background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)',
-                            borderRadius: '50%', width: '44px', height: '44px',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            cursor: 'pointer', color: '#fff', zIndex: 10,
-                            backdropFilter: 'blur(10px)', transition: 'all 0.2s ease'
-                        }}
-                        onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.09)'; e.currentTarget.style.transform = 'scale(1.05)'; }}
-                        onMouseOut={e  => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.transform = 'scale(1)'; }}
-                    >
-                        <AiOutlineArrowLeft size={18} />
-                    </button>
+                {/* ══ TOP ROW: video | payment ══ */}
+                <div className="top-row">
 
-                    <div style={{ width: '100%', maxWidth: '480px' }}>
-                        <div style={{
-                            display: 'inline-flex', alignItems: 'center', gap: '8px',
-                            padding: '4px 12px', borderRadius: '100px',
-                            border: `1px solid ${c}44`, marginBottom: '18px',
-                        }}>
-                            <span style={{
-                                display: 'inline-block', width: '6px', height: '6px',
-                                borderRadius: '50%', background: c,
-                                animation: 'pulseDot 1.8s ease-in-out infinite'
-                            }} />
-                            <span style={{ color: c, fontSize: '10px', fontWeight: '800', letterSpacing: '1.5px' }}>
-                                UPGRADING TO
-                            </span>
-                        </div>
+                    {/* Video column */}
+                    <div className="col-video">
+                        <button
+                            onClick={() => router.back()}
+                            style={{
+                                position: 'absolute', top: '40px', left: '40px',
+                                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)',
+                                borderRadius: '50%', width: '44px', height: '44px',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                cursor: 'pointer', color: '#fff', zIndex: 10,
+                                backdropFilter: 'blur(10px)', transition: 'all 0.2s ease'
+                            }}
+                            onMouseOver={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.09)'; e.currentTarget.style.transform = 'scale(1.06)'; }}
+                            onMouseOut={e  => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.transform = 'scale(1)'; }}
+                        >
+                            <AiOutlineArrowLeft size={18} />
+                        </button>
 
-                        <h1 style={{ fontSize: '52px', fontWeight: '900', letterSpacing: '-1px', lineHeight: 1.05, marginBottom: '14px' }}
-                            className="shimmer-text">
-                            {activePlan.name} Tier
-                        </h1>
-
-                        <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '14px', lineHeight: 1.7, marginBottom: '32px', maxWidth: '380px', fontStyle: 'italic' }}>
-                            {activePlan.quote}
-                        </p>
-
-                        <div className="mockup-frame">
-                            <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
-                                <div style={{
-                                    width: '60px', height: '60px', borderRadius: '50%',
-                                    background: `${c}20`, border: `1px solid ${c}44`,
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                    margin: '0 auto 14px auto', cursor: 'pointer',
-                                    transition: 'all 0.2s ease', boxShadow: `0 0 30px ${c}33`
-                                }}
-                                    onMouseOver={e => { e.currentTarget.style.background = `${c}35`; e.currentTarget.style.transform = 'scale(1.08)'; }}
-                                    onMouseOut={e  => { e.currentTarget.style.background = `${c}20`; e.currentTarget.style.transform = 'scale(1)'; }}
-                                >
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill={c} style={{ marginLeft: '4px' }}>
-                                        <polygon points="5 3 19 12 5 21 5 3" />
-                                    </svg>
-                                </div>
-                                <div style={{ color: 'rgba(255,255,255,0.25)', fontSize: '11px', fontWeight: '700', letterSpacing: '2.5px' }}>
-                                    DEMO VIDEO
-                                </div>
+                        <div style={{ width: '100%', maxWidth: '520px' }}>
+                            {/* Upgrading badge */}
+                            <div style={{
+                                display: 'inline-flex', alignItems: 'center', gap: '8px',
+                                padding: '4px 12px', borderRadius: '100px',
+                                border: `1px solid ${pal.c3}44`, marginBottom: '20px',
+                            }}>
+                                <span style={{
+                                    width: '6px', height: '6px', borderRadius: '50%',
+                                    background: pal.c2, display: 'inline-block'
+                                }} />
+                                <span style={{ color: pal.c2, fontSize: '10px', fontWeight: '800', letterSpacing: '1.5px' }}>
+                                    UPGRADING TO
+                                </span>
                             </div>
-                        </div>
 
-                        <div style={{
-                            marginTop: '28px', padding: '16px 20px', borderRadius: '14px',
-                            background: `${c}0d`, border: `1px solid ${c}22`,
-                            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                        }}>
-                            <div>
-                                <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', fontWeight: '700', letterSpacing: '1px' }}>PLAN</div>
-                                <div style={{ fontSize: '16px', fontWeight: '800', color: c, marginTop: '2px' }}>{activePlan.name}</div>
-                            </div>
-                            <div style={{ textAlign: 'right' }}>
-                                <div style={{ fontSize: '26px', fontWeight: '900', color: '#fff', lineHeight: 1 }}>{activePlan.price}</div>
-                                <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', fontWeight: '600', marginTop: '2px' }}>per month</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                            {/* Plan name — static gradient */}
+                            <h1 style={{
+                                fontSize: '54px', fontWeight: '900', letterSpacing: '-1.5px',
+                                lineHeight: 1.05, marginBottom: '14px',
+                            }} className="plan-gradient-text">
+                                {activePlan.name} Tier
+                            </h1>
 
-                {/* COL 2: PAYMENT */}
-                <div className="col-payment">
-                    <div className="glass-card">
-                        <div style={{ marginBottom: '36px', textAlign: 'center' }}>
-                            <h2 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '6px' }}
-                                className="shimmer-text">
-                                Secure Checkout
-                            </h2>
-                            <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '12px', fontWeight: '600', letterSpacing: '0.5px' }}>
-                                Encrypted via Neural Payment Gateway
+                            <p style={{
+                                color: 'rgba(255,255,255,0.4)', fontSize: '14px',
+                                lineHeight: 1.7, marginBottom: '36px', maxWidth: '400px',
+                                fontStyle: 'italic'
+                            }}>
+                                {activePlan.quote}
                             </p>
-                        </div>
 
-                        <div style={{
-                            display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                            padding: '18px', borderRadius: '14px',
-                            background: `${c}0d`, border: `1px solid ${c}33`,
-                            marginBottom: '30px', boxShadow: `inset 0 0 24px ${c}0a`
-                        }}>
-                            <div>
-                                <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', fontWeight: '700', letterSpacing: '1px', marginBottom: '3px' }}>SUBSCRIPTION</div>
-                                <div style={{ fontSize: '17px', fontWeight: '800', color: c }}>{activePlan.name}</div>
-                            </div>
-                            <div style={{ textAlign: 'right' }}>
-                                <div style={{ fontSize: '22px', fontWeight: '900', color: '#fff' }}>{activePlan.price}</div>
-                                <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', fontWeight: '500' }}>per month</div>
-                            </div>
-                        </div>
-
-                        <form onSubmit={handlePayment}>
-                            <div className="input-wrapper">
-                                <input type="text" className={`premium-input ${name ? 'has-val' : ''}`}
-                                    value={name} onChange={e => setName(e.target.value)}
-                                    disabled={isProcessing} required />
-                                <label className="floating-label">Cardholder Name</label>
-                            </div>
-                            <div className="input-wrapper">
-                                <input type="email" className={`premium-input ${email ? 'has-val' : ''}`}
-                                    value={email} onChange={e => setEmail(e.target.value)}
-                                    disabled={isProcessing} required />
-                                <label className="floating-label">Email Address</label>
-                            </div>
-                            <div className="input-wrapper">
-                                <input type="text" className={`premium-input ${cardNumber ? 'has-val' : ''}`}
-                                    value={cardNumber} onChange={handleCardNumberChange}
-                                    maxLength={19} disabled={isProcessing} required />
-                                <label className="floating-label">Card Number</label>
-                            </div>
-                            <div style={{ display: 'flex', gap: '14px' }}>
-                                <div className="input-wrapper" style={{ flex: 1 }}>
-                                    <input type="text" className={`premium-input ${expiry ? 'has-val' : ''}`}
-                                        value={expiry} onChange={handleExpiryChange}
-                                        maxLength={5} disabled={isProcessing} required />
-                                    <label className="floating-label">MM/YY</label>
-                                </div>
-                                <div className="input-wrapper" style={{ flex: 1 }}>
-                                    <input type="text" className={`premium-input ${cvc ? 'has-val' : ''}`}
-                                        value={cvc} onChange={e => setCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                                        maxLength={4} disabled={isProcessing} required />
-                                    <label className="floating-label">CVC</label>
+                            {/* Video mockup */}
+                            <div className="mockup-frame">
+                                <div style={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
+                                    <div style={{
+                                        width: '60px', height: '60px', borderRadius: '50%',
+                                        background: `${pal.c3}22`, border: `1px solid ${pal.c3}55`,
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        margin: '0 auto 14px auto', cursor: 'pointer',
+                                        transition: 'all 0.2s ease', boxShadow: `0 0 30px ${pal.c3}33`
+                                    }}
+                                        onMouseOver={e => { e.currentTarget.style.background = `${pal.c3}40`; e.currentTarget.style.transform = 'scale(1.1)'; }}
+                                        onMouseOut={e  => { e.currentTarget.style.background = `${pal.c3}22`; e.currentTarget.style.transform = 'scale(1)'; }}
+                                    >
+                                        <svg width="22" height="22" viewBox="0 0 24 24" fill={pal.c2} style={{ marginLeft: '4px' }}>
+                                            <polygon points="5 3 19 12 5 21 5 3" />
+                                        </svg>
+                                    </div>
+                                    <div style={{ color: 'rgba(255,255,255,0.25)', fontSize: '11px', fontWeight: '700', letterSpacing: '2.5px' }}>
+                                        DEMO VIDEO
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <button type="submit" disabled={isProcessing}
-                                style={{
-                                    width: '100%', height: '58px', borderRadius: '16px', outline: 'none',
-                                    background: isSuccess ? '#10b981' : `linear-gradient(135deg, ${c}, ${aurora2})`,
-                                    border: 'none', color: '#fff', fontSize: '15px', fontWeight: '800',
-                                    letterSpacing: '1.5px', marginTop: '8px', cursor: isProcessing ? 'default' : 'pointer',
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
-                                    boxShadow: isProcessing ? 'none' : `0 14px 32px ${c}44`,
-                                    transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                                    fontFamily: 'Inter, system-ui, sans-serif',
-                                }}
-                                onMouseOver={e => { if (!isProcessing) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 20px 40px ${c}55`; } }}
-                                onMouseOut={e  => { if (!isProcessing) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = `0 14px 32px ${c}44`; } }}
-                            >
-                                {isProcessing ? (
-                                    <>
-                                        <div style={{
-                                            width: '18px', height: '18px', borderRadius: '50%',
-                                            border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff',
-                                            animation: 'spinFast 0.8s linear infinite', flexShrink: 0
-                                        }} />
-                                        <span>PROCESSING...</span>
-                                    </>
-                                ) : isSuccess ? (
-                                    <>
-                                        <AiOutlineCheck size={22} />
-                                        <span>PAYMENT SUCCESSFUL</span>
-                                    </>
-                                ) : (
-                                    `PAY ${activePlan.price}`
+                    {/* Payment column */}
+                    <div className="col-payment">
+                        <div className="glass-card">
+                            <div style={{ marginBottom: '36px', textAlign: 'center' }}>
+                                <h2 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '6px' }}
+                                    className="plan-gradient-text">
+                                    Secure Checkout
+                                </h2>
+                                <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: '12px', fontWeight: '600', letterSpacing: '0.4px' }}>
+                                    Encrypted via Neural Payment Gateway
+                                </p>
+                            </div>
+
+                            {/* Order summary */}
+                            <div style={{
+                                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                                padding: '18px', borderRadius: '14px',
+                                background: `${pal.c4}18`, border: `1px solid ${pal.c3}30`,
+                                marginBottom: '30px', boxShadow: `inset 0 0 20px ${pal.c4}10`
+                            }}>
+                                <div>
+                                    <div style={{ fontSize: '10px', color: 'rgba(255,255,255,0.4)', fontWeight: '700', letterSpacing: '1px', marginBottom: '3px' }}>
+                                        SUBSCRIPTION
+                                    </div>
+                                    <div style={{ fontSize: '17px', fontWeight: '800', color: pal.c1 }}>{activePlan.name}</div>
+                                </div>
+                                <div style={{ textAlign: 'right' }}>
+                                    <div style={{ fontSize: '22px', fontWeight: '900', color: '#fff' }}>{activePlan.price}</div>
+                                    <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', fontWeight: '500' }}>per month</div>
+                                </div>
+                            </div>
+
+                            <form onSubmit={handlePayment}>
+                                <div className="input-wrapper">
+                                    <input type="text" className={`premium-input ${name ? 'has-val' : ''}`}
+                                        value={name} onChange={e => setName(e.target.value)}
+                                        disabled={isProcessing} required />
+                                    <label className="floating-label">Cardholder Name</label>
+                                </div>
+                                <div className="input-wrapper">
+                                    <input type="email" className={`premium-input ${email ? 'has-val' : ''}`}
+                                        value={email} onChange={e => setEmail(e.target.value)}
+                                        disabled={isProcessing} required />
+                                    <label className="floating-label">Email Address</label>
+                                </div>
+                                <div className="input-wrapper">
+                                    <input type="text" className={`premium-input ${cardNumber ? 'has-val' : ''}`}
+                                        value={cardNumber} onChange={handleCardNumberChange}
+                                        maxLength={19} disabled={isProcessing} required />
+                                    <label className="floating-label">Card Number</label>
+                                </div>
+                                <div style={{ display: 'flex', gap: '14px' }}>
+                                    <div className="input-wrapper" style={{ flex: 1 }}>
+                                        <input type="text" className={`premium-input ${expiry ? 'has-val' : ''}`}
+                                            value={expiry} onChange={handleExpiryChange}
+                                            maxLength={5} disabled={isProcessing} required />
+                                        <label className="floating-label">MM/YY</label>
+                                    </div>
+                                    <div className="input-wrapper" style={{ flex: 1 }}>
+                                        <input type="text" className={`premium-input ${cvc ? 'has-val' : ''}`}
+                                            value={cvc} onChange={e => setCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                                            maxLength={4} disabled={isProcessing} required />
+                                        <label className="floating-label">CVC</label>
+                                    </div>
+                                </div>
+
+                                <button type="submit" disabled={isProcessing}
+                                    style={{
+                                        width: '100%', height: '58px', borderRadius: '16px', outline: 'none',
+                                        background: isSuccess
+                                            ? '#10b981'
+                                            : `linear-gradient(135deg, ${pal.c1}, ${pal.c3}, ${pal.c4})`,
+                                        border: 'none', color: '#fff', fontSize: '15px', fontWeight: '800',
+                                        letterSpacing: '1.5px', marginTop: '8px',
+                                        cursor: isProcessing ? 'default' : 'pointer',
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
+                                        boxShadow: isProcessing ? 'none' : `0 14px 32px ${pal.c3}44`,
+                                        transition: 'all 0.3s cubic-bezier(0.16,1,0.3,1)',
+                                        fontFamily: 'Inter, system-ui, sans-serif',
+                                    }}
+                                    onMouseOver={e => { if (!isProcessing) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 20px 40px ${pal.c3}55`; } }}
+                                    onMouseOut={e  => { if (!isProcessing) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = `0 14px 32px ${pal.c3}44`; } }}
+                                >
+                                    {isProcessing ? (
+                                        <>
+                                            <div style={{
+                                                width: '18px', height: '18px', borderRadius: '50%',
+                                                border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff',
+                                                animation: 'spinFast 0.8s linear infinite', flexShrink: 0
+                                            }} />
+                                            <span>PROCESSING...</span>
+                                        </>
+                                    ) : isSuccess ? (
+                                        <>
+                                            <AiOutlineCheck size={22} />
+                                            <span>PAYMENT SUCCESSFUL</span>
+                                        </>
+                                    ) : (
+                                        `PAY ${activePlan.price}`
+                                    )}
+                                </button>
+
+                                {statusText && (
+                                    <div style={{
+                                        textAlign: 'center', marginTop: '18px', fontSize: '12px',
+                                        color: isSuccess ? '#10b981' : 'rgba(255,255,255,0.4)',
+                                        animation: 'floatUp 0.3s ease', lineHeight: 1.5
+                                    }}>
+                                        {statusText}
+                                    </div>
                                 )}
-                            </button>
+                            </form>
 
-                            {statusText && (
-                                <div style={{
-                                    textAlign: 'center', marginTop: '18px', fontSize: '12px',
-                                    color: isSuccess ? '#10b981' : 'rgba(255,255,255,0.4)',
-                                    animation: 'floatUp 0.3s ease', lineHeight: 1.5
-                                }}>
-                                    {statusText}
-                                </div>
-                            )}
-                        </form>
-
-                        <div style={{
-                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                            marginTop: '28px', color: 'rgba(255,255,255,0.25)', fontSize: '11px', fontWeight: '600'
-                        }}>
-                            <AiOutlineCheck size={11} color="#10b981" />
-                            256-bit AES Encryption
+                            <div style={{
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                                marginTop: '28px', color: 'rgba(255,255,255,0.22)', fontSize: '11px', fontWeight: '600'
+                            }}>
+                                <AiOutlineCheck size={11} color="#10b981" />
+                                256-bit AES Encryption
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* COL 3: FEATURES */}
-                <div className="col-features">
-                    <div style={{ maxWidth: '420px' }}>
-                        <span className="shimmer-label" style={{ fontSize: '10px', fontWeight: '900', letterSpacing: '3px', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
-                            What you unlock
-                        </span>
-                        <h2 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '4px', color: '#fff' }}>
-                            {activePlan.name} Features
-                        </h2>
-                        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', marginBottom: '4px', fontWeight: '500', lineHeight: 1.6 }}>
-                            {activePlan.tagline}
-                        </p>
+                {/* ══ BOTTOM: Feature list spanning full width ══ */}
+                <div className="features-row">
 
-                        <span className="feat-section-title shimmer-label">RK AI Desktop</span>
+                    {/* Desktop features */}
+                    <div>
+                        <div className="feat-col-head plan-gradient-text">RK AI Desktop</div>
                         {(activePlan.desktopFeatures || []).map((f, i) => (
-                            <div key={i} className="feature-row" style={{ animationDelay: `${i * 35}ms` }}>
+                            <div key={i} className="feature-item" style={{ animationDelay: `${i * 35}ms` }}>
                                 <div style={{
                                     width: '18px', height: '18px', borderRadius: '50%', flexShrink: 0,
-                                    background: `${c}18`, border: `1px solid ${c}44`,
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    background: `${pal.c3}20`, border: `1px solid ${pal.c3}50`,
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '1px'
                                 }}>
-                                    <AiOutlineCheck size={9} color={c} />
+                                    <AiOutlineCheck size={9} color={pal.c2} />
                                 </div>
-                                <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', fontWeight: '500', lineHeight: 1.4 }}>{f}</span>
+                                <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.75)', fontWeight: '500', lineHeight: 1.45 }}>{f}</span>
                             </div>
                         ))}
+                    </div>
 
-                        <span className="feat-section-title shimmer-label" style={{ marginTop: '24px' }}>RK AI Home</span>
+                    {/* Home features */}
+                    <div>
+                        <div className="feat-col-head plan-gradient-text">RK AI Home</div>
                         {(activePlan.homeFeatures || []).map((f, i) => (
-                            <div key={i} className="feature-row" style={{ animationDelay: `${(activePlan.desktopFeatures?.length || 0) * 35 + i * 35}ms` }}>
+                            <div key={i} className="feature-item" style={{ animationDelay: `${i * 35}ms` }}>
                                 <div style={{
                                     width: '18px', height: '18px', borderRadius: '50%', flexShrink: 0,
-                                    background: `${aurora2}18`, border: `1px solid ${aurora2}44`,
-                                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                    background: `${pal.c2}20`, border: `1px solid ${pal.c2}50`,
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '1px'
                                 }}>
-                                    <AiOutlineCheck size={9} color={aurora2} />
+                                    <AiOutlineCheck size={9} color={pal.c1} />
                                 </div>
-                                <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', fontWeight: '500', lineHeight: 1.4 }}>{f}</span>
+                                <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.75)', fontWeight: '500', lineHeight: 1.45 }}>{f}</span>
                             </div>
                         ))}
+                    </div>
 
-                        {(activePlan.sharedFeatures || []).length > 0 && (
-                            <>
-                                <span className="feat-section-title shimmer-label" style={{ marginTop: '24px' }}>Cloud & Limits</span>
-                                {(activePlan.sharedFeatures || []).map((f, i) => (
-                                    <div key={i} className="feature-row" style={{ animationDelay: `${((activePlan.desktopFeatures?.length || 0) + (activePlan.homeFeatures?.length || 0)) * 35 + i * 35}ms` }}>
-                                        <div style={{
-                                            width: '18px', height: '18px', borderRadius: '50%', flexShrink: 0,
-                                            background: `${aurora3}18`, border: `1px solid ${aurora3}44`,
-                                            display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        }}>
-                                            <AiOutlineCheck size={9} color={aurora3} />
-                                        </div>
-                                        <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.8)', fontWeight: '500', lineHeight: 1.4 }}>{f}</span>
-                                    </div>
-                                ))}
-                            </>
-                        )}
+                    {/* Cloud & Limits */}
+                    <div>
+                        <div className="feat-col-head plan-gradient-text">Cloud & Limits</div>
+                        {(activePlan.sharedFeatures || []).map((f, i) => (
+                            <div key={i} className="feature-item" style={{ animationDelay: `${i * 35}ms` }}>
+                                <div style={{
+                                    width: '18px', height: '18px', borderRadius: '50%', flexShrink: 0,
+                                    background: `${pal.c4}25`, border: `1px solid ${pal.c4}55`,
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '1px'
+                                }}>
+                                    <AiOutlineCheck size={9} color={pal.c3} />
+                                </div>
+                                <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.75)', fontWeight: '500', lineHeight: 1.45 }}>{f}</span>
+                            </div>
+                        ))}
                     </div>
                 </div>
 
