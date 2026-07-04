@@ -176,27 +176,27 @@ function PaymentPageContent() {
                     position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
                 }
                 .blob {
-                    position: absolute; filter: blur(90px); opacity: 0.18;
+                    position: absolute; filter: blur(160px); opacity: 0.06;
                 }
                 .blob-1 {
-                    width: 600px; height: 600px; background: ${pal.c2};
-                    top: -150px; left: -100px;
-                    animation: blob1 18s ease-in-out infinite;
+                    width: 500px; height: 500px; background: ${pal.c2};
+                    top: -180px; left: -120px;
+                    animation: blob1 22s ease-in-out infinite;
                 }
                 .blob-2 {
-                    width: 500px; height: 500px; background: ${pal.c4};
-                    top: 40%; right: -150px;
-                    animation: blob2 22s ease-in-out infinite;
+                    width: 420px; height: 420px; background: ${pal.c4};
+                    top: 35%; right: -160px;
+                    animation: blob2 28s ease-in-out infinite;
                 }
                 .blob-3 {
-                    width: 450px; height: 450px; background: ${pal.c1};
-                    bottom: -100px; left: 30%;
-                    animation: blob3 26s ease-in-out infinite;
+                    width: 380px; height: 380px; background: ${pal.c1};
+                    bottom: -120px; left: 25%;
+                    animation: blob3 32s ease-in-out infinite;
                 }
                 .blob-4 {
-                    width: 350px; height: 350px; background: ${pal.c3};
-                    top: 20%; left: 40%;
-                    animation: blob4 20s ease-in-out infinite;
+                    width: 300px; height: 300px; background: ${pal.c3};
+                    top: 15%; left: 45%;
+                    animation: blob4 24s ease-in-out infinite;
                 }
 
                 /* Top-row: video left / payment right */
