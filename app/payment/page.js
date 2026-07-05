@@ -4,6 +4,7 @@ import { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { AiOutlineCheck, AiOutlineArrowLeft } from 'react-icons/ai';
 import { PLANS } from '@/lib/plans';
+import { useAuth } from '@/context/AuthContext';
 
 /* ── per-plan colour palette ── */
 function getPalette(id, color, accent) {
@@ -19,6 +20,7 @@ function getPalette(id, color, accent) {
 function PaymentPageContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
+    const { user } = useAuth();
 
     const planParam = searchParams.get('plan') || 'pro';
     const [selectedPlan] = useState(planParam);
@@ -90,7 +92,12 @@ function PaymentPageContent() {
             const res = await fetch(BASE + '/rk-ai-desktop/billing/upgrade', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'X-Device-Slug': slug },
-                body: JSON.stringify({ plan: selectedPlan, payment_token: 'tok_simulated_' + Date.now(), slug })
+                body: JSON.stringify({ 
+                    plan: selectedPlan, 
+                    payment_token: 'tok_simulated_' + Date.now(), 
+                    slug: user?.$id || user?.userId || slug, 
+                    deviceSlug: slug 
+                })
             });
             if (res.ok) {
                 setIsSuccess(true);
