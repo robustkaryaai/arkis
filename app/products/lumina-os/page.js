@@ -42,7 +42,7 @@ export default function LuminaOSProduct() {
                         letterSpacing: '-2px',
                         marginBottom: '24px'
                     }}>
-                        Lumina <span className="grad">OS</span>
+                        Lumina <span className="grad-lumina">OS</span>
                     </h1>
 
                     <p style={{

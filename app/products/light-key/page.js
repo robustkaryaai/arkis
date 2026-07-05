@@ -24,7 +24,7 @@ export default function LightKeyProduct() {
                         letterSpacing: '-2px',
                         marginBottom: '24px'
                     }}>
-                        Light <span className="grad">Key</span>
+                        Light <span className="grad-lightkey">Key</span>
                     </h1>
                     
                     <p style={{ 

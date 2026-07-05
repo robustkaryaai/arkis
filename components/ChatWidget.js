@@ -38,8 +38,9 @@ Pre-order & Waitlist Process:
 - Lumina OS & Light Key: Click "Join the Waitlist" on their respective pages to secure your spot for the Alpha/Beta phases.
 - Account: All actions require being logged into your Rexycore ecosystem account.
 
-5. Rexycore Cloud: 
-   - Subscription and resource management layer for syncing preferences and accessing premium hosted models.
+5. RK AI Subscription (Rexycore Cloud): 
+   - We have now moved to ONE unified subscription for the entire ecosystem.
+   - A single subscription covers both RK AI Home and RK AI Desktop.
 
 Key Philosophies:
 - Privacy-First: All data remains local where possible.
@@ -48,6 +49,7 @@ Key Philosophies:
 - Engineered in India: Building world-class technology for global users.
 
 Instructions:
+- Give small, clear, and concise responses. Do not give long answers.
 - Be concise and premium in your tone.
 - If asked about technical details, emphasize privacy and local execution.
 - If asked about RK AI Home, use the technical summary: It's optimized for Raspberry Pi Zero W (512MB RAM), features Gemini integration, Smart Intent Routing, 100+ Offline Commands, and a Self-Diagnosis engine. It is available for Pre-order at ₹4,999.
@@ -64,6 +66,14 @@ export default function ChatWidget() {
     const [isTyping, setIsTyping] = useState(false);
     const [modelLabel, setModelLabel] = useState('Gemma');
     const messagesEndRef = useRef(null);
+
+    const formatMessage = (text) => {
+        if (!text) return { __html: '' };
+        let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        formatted = formatted.replace(/(?<!\*)\*(?!\*)(.*?)(?<!\*)\*(?!\*)/g, '<em>$1</em>');
+        formatted = formatted.replace(/\n/g, '<br/>');
+        return { __html: formatted };
+    };
 
     useEffect(() => {
         if (messagesEndRef.current) {
@@ -116,7 +126,7 @@ export default function ChatWidget() {
         const rawModels = (process.env.NEXT_PUBLIC_GEMINI_MODELS || '').trim();
         const fallbackModels = rawModels
             ? rawModels.split(',').map(s => s.trim()).filter(Boolean)
-            : ['gemma-3-12b-it', 'gemini-2.5-flash-lite', 'gemma-4-31B-it'];
+            : ['gemma-3-12b-it', 'gemini-3.1-flash-lite', 'gemini-2.5-flash-lite'];
 
         const genAI = new GoogleGenerativeAI(apiKey);
 
@@ -188,7 +198,7 @@ export default function ChatWidget() {
                 </div>
                 <div id="chat-messages">
                     {messages.map((m, i) => (
-                        <div key={i} className={`msg ${m.role}`}>{m.text}</div>
+                        <div key={i} className={`msg ${m.role}`} dangerouslySetInnerHTML={formatMessage(m.text)} />
                     ))}
                     {loading && (
                         <div className="msg bot">
@@ -208,7 +218,7 @@ export default function ChatWidget() {
                         </button>
                     </div>
                     <div style={{ fontSize: '10px', color: 'var(--muted)', textAlign: 'center', opacity: 0.6 }}>
-                        Powered by {modelLabel}
+                        Powered by Google API
                     </div>
                 </div>
             </div>

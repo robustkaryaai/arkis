@@ -255,8 +255,15 @@ function PaymentPageContent() {
                 /* Static plan-tinted gradient text */
                 .plan-gradient-text {
                     background: ${textGrad};
+                    background-size: 200% 200%;
+                    animation: flowGrad 6s ease infinite;
                     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
                     background-clip: text;
+                }
+                @keyframes flowGrad {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
                 }
 
                 /* Inputs */

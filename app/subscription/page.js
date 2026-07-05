@@ -122,8 +122,7 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
     return (
         <motion.div
             initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.1, type: 'spring', stiffness: 100, damping: 15 }}
+            animate={{ opacity: 1, y: 0, transition: { delay: idx * 0.1, type: 'spring', stiffness: 100, damping: 15 } }}
             whileHover={!isActive ? { y: -10, scale: 1.02, boxShadow: `0 25px 50px ${plan.glowColor}25` } : {}}
             style={{
                 position: 'relative',
@@ -146,8 +145,7 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
                     : '0 10px 30px rgba(0,0,0,0.5)',
                 padding: '36px 32px',
                 display: 'flex',
-                flexDirection: 'column',
-                transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)'
+                flexDirection: 'column'
             }}
         >
             <MatrixRain color={plan.glowColor} opacity={isActive ? 0.08 : 0.04} />
@@ -303,7 +301,7 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
             <motion.button
                 onClick={() => !isActive && onAction(plan)}
                 disabled={isActive || isSaving}
-                whileHover={!isActive && !isSaving ? { scale: 1.03, boxShadow: `0 10px 25px ${plan.glowColor}55` } : {}}
+                whileHover={!isActive && !isSaving ? { scale: 1.03, boxShadow: `0 10px 35px ${plan.glowColor}88`, background: `linear-gradient(135deg, ${plan.glowColor}66, ${plan.glowColor}22)` } : {}}
                 whileTap={!isActive && !isSaving ? { scale: 0.97 } : {}}
                 style={{
                     width: '100%', height: '56px', borderRadius: '14px',
@@ -315,7 +313,7 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
                     fontSize: '14px', fontWeight: '900', letterSpacing: '2px',
                     cursor: isActive ? 'default' : 'pointer',
                     position: 'relative', zIndex: 1,
-                    transition: 'background 0.3s ease, border 0.3s ease',
+                    transition: 'border 0.3s ease',
                     boxShadow: isActive ? 'none' : `0 5px 20px ${plan.glowColor}33`,
                     textTransform: 'uppercase',
                     textShadow: isActive ? 'none' : `0 0 10px ${plan.glowColor}`,
@@ -491,7 +489,7 @@ export default function Subscription() {
                         <h1 style={{
                             fontSize: '38px', fontWeight: '900', color: '#fff',
                             letterSpacing: '2.5px', marginBottom: '6px',
-                            textShadow: '0 0 40px rgba(79,156,249,0.6)', textTransform: 'uppercase'
+                            animation: 'glowPulse 3s infinite', textTransform: 'uppercase'
                         }}>
                             MATRIX TIERS
                         </h1>
@@ -733,6 +731,10 @@ export default function Subscription() {
                 @keyframes pulse {
                     0%, 100% { opacity: 1; transform: scale(1); }
                     50% { opacity: 0.4; transform: scale(1.3); }
+                }
+                @keyframes glowPulse {
+                    0%, 100% { text-shadow: 0 0 40px rgba(155,89,245,0.4); }
+                    50% { text-shadow: 0 0 70px rgba(155,89,245,0.9); }
                 }
             `}</style>
         </div>

@@ -20,6 +20,7 @@ export default function RKHomeProduct() {
     ];
     const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
     const [isPlaying, setIsPlaying] = useState(true);
+    const [isPreOrdering, setIsPreOrdering] = useState(false);
     const videoRefs = useRef([]);
 
     const togglePlayPause = (e) => {
@@ -50,13 +51,16 @@ export default function RKHomeProduct() {
 
     const handlePreOrder = (e) => {
         e.preventDefault();
+        setIsPreOrdering(true);
         const target = '/products/pre-order?productId=rkai_home';
-        if (!authLoading && !user) {
-            const redirect = encodeURIComponent(target);
-            router.push(`/login?redirect=${redirect}`);
-        } else {
-            router.push(target);
-        }
+        setTimeout(() => {
+            if (!authLoading && !user) {
+                const redirect = encodeURIComponent(target);
+                router.push(`/login?redirect=${redirect}`);
+            } else {
+                router.push(target);
+            }
+        }, 800);
     };
 
     return (
@@ -66,8 +70,8 @@ export default function RKHomeProduct() {
             {/* PRODUCT HERO */}
             <section className="hero" style={{ minHeight: '90vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div className="badge float-anim" style={{ marginBottom: '24px', color: '#fbbf24', border: '1px solid rgba(251,191,36,0.3)' }}>
-                        <span className="dot" style={{ background: '#fbbf24' }} /> Hardware Pre-order Phase
+                    <div className="badge float-anim" style={{ marginBottom: '24px', color: '#ec4899', border: '1px solid rgba(236,72,153,0.3)' }}>
+                        <span className="dot" style={{ background: '#ec4899' }} /> Hardware Pre-order Phase
                     </div>
                     
                     <h1 style={{ 
@@ -77,7 +81,7 @@ export default function RKHomeProduct() {
                         letterSpacing: '-2px',
                         marginBottom: '24px'
                     }}>
-                        RK AI <span className="grad">Home</span>
+                        RK AI <span className="grad-home">Home</span>
                     </h1>
                     
                     <p style={{ 
@@ -110,26 +114,37 @@ export default function RKHomeProduct() {
                         justifyContent: 'center'
                     }}>
                         <button 
-                            onClick={handlePreOrder} 
+                            onClick={handlePreOrder}
+                            disabled={isPreOrdering}
                             className="btn-primary" 
                             style={{ 
                                 padding: '16px 48px', fontSize: '18px', 
-                                background: 'linear-gradient(135deg, #ec4899, #be185d)', 
-                                border: 'none', cursor: 'pointer', fontWeight: '700', 
+                                background: 'linear-gradient(135deg, #ec4899, #be185d, #ec4899)', 
+                                backgroundSize: '200% 200%',
+                                animation: 'flowGrad 3s ease infinite',
+                                border: 'none', cursor: isPreOrdering ? 'default' : 'pointer', fontWeight: '700', 
                                 borderRadius: '50px', color: '#fff',
                                 transition: 'all 0.3s ease',
-                                boxShadow: '0 0 30px rgba(236, 72, 153, 0.3)'
+                                boxShadow: '0 0 30px rgba(236, 72, 153, 0.4)',
+                                display: 'flex', alignItems: 'center', gap: '10px'
                             }}
                             onMouseEnter={e => {
+                                if (isPreOrdering) return;
                                 e.currentTarget.style.transform = 'translateY(-3px) scale(1.05)';
-                                e.currentTarget.style.boxShadow = '0 10px 30px rgba(236, 72, 153, 0.5)';
+                                e.currentTarget.style.boxShadow = '0 10px 40px rgba(236, 72, 153, 0.6)';
                             }}
                             onMouseLeave={e => {
+                                if (isPreOrdering) return;
                                 e.currentTarget.style.transform = '';
-                                e.currentTarget.style.boxShadow = '0 0 30px rgba(236, 72, 153, 0.3)';
+                                e.currentTarget.style.boxShadow = '0 0 30px rgba(236, 72, 153, 0.4)';
                             }}
                         >
-                            Pre-order Now
+                            {isPreOrdering ? (
+                                <>
+                                    <div style={{ width: '18px', height: '18px', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', animation: 'spin 0.8s linear infinite' }} />
+                                    Loading...
+                                </>
+                            ) : 'Pre-order Now'}
                         </button>
                         <div style={{ 
                             padding: '16px 32px', 
@@ -363,6 +378,17 @@ export default function RKHomeProduct() {
             </section>
 
             <Footer />
+
+            <style>{`
+                @keyframes flowGrad {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+                @keyframes spin {
+                    to { transform: rotate(360deg); }
+                }
+            `}</style>
 
             <ChatWidget />
         </div>

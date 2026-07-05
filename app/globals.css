@@ -323,8 +323,43 @@ nav {
   margin-bottom: 24px;
 }
 
+@keyframes flowGrad {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .grad {
-  background: linear-gradient(135deg, var(--blue) 0%, var(--violet) 100%);
+  background: linear-gradient(135deg, var(--blue) 0%, var(--violet) 50%, var(--blue) 100%);
+  background-size: 200% 200%;
+  animation: flowGrad 4s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grad-home {
+  background: linear-gradient(135deg, #ec4899 0%, #be185d 50%, #ec4899 100%);
+  background-size: 200% 200%;
+  animation: flowGrad 4s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grad-lumina {
+  background: linear-gradient(135deg, #a855f7 0%, #6366f1 50%, #a855f7 100%);
+  background-size: 200% 200%;
+  animation: flowGrad 4s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.grad-lightkey {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 50%, #f59e0b 100%);
+  background-size: 200% 200%;
+  animation: flowGrad 4s ease infinite;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
