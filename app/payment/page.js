@@ -96,6 +96,7 @@ function PaymentPageContent() {
                     plan: selectedPlan, 
                     payment_token: 'tok_simulated_' + Date.now(), 
                     slug: user?.$id || user?.userId || slug, 
+                    email: user?.email,
                     deviceSlug: slug 
                 })
             });

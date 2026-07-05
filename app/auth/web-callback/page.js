@@ -16,6 +16,8 @@ function WebCallbackClient() {
     const finish = async () => {
       const token = searchParams.get('token');
       const userId = searchParams.get('userId');
+      const slug = searchParams.get('slug');
+      const plan = searchParams.get('plan');
       const redirect = searchParams.get('redirect') || '/';
 
       if (!token || !userId) {
@@ -38,6 +40,8 @@ function WebCallbackClient() {
             const urlObj = new URL(nextUrl, window.location.origin);
             if (email) urlObj.searchParams.set('email', email);
             if (username) urlObj.searchParams.set('username', username);
+            if (slug) urlObj.searchParams.set('slug', slug);
+            if (plan) urlObj.searchParams.set('plan', plan);
             nextUrl = urlObj.pathname + urlObj.search;
             window.location.href = nextUrl; // Force hard redirect for Electron interception
           } else {
