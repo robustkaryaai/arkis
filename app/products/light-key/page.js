@@ -154,11 +154,47 @@ export default function LightKeyProduct() {
                 </div>
             </section>
 
-            <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(245, 158, 11, 0.05))' }}>
-                <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>The future of input is here.</h2>
-                <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Join the waitlist to be among the first to experience Light Key.</p>
-                <Link href="/waitlist?product=light-key" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
+            {/* BOTTOM CTA */}
+            <section style={{
+                position: 'relative', overflow: 'hidden',
+                padding: '160px 5%', textAlign: 'center',
+                background: 'linear-gradient(160deg, rgba(245,158,11,0.06) 0%, rgba(0,0,0,0) 60%, rgba(217,119,6,0.04) 100%)',
+                borderTop: '1px solid rgba(245,158,11,0.15)'
+            }}>
+                <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '1px', height: '80px', background: 'linear-gradient(to bottom, rgba(245,158,11,0.8), transparent)' }} />
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'relative', zIndex: 1, maxWidth: '700px', margin: '0 auto' }}>
+                    <p style={{ fontSize: '13px', fontWeight: '800', color: '#f59e0b', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '28px' }}>LIGHT KEY · Coming Soon</p>
+                    <h2 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: '900', lineHeight: '1.05', letterSpacing: '-2px', marginBottom: '28px' }}>
+                        Type smarter.<br />
+                        <span style={{ background: 'linear-gradient(135deg, #f59e0b 30%, #d97706)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Think faster.</span>
+                    </h2>
+                    <p style={{ color: 'var(--muted)', fontSize: '18px', lineHeight: '1.7', marginBottom: '52px' }}>
+                        First units are reserved for early supporters. Follow the journey — and secure your name on the launch list before it fills.
+                    </p>
+                    <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <Link href="/journey/light-key" style={{
+                            padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
+                            background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                            color: '#fff', fontWeight: '800', textDecoration: 'none',
+                            boxShadow: '0 10px 40px rgba(245,158,11,0.4)', transition: 'all 0.3s ease'
+                        }}
+                            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(245,158,11,0.6)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(245,158,11,0.4)'; }}
+                        >Join the Journey →</Link>
+                        <Link href="/notify?product=light-key" style={{
+                            padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
+                            background: 'transparent', border: '1px solid rgba(245,158,11,0.4)',
+                            color: '#f59e0b', fontWeight: '800', textDecoration: 'none',
+                            transition: 'all 0.3s ease'
+                        }}
+                            onMouseEnter={e => { e.currentTarget.style.borderColor = '#f59e0b'; e.currentTarget.style.background = 'rgba(245,158,11,0.08)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(245,158,11,0.4)'; e.currentTarget.style.background = 'transparent'; e.currentTarget.style.transform = ''; }}
+                        >Notify Me at Launch</Link>
+                    </div>
+                </div>
             </section>
+
 
             <Footer />
             <ChatWidget />

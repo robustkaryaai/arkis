@@ -237,11 +237,45 @@ export default function LuminaOSProduct() {
                 </div>
             </section>
 
-            {/* CTA SECTION */}
-            <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(168, 85, 247, 0.06))' }}>
-                <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>Witness the evolution of computing.</h2>
-                <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Early access spots for Lumina OS Alpha are limited. Secure yours now.</p>
-                <Link href="/waitlist?product=lumina-os" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Waitlist</Link>
+            {/* BOTTOM CTA */}
+            <section style={{
+                position: 'relative', overflow: 'hidden',
+                padding: '160px 5%', textAlign: 'center',
+                background: 'linear-gradient(160deg, rgba(168,85,247,0.06) 0%, rgba(0,0,0,0) 60%, rgba(99,102,241,0.04) 100%)',
+                borderTop: '1px solid rgba(168,85,247,0.15)'
+            }}>
+                <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '1px', height: '80px', background: 'linear-gradient(to bottom, rgba(168,85,247,0.8), transparent)' }} />
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(168,85,247,0.08) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'relative', zIndex: 1, maxWidth: '700px', margin: '0 auto' }}>
+                    <p style={{ fontSize: '13px', fontWeight: '800', color: '#a855f7', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '28px' }}>LUMINA OS · Limited Alpha</p>
+                    <h2 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: '900', lineHeight: '1.05', letterSpacing: '-2px', marginBottom: '28px' }}>
+                        The OS that<br />
+                        <span style={{ background: 'linear-gradient(135deg, #a855f7 30%, #6366f1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>thinks with you.</span>
+                    </h2>
+                    <p style={{ color: 'var(--muted)', fontSize: '18px', lineHeight: '1.7', marginBottom: '52px' }}>
+                        Alpha access is invite-only. Join the journey to understand the roadmap — or reserve your spot on the waitlist before slots fill.
+                    </p>
+                    <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <Link href="/journey/lumina-os" style={{
+                            padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
+                            background: 'linear-gradient(135deg, #a855f7, #6366f1)',
+                            color: '#fff', fontWeight: '800', textDecoration: 'none',
+                            boxShadow: '0 10px 40px rgba(168,85,247,0.4)', transition: 'all 0.3s ease'
+                        }}
+                            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(168,85,247,0.6)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(168,85,247,0.4)'; }}
+                        >Join the Journey →</Link>
+                        <Link href="/waitlist?product=lumina-os" style={{
+                            padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
+                            background: 'transparent', border: '1px solid rgba(168,85,247,0.4)',
+                            color: '#a855f7', fontWeight: '800', textDecoration: 'none',
+                            transition: 'all 0.3s ease'
+                        }}
+                            onMouseEnter={e => { e.currentTarget.style.borderColor = '#a855f7'; e.currentTarget.style.background = 'rgba(168,85,247,0.08)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(168,85,247,0.4)'; e.currentTarget.style.background = 'transparent'; e.currentTarget.style.transform = ''; }}
+                        >Join the Waitlist</Link>
+                    </div>
+                </div>
             </section>
 
             <Footer />

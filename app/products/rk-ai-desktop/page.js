@@ -1015,6 +1015,47 @@ sudo apt install -y python3 python3-pip`}
     </div>
 )}
 
+            {/* BOTTOM CTA */}
+            <section style={{
+                position: 'relative', overflow: 'hidden',
+                padding: '160px 5%', textAlign: 'center',
+                background: 'linear-gradient(160deg, rgba(79,156,249,0.06) 0%, rgba(0,0,0,0) 60%, rgba(155,89,245,0.04) 100%)',
+                borderTop: '1px solid rgba(79,156,249,0.15)'
+            }}>
+                <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '1px', height: '80px', background: 'linear-gradient(to bottom, rgba(79,156,249,0.8), transparent)' }} />
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(79,156,249,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'relative', zIndex: 1, maxWidth: '700px', margin: '0 auto' }}>
+                    <p style={{ fontSize: '13px', fontWeight: '800', color: '#4f9cf9', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '28px' }}>RK AI DESKTOP · Free to Download</p>
+                    <h2 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: '900', lineHeight: '1.05', letterSpacing: '-2px', marginBottom: '28px' }}>
+                        Your AI.<br />
+                        <span style={{ background: 'linear-gradient(135deg, #4f9cf9 30%, #9b59f5)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Your machine.</span>
+                    </h2>
+                    <p style={{ color: 'var(--muted)', fontSize: '18px', lineHeight: '1.7', marginBottom: '52px' }}>
+                        100% local. Completely private. No subscription required to get started — download RK AI Desktop and take control.
+                    </p>
+                    <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <button onClick={() => startDownload(detectedOS || 'mac')} style={{
+                            padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
+                            background: 'linear-gradient(135deg, #4f9cf9, #9b59f5)',
+                            color: '#fff', fontWeight: '800', border: 'none', cursor: 'pointer',
+                            boxShadow: '0 10px 40px rgba(79,156,249,0.4)', transition: 'all 0.3s ease'
+                        }}
+                            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(79,156,249,0.6)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(79,156,249,0.4)'; }}
+                        >Download Free</button>
+                        <Link href="/subscription" style={{
+                            padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
+                            background: 'transparent', border: '1px solid rgba(79,156,249,0.4)',
+                            color: '#4f9cf9', fontWeight: '800', textDecoration: 'none',
+                            transition: 'all 0.3s ease'
+                        }}
+                            onMouseEnter={e => { e.currentTarget.style.borderColor = '#4f9cf9'; e.currentTarget.style.background = 'rgba(79,156,249,0.08)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(79,156,249,0.4)'; e.currentTarget.style.background = 'transparent'; e.currentTarget.style.transform = ''; }}
+                        >View Subscription Plans</Link>
+                    </div>
+                </div>
+            </section>
+
             <Footer />
 
             <ChatWidget />

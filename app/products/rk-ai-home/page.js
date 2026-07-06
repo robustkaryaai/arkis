@@ -146,19 +146,35 @@ export default function RKHomeProduct() {
                                 </>
                             ) : 'Pre-order Now'}
                         </button>
-                        <div style={{ 
-                            padding: '16px 32px', 
-                            borderRadius: '50px',
-                            background: 'rgba(255,255,255,0.05)',
-                            border: '1px solid var(--border)',
-                            color: 'var(--muted)',
-                            fontWeight: '700',
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '10px'
-                        }}>
-                            <FiPackage /> Shipping Q3 2026
-                        </div>
+                        <Link
+                            href="/suggest"
+                            style={{
+                                padding: '16px 32px',
+                                borderRadius: '50px',
+                                background: 'rgba(236,72,153,0.08)',
+                                border: '1px solid rgba(236,72,153,0.35)',
+                                color: '#ec4899',
+                                fontWeight: '700',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                textDecoration: 'none',
+                                fontSize: '16px',
+                                transition: 'all 0.3s ease'
+                            }}
+                            onMouseEnter={e => {
+                                e.currentTarget.style.background = 'rgba(236,72,153,0.15)';
+                                e.currentTarget.style.transform = 'translateY(-2px)';
+                                e.currentTarget.style.boxShadow = '0 8px 24px rgba(236,72,153,0.2)';
+                            }}
+                            onMouseLeave={e => {
+                                e.currentTarget.style.background = 'rgba(236,72,153,0.08)';
+                                e.currentTarget.style.transform = '';
+                                e.currentTarget.style.boxShadow = '';
+                            }}
+                        >
+                            💡 Suggest a Feature
+                        </Link>
                     </div>
 
                     {/* PRODUCT HERO SLIDER */}
@@ -371,10 +387,45 @@ export default function RKHomeProduct() {
                 </div>
             </section>
 
-            <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(236, 72, 153, 0.05))' }}>
-                <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>Building the future of living.</h2>
-                <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Interested in early testing? Join the community for project updates.</p>
-                <Link href="/login?redirect=/products/rk-ai-home" className="btn-secondary" style={{ padding: '18px 48px', fontSize: '18px' }}>Join the Community</Link>
+            {/* BOTTOM CTA */}
+            <section style={{
+                position: 'relative', overflow: 'hidden',
+                padding: '160px 5%', textAlign: 'center',
+                background: 'linear-gradient(160deg, rgba(236,72,153,0.06) 0%, rgba(0,0,0,0) 60%, rgba(190,24,93,0.04) 100%)',
+                borderTop: '1px solid rgba(236,72,153,0.15)'
+            }}>
+                <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '1px', height: '80px', background: 'linear-gradient(to bottom, rgba(236,72,153,0.8), transparent)' }} />
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'relative', zIndex: 1, maxWidth: '700px', margin: '0 auto' }}>
+                    <p style={{ fontSize: '13px', fontWeight: '800', color: '#ec4899', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '28px' }}>RK AI HOME · Pre-order Open</p>
+                    <h2 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: '900', lineHeight: '1.05', letterSpacing: '-2px', marginBottom: '28px' }}>
+                        Your home.<br />
+                        <span style={{ background: 'linear-gradient(135deg, #ec4899 30%, #be185d)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Made intelligent.</span>
+                    </h2>
+                    <p style={{ color: 'var(--muted)', fontSize: '18px', lineHeight: '1.7', marginBottom: '52px' }}>
+                        Limited early units available. Every unit ships with lifetime software updates and priority cloud access.
+                    </p>
+                    <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
+                        <Link href="/products/pre-order?productId=rkai_home" style={{
+                            padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
+                            background: 'linear-gradient(135deg, #ec4899, #be185d)',
+                            color: '#fff', fontWeight: '800', textDecoration: 'none',
+                            boxShadow: '0 10px 40px rgba(236,72,153,0.4)', transition: 'all 0.3s ease'
+                        }}
+                            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(236,72,153,0.6)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(236,72,153,0.4)'; }}
+                        >Pre-order Now</Link>
+                        <Link href="/suggest" style={{
+                            padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
+                            background: 'transparent', border: '1px solid rgba(236,72,153,0.4)',
+                            color: '#ec4899', fontWeight: '800', textDecoration: 'none',
+                            transition: 'all 0.3s ease'
+                        }}
+                            onMouseEnter={e => { e.currentTarget.style.borderColor = '#ec4899'; e.currentTarget.style.background = 'rgba(236,72,153,0.08)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
+                            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(236,72,153,0.4)'; e.currentTarget.style.background = 'transparent'; e.currentTarget.style.transform = ''; }}
+                        >💡 Suggest a Feature</Link>
+                    </div>
+                </div>
             </section>
 
             <Footer />
