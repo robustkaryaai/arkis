@@ -98,7 +98,7 @@ export default function Home() {
         <p>Rexycore is a technology company building privacy-focused, ecosystem-driven products that respect your autonomy.</p>
         <div className="hero-btns">
           <Link className="btn-primary" href="/products">Explore Products</Link>
-          <Link className="btn-secondary" href="/waitlist" style={{ marginLeft: '12px' }}>Join Waitlist</Link>
+          <Link className="btn-secondary" href="/about" style={{ marginLeft: '12px' }}>Learn about us</Link>
         </div>
       </section>
 

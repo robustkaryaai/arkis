@@ -612,15 +612,6 @@ export default function RKDesktopProduct() {
                     ))}
                 </div>
             </section>
-
-            {/* CTA SECTION */}
-            <section style={{ textAlign: 'center', padding: '120px 5%', background: 'linear-gradient(to bottom, transparent, rgba(79,156,249,0.05))' }}>
-                <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '24px' }}>Ready to redefine your workspace?</h2>
-                <p style={{ color: 'var(--muted)', fontSize: '18px', marginBottom: '48px' }}>Join the ecosystem of privacy-focused, AI-first productivity.</p>
-                <Link href="/login" className="btn-primary" style={{ padding: '18px 48px', fontSize: '18px' }}>Get Started Free</Link>
-            </section>
-
-            {/* CUSTOM SELECTION DIALOG MODAL */}
           {/* CUSTOM SELECTION DIALOG MODAL */}
 {downloadPlatform && (
     <div className="modal-overlay">
@@ -1030,7 +1021,7 @@ sudo apt install -y python3 python3-pip`}
                         <span style={{ background: 'linear-gradient(135deg, #4f9cf9 30%, #9b59f5)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Your machine.</span>
                     </h2>
                     <p style={{ color: 'var(--muted)', fontSize: '18px', lineHeight: '1.7', marginBottom: '52px' }}>
-                        100% local. Completely private. No subscription required to get started — download RK AI Desktop and take control.
+                        100% local. Completely private. Learn more about it.
                     </p>
                     <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
                         <button onClick={() => startDownload(detectedOS || 'mac')} style={{
@@ -1041,7 +1032,7 @@ sudo apt install -y python3 python3-pip`}
                         }}
                             onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(79,156,249,0.6)'; }}
                             onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(79,156,249,0.4)'; }}
-                        >Download Free</button>
+                        >Learn More</button>
                         <Link href="/subscription" style={{
                             padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
                             background: 'transparent', border: '1px solid rgba(79,156,249,0.4)',

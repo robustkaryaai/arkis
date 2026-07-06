@@ -75,7 +75,7 @@ export default function LuminaOSProduct() {
                         justifyContent: 'center'
                     }}>
                         <Link
-                            href="/waitlist?product=lumina-os"
+                            href="/notify?product=lumina-os"
                             className="btn-primary"
                             style={{
                                 padding: '16px 48px', fontSize: '18px',

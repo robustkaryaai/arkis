@@ -57,7 +57,7 @@ export default function LightKeyProduct() {
                         justifyContent: 'center'
                     }}>
                         <Link 
-                            href="/waitlist?product=light-key" 
+                            href="/notify?product=light-key" 
                             className="btn-primary" 
                             style={{ 
                                 padding: '18px 48px', fontSize: '18px',
