@@ -187,46 +187,21 @@ export default function Navbar() {
                 {/* Hamburger Menu Toggle */}
                 <button 
                     className="hamburger"
+                    type="button"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    style={{
-                        display: 'none',
-                        background: 'none', 
-                        border: 'none', 
-                        cursor: 'pointer', 
-                        padding: '10px',
-                        zIndex: 1001,
-                        position: 'relative'
-                    }}
+                    aria-expanded={mobileMenuOpen}
+                    aria-label="Toggle navigation menu"
                 >
-                    <div style={{
-                        width: '25px', height: '2px', background: 'var(--text)',
-                        marginBottom: '5px', transition: '0.3s',
-                        transform: mobileMenuOpen ? 'rotate(45deg) translate(5px, 5px)' : ''
-                    }}></div>
-                    <div style={{
-                        width: '25px', height: '2px', background: 'var(--text)',
-                        marginBottom: '5px', opacity: mobileMenuOpen ? 0 : 1, transition: '0.3s'
-                    }}></div>
-                    <div style={{
-                        width: '25px', height: '2px', background: 'var(--text)',
-                        transition: '0.3s',
-                        transform: mobileMenuOpen ? 'rotate(-45deg) translate(5px, -5px)' : ''
-                    }}></div>
+                    <span className={mobileMenuOpen ? 'hamburger-line active top' : 'hamburger-line top'} />
+                    <span className={mobileMenuOpen ? 'hamburger-line active middle' : 'hamburger-line middle'} />
+                    <span className={mobileMenuOpen ? 'hamburger-line active bottom' : 'hamburger-line bottom'} />
                 </button>
             </div>
 
             {/* Mobile Menu Overlay Background */}
             {mobileMenuOpen && (
                 <div 
-                    style={{
-                        position: 'fixed', 
-                        top: 0, 
-                        left: 0, 
-                        right: 0, 
-                        bottom: 0,
-                        background: 'rgba(0, 0, 0, 0.6)',
-                        zIndex: 999
-                    }}
+                    className="mobile-menu-overlay"
                     onClick={() => setMobileMenuOpen(false)}
                 />
             )}
@@ -234,25 +209,7 @@ export default function Navbar() {
             {/* Mobile Menu */}
             <div 
                 ref={mobileMenuRef}
-                style={{
-                    position: 'fixed', 
-                    top: 0, 
-                    right: 0, 
-                    bottom: 0,
-                    width: '100%', 
-                    maxWidth: '300px',
-                    background: 'rgba(7, 7, 15, 0.98)',
-                    borderLeft: '1px solid var(--border)',
-                    padding: '100px 40px 40px',
-                    display: 'flex', 
-                    flexDirection: 'column', 
-                    gap: '24px',
-                    transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
-                    transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    zIndex: 1000,
-                    overflowY: 'auto',
-                    backdropFilter: 'blur(10px)'
-                }}
+                className={mobileMenuOpen ? 'mobile-menu mobile-menu-open' : 'mobile-menu'}
             >
                 <Link href="/" className={isActive('/')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/') ? 'var(--blue)' : 'var(--text)' }}>Home</Link>
                 <Link href="/products" className={isActive('/products')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/products') ? 'var(--blue)' : 'var(--text)' }}>Products</Link>
@@ -289,9 +246,111 @@ export default function Navbar() {
             </div>
 
             <style jsx>{`
-                @media (max-width: 768px) {
-                    .desktop-only { display: none !important; }
-                    .hamburger { display: block !important; }
+                .hamburger {
+                    display: none;
+                    align-items: center;
+                    justify-content: center;
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 16px;
+                    background: rgba(255, 255, 255, 0.08);
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.15);
+                    padding: 10px;
+                    cursor: pointer;
+                    transition: background 0.2s ease, transform 0.2s ease;
+                }
+
+                .hamburger:hover {
+                    background: rgba(255, 255, 255, 0.12);
+                    transform: translateY(-1px);
+                }
+
+                .hamburger-line {
+                    display: block;
+                    width: 22px;
+                    height: 2px;
+                    background: var(--text);
+                    border-radius: 999px;
+                    transition: transform 0.3s ease, opacity 0.3s ease;
+                }
+
+                .hamburger-line + .hamburger-line {
+                    margin-top: 6px;
+                }
+
+                .hamburger-line.active.top {
+                    transform: translateY(8px) rotate(45deg);
+                }
+
+                .hamburger-line.active.middle {
+                    opacity: 0;
+                }
+
+                .hamburger-line.active.bottom {
+                    transform: translateY(-8px) rotate(-45deg);
+                }
+
+                .mobile-menu-overlay {
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(0, 0, 0, 0.55);
+                    backdrop-filter: blur(4px);
+                    z-index: 999;
+                }
+
+                .mobile-menu {
+                    position: fixed;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    width: 100%;
+                    max-width: 320px;
+                    background: rgba(7, 7, 15, 0.98);
+                    border-left: 1px solid rgba(255,255,255,0.08);
+                    padding: 100px 36px 32px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 24px;
+                    transform: translateX(100%);
+                    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+                    z-index: 1000;
+                    overflow-y: auto;
+                    backdrop-filter: blur(14px);
+                }
+
+                .mobile-menu.mobile-menu-open {
+                    transform: translateX(0);
+                }
+
+                .mobile-menu a {
+                    font-size: 20px;
+                    font-weight: 700;
+                }
+
+                .desktop-only {
+                    display: inherit;
+                }
+
+                @media (max-width: 900px) {
+                    .desktop-only {
+                        display: none !important;
+                    }
+
+                    .hamburger {
+                        display: flex !important;
+                    }
+                }
+
+                @media (max-width: 620px) {
+                    nav {
+                        padding: 0 18px;
+                    }
+
+                    .mobile-menu {
+                        width: 100%;
+                        padding: 88px 18px 28px;
+                    }
                 }
             `}</style>
         </nav>
