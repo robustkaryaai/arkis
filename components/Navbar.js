@@ -41,207 +41,82 @@ export default function Navbar() {
     };
 
     return (
-        <nav style={{ 
-            position: 'fixed', 
-            top: 0, 
-            left: 0, 
-            right: 0, 
-            zIndex: 1000, 
-            background: 'rgba(7, 7, 15, 0.95)',
-            backdropFilter: 'blur(10px)',
-            borderBottom: '1px solid var(--border)',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            padding: '0 5%',
-            height: '70px'
-        }}>
-            <Link className="nav-logo" href="/" style={{ zIndex: 1001, minWidth: 'fit-content' }}>
-                <span style={{
-                    fontSize: '24px',
-                    fontWeight: '800',
-                    letterSpacing: '-1px',
-                    background: 'linear-gradient(115deg, #ff8500, #ffffff, #13bb1a)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    textShadow: '0 0 18px rgba(255, 133, 0, 0.12)',
-                }}>Rexycore</span>
-            </Link>
+        <nav className="nav-shell">
+            <div className="nav-brand">
+                <Link className="nav-logo" href="/">
+                    <span>Rexycore</span>
+                </Link>
+            </div>
 
-            {/* Desktop Links */}
-            <ul className="nav-links desktop-only" style={{ 
-                display: 'flex', 
-                gap: '30px', 
-                listStyle: 'none',
-                margin: 0,
-                padding: 0
-            }}>
+            <ul className="nav-links desktop-only">
                 <li><Link href="/" className={isActive('/')}>Home</Link></li>
                 <li><Link href="/products" className={isActive('/products')}>Products</Link></li>
                 <li><Link href="/about" className={isActive('/about')}>About</Link></li>
-                
                 <li><Link href="/contact" className={isActive('/contact')}>Contact</Link></li>
             </ul>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <div className="nav-actions">
                 {user ? (
-                    <div className="desktop-only" style={{ position: 'relative' }} ref={dropdownRef}>
+                    <div className="nav-user desktop-only" ref={dropdownRef}>
                         <button
+                            type="button"
+                            className={dropdownOpen ? 'user-trigger active' : 'user-trigger'}
                             onClick={() => setDropdownOpen(!dropdownOpen)}
-                            style={{
-                                display: 'flex', alignItems: 'center', gap: '10px',
-                                background: 'none', border: 'none', cursor: 'pointer',
-                                padding: '4px', borderRadius: '50px',
-                                transition: 'all 0.2s',
-                                border: `1px solid ${dropdownOpen ? 'var(--blue)' : 'transparent'}`,
-                                background: dropdownOpen ? 'rgba(79, 156, 249, 0.1)' : 'transparent'
-                            }}
                         >
-                            <div style={{
-                                width: '34px', height: '34px', borderRadius: '50%',
-                                background: 'linear-gradient(135deg, var(--blue), var(--violet))',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                fontSize: '13px', fontWeight: '800', color: '#fff'
-                            }}>
+                            <div className="user-avatar">
                                 {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
                             </div>
                         </button>
 
                         {dropdownOpen && (
-                            <div style={{
-                                position: 'absolute', top: '50px', right: '0',
-                                width: '240px', background: 'rgba(7, 7, 15, 0.98)',
-                                backdropFilter: 'blur(20px)', border: '1px solid var(--border)',
-                                borderRadius: '20px', padding: '12px',
-                                boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
-                                zIndex: 1000
-                            }}>
-                                <div style={{ padding: '8px 12px', borderBottom: '1px solid var(--border)', marginBottom: '8px' }}>
-                                    <p style={{ margin: 0, fontWeight: '700', fontSize: '14px' }}>{user.name || 'User'}</p>
-                                    <p style={{ margin: 0, fontSize: '12px', color: 'var(--muted)' }}>{user.email}</p>
+                            <div className="user-dropdown">
+                                <div className="user-dropdown-info">
+                                    <p>{user.name || 'User'}</p>
+                                    <p>{user.email}</p>
                                 </div>
-                                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', padding: '6px 6px 10px' }}>
-                                    <Link
-                                        href="/profile"
-                                        style={{
-                                            padding: '10px 10px',
-                                            borderRadius: '12px',
-                                            textDecoration: 'none',
-                                            color: 'var(--text)',
-                                            fontSize: '14px',
-                                            fontWeight: '600',
-                                            background: 'rgba(255,255,255,0.02)',
-                                            border: '1px solid var(--border)',
-                                        }}
-                                    >
-                                        Profile
-                                    </Link>
-                                    <Link
-                                        href="/orders"
-                                        style={{
-                                            padding: '10px 10px',
-                                            borderRadius: '12px',
-                                            textDecoration: 'none',
-                                            color: 'var(--text)',
-                                            fontSize: '14px',
-                                            fontWeight: '600',
-                                            background: 'rgba(255,255,255,0.02)',
-                                            border: '1px solid var(--border)',
-                                        }}
-                                    >
-                                        Orders
-                                    </Link>
-                                    <Link
-                                        href="/subscription"
-                                        style={{
-                                            padding: '10px 10px',
-                                            borderRadius: '12px',
-                                            textDecoration: 'none',
-                                            color: 'var(--text)',
-                                            fontSize: '14px',
-                                            fontWeight: '600',
-                                            background: 'rgba(255,255,255,0.02)',
-                                            border: '1px solid var(--border)',
-                                        }}
-                                    >
-                                        RexyCore Cloud
-                                    </Link>
+                                <div className="user-dropdown-links">
+                                    <Link href="/profile">Profile</Link>
+                                    <Link href="/orders">Orders</Link>
+                                    <Link href="/subscription">RexyCore Cloud</Link>
                                 </div>
-                                <button 
-                                    onClick={handleLogout}
-                                    style={{ 
-                                        width: '100%', padding: '10px', textAlign: 'left',
-                                        background: 'none', border: 'none', color: '#ef4444',
-                                        cursor: 'pointer', fontSize: '14px', fontWeight: '600'
-                                    }}
-                                >
-                                    Sign Out
-                                </button>
+                                <button type="button" className="user-signout" onClick={handleLogout}>Sign Out</button>
                             </div>
                         )}
                     </div>
                 ) : (
-                    <Link href="/login" className="btn-primary desktop-only" style={{ padding: '8px 20px', fontSize: '14px' }}>Login</Link>
+                    <Link href="/login" className="btn-primary desktop-only nav-login">Login</Link>
                 )}
 
-                {/* Hamburger Menu Toggle */}
-                <button 
-                    className="hamburger"
+                <button
                     type="button"
+                    className="hamburger"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     aria-expanded={mobileMenuOpen}
                     aria-label="Toggle navigation menu"
                 >
-                    <span className={mobileMenuOpen ? 'hamburger-line active top' : 'hamburger-line top'} />
-                    <span className={mobileMenuOpen ? 'hamburger-line active middle' : 'hamburger-line middle'} />
-                    <span className={mobileMenuOpen ? 'hamburger-line active bottom' : 'hamburger-line bottom'} />
+                    <span className={mobileMenuOpen ? 'hamburger-line top active' : 'hamburger-line top'} />
+                    <span className={mobileMenuOpen ? 'hamburger-line middle active' : 'hamburger-line middle'} />
+                    <span className={mobileMenuOpen ? 'hamburger-line bottom active' : 'hamburger-line bottom'} />
                 </button>
             </div>
 
-            {/* Mobile Menu Overlay Background */}
-            {mobileMenuOpen && (
-                <div 
-                    className="mobile-menu-overlay"
-                    onClick={() => setMobileMenuOpen(false)}
-                />
-            )}
+            {mobileMenuOpen && <div className="mobile-menu-overlay" onClick={() => setMobileMenuOpen(false)} />}
 
-            {/* Mobile Menu */}
-            <div 
-                ref={mobileMenuRef}
-                className={mobileMenuOpen ? 'mobile-menu mobile-menu-open' : 'mobile-menu'}
-            >
-                <Link href="/" className={isActive('/')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/') ? 'var(--blue)' : 'var(--text)' }}>Home</Link>
-                <Link href="/products" className={isActive('/products')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/products') ? 'var(--blue)' : 'var(--text)' }}>Products</Link>
-                <Link href="/about" className={isActive('/about')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/about') ? 'var(--blue)' : 'var(--text)' }}>About</Link>
-                <Link href="/contact" className={isActive('/contact')} style={{ fontSize: '20px', fontWeight: '700', textDecoration: 'none', color: isActive('/contact') ? 'var(--blue)' : 'var(--text)' }}>Contact</Link>
+            <div ref={mobileMenuRef} className={mobileMenuOpen ? 'mobile-menu mobile-menu-open' : 'mobile-menu'}>
+                <Link href="/" className={isActive('/')}>Home</Link>
+                <Link href="/products" className={isActive('/products')}>Products</Link>
+                <Link href="/about" className={isActive('/about')}>About</Link>
+                <Link href="/contact" className={isActive('/contact')}>Contact</Link>
                 {user ? (
                     <>
-                        <div style={{ height: '1px', background: 'var(--border)', margin: '10px 0' }} />
-                        <Link href="/profile" style={{ fontSize: '18px', fontWeight: '700', textDecoration: 'none', color: isActive('/profile') ? 'var(--blue)' : 'var(--text)' }}>Profile</Link>
-                        <Link href="/orders" style={{ fontSize: '18px', fontWeight: '700', textDecoration: 'none', color: isActive('/orders') ? 'var(--blue)' : 'var(--text)' }}>Orders</Link>
-                        <Link href="/subscription" style={{ fontSize: '18px', fontWeight: '700', textDecoration: 'none', color: isActive('/subscription') ? 'var(--blue)' : 'var(--text)' }}>RexyCore Cloud</Link>
-                        <button
-                            onClick={handleLogout}
-                            style={{
-                                marginTop: '18px',
-                                padding: '14px',
-                                textAlign: 'center',
-                                background: 'rgba(239, 68, 68, 0.12)',
-                                borderRadius: '50px',
-                                border: '1px solid rgba(239, 68, 68, 0.25)',
-                                color: '#ef4444',
-                                fontWeight: '800',
-                                cursor: 'pointer',
-                                fontSize: '14px',
-                                fontFamily: 'inherit'
-                            }}
-                        >
-                            Sign Out
-                        </button>
+                        <div className="mobile-divider" />
+                        <Link href="/profile" className={isActive('/profile')}>Profile</Link>
+                        <Link href="/orders" className={isActive('/orders')}>Orders</Link>
+                        <Link href="/subscription" className={isActive('/subscription')}>RexyCore Cloud</Link>
+                        <button type="button" className="mobile-signout" onClick={handleLogout}>Sign Out</button>
                     </>
                 ) : (
-                    <Link href="/login" style={{ marginTop: '20px', padding: '14px', textAlign: 'center', background: 'var(--blue)', borderRadius: '50px', textDecoration: 'none', color: '#fff', fontWeight: '800' }}>Login</Link>
+                    <Link href="/login" className="mobile-login">Login</Link>
                 )}
             </div>
 
@@ -279,15 +154,15 @@ export default function Navbar() {
                     margin-top: 6px;
                 }
 
-                .hamburger-line.active.top {
+                .hamburger-line.top.active {
                     transform: translateY(8px) rotate(45deg);
                 }
 
-                .hamburger-line.active.middle {
+                .hamburger-line.middle.active {
                     opacity: 0;
                 }
 
-                .hamburger-line.active.bottom {
+                .hamburger-line.bottom.active {
                     transform: translateY(-8px) rotate(-45deg);
                 }
 
@@ -297,6 +172,210 @@ export default function Navbar() {
                     background: rgba(0, 0, 0, 0.55);
                     backdrop-filter: blur(4px);
                     z-index: 999;
+                }
+
+                .nav-shell {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    z-index: 1000;
+                    background: rgba(7, 7, 15, 0.96);
+                    backdrop-filter: blur(18px);
+                    border-bottom: 1px solid rgba(255,255,255,0.08);
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    padding: 0 5%;
+                    min-height: 72px;
+                    height: 72px;
+                    flex-wrap: wrap;
+                }
+
+                .nav-brand {
+                    z-index: 1001;
+                    flex: 0 0 auto;
+                }
+
+                .nav-logo {
+                    font-size: 24px;
+                    font-weight: 900;
+                    letter-spacing: -1px;
+                    text-decoration: none;
+                }
+
+                .nav-logo span {
+                    display: inline-block;
+                    background: linear-gradient(90deg, #ff8500, #ffffff, #13bb1a, #4f9cf9, #9b59f5);
+                    background-size: 300% 300%;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    animation: logo-flow 6s ease infinite;
+                    text-shadow: 0 0 18px rgba(255, 133, 0, 0.12);
+                }
+
+                @keyframes logo-flow {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+
+                .nav-links {
+                    display: flex;
+                    gap: 30px;
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    align-items: center;
+                    flex: 1 1 auto;
+                    justify-content: center;
+                    min-width: 0;
+                    white-space: nowrap;
+                }
+
+                .nav-links li {
+                    display: inline-block;
+                }
+
+                .nav-links a,
+                .mobile-menu a,
+                .user-dropdown-links a {
+                    text-decoration: none;
+                    color: var(--muted);
+                    font-size: 14px;
+                    font-weight: 600;
+                    transition: color 0.2s ease, transform 0.2s ease;
+                }
+
+                .nav-links a:hover,
+                .nav-links a.active,
+                .mobile-menu a:hover,
+                .mobile-menu a.active,
+                .user-dropdown-links a:hover {
+                    color: var(--text);
+                    transform: translateY(-1px);
+                }
+
+                .nav-actions {
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    gap: 16px;
+                    min-height: 70px;
+                }
+
+                .nav-login {
+                    padding: 10px 20px;
+                    border-radius: 999px;
+                }
+
+                .nav-user {
+                    position: relative;
+                }
+
+                .user-trigger {
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 6px;
+                    border: 1px solid transparent;
+                    border-radius: 999px;
+                    background: rgba(255,255,255,0.06);
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                }
+
+                .user-trigger.active {
+                    border-color: rgba(79,156,249,0.4);
+                    background: rgba(79,156,249,0.12);
+                }
+
+                .user-avatar {
+                    width: 34px;
+                    height: 34px;
+                    border-radius: 50%;
+                    display: grid;
+                    place-items: center;
+                    background: linear-gradient(135deg, var(--blue), var(--violet));
+                    color: #fff;
+                    font-size: 14px;
+                    font-weight: 800;
+                }
+
+                .user-dropdown {
+                    position: absolute;
+                    top: 56px;
+                    right: 0;
+                    width: 260px;
+                    background: rgba(7,7,15,0.98);
+                    border: 1px solid rgba(255,255,255,0.08);
+                    border-radius: 20px;
+                    padding: 14px;
+                    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+                    z-index: 1001;
+                }
+
+                .user-dropdown-info {
+                    border-bottom: 1px solid rgba(255,255,255,0.08);
+                    padding-bottom: 10px;
+                    margin-bottom: 10px;
+                }
+
+                .user-dropdown-info p:first-child {
+                    margin: 0 0 6px;
+                    font-weight: 700;
+                }
+
+                .user-dropdown-info p:last-child {
+                    margin: 0;
+                    color: var(--muted);
+                    font-size: 12px;
+                }
+
+                .user-dropdown-links {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                }
+
+                .user-dropdown-links a {
+                    display: block;
+                    padding: 10px 12px;
+                    border-radius: 14px;
+                    background: rgba(255,255,255,0.03);
+                    border: 1px solid rgba(255,255,255,0.06);
+                }
+
+                .user-signout {
+                    width: 100%;
+                    margin-top: 10px;
+                    padding: 12px 14px;
+                    border-radius: 14px;
+                    border: 1px solid rgba(239,68,68,0.25);
+                    background: rgba(239,68,68,0.12);
+                    color: #ef4444;
+                    font-weight: 700;
+                    cursor: pointer;
+                }
+
+                .hamburger {
+                    display: none;
+                    align-items: center;
+                    justify-content: center;
+                    width: 48px;
+                    height: 48px;
+                    border-radius: 16px;
+                    border: 1px solid rgba(255, 255, 255, 0.12);
+                    background: rgba(255, 255, 255, 0.08);
+                    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.15);
+                    padding: 10px;
+                    cursor: pointer;
+                    transition: background 0.2s ease, transform 0.2s ease;
+                }
+
+                .hamburger:hover {
+                    background: rgba(255, 255, 255, 0.12);
+                    transform: translateY(-1px);
                 }
 
                 .mobile-menu {
@@ -329,7 +408,8 @@ export default function Navbar() {
                 }
 
                 .desktop-only {
-                    display: inherit;
+                    display: inline-flex;
+                    align-items: center;
                 }
 
                 @media (max-width: 900px) {
@@ -340,10 +420,14 @@ export default function Navbar() {
                     .hamburger {
                         display: flex !important;
                     }
+
+                    .nav-links {
+                        display: none;
+                    }
                 }
 
                 @media (max-width: 620px) {
-                    nav {
+                    .nav-shell {
                         padding: 0 18px;
                     }
 

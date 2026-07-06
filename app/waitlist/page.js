@@ -24,7 +24,6 @@ function WaitlistContent() {
         phone: '',
         country: 'India',
         notes: '',
-        paymentIntent: 'Maybe',
     });
     const [submitted, setSubmitted] = useState(false);
     const [submitting, setSubmitting] = useState(false);
@@ -59,16 +58,7 @@ function WaitlistContent() {
             phone: form.phone,
             country: form.country,
             notes: form.notes,
-            paymentIntent: form.paymentIntent,
-        };
 
-        try {
-            // 🚀 Proxy all Appwrite calls through the Backend to bypass Platform Limits
-            const response = await fetch('https://rk-ai-backend.onrender.com/web/waitlist', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(entry)
-            });
 
             if (!response.ok) {
                 const data = await response.json().catch(() => ({}));
@@ -102,13 +92,13 @@ function WaitlistContent() {
                         Early Access
                     </div>
                     <h1 style={{ fontSize: 'clamp(36px, 6vw, 64px)', fontWeight: '900', letterSpacing: '-1px' }}>
-                        Control your entire home with AI — <span className="grad">better than Alexa</span>
+                        Control your entire home with AI — <span className="grad">privacy-first automation</span>
                     </h1>
                     <p style={{ color: 'var(--muted)', fontSize: '18px', marginTop: '14px' }}>
-                        RK AI Home learns your habits, automates everything, and works offline.
+                        RK AI Home learns your habits, automates routines, and keeps your data safe on device.
                     </p>
                     <p style={{ color: 'var(--blue)', fontSize: '14px', marginTop: '12px', fontWeight: '700' }}>
-                        ⚡ Only 100 early users will get lifetime ₹49/month. Pay later when your slot is ready.
+                        ⚡ Early access is limited, and you’ll get priority invites for the next launch wave.
                     </p>
                 </div>
 
@@ -164,42 +154,15 @@ function WaitlistContent() {
                                     style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '12px', padding: '14px', color: 'var(--text)', outline: 'none' }}
                                 />
                             </div>
-                            <div style={{ gridColumn: 'span 2' }}>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Would you pay ₹99/month for this?</label>
-                                <div style={{ display: 'flex', gap: '12px' }}>
-                                    {['Yes', 'Maybe', 'No'].map((opt) => (
-                                        <button
-                                            key={opt}
-                                            type="button"
-                                            onClick={() => setForm((p) => ({ ...p, paymentIntent: opt }))}
-                                            style={{
-                                                flex: 1,
-                                                padding: '12px',
-                                                borderRadius: '12px',
-                                                border: '1px solid',
-                                                borderColor: form.paymentIntent === opt ? 'var(--blue)' : 'var(--border)',
-                                                background: form.paymentIntent === opt ? 'rgba(59,130,246,0.1)' : 'transparent',
-                                                color: form.paymentIntent === opt ? 'var(--blue)' : 'var(--text)',
-                                                fontSize: '14px',
-                                                fontWeight: '700',
-                                                cursor: 'pointer',
-                                                transition: '0.2s'
-                                            }}
-                                        >
-                                            {opt}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
                         </div>
 
                         <div style={{ marginTop: '18px' }}>
-                            <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>What feature would make you pay?</label>
+                            <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>What feature would make RK AI Home essential for you?</label>
                             <textarea
                                 value={form.notes}
                                 onChange={(e) => setForm((p) => ({ ...p, notes: e.target.value }))}
                                 rows={4}
-                                placeholder="Example: Better local control, more storage, etc."
+                                placeholder="Example: Secure offline routines, advanced privacy controls, smart scene automation."
                                 style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '12px', padding: '14px', color: 'var(--text)', outline: 'none', resize: 'vertical' }}
                             />
                         </div>
