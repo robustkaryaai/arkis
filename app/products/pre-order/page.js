@@ -67,8 +67,7 @@ function PreOrderContent() {
                 shippingAddress: formData.address,
                 shippingCity: formData.city,
                 shippingZip: formData.zipCode,
-                shippingCountry: formData.country,
-                source: 'web'
+                shippingCountry: formData.country
             };
 
             const res = await submitPreorder(reqData);

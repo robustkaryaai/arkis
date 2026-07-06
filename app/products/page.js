@@ -62,7 +62,7 @@ const plans = [
 ];
 
 function ProductCard({ product, onSelect }) {
-    const isOrange = product.accentColor === '#f59e0b' || product.isBuyable;
+    const isOrange = product.accentColor === '#f59e0b';
     const shadowColor = isOrange ? 'rgba(245, 158, 11, 0.2)' : `${product.accentColor}22`;
 
     return (

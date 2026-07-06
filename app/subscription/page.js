@@ -148,7 +148,7 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
                 flexDirection: 'column'
             }}
         >
-            <MatrixRain color={plan.glowColor} opacity={isActive ? 0.08 : 0.04} />
+            <MatrixRain color={plan.glowColor} opacity={0.08} />
 
             {plan.popular && (
                 <div style={{
