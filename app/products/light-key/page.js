@@ -161,7 +161,6 @@ export default function LightKeyProduct() {
                 background: 'linear-gradient(160deg, rgba(245,158,11,0.06) 0%, rgba(0,0,0,0) 60%, rgba(217,119,6,0.04) 100%)',
                 borderTop: '1px solid rgba(245,158,11,0.15)'
             }}>
-                <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '1px', height: '80px', background: 'linear-gradient(to bottom, rgba(245,158,11,0.8), transparent)' }} />
                 <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1, maxWidth: '700px', margin: '0 auto' }}>
                     <p style={{ fontSize: '13px', fontWeight: '800', color: '#f59e0b', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '28px' }}>LIGHT KEY · Coming Soon</p>

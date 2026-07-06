@@ -244,7 +244,6 @@ export default function LuminaOSProduct() {
                 background: 'linear-gradient(160deg, rgba(168,85,247,0.05) 0%, rgba(0,0,0,0) 60%, rgba(99,102,241,0.03) 100%)',
                 borderTop: '1px solid rgba(168,85,247,0.12)'
             }}>
-                <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '1px', height: '80px', background: 'linear-gradient(to bottom, rgba(168,85,247,0.7), transparent)' }} />
                 <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(168,85,247,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1, maxWidth: '650px', margin: '0 auto' }}>
                     <h2 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: '900', lineHeight: '1.05', letterSpacing: '-2px', marginBottom: '20px' }}>
@@ -252,7 +251,7 @@ export default function LuminaOSProduct() {
                         <span style={{ background: 'linear-gradient(135deg, #a855f7 30%, #6366f1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>thinks with you.</span>
                     </h2>
                     <p style={{ color: 'var(--muted)', fontSize: '19px', lineHeight: '1.7', marginBottom: '52px' }}>
-                        Alpha access is invite-only. Join the journey to understand the roadmap and get early access.
+                        Alpha access is invite-only. Explore the journey to understand the roadmap and get early access.
                     </p>
                     <Link href="/journey/lumina-os" style={{
                         display: 'inline-flex', alignItems: 'center', gap: '10px',
@@ -264,7 +263,7 @@ export default function LuminaOSProduct() {
                         onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(168,85,247,0.6)'; }}
                         onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(168,85,247,0.4)'; }}
                     >
-                        Join the Journey →
+                        Explore the Journey →
                     </Link>
                 </div>
             </section>

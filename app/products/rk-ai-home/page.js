@@ -394,7 +394,6 @@ export default function RKHomeProduct() {
                 background: 'linear-gradient(160deg, rgba(236,72,153,0.05) 0%, rgba(0,0,0,0) 60%, rgba(190,24,93,0.03) 100%)',
                 borderTop: '1px solid rgba(236,72,153,0.12)'
             }}>
-                <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '1px', height: '80px', background: 'linear-gradient(to bottom, rgba(236,72,153,0.7), transparent)' }} />
                 <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(236,72,153,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1, maxWidth: '650px', margin: '0 auto' }}>
                     <h2 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: '900', lineHeight: '1.05', letterSpacing: '-2px', marginBottom: '20px' }}>
