@@ -387,46 +387,38 @@ export default function RKHomeProduct() {
                 </div>
             </section>
 
-            {/* BOTTOM CTA */}
+            {/* BOTTOM CTA — SUGGEST FEATURE */}
             <section style={{
                 position: 'relative', overflow: 'hidden',
                 padding: '160px 5%', textAlign: 'center',
-                background: 'linear-gradient(160deg, rgba(236,72,153,0.06) 0%, rgba(0,0,0,0) 60%, rgba(190,24,93,0.04) 100%)',
-                borderTop: '1px solid rgba(236,72,153,0.15)'
+                background: 'linear-gradient(160deg, rgba(236,72,153,0.05) 0%, rgba(0,0,0,0) 60%, rgba(190,24,93,0.03) 100%)',
+                borderTop: '1px solid rgba(236,72,153,0.12)'
             }}>
-                <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '1px', height: '80px', background: 'linear-gradient(to bottom, rgba(236,72,153,0.8), transparent)' }} />
-                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(236,72,153,0.08) 0%, transparent 65%)', pointerEvents: 'none' }} />
-                <div style={{ position: 'relative', zIndex: 1, maxWidth: '700px', margin: '0 auto' }}>
-                    <p style={{ fontSize: '13px', fontWeight: '800', color: '#ec4899', letterSpacing: '4px', textTransform: 'uppercase', marginBottom: '28px' }}>RK AI HOME · Pre-order Open</p>
-                    <h2 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: '900', lineHeight: '1.05', letterSpacing: '-2px', marginBottom: '28px' }}>
-                        Your home.<br />
-                        <span style={{ background: 'linear-gradient(135deg, #ec4899 30%, #be185d)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Made intelligent.</span>
+                <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)', width: '1px', height: '80px', background: 'linear-gradient(to bottom, rgba(236,72,153,0.7), transparent)' }} />
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(236,72,153,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
+                <div style={{ position: 'relative', zIndex: 1, maxWidth: '650px', margin: '0 auto' }}>
+                    <h2 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: '900', lineHeight: '1.05', letterSpacing: '-2px', marginBottom: '20px' }}>
+                        Your assistant.<br />
+                        <span style={{ background: 'linear-gradient(135deg, #ec4899 30%, #be185d)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Your command.</span>
                     </h2>
-                    <p style={{ color: 'var(--muted)', fontSize: '18px', lineHeight: '1.7', marginBottom: '52px' }}>
-                        Limited early units available. Every unit ships with lifetime software updates and priority cloud access.
+                    <p style={{ color: 'var(--muted)', fontSize: '19px', lineHeight: '1.7', marginBottom: '52px' }}>
+                        What feature do you want to see in RK AI Home?<br />Tell us — and we'll build it.
                     </p>
-                    <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                        <Link href="/products/pre-order?productId=rkai_home" style={{
-                            padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
-                            background: 'linear-gradient(135deg, #ec4899, #be185d)',
-                            color: '#fff', fontWeight: '800', textDecoration: 'none',
-                            boxShadow: '0 10px 40px rgba(236,72,153,0.4)', transition: 'all 0.3s ease'
-                        }}
-                            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(236,72,153,0.6)'; }}
-                            onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(236,72,153,0.4)'; }}
-                        >Pre-order Now</Link>
-                        <Link href="/suggest" style={{
-                            padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
-                            background: 'transparent', border: '1px solid rgba(236,72,153,0.4)',
-                            color: '#ec4899', fontWeight: '800', textDecoration: 'none',
-                            transition: 'all 0.3s ease'
-                        }}
-                            onMouseEnter={e => { e.currentTarget.style.borderColor = '#ec4899'; e.currentTarget.style.background = 'rgba(236,72,153,0.08)'; e.currentTarget.style.transform = 'translateY(-3px)'; }}
-                            onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(236,72,153,0.4)'; e.currentTarget.style.background = 'transparent'; e.currentTarget.style.transform = ''; }}
-                        >💡 Suggest a Feature</Link>
-                    </div>
+                    <Link href="/suggest" style={{
+                        display: 'inline-flex', alignItems: 'center', gap: '10px',
+                        padding: '20px 56px', fontSize: '17px', borderRadius: '50px',
+                        background: 'linear-gradient(135deg, #ec4899, #be185d)',
+                        color: '#fff', fontWeight: '800', textDecoration: 'none',
+                        boxShadow: '0 10px 40px rgba(236,72,153,0.4)', transition: 'all 0.3s ease'
+                    }}
+                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(236,72,153,0.6)'; }}
+                        onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(236,72,153,0.4)'; }}
+                    >
+                        💡 Suggest a Feature
+                    </Link>
                 </div>
             </section>
+
 
             <Footer />
 
