@@ -141,6 +141,20 @@ function ProductCard({ product, onSelect }) {
                             <FiShoppingCart size={18} />
                             {product.cta}
                         </button>
+                        {product.secondaryCta && (
+                            <Link href={product.secondaryHref} style={{
+                                width: '100%', background: 'rgba(255,255,255,0.04)',
+                                color: product.accentColor, border: `1px solid ${product.accentColor}44`, borderRadius: '50px', padding: '13px 20px',
+                                fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
+                                transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                                textDecoration: 'none', marginTop: '10px'
+                            }}
+                                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = `0 10px 20px ${product.accentColor}22`; }}
+                                onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}
+                            >
+                                {product.secondaryCta}
+                            </Link>
+                        )}
                     ) : product.comingSoon ? (
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                             <Link
@@ -310,7 +324,7 @@ const products = [
         accentColor2: '#9b59f5',
         badge: 'Live',
         badgeColor: 'linear-gradient(135deg, #4ade80, #16a34a)',
-        cta: 'Download Now',
+        cta: 'Explore & Download',
         href: '/products/rk-ai-desktop',
         comingSoon: false,
     },
@@ -328,6 +342,8 @@ const products = [
         badge: 'Pre-order',
         badgeColor: 'linear-gradient(135deg, #ec4899, #be185d)',
         cta: 'Pre-order Now',
+        secondaryCta: 'Suggest a Feature',
+        secondaryHref: '/suggest',
         href: '/products/rk-ai-home',
         comingSoon: false,
         isPhysical: true,
@@ -338,14 +354,14 @@ const products = [
         icon: <Image src="/luminaos.png" alt="Lumina OS" width={90} height={90} style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.4))', transform: 'translateY(15px)' }} />,
         category: 'Operating System',
         name: 'Lumina OS',
-        desc: 'A lightweight, AI-integrated operating system built around speed, privacy, and intelligent workflows.',
+        desc: 'Witness the evolution of computing. Early access spots for Lumina OS Alpha are limited. Secure yours now.',
         tags: ['Linux', 'AI-Native', 'Privacy First'],
         accentColor: '#a855f7',
         accentColor2: '#6366f1',
-        badge: 'In Development',
+        badge: 'Limited Alpha',
         badgeColor: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
-        cta: 'Learn More',
-        href: '/products/lumina-os',
+        cta: 'Join the Journey',
+        href: '/journey/lumina-os',
         comingSoon: false,
     },
     {
@@ -359,8 +375,8 @@ const products = [
         accentColor2: '#d97706',
         badge: 'Coming Soon',
         badgeColor: 'linear-gradient(135deg, #f59e0b, #d97706)',
-        cta: 'Learn More',
-        href: '/products/light-key',
+        cta: 'Join the Journey',
+        href: '/journey/light-key',
         comingSoon: true,
         notifyProductKey: 'light-key',
         isBuyable: false
