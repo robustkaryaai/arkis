@@ -128,33 +128,35 @@ function ProductCard({ product, onSelect }) {
 
                 <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
                     {product.isBuyable ? (
-                        <button onClick={onSelect} style={{
-                            width: '100%', background: `linear-gradient(135deg, ${product.accentColor}, ${product.accentColor2 || product.accentColor}cc)`,
-                            color: '#fff', border: 'none', borderRadius: '50px', padding: '13px 20px',
-                            fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
-                            transition: 'transform 0.2s, box-shadow 0.2s',
-                            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
-                        }}
-                            onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = `0 10px 20px ${product.accentColor}33`; }}
-                            onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}
-                        >
-                            <FiShoppingCart size={18} />
-                            {product.cta}
-                        </button>
-                        {product.secondaryCta && (
-                            <Link href={product.secondaryHref} style={{
-                                width: '100%', background: 'rgba(255,255,255,0.04)',
-                                color: product.accentColor, border: `1px solid ${product.accentColor}44`, borderRadius: '50px', padding: '13px 20px',
+                        <>
+                            <button onClick={onSelect} style={{
+                                width: '100%', background: `linear-gradient(135deg, ${product.accentColor}, ${product.accentColor2 || product.accentColor}cc)`,
+                                color: '#fff', border: 'none', borderRadius: '50px', padding: '13px 20px',
                                 fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
-                                transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                                textDecoration: 'none', marginTop: '10px'
+                                transition: 'transform 0.2s, box-shadow 0.2s',
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
                             }}
-                                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = `0 10px 20px ${product.accentColor}22`; }}
+                                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = `0 10px 20px ${product.accentColor}33`; }}
                                 onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}
                             >
-                                {product.secondaryCta}
-                            </Link>
-                        )}
+                                <FiShoppingCart size={18} />
+                                {product.cta}
+                            </button>
+                            {product.secondaryCta && (
+                                <Link href={product.secondaryHref} style={{
+                                    width: '100%', background: 'rgba(255,255,255,0.04)',
+                                    color: product.accentColor, border: `1px solid ${product.accentColor}44`, borderRadius: '50px', padding: '13px 20px',
+                                    fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
+                                    transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
+                                    textDecoration: 'none', marginTop: '10px'
+                                }}
+                                    onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = `0 10px 20px ${product.accentColor}22`; }}
+                                    onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}
+                                >
+                                    {product.secondaryCta}
+                                </Link>
+                            )}
+                        </>
                     ) : product.comingSoon ? (
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                             <Link
