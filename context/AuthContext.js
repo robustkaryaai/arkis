@@ -49,7 +49,21 @@ export function AuthProvider({ children }) {
         return;
       }
 
+      const cachedUser = localStorage.getItem('rk_web_user_data');
+      if (cachedUser) {
+        try {
+          setUser(JSON.parse(cachedUser));
+          setLoading(false);
+          return; // avoid pinging backend again
+        } catch (e) {
+          // ignore parse errors and fetch fresh
+        }
+      }
+
       const userData = await getMe();
+      if (userData) {
+        localStorage.setItem('rk_web_user_data', JSON.stringify(userData));
+      }
       setUser(userData || null);
     } catch (_) {
       setUser(null);

@@ -85,7 +85,7 @@ export default function Navbar() {
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
                 {user ? (
-                    <div style={{ position: 'relative' }} ref={dropdownRef}>
+                    <div className="desktop-only" style={{ position: 'relative' }} ref={dropdownRef}>
                         <button
                             onClick={() => setDropdownOpen(!dropdownOpen)}
                             style={{

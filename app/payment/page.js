@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { AiOutlineCheck, AiOutlineArrowLeft } from 'react-icons/ai';
 import { PLANS } from '@/lib/plans';
@@ -9,9 +9,9 @@ import { useAuth } from '@/context/AuthContext';
 /* ── per-plan colour palette ── */
 function getPalette(id, color, accent) {
     const palettes = {
-        free:    { c1: '#94a3b8', c2: '#64748b', c3: '#475569', c4: '#334155' },
-        pro:     { c1: '#34d399', c2: '#10b981', c3: '#059669', c4: '#047857' },
-        elite:   { c1: '#c4b5fd', c2: '#a78bfa', c3: '#8b5cf6', c4: '#6d28d9' },
+        free: { c1: '#94a3b8', c2: '#64748b', c3: '#475569', c4: '#334155' },
+        pro: { c1: '#34d399', c2: '#10b981', c3: '#059669', c4: '#047857' },
+        elite: { c1: '#c4b5fd', c2: '#a78bfa', c3: '#8b5cf6', c4: '#6d28d9' },
         quantum: { c1: '#fb7185', c2: '#f43f5e', c3: '#e11d48', c4: '#be123c' },
     };
     return palettes[id] || { c1: accent || color, c2: color, c3: color, c4: color };
@@ -31,6 +31,14 @@ function PaymentPageContent() {
     const [expiry, setExpiry] = useState('');
     const [cvc, setCvc] = useState('');
     const [name, setName] = useState('');
+
+    useEffect(() => {
+        if (user) {
+            if (user.email) setEmail(prev => prev || user.email);
+            if (user.name) setName(prev => prev || user.name);
+        }
+    }, [user]);
+
     const [isProcessing, setIsProcessing] = useState(false);
     const [statusText, setStatusText] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
