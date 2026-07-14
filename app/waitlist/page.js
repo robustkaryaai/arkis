@@ -58,7 +58,15 @@ function WaitlistContent() {
             phone: form.phone,
             country: form.country,
             notes: form.notes,
+        };
 
+        try {
+            // 🚀 Proxy all Appwrite calls through the Backend to bypass Platform Limits
+            const response = await fetch('https://rk-ai-backend.onrender.com/web/waitlist', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(entry)
+            });
 
             if (!response.ok) {
                 const data = await response.json().catch(() => ({}));
