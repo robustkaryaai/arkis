@@ -67,8 +67,8 @@ export default function Navbar() {
             {/* ── Keyframe injection ── */}
             <style>{`
                 @keyframes logo-flow {
-                    0%   { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
+                    from { background-position: 0% 50%; }
+                    to   { background-position: 100% 50%; }
                 }
                 @keyframes dropdown-in {
                     from { opacity: 0; transform: translateY(8px); }
@@ -192,12 +192,12 @@ export default function Navbar() {
                 >
                     <span style={{
                         display: 'inline-block',
-                        background: 'linear-gradient(90deg, #ff8500, #ff8500, #ffffff, #13bb1a, #13bb1a)',
-                        backgroundSize: '300% 100%',
+                        background: 'linear-gradient(90deg, #ff8500, #ffffff, #13bb1a, #ff8500)',
+                        backgroundSize: '200% 100%',
                         WebkitBackgroundClip: 'text',
                         WebkitTextFillColor: 'transparent',
                         backgroundClip: 'text',
-                        animation: 'logo-flow 3s linear infinite',
+                        animation: 'logo-flow 2.5s linear infinite',
                     }}>
                         Rexycore
                     </span>

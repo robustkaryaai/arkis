@@ -173,7 +173,7 @@ export default function RKHomeProduct() {
                                 e.currentTarget.style.boxShadow = '';
                             }}
                         >
-                            💡 Suggest a Feature
+                            Suggest a Feature
                         </Link>
                     </div>
 
@@ -413,7 +413,7 @@ export default function RKHomeProduct() {
                         onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(236,72,153,0.6)'; }}
                         onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(236,72,153,0.4)'; }}
                     >
-                        💡 Suggest a Feature
+                        Suggest a Feature
                     </Link>
                 </div>
             </section>

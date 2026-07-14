@@ -190,7 +190,7 @@ export default function LuminaJourney() {
             <section style={{ padding: 'clamp(50px, 8vw, 80px) 5%', textAlign: 'center', background: 'linear-gradient(to bottom, transparent, rgba(168,85,247,0.05))', borderTop: '1px solid var(--border)' }}>
                 <div style={{ maxWidth: '600px', margin: '0 auto' }} className="reveal">
                     <div style={{ fontSize: '12px', fontWeight: '800', letterSpacing: '3px', color: '#a855f7', textTransform: 'uppercase', marginBottom: '16px' }}>
-                        🔨 In Active Development
+                        In Active Development
                     </div>
                     <h2 style={{ fontSize: 'clamp(26px, 5vw, 40px)', fontWeight: '900', marginBottom: '16px', lineHeight: '1.2' }}>
                         We&apos;re building Lumina OS right now.
