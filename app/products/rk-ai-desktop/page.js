@@ -521,7 +521,7 @@ export default function RKDesktopProduct() {
                             <h3 style={{ color: '#fbbf24', fontSize: '18px', fontWeight: '800', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                                 <FiAlertCircle /> macOS Installation Note
                             </h3>
-                            <p style={{ fontSize: '14px', color: 'var(--muted)', marginBottom: '20px', lineHeight: '1.6', marginRight: '0px' }}>
+                            <p style={{ fontSize: '14px', color: 'var(--muted)', marginBottom: '20px', lineHeight: '1.6', textAlign: 'left' }}>
                                 If you see a "damaged" or "unverified developer" warning, Apple is blocking the app because it's unsigned. Run this command in your Terminal to fix it:
                             </p>
                             <div style={{ position: 'relative' }}>
@@ -545,7 +545,7 @@ export default function RKDesktopProduct() {
                                     <FiTerminal size={18} />
                                 </div>
                             </div>
-                            <p style={{ fontSize: '13px', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                            <p style={{ fontSize: '13px', color: 'var(--muted)', display: 'flex', alignItems: 'center', gap: '6px', textAlign: 'left' }}>
                                 <FiCheckCircle style={{ color: '#4ade80' }} /> Don't worry, the app is completely safe to use.
                             </p>
                         </div>
