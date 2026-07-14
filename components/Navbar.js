@@ -11,14 +11,18 @@ export default function Navbar() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const dropdownRef = useRef(null);
     const mobileMenuRef = useRef(null);
-    const isActive = (href) => path === href ? 'active' : '';
+    const isActive = (href) => path === href;
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
                 setDropdownOpen(false);
             }
-            if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.hamburger')) {
+            if (
+                mobileMenuRef.current &&
+                !mobileMenuRef.current.contains(event.target) &&
+                !event.target.closest('[data-hamburger]')
+            ) {
                 setMobileMenuOpen(false);
             }
         };
@@ -26,7 +30,6 @@ export default function Navbar() {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
 
-    // Close mobile menu when path changes
     useEffect(() => {
         setMobileMenuOpen(false);
     }, [path]);
@@ -40,403 +43,356 @@ export default function Navbar() {
         }
     };
 
+    const navLinkStyle = (href) => ({
+        textDecoration: 'none',
+        color: isActive(href) ? '#fff' : 'rgba(255,255,255,0.55)',
+        fontSize: '14px',
+        fontWeight: '600',
+        transition: 'color 0.2s ease',
+        padding: '4px 0',
+        borderBottom: isActive(href) ? '2px solid #9b59f5' : '2px solid transparent',
+    });
+
+    const mobileLinkStyle = (href) => ({
+        textDecoration: 'none',
+        fontSize: '22px',
+        fontWeight: '700',
+        color: isActive(href) ? '#fff' : 'rgba(255,255,255,0.6)',
+        padding: '8px 0',
+        transition: 'color 0.2s ease',
+    });
+
     return (
-        <nav className="nav-shell">
-            <div className="nav-brand">
-                <Link className="nav-logo" href="/">
-                    <span>Rexycore</span>
-                </Link>
-            </div>
-
-            <ul className="nav-links desktop-only">
-                <li><Link href="/" className={isActive('/')}>Home</Link></li>
-                <li><Link href="/products" className={isActive('/products')}>Products</Link></li>
-                <li><Link href="/about" className={isActive('/about')}>About</Link></li>
-                <li><Link href="/contact" className={isActive('/contact')}>Contact</Link></li>
-            </ul>
-
-            <div className="nav-actions">
-                {user ? (
-                    <div className="nav-user desktop-only" ref={dropdownRef}>
-                        <button
-                            type="button"
-                            className={dropdownOpen ? 'user-trigger active' : 'user-trigger'}
-                            onClick={() => setDropdownOpen(!dropdownOpen)}
-                        >
-                            <div className="user-avatar">
-                                {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
-                            </div>
-                        </button>
-
-                        {dropdownOpen && (
-                            <div className="user-dropdown">
-                                <div className="user-dropdown-info">
-                                    <p>{user.name || 'User'}</p>
-                                    <p>{user.email}</p>
-                                </div>
-                                <div className="user-dropdown-links">
-                                    <Link href="/profile">Profile</Link>
-                                    <Link href="/orders">Orders</Link>
-                                    <Link href="/subscription">RexyCore Cloud</Link>
-                                </div>
-                                <button type="button" className="user-signout" onClick={handleLogout}>Sign Out</button>
-                            </div>
-                        )}
-                    </div>
-                ) : (
-                    <Link href="/login" className="btn-primary desktop-only nav-login">Login</Link>
-                )}
-
-                <button
-                    type="button"
-                    className="hamburger"
-                    onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                    aria-expanded={mobileMenuOpen}
-                    aria-label="Toggle navigation menu"
-                >
-                    <span className={mobileMenuOpen ? 'hamburger-line top active' : 'hamburger-line top'} />
-                    <span className={mobileMenuOpen ? 'hamburger-line middle active' : 'hamburger-line middle'} />
-                    <span className={mobileMenuOpen ? 'hamburger-line bottom active' : 'hamburger-line bottom'} />
-                </button>
-            </div>
-
-            {mobileMenuOpen && <div className="mobile-menu-overlay" onClick={() => setMobileMenuOpen(false)} />}
-
-            <div ref={mobileMenuRef} className={mobileMenuOpen ? 'mobile-menu mobile-menu-open' : 'mobile-menu'}>
-                <Link href="/" className={isActive('/')}>Home</Link>
-                <Link href="/products" className={isActive('/products')}>Products</Link>
-                <Link href="/about" className={isActive('/about')}>About</Link>
-                <Link href="/contact" className={isActive('/contact')}>Contact</Link>
-                {user ? (
-                    <>
-                        <div className="mobile-divider" />
-                        <Link href="/profile" className={isActive('/profile')}>Profile</Link>
-                        <Link href="/orders" className={isActive('/orders')}>Orders</Link>
-                        <Link href="/subscription" className={isActive('/subscription')}>RexyCore Cloud</Link>
-                        <button type="button" className="mobile-signout" onClick={handleLogout}>Sign Out</button>
-                    </>
-                ) : (
-                    <Link href="/login" className="mobile-login">Login</Link>
-                )}
-            </div>
-
-            <style jsx>{`
-                .hamburger {
-                    display: none;
-                    align-items: center;
-                    justify-content: center;
-                    width: 48px;
-                    height: 48px;
-                    border-radius: 16px;
-                    background: rgba(255, 255, 255, 0.08);
-                    border: 1px solid rgba(255, 255, 255, 0.12);
-                    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.15);
-                    padding: 10px;
-                    cursor: pointer;
-                    transition: background 0.2s ease, transform 0.2s ease;
-                }
-
-                .hamburger:hover {
-                    background: rgba(255, 255, 255, 0.12);
-                    transform: translateY(-1px);
-                }
-
-                .hamburger-line {
-                    display: block;
-                    width: 22px;
-                    height: 2px;
-                    background: var(--text);
-                    border-radius: 999px;
-                    transition: transform 0.3s ease, opacity 0.3s ease;
-                }
-
-                .hamburger-line + .hamburger-line {
-                    margin-top: 6px;
-                }
-
-                .hamburger-line.top.active {
-                    transform: translateY(8px) rotate(45deg);
-                }
-
-                .hamburger-line.middle.active {
-                    opacity: 0;
-                }
-
-                .hamburger-line.bottom.active {
-                    transform: translateY(-8px) rotate(-45deg);
-                }
-
-                .mobile-menu-overlay {
-                    position: fixed;
-                    inset: 0;
-                    background: rgba(0, 0, 0, 0.55);
-                    backdrop-filter: blur(4px);
-                    z-index: 999;
-                }
-
-                .nav-shell {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    z-index: 1000;
-                    background: rgba(7, 7, 15, 0.96);
-                    backdrop-filter: blur(18px);
-                    border-bottom: 1px solid rgba(255,255,255,0.08);
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    padding: 0 5%;
-                    min-height: 72px;
-                    height: 72px;
-                    flex-wrap: wrap;
-                }
-
-                .nav-brand {
-                    z-index: 1001;
-                    flex: 0 0 auto;
-                }
-
-                .nav-logo {
-                    font-size: 24px;
-                    font-weight: 900;
-                    letter-spacing: -1px;
-                    text-decoration: none;
-                }
-
-                .nav-logo span {
-                    display: inline-block;
-                    background: linear-gradient(90deg, #ff8500, #ffffff, #13bb1a, #4f9cf9, #9b59f5);
-                    background-size: 300% 300%;
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    animation: logo-flow 6s ease infinite;
-                    text-shadow: 0 0 18px rgba(255, 133, 0, 0.12);
-                }
-
+        <>
+            {/* ── Keyframe injection ── */}
+            <style>{`
                 @keyframes logo-flow {
-                    0% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
+                    0%   { background-position: 0% 50%; }
+                    50%  { background-position: 100% 50%; }
                     100% { background-position: 0% 50%; }
                 }
-
-                .nav-links {
-                    display: flex;
-                    gap: 30px;
-                    list-style: none;
-                    margin: 0;
-                    padding: 0;
-                    align-items: center;
-                    flex: 1 1 auto;
-                    justify-content: center;
-                    min-width: 0;
-                    white-space: nowrap;
+                @keyframes dropdown-in {
+                    from { opacity: 0; transform: translateY(8px); }
+                    to   { opacity: 1; transform: translateY(0); }
                 }
-
-                .nav-links li {
-                    display: inline-block;
+                @keyframes mobile-slide {
+                    from { transform: translateX(100%); }
+                    to   { transform: translateX(0); }
                 }
-
-                .nav-links a,
-                .mobile-menu a,
-                .user-dropdown-links a {
-                    text-decoration: none;
-                    color: var(--muted);
-                    font-size: 14px;
-                    font-weight: 600;
-                    transition: color 0.2s ease, transform 0.2s ease;
-                }
-
-                .nav-links a:hover,
-                .nav-links a.active,
-                .mobile-menu a:hover,
-                .mobile-menu a.active,
-                .user-dropdown-links a:hover {
-                    color: var(--text);
-                    transform: translateY(-1px);
-                }
-
-                .nav-actions {
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-end;
-                    gap: 16px;
-                    min-height: 70px;
-                }
-
-                .nav-login {
-                    padding: 10px 20px;
-                    border-radius: 999px;
-                }
-
-                .nav-user {
-                    position: relative;
-                }
-
-                .user-trigger {
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    padding: 6px;
-                    border: 1px solid transparent;
-                    border-radius: 999px;
-                    background: rgba(255,255,255,0.06);
-                    cursor: pointer;
-                    transition: all 0.2s ease;
-                }
-
-                .user-trigger.active {
-                    border-color: rgba(79,156,249,0.4);
-                    background: rgba(79,156,249,0.12);
-                }
-
-                .user-avatar {
-                    width: 34px;
-                    height: 34px;
-                    border-radius: 50%;
-                    display: grid;
-                    place-items: center;
-                    background: linear-gradient(135deg, var(--blue), var(--violet));
-                    color: #fff;
-                    font-size: 14px;
-                    font-weight: 800;
-                }
-
-                .user-dropdown {
-                    position: absolute;
-                    top: 56px;
-                    right: 0;
-                    width: 260px;
-                    background: rgba(7,7,15,0.98);
-                    border: 1px solid rgba(255,255,255,0.08);
-                    border-radius: 20px;
-                    padding: 14px;
-                    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
-                    z-index: 1001;
-                }
-
-                .user-dropdown-info {
-                    border-bottom: 1px solid rgba(255,255,255,0.08);
-                    padding-bottom: 10px;
-                    margin-bottom: 10px;
-                }
-
-                .user-dropdown-info p:first-child {
-                    margin: 0 0 6px;
-                    font-weight: 700;
-                }
-
-                .user-dropdown-info p:last-child {
-                    margin: 0;
-                    color: var(--muted);
-                    font-size: 12px;
-                }
-
-                .user-dropdown-links {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 8px;
-                }
-
-                .user-dropdown-links a {
-                    display: block;
-                    padding: 10px 12px;
-                    border-radius: 14px;
-                    background: rgba(255,255,255,0.03);
-                    border: 1px solid rgba(255,255,255,0.06);
-                }
-
-                .user-signout {
-                    width: 100%;
-                    margin-top: 10px;
-                    padding: 12px 14px;
-                    border-radius: 14px;
-                    border: 1px solid rgba(239,68,68,0.25);
-                    background: rgba(239,68,68,0.12);
-                    color: #ef4444;
-                    font-weight: 700;
-                    cursor: pointer;
-                }
-
-                .hamburger {
-                    display: none;
-                    align-items: center;
-                    justify-content: center;
-                    width: 48px;
-                    height: 48px;
-                    border-radius: 16px;
-                    border: 1px solid rgba(255, 255, 255, 0.12);
-                    background: rgba(255, 255, 255, 0.08);
-                    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.15);
-                    padding: 10px;
-                    cursor: pointer;
-                    transition: background 0.2s ease, transform 0.2s ease;
-                }
-
-                .hamburger:hover {
-                    background: rgba(255, 255, 255, 0.12);
-                    transform: translateY(-1px);
-                }
-
-                .mobile-menu {
-                    position: fixed;
-                    top: 0;
-                    right: 0;
-                    bottom: 0;
-                    width: 100%;
-                    max-width: 320px;
-                    background: rgba(7, 7, 15, 0.98);
-                    border-left: 1px solid rgba(255,255,255,0.08);
-                    padding: 100px 36px 32px;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 24px;
-                    transform: translateX(100%);
-                    transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
-                    z-index: 1000;
-                    overflow-y: auto;
-                    backdrop-filter: blur(14px);
-                }
-
-                .mobile-menu.mobile-menu-open {
-                    transform: translateX(0);
-                }
-
-                .mobile-menu a {
-                    font-size: 20px;
-                    font-weight: 700;
-                }
-
-                .desktop-only {
-                    display: inline-flex;
-                    align-items: center;
-                }
-
-                @media (max-width: 900px) {
-                    .desktop-only {
-                        display: none !important;
-                    }
-
-                    .hamburger {
-                        display: flex !important;
-                    }
-
-                    .nav-links {
-                        display: none;
-                    }
-                }
-
-                @media (max-width: 620px) {
-                    .nav-shell {
-                        padding: 0 18px;
-                    }
-
-                    .mobile-menu {
-                        width: 100%;
-                        padding: 88px 18px 28px;
-                    }
-                }
+                ._nav-link:hover { color: #fff !important; }
+                ._dd-link:hover { background: rgba(255,255,255,0.06) !important; color: #fff !important; }
             `}</style>
-        </nav>
+
+            {/* ── Overlay ── */}
+            {mobileMenuOpen && (
+                <div
+                    onClick={() => setMobileMenuOpen(false)}
+                    style={{
+                        position: 'fixed', inset: 0,
+                        background: 'rgba(0,0,0,0.6)',
+                        backdropFilter: 'blur(4px)',
+                        zIndex: 998,
+                    }}
+                />
+            )}
+
+            {/* ── Mobile Drawer ── */}
+            <div
+                ref={mobileMenuRef}
+                style={{
+                    position: 'fixed',
+                    top: 0, right: 0, bottom: 0,
+                    width: '100%',
+                    maxWidth: '320px',
+                    background: 'rgba(7,7,15,0.98)',
+                    borderLeft: '1px solid rgba(255,255,255,0.08)',
+                    padding: '100px 36px 32px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '8px',
+                    transform: mobileMenuOpen ? 'translateX(0)' : 'translateX(100%)',
+                    transition: 'transform 0.28s cubic-bezier(0.22,1,0.36,1)',
+                    zIndex: 999,
+                    overflowY: 'auto',
+                    backdropFilter: 'blur(14px)',
+                }}
+            >
+                <Link href="/" style={mobileLinkStyle('/')}>Home</Link>
+                <Link href="/products" style={mobileLinkStyle('/products')}>Products</Link>
+                <Link href="/about" style={mobileLinkStyle('/about')}>About</Link>
+                <Link href="/contact" style={mobileLinkStyle('/contact')}>Contact</Link>
+                {user ? (
+                    <>
+                        <div style={{ height: '1px', background: 'rgba(255,255,255,0.08)', margin: '8px 0' }} />
+                        <Link href="/profile" style={mobileLinkStyle('/profile')}>Profile</Link>
+                        <Link href="/orders" style={mobileLinkStyle('/orders')}>Orders</Link>
+                        <Link href="/subscription" style={mobileLinkStyle('/subscription')}>RexyCore Cloud</Link>
+                        <button
+                            type="button"
+                            onClick={handleLogout}
+                            style={{
+                                marginTop: '8px',
+                                padding: '14px',
+                                borderRadius: '14px',
+                                border: '1px solid rgba(239,68,68,0.3)',
+                                background: 'rgba(239,68,68,0.1)',
+                                color: '#ef4444',
+                                fontSize: '16px',
+                                fontWeight: '700',
+                                cursor: 'pointer',
+                                textAlign: 'left',
+                            }}
+                        >
+                            Sign Out
+                        </button>
+                    </>
+                ) : (
+                    <Link
+                        href="/login"
+                        style={{
+                            marginTop: '16px',
+                            padding: '14px',
+                            borderRadius: '14px',
+                            background: 'linear-gradient(135deg, #4f9cf9, #9b59f5)',
+                            color: '#fff',
+                            fontSize: '16px',
+                            fontWeight: '700',
+                            textDecoration: 'none',
+                            textAlign: 'center',
+                        }}
+                    >
+                        Login
+                    </Link>
+                )}
+            </div>
+
+            {/* ── Main Navbar ── */}
+            <nav style={{
+                position: 'fixed',
+                top: 0, left: 0, right: 0,
+                zIndex: 1000,
+                background: 'rgba(7,7,15,0.92)',
+                backdropFilter: 'blur(20px)',
+                borderBottom: '1px solid rgba(255,255,255,0.07)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '0 5%',
+                height: '72px',
+            }}>
+                {/* Logo */}
+                <Link
+                    href="/"
+                    style={{
+                        fontSize: '24px',
+                        fontWeight: '900',
+                        letterSpacing: '-0.5px',
+                        textDecoration: 'none',
+                        flexShrink: 0,
+                    }}
+                >
+                    <span style={{
+                        display: 'inline-block',
+                        background: 'linear-gradient(90deg, #ff8500, #ffffff, #13bb1a, #4f9cf9, #9b59f5)',
+                        backgroundSize: '300% 300%',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        animation: 'logo-flow 6s ease infinite',
+                    }}>
+                        Rexycore
+                    </span>
+                </Link>
+
+                {/* Desktop Links — centered */}
+                <ul style={{
+                    display: 'flex',
+                    gap: '32px',
+                    listStyle: 'none',
+                    margin: 0,
+                    padding: 0,
+                    position: 'absolute',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    alignItems: 'center',
+                }}
+                    className="_desktop-nav"
+                >
+                    <style>{`
+                        @media (max-width: 900px) { ._desktop-nav { display: none !important; } ._hamburger { display: flex !important; } ._desktop-user { display: none !important; } }
+                        @media (min-width: 901px) { ._hamburger { display: none !important; } }
+                    `}</style>
+                    <li><Link href="/" className="_nav-link" style={navLinkStyle('/')}>Home</Link></li>
+                    <li><Link href="/products" className="_nav-link" style={navLinkStyle('/products')}>Products</Link></li>
+                    <li><Link href="/about" className="_nav-link" style={navLinkStyle('/about')}>About</Link></li>
+                    <li><Link href="/contact" className="_nav-link" style={navLinkStyle('/contact')}>Contact</Link></li>
+                </ul>
+
+                {/* Right side actions */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexShrink: 0 }}>
+                    {/* Desktop: user avatar / login */}
+                    <div className="_desktop-user" ref={dropdownRef} style={{ position: 'relative' }}>
+                        {user ? (
+                            <>
+                                <button
+                                    type="button"
+                                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        padding: '5px',
+                                        border: dropdownOpen ? '1px solid rgba(79,156,249,0.5)' : '1px solid rgba(255,255,255,0.12)',
+                                        borderRadius: '999px',
+                                        background: dropdownOpen ? 'rgba(79,156,249,0.12)' : 'rgba(255,255,255,0.06)',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.2s ease',
+                                    }}
+                                >
+                                    <div style={{
+                                        width: '34px',
+                                        height: '34px',
+                                        borderRadius: '50%',
+                                        display: 'grid',
+                                        placeItems: 'center',
+                                        background: 'linear-gradient(135deg, #4f9cf9, #9b59f5)',
+                                        color: '#fff',
+                                        fontSize: '14px',
+                                        fontWeight: '800',
+                                    }}>
+                                        {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                                    </div>
+                                </button>
+
+                                {dropdownOpen && (
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: '54px',
+                                        right: 0,
+                                        width: '260px',
+                                        background: 'rgba(10,10,20,0.98)',
+                                        border: '1px solid rgba(255,255,255,0.09)',
+                                        borderRadius: '20px',
+                                        padding: '14px',
+                                        boxShadow: '0 24px 60px rgba(0,0,0,0.45)',
+                                        zIndex: 1001,
+                                        animation: 'dropdown-in 0.18s ease forwards',
+                                    }}>
+                                        <div style={{ borderBottom: '1px solid rgba(255,255,255,0.08)', paddingBottom: '10px', marginBottom: '10px' }}>
+                                            <p style={{ margin: '0 0 4px', fontWeight: '700', fontSize: '14px', color: '#fff' }}>{user.name || 'User'}</p>
+                                            <p style={{ margin: 0, color: 'rgba(255,255,255,0.4)', fontSize: '12px' }}>{user.email}</p>
+                                        </div>
+                                        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                                            {[
+                                                { href: '/profile', label: 'Profile' },
+                                                { href: '/orders', label: 'Orders' },
+                                                { href: '/subscription', label: 'RexyCore Cloud' },
+                                            ].map(({ href, label }) => (
+                                                <Link
+                                                    key={href}
+                                                    href={href}
+                                                    className="_dd-link"
+                                                    style={{
+                                                        display: 'block',
+                                                        padding: '10px 12px',
+                                                        borderRadius: '12px',
+                                                        background: 'rgba(255,255,255,0.03)',
+                                                        border: '1px solid rgba(255,255,255,0.06)',
+                                                        textDecoration: 'none',
+                                                        color: 'rgba(255,255,255,0.7)',
+                                                        fontSize: '13px',
+                                                        fontWeight: '600',
+                                                        transition: 'background 0.15s, color 0.15s',
+                                                    }}
+                                                >
+                                                    {label}
+                                                </Link>
+                                            ))}
+                                        </div>
+                                        <button
+                                            type="button"
+                                            onClick={handleLogout}
+                                            style={{
+                                                width: '100%',
+                                                marginTop: '10px',
+                                                padding: '12px',
+                                                borderRadius: '12px',
+                                                border: '1px solid rgba(239,68,68,0.25)',
+                                                background: 'rgba(239,68,68,0.1)',
+                                                color: '#ef4444',
+                                                fontWeight: '700',
+                                                fontSize: '13px',
+                                                cursor: 'pointer',
+                                            }}
+                                        >
+                                            Sign Out
+                                        </button>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+                            <Link
+                                href="/login"
+                                style={{
+                                    padding: '9px 22px',
+                                    borderRadius: '999px',
+                                    background: 'linear-gradient(135deg, #4f9cf9, #9b59f5)',
+                                    color: '#fff',
+                                    textDecoration: 'none',
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    transition: 'opacity 0.2s',
+                                }}
+                            >
+                                Login
+                            </Link>
+                        )}
+                    </div>
+
+                    {/* Hamburger */}
+                    <button
+                        type="button"
+                        data-hamburger="true"
+                        className="_hamburger"
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        aria-label="Toggle menu"
+                        style={{
+                            display: 'none',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '5px',
+                            width: '46px',
+                            height: '46px',
+                            borderRadius: '14px',
+                            border: '1px solid rgba(255,255,255,0.12)',
+                            background: 'rgba(255,255,255,0.07)',
+                            cursor: 'pointer',
+                            padding: '10px',
+                            transition: 'background 0.2s',
+                        }}
+                    >
+                        <span style={{
+                            display: 'block', width: '22px', height: '2px',
+                            background: '#fff', borderRadius: '999px',
+                            transition: 'transform 0.3s, opacity 0.3s',
+                            transform: mobileMenuOpen ? 'translateY(7px) rotate(45deg)' : 'none',
+                        }} />
+                        <span style={{
+                            display: 'block', width: '22px', height: '2px',
+                            background: '#fff', borderRadius: '999px',
+                            opacity: mobileMenuOpen ? 0 : 1,
+                            transition: 'opacity 0.3s',
+                        }} />
+                        <span style={{
+                            display: 'block', width: '22px', height: '2px',
+                            background: '#fff', borderRadius: '999px',
+                            transition: 'transform 0.3s, opacity 0.3s',
+                            transform: mobileMenuOpen ? 'translateY(-7px) rotate(-45deg)' : 'none',
+                        }} />
+                    </button>
+                </div>
+            </nav>
+        </>
     );
 }
