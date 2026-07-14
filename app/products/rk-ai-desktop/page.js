@@ -528,7 +528,7 @@ export default function RKDesktopProduct() {
                                 <code style={{ 
                                     display: 'block',
                                     background: 'rgba(0,0,0,0.4)', 
-                                    padding: '20px', 
+                                    padding: '20px 40px 20px 20px', 
                                     borderRadius: '16px', 
                                     border: '1px solid rgba(255,255,255,0.05)', 
                                     fontFamily: 'JetBrains Mono, monospace', 
@@ -536,6 +536,7 @@ export default function RKDesktopProduct() {
                                     color: '#e2e8f0',
                                     marginBottom: '20px',
                                     overflowX: 'auto',
+                                    whiteSpace: 'nowrap',
                                     lineHeight: '1.5'
                                 }}>
                                     <span style={{ color: '#fbbf24' }}>$</span> xattr -rd com.apple.quarantine ~/Downloads/RK-AI.dmg && open ~/Downloads/RK-AI.dmg
