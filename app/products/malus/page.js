@@ -418,8 +418,8 @@ export default function MalusProductPage() {
                 borderTop: '1px solid rgba(16,185,129,0.12)'
             }}>
                 <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(16,185,129,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
-                <div style={{ position: 'relative', zIndex: 1, maxWidth: '650px', margin: '0 auto' }}>
-                    <h2 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: '900', lineHeight: '1.05', letterSpacing: '-2px', marginBottom: '20px' }}>
+                <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', margin: '0 auto' }}>
+                    <h2 style={{ fontSize: 'clamp(32px, 4vw, 56px)', fontWeight: '900', lineHeight: '1.1', letterSpacing: '-1px', marginBottom: '20px' }}>
                         The smartest computer isn't the fastest one.<br />
                         <span style={{ background: 'linear-gradient(135deg, #34D399, #059669)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>It's the one that understands you.</span>
                     </h2>

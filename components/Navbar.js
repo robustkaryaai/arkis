@@ -197,23 +197,23 @@ export default function Navbar() {
                     <span
                         style={{
                             display: 'inline-block',
-                            background: `
+background: `
 linear-gradient(
     90deg,
-    #FF9933 0%,
-    #FF9933 25%,
-
-    #FFFFFF 25%,
-    #FFFFFF 50%,
-
-    #138808 50%,
-    #138808 75%,
-
-    #FF9933 75%,
-    #FF9933 100%
+    #FF9933,
+    #FFC97A,
+    #FFF8F0,
+    #FFFFFF,
+    #EAF7EA,
+    #5FCB63,
+    #138808,
+    #5FCB63,
+    #FFFFFF,
+    #FFC97A,
+    #FF9933
 )
 `,
-backgroundSize: '200% 100%',
+backgroundSize: '400% 100%',
 animation: 'logo-flow 8s linear infinite',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
