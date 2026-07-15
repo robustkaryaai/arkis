@@ -101,6 +101,13 @@ export default function About() {
                             'Light Key',
                             'An intelligent input system that bridges the gap between thoughts and machines with contextual suggestions and smart commands.'
                         ],
+                        [
+                            <svg key="malus" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#10B981' }}>
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                            </svg>,
+                            'MALUS',
+                            'A context-aware AI operating companion that understands your computer, adapts to your workflow, and naturally helps you while respecting your privacy.'
+                        ],
                     ].map(([icon, title, desc], i) => (
                         <div key={title} className={`feature-card reveal reveal-delay-${(i % 4) + 1}`} style={{
                             background: 'var(--surface)', padding: '32px', borderRadius: '24px',

@@ -8,6 +8,7 @@ import { FiLock, FiGlobe, FiSettings, FiCpu } from 'react-icons/fi';
 
 const ROLLING_TEXTS = [
   "Built for the future.",
+  "Privacy. Redefined.",
   "Powered by intelligence.",
   "Designed for autonomy.",
   "Engineered for control.",
@@ -16,10 +17,7 @@ const ROLLING_TEXTS = [
   "AI without compromise.",
   "Intelligence, redefined.",
   "Your AI. Your rules.",
-  "Technology that respects you.",
-  "Own your intelligence.",
-  "Control the system.",
-  "Privacy. Redefined."
+  "Technology that respects you."
 ];
 
 function HeroTypewriter() {

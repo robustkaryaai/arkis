@@ -33,6 +33,12 @@ Rexycore Products:
    - Status: Beta Testing Soon. Join the waitlist.
    - Positioning: Context-Aware Intelligence for Every Keystroke.
 
+5. MALUS:
+   - An AI Operating Companion that observes context and workflow on your computer (with permission).
+   - Features: Context awareness, workflow intelligence, local AI first, resource-aware.
+   - Status: Available for Windows (macOS & Linux coming later).
+   - Positioning: It is NOT a feature of RK AI, and RK AI is NOT a feature of MALUS. They are independent but complementary ecosystem products.
+
 Subscription — RK AI (Rexycore Cloud):
 - Rexycore has ONE unified subscription plan. There are NO separate Pro, Elite, or Quantum tiers.
 - A single RK AI subscription covers BOTH RK AI Desktop AND RK AI Home — full access to all features across both platforms.

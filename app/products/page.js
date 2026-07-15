@@ -350,6 +350,21 @@ const products = [
         isBuyable: true
     },
     {
+        id: 'malus',
+        icon: <Image src="/malus.jpeg" alt="MALUS" width={80} height={80} style={{ objectFit: 'contain', borderRadius: '16px', filter: 'drop-shadow(0 0 20px rgba(16, 185, 129, 0.4))' }} />,
+        category: 'AI Operating Companion',
+        name: 'MALUS',
+        desc: 'A context-aware AI operating companion that understands your computer, adapts to your workflow, and naturally helps you while respecting your privacy.',
+        tags: ['Companion', 'Context-Aware', 'Windows'],
+        accentColor: '#10B981',
+        accentColor2: '#059669',
+        badge: 'New',
+        badgeColor: 'linear-gradient(135deg, #10B981, #059669)',
+        cta: 'Meet MALUS',
+        href: '/products/malus',
+        comingSoon: false,
+    },
+    {
         id: 'lumina_os',
         icon: <Image src="/luminaos.png" alt="Lumina OS" width={90} height={90} style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.4))', transform: 'translateY(15px)' }} />,
         category: 'Operating System',
