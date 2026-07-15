@@ -236,7 +236,7 @@ export default function MalusProductPage() {
             <section className="hero" style={{ minHeight: '80vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', zIndex: 2 }}>
                     
-                    <div className="badge float-anim" style={{ marginBottom: '24px', animation: 'fade-in 1s ease-out' }}>
+                    <div className="badge float-anim" style={{ marginBottom: '24px' }}>
                         <span className="dot" style={{ background: '#10B981' }} /> In Development
                     </div>
                     
@@ -248,7 +248,7 @@ export default function MalusProductPage() {
                         marginBottom: '24px',
                         animation: 'fade-up 1s ease-out'
                     }}>
-                        Meet <span style={{ background: 'linear-gradient(135deg, #34D399, #059669)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>MALUS</span>
+                        Meet <span className="grad-malus">MALUS</span>
                     </h1>
                     
                     <p style={{ 
@@ -403,7 +403,7 @@ export default function MalusProductPage() {
                 <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', margin: '0 auto' }}>
                     <h2 style={{ fontSize: 'clamp(32px, 4vw, 56px)', fontWeight: '900', lineHeight: '1.1', letterSpacing: '-1px', marginBottom: '20px' }}>
                         The smartest computer isn't the fastest one.<br />
-                        <span style={{ background: 'linear-gradient(135deg, #34D399, #059669)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>It's the one that understands you.</span>
+                        <span className="grad-malus">It's the one that understands you.</span>
                     </h2>
                     <p style={{ color: 'var(--muted)', fontSize: '19px', lineHeight: '1.7', marginBottom: '52px' }}>
                         Join the waitlist for MALUS and be the first to experience true context-aware AI.
