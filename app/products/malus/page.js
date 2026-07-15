@@ -126,7 +126,7 @@ function AnimatedCoreIcon() {
 function AnimatedEyeIcon() {
     return (
         <div className="animated-icon-box">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#emerald-grad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="eye-svg">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="eye-svg">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
                 <circle cx="12" cy="12" r="3" className="eye-pupil" />
             </svg>
@@ -153,7 +153,7 @@ function AnimatedEyeIcon() {
 function AnimatedZapIcon() {
     return (
         <div className="animated-icon-box">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#emerald-grad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="zap-svg">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="zap-svg">
                 <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
             </svg>
             <style jsx>{`
@@ -172,7 +172,7 @@ function AnimatedZapIcon() {
 function AnimatedEmeraldShieldIcon() {
     return (
         <div className="animated-icon-box">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#emerald-grad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shield-svg">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shield-svg">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>
             <style jsx>{`
@@ -190,7 +190,7 @@ function AnimatedEmeraldShieldIcon() {
 function AnimatedChatIcon() {
     return (
         <div className="animated-icon-box">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#emerald-grad)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="chat-svg">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="chat-svg">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
                 <line x1="9" y1="10" x2="15" y2="10" className="c-line l1" />
                 <line x1="9" y1="14" x2="13" y2="14" className="c-line l2" />
@@ -254,7 +254,7 @@ export default function MalusProductPage() {
             <section className="hero" style={{ minHeight: '80vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', zIndex: 2 }}>
                     
-                    <div className="badge float-anim" style={{ marginBottom: '24px', animation: 'fade-in 1s ease-out', color: '#10B981', border: '1px solid rgba(16,185,129,0.3)' }}>
+                    <div className="badge float-anim" style={{ marginBottom: '24px', animation: 'fade-in 1s ease-out' }}>
                         <span className="dot" style={{ background: '#10B981' }} /> The Newest Addition
                     </div>
                     
@@ -360,8 +360,8 @@ export default function MalusProductPage() {
                         { icon: <AnimatedEyeIcon />, title: 'Context Awareness', desc: 'Understands what application you\'re using and what you\'re trying to accomplish.' },
                         { icon: <AnimatedZapIcon />, title: 'Workflow Intelligence', desc: 'Learns your workflow and offers timely suggestions without interrupting your flow.' },
                         { icon: <AnimatedEmeraldShieldIcon />, title: 'Privacy by Design', desc: 'Nothing is observed without user permission. Privacy is a core principle—not an afterthought.' },
-                        { icon: <FiCpu size={40} style={{ color: 'url(#emerald-grad)' }} />, title: 'Local AI First', desc: 'Runs with local language models whenever possible for privacy and speed.' },
-                        { icon: <FiActivity size={40} style={{ color: 'url(#emerald-grad)' }} />, title: 'Resource Aware', desc: 'Continuously monitors RAM, CPU, GPU, and system health before deciding which AI model to use.' },
+                        { icon: <FiCpu size={40} color="#10B981" />, title: 'Local AI First', desc: 'Runs with local language models whenever possible for privacy and speed.' },
+                        { icon: <FiActivity size={40} color="#10B981" />, title: 'Resource Aware', desc: 'Continuously monitors RAM, CPU, GPU, and system health before deciding which AI model to use.' },
                         { icon: <AnimatedChatIcon />, title: 'Smart Conversations', desc: 'Talks like a teammate instead of a robotic assistant. Supports, jokes, warns, and explains naturally.' },
                     ].map((f, i) => (
                         <div key={f.title} className={`feature-card reveal reveal-delay-${(i % 3) + 1}`} style={{

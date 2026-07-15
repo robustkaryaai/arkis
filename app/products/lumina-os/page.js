@@ -221,8 +221,8 @@ export default function LuminaOSProduct() {
                             gap: '16px'
                         }}>
                             <div style={{ 
-                                color: 'var(--blue)', 
-                                background: 'rgba(79, 156, 249, 0.1)', 
+                                color: '#a855f7', 
+                                background: 'rgba(168, 85, 247, 0.1)', 
                                 width: '64px', 
                                 height: '64px', 
                                 borderRadius: '16px', 
