@@ -198,23 +198,33 @@ export default function Navbar() {
                         style={{
                             display: 'inline-block',
                             background: `
-                linear-gradient(
-                    90deg,
-                    #FF9933 0%,
-                    #FFFFFF 16.6%,
-                    #138808 33.3%,
-                    #FF9933 50%,
-                    #FFFFFF 66.6%,
-                    #138808 83.3%,
-                    #FF9933 100%
-                )
-            `,
+linear-gradient(
+    90deg,
+    #FF9933 0%,
+    #FF9933 33.33%,
+
+    #FFFFFF 33.33%,
+    #FFFFFF 66.66%,
+
+    #138808 66.66%,
+    #138808 100%,
+
+    #FF9933 100%,
+    #FF9933 133.33%,
+
+    #FFFFFF 133.33%,
+    #FFFFFF 166.66%,
+
+    #138808 166.66%,
+    #138808 200%
+)
+`,
                             backgroundSize: '200% 100%',
+                            animation: 'logo-flow 10s linear infinite',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text',
                             color: 'transparent',
-                            animation: 'logo-flow 5s linear infinite',
                         }}
                     >
                         Rexycore
