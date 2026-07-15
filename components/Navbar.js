@@ -67,10 +67,13 @@ export default function Navbar() {
             {/* ── Keyframe injection ── */}
             <style>{`
                 @keyframes logo-flow {
-                    0%   { background-position: 0% 50%; }
-                    50%  { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
-                }
+    from {
+        background-position: 0% 50%;
+    }
+    to {
+        background-position: 200% 50%;
+    }
+}
                 @keyframes dropdown-in {
                     from { opacity: 0; transform: translateY(8px); }
                     to   { opacity: 1; transform: translateY(0); }
@@ -191,15 +194,29 @@ export default function Navbar() {
                         flexShrink: 0,
                     }}
                 >
-                    <span style={{
-                        display: 'inline-block',
-                        background: 'linear-gradient(90deg, #ff8500, #ffffff, #13bb1a, #4f9cf9, #9b59f5)',
-                        backgroundSize: '300% 300%',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                        animation: 'logo-flow 6s ease infinite',
-                    }}>
+                    <span
+                        style={{
+                            display: 'inline-block',
+                            background: `
+                linear-gradient(
+                    90deg,
+                    #FF9933 0%,
+                    #FFFFFF 16.6%,
+                    #138808 33.3%,
+                    #FF9933 50%,
+                    #FFFFFF 66.6%,
+                    #138808 83.3%,
+                    #FF9933 100%
+                )
+            `,
+                            backgroundSize: '200% 100%',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text',
+                            color: 'transparent',
+                            animation: 'logo-flow 5s linear infinite',
+                        }}
+                    >
                         Rexycore
                     </span>
                 </Link>
