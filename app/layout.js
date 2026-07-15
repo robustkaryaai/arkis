@@ -2,6 +2,7 @@ import './globals.css';
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AuthProvider } from '@/context/AuthContext';
+import ScrollObserver from '@/components/ScrollObserver';
 
 export const metadata = {
   title: { default: 'Rexycore — AI, Redefined', template: '%s | Rexycore' },
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <AuthProvider>
+          <ScrollObserver />
           {children}
         </AuthProvider>
       </body>

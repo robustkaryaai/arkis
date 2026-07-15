@@ -200,20 +200,19 @@ export default function Navbar() {
 background: `
 linear-gradient(
     90deg,
-    #FF9933,
-    #FFC97A,
-    #FFF8F0,
-    #FFFFFF,
-    #EAF7EA,
-    #5FCB63,
-    #138808,
-    #5FCB63,
-    #FFFFFF,
-    #FFC97A,
-    #FF9933
+    #FF9933 0%,
+    #FFD08A 8%,
+    #FFFFFF 20%,
+    #EAF8EA 32%,
+    #138808 44%,
+    #5CCB60 56%,
+    #FFFFFF 68%,
+    #FFD08A 80%,
+    #FF9933 92%,
+    #FF9933 100%
 )
 `,
-backgroundSize: '400% 100%',
+backgroundSize: '200% 100%',
 animation: 'logo-flow 8s linear infinite',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',

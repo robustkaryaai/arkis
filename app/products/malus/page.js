@@ -214,24 +214,6 @@ function AnimatedChatIcon() {
 }
 
 export default function MalusProductPage() {
-    useEffect(() => {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
-
     const startDownload = () => {
         alert("MALUS Windows release is coming soon. Join the waitlist!");
     };
@@ -255,7 +237,7 @@ export default function MalusProductPage() {
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', zIndex: 2 }}>
                     
                     <div className="badge float-anim" style={{ marginBottom: '24px', animation: 'fade-in 1s ease-out' }}>
-                        <span className="dot" style={{ background: '#10B981' }} /> The Newest Addition
+                        <span className="dot" style={{ background: '#10B981' }} /> In Development
                     </div>
                     
                     <h1 style={{ 
