@@ -151,6 +151,40 @@ function PaymentPageContent() {
                     from { opacity:0; transform:translateY(8px); }
                     to   { opacity:1; transform:translateY(0); }
                 }
+                @keyframes flowGrad {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+
+                /* ── NEW: Pulsing glow ring on card ── */
+                @keyframes cardPulse {
+                    0%, 100% { box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 60px ${pal.c3}30, 0 0 120px ${pal.c3}10; }
+                    50%      { box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.15), 0 0 100px ${pal.c3}55, 0 0 200px ${pal.c3}25; }
+                }
+                @keyframes borderShimmer {
+                    0%   { opacity: 0.4; }
+                    50%  { opacity: 1; }
+                    100% { opacity: 0.4; }
+                }
+
+                /* ── NEW: Shimmer sweep on button ── */
+                @keyframes shimmerSweep {
+                    0%   { transform: translateX(-100%) skewX(-20deg); }
+                    100% { transform: translateX(300%) skewX(-20deg); }
+                }
+
+                /* ── NEW: Floating particles ── */
+                @keyframes particleDrift {
+                    0%   { transform: translate(0, 0) scale(1); opacity: 0; }
+                    10%  { opacity: 1; }
+                    90%  { opacity: 0.6; }
+                    100% { transform: translate(var(--dx), var(--dy)) scale(0.3); opacity: 0; }
+                }
+                @keyframes orbitPulse {
+                    0%, 100% { opacity: 0.3; transform: scale(1); }
+                    50%      { opacity: 1;   transform: scale(1.4); }
+                }
 
                 /* ── Fluid blob morphing ── */
                 @keyframes blob1 {
@@ -187,32 +221,55 @@ function PaymentPageContent() {
                     background: #06060e;
                 }
 
+                /* ── NEW: Scanline grid background ── */
+                .page-root::before {
+                    content: '';
+                    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+                    background-image:
+                        linear-gradient(${pal.c3}08 1px, transparent 1px),
+                        linear-gradient(90deg, ${pal.c3}08 1px, transparent 1px);
+                    background-size: 60px 60px;
+                    mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
+                }
+
                 /* Fixed fluid blobs layer */
                 .fluid-bg {
                     position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
                 }
                 .blob {
-                    position: absolute; filter: blur(160px); opacity: 0.06;
+                    position: absolute; filter: blur(120px); opacity: 0.28;
                 }
                 .blob-1 {
-                    width: 500px; height: 500px; background: ${pal.c2};
-                    top: -180px; left: -120px;
+                    width: 600px; height: 600px; background: ${pal.c2};
+                    top: -200px; left: -150px;
                     animation: blob1 22s ease-in-out infinite;
                 }
                 .blob-2 {
-                    width: 420px; height: 420px; background: ${pal.c4};
-                    top: 35%; right: -160px;
+                    width: 500px; height: 500px; background: ${pal.c4};
+                    top: 35%; right: -180px;
                     animation: blob2 28s ease-in-out infinite;
                 }
                 .blob-3 {
-                    width: 380px; height: 380px; background: ${pal.c1};
-                    bottom: -120px; left: 25%;
+                    width: 450px; height: 450px; background: ${pal.c1};
+                    bottom: -140px; left: 25%;
                     animation: blob3 32s ease-in-out infinite;
+                    opacity: 0.18;
                 }
                 .blob-4 {
-                    width: 300px; height: 300px; background: ${pal.c3};
+                    width: 350px; height: 350px; background: ${pal.c3};
                     top: 15%; left: 45%;
                     animation: blob4 24s ease-in-out infinite;
+                    opacity: 0.22;
+                }
+
+                /* ── NEW: Extra accent glow behind card ── */
+                .card-glow-bg {
+                    position: absolute; width: 500px; height: 500px;
+                    background: radial-gradient(circle, ${pal.c3}35 0%, transparent 70%);
+                    border-radius: 50%; pointer-events: none;
+                    top: 50%; left: 50%; transform: translate(-50%, -50%);
+                    animation: cardPulse 4s ease-in-out infinite;
+                    filter: blur(40px);
                 }
 
                 /* Top-row: video left / payment right */
@@ -229,12 +286,14 @@ function PaymentPageContent() {
                     justify-content: center; align-items: flex-end;
                     padding: 80px 48px 60px 60px;
                     border-right: 1px solid rgba(255,255,255,0.05);
+                    position: relative;
                 }
 
                 /* Payment column */
                 .col-payment {
                     display: flex; align-items: center; justify-content: center;
                     padding: 80px 60px 60px 48px;
+                    position: relative;
                 }
 
                 /* Video mockup */
@@ -243,29 +302,33 @@ function PaymentPageContent() {
                     background: rgba(0,0,0,0.6);
                     border: 1px solid rgba(255,255,255,0.08);
                     border-radius: 16px;
-                    box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04), 0 0 60px ${pal.c3}25;
+                    box-shadow: 0 30px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04), 0 0 80px ${pal.c3}35;
                     display: flex; align-items: center; justify-content: center;
                     overflow: hidden; position: relative;
                 }
                 .mockup-frame::before {
                     content: ''; position: absolute; inset: 0;
-                    background: radial-gradient(circle at 40% 40%, ${pal.c3}18, transparent 65%);
+                    background: radial-gradient(circle at 40% 40%, ${pal.c3}25, transparent 65%);
                 }
 
                 /* Glass card */
                 .glass-card {
                     width: 100%; max-width: 440px;
-                    background: rgba(12, 12, 20, 0.6);
-                    border: 1px solid rgba(255,255,255,0.07);
-                    border-top: 1px solid rgba(255,255,255,0.13);
+                    background: rgba(10, 10, 18, 0.75);
+                    border: 1px solid ${pal.c3}55;
+                    border-top: 1px solid ${pal.c2}88;
                     border-radius: 28px; padding: 44px 40px;
-                    backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
-                    box-shadow:
-                        0 40px 80px rgba(0,0,0,0.7),
-                        inset 0 1px 0 rgba(255,255,255,0.1),
-                        0 0 60px ${pal.c3}18;
+                    backdrop-filter: blur(60px); -webkit-backdrop-filter: blur(60px);
                     position: relative; z-index: 10;
-                    animation: floatUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
+                    animation: floatUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards, cardPulse 4s ease-in-out 1s infinite;
+                }
+                /* glowing top edge line */
+                .glass-card::before {
+                    content: '';
+                    position: absolute; top: -1px; left: 20%; right: 20%; height: 1px;
+                    background: linear-gradient(90deg, transparent, ${pal.c2}, transparent);
+                    border-radius: 50%;
+                    animation: borderShimmer 3s ease-in-out infinite;
                 }
 
                 /* Static plan-tinted gradient text */
@@ -275,11 +338,6 @@ function PaymentPageContent() {
                     animation: flowGrad 6s ease infinite;
                     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
                     background-clip: text;
-                }
-                @keyframes flowGrad {
-                    0% { background-position: 0% 50%; }
-                    50% { background-position: 100% 50%; }
-                    100% { background-position: 0% 50%; }
                 }
 
                 /* Inputs */
@@ -291,7 +349,7 @@ function PaymentPageContent() {
                     transition: all 0.2s cubic-bezier(0.25,1,0.5,1);
                 }
                 .premium-input {
-                    width: 100%; background: rgba(0,0,0,0.4);
+                    width: 100%; background: rgba(0,0,0,0.5);
                     border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
                     padding: 24px 16px 10px 16px; font-size: 15px; color: #fff;
                     font-weight: 500; font-family: 'Inter', system-ui, sans-serif;
@@ -299,16 +357,38 @@ function PaymentPageContent() {
                     box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
                     outline: none; -webkit-appearance: none;
                 }
-                .premium-input:focus, .premium-input.has-val { border-color: ${pal.c3}99; }
+                .premium-input:focus, .premium-input.has-val { border-color: ${pal.c3}bb; }
                 .premium-input:focus {
                     background: rgba(255,255,255,0.02);
-                    box-shadow: 0 0 0 2px ${pal.c3}40, inset 0 2px 6px rgba(0,0,0,0.3);
+                    box-shadow: 0 0 0 3px ${pal.c3}30, 0 0 20px ${pal.c3}20, inset 0 2px 6px rgba(0,0,0,0.3);
                 }
                 .premium-input:focus + .floating-label,
                 .premium-input.has-val + .floating-label {
                     top: 7px; font-size: 10px; color: ${pal.c2}; font-weight: 700; letter-spacing: 0.6px;
                 }
                 .premium-input::placeholder { color: transparent; }
+
+                /* ── Pay button with shimmer ── */
+                .pay-btn {
+                    position: relative; overflow: hidden;
+                    width: 100%; height: 58px; border-radius: 16px; outline: none;
+                    border: none; color: #fff; font-size: 15px; font-weight: 800;
+                    letter-spacing: 1.5px; margin-top: 8px;
+                    cursor: pointer;
+                    display: flex; align-items: center; justify-content: center; gap: 12px;
+                    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+                    font-family: 'Inter', system-ui, sans-serif;
+                    text-transform: uppercase;
+                }
+                .pay-btn::after {
+                    content: '';
+                    position: absolute; top: 0; left: 0; width: 40%; height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+                    animation: shimmerSweep 2.5s ease-in-out infinite;
+                }
+                .pay-btn:hover:not(:disabled) { transform: translateY(-3px); }
+                .pay-btn:disabled { cursor: default; }
+                .pay-btn:disabled::after { display: none; }
 
                 /* ── Bottom feature row ── */
                 .features-row {
@@ -330,6 +410,17 @@ function PaymentPageContent() {
                     display: flex; align-items: flex-start; gap: 10px;
                     margin-bottom: 12px; opacity: 0;
                     animation: revealRow 0.35s ease forwards;
+                }
+
+                /* ── NEW: Live dot pulse badge ── */
+                @keyframes livePulse {
+                    0%, 100% { box-shadow: 0 0 0 0 ${pal.c2}60; }
+                    50%       { box-shadow: 0 0 0 6px ${pal.c2}00; }
+                }
+                .live-dot {
+                    width: 6px; height: 6px; border-radius: 50%;
+                    background: ${pal.c2}; display: inline-block;
+                    animation: livePulse 1.8s ease-in-out infinite;
                 }
 
                 @media (max-width: 900px) {
@@ -380,11 +471,10 @@ function PaymentPageContent() {
                                 display: 'inline-flex', alignItems: 'center', gap: '8px',
                                 padding: '4px 12px', borderRadius: '100px',
                                 border: `1px solid ${pal.c3}44`, marginBottom: '20px',
+                                background: `${pal.c3}10`,
+                                boxShadow: `0 0 20px ${pal.c3}20`,
                             }}>
-                                <span style={{
-                                    width: '6px', height: '6px', borderRadius: '50%',
-                                    background: pal.c2, display: 'inline-block'
-                                }} />
+                                <span className="live-dot" />
                                 <span style={{ color: pal.c2, fontSize: '10px', fontWeight: '800', letterSpacing: '1.5px' }}>
                                     UPGRADING TO
                                 </span>
@@ -433,6 +523,7 @@ function PaymentPageContent() {
 
                     {/* Payment column */}
                     <div className="col-payment">
+                        <div className="card-glow-bg" />
                         <div className="glass-card">
                             <div style={{ marginBottom: '36px', textAlign: 'center' }}>
                                 <h2 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '6px' }}
@@ -498,21 +589,13 @@ function PaymentPageContent() {
                                 </div>
 
                                 <button type="submit" disabled={isProcessing}
+                                    className="pay-btn"
                                     style={{
-                                        width: '100%', height: '58px', borderRadius: '16px', outline: 'none',
                                         background: isSuccess
-                                            ? '#10b981'
+                                            ? 'linear-gradient(135deg, #059669, #10b981)'
                                             : `linear-gradient(135deg, ${pal.c1}, ${pal.c3}, ${pal.c4})`,
-                                        border: 'none', color: '#fff', fontSize: '15px', fontWeight: '800',
-                                        letterSpacing: '1.5px', marginTop: '8px',
-                                        cursor: isProcessing ? 'default' : 'pointer',
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '12px',
-                                        boxShadow: isProcessing ? 'none' : `0 14px 32px ${pal.c3}44`,
-                                        transition: 'all 0.3s cubic-bezier(0.16,1,0.3,1)',
-                                        fontFamily: 'Inter, system-ui, sans-serif',
+                                        boxShadow: isProcessing ? 'none' : `0 14px 40px ${pal.c3}55, 0 0 60px ${pal.c3}20`,
                                     }}
-                                    onMouseOver={e => { if (!isProcessing) { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = `0 20px 40px ${pal.c3}55`; } }}
-                                    onMouseOut={e  => { if (!isProcessing) { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = `0 14px 32px ${pal.c3}44`; } }}
                                 >
                                     {isProcessing ? (
                                         <>
