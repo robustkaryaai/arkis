@@ -99,7 +99,7 @@ function PaymentPageContent() {
         try {
             const res = await fetch(BASE + '/rk-ai-desktop/billing/upgrade', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'X-Device-Slug': slug },
+                headers: { 'Content-Type': 'application/json', 'X-Device-Slug': slug || user?.$id || user?.userId || '' },
                 body: JSON.stringify({ 
                     plan: selectedPlan, 
                     payment_token: 'tok_simulated_' + Date.now(), 
