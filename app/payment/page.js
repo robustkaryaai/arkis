@@ -97,7 +97,7 @@ function PaymentPageContent() {
             await new Promise(r => setTimeout(r, i === 0 ? 600 : 900));
         }
         try {
-            const res = await fetch(BASE + '/rk-ai-desktop/billing/upgrade', {
+            const res = await fetch(BASE + '/rk-ai-desktop/legacy/billing/upgrade', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'X-Device-Slug': slug || user?.$id || user?.userId || '' },
                 body: JSON.stringify({ 
