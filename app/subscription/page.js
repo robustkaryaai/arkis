@@ -366,6 +366,18 @@ export default function Subscription() {
                 const row = Array.isArray(res?.subscriptions) && res.subscriptions.length > 0 ? res.subscriptions[0] : null;
                 setSubRow(row);
                 setLinkedTrials(Array.isArray(res?.trials) ? res.trials : []);
+                
+                // Save plan details to localStorage for global frontend access
+                try {
+                    const activePlan = normalizeActivePlanId(row);
+                    localStorage.setItem('rk_plan_tier', activePlan);
+                    if (row && (row.currentPeriodEnd || row.expiresOn || row.expiresAt)) {
+                        localStorage.setItem('rk_plan_expiry', String(row.currentPeriodEnd || row.expiresOn || row.expiresAt));
+                    }
+                    localStorage.setItem('rk_plan_raw_data', JSON.stringify(row || {}));
+                } catch (e) {
+                    console.warn("Failed to write plan to localStorage", e);
+                }
             } catch (_) {
                 setSubRow(null);
             } finally {
