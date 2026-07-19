@@ -3,7 +3,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
-import { FiArrowRight, FiShield, FiCpu, FiServer, FiSettings, FiHeadphones, FiCheckCircle, FiMessageCircle } from 'react-icons/fi';
+import { FiArrowRight, FiShield, FiCpu, FiServer, FiSettings, FiHeadphones, FiCheckCircle } from 'react-icons/fi';
+import { FiMessageCircle } from 'react-icons/fi';
 import { useState } from 'react';
 
 const enterpriseFeatures = [
@@ -30,19 +31,19 @@ export default function EnterprisePage() {
       <main style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px 80px' }}>
         {/* HERO SECTION */}
         <section style={{ padding: '140px 0 80px', textAlign: 'center', position: 'relative' }}>
-          <div style={{ position: 'absolute', top: '20%', left: '50%', transform: 'translate(-50%, -50%)', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(212,175,55,0.08) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 0 }} />
+          <div style={{ position: 'absolute', top: '20%', left: '50%', transform: 'translate(-50%, -50%)', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 60%)', pointerEvents: 'none', zIndex: 0 }} />
           
           <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', margin: '0 auto' }}>
             <span style={{ 
                 display: 'inline-flex', padding: '10px 20px', borderRadius: '999px', 
-                background: 'rgba(212,175,55,0.08)', color: '#d4af37', border: '1px solid rgba(212,175,55,0.3)',
+                background: 'rgba(139, 92, 246, 0.1)', color: '#a78bfa', border: '1px solid rgba(139, 92, 246, 0.3)',
                 fontSize: '13px', letterSpacing: '2px', fontWeight: '800', 
                 marginBottom: '28px', textTransform: 'uppercase' 
             }}>
               RK AI For Enterprise
             </span>
             <h1 style={{ fontSize: 'clamp(46px, 7vw, 84px)', lineHeight: '1.05', marginBottom: '24px', fontWeight: '900', letterSpacing: '-2px' }}>
-              Built for <span style={{ background: 'linear-gradient(135deg, #d4af37, #f3e5ab)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Scale.</span>
+              Built for <span style={{ background: 'linear-gradient(135deg, #a855f7, #6366f1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Scale.</span>
             </h1>
             <p style={{ fontSize: '20px', lineHeight: '1.8', color: '#999', marginBottom: '40px' }}>
               Empower your organization with total privacy, custom integrations, and unlimited local compute. 
@@ -54,12 +55,12 @@ export default function EnterprisePage() {
                 style={{ 
                     display: 'inline-flex', alignItems: 'center', gap: '10px', 
                     padding: '18px 40px', borderRadius: '999px', 
-                    background: 'linear-gradient(135deg, #d4af37, #b08d2b)', 
-                    color: '#000', fontWeight: '900', textDecoration: 'none', border: 'none', cursor: 'pointer',
-                    boxShadow: '0 10px 40px rgba(212,175,55,0.25)', transition: 'all 0.3s ease', fontSize: '16px'
+                    background: 'linear-gradient(135deg, #8b5cf6, #6366f1)', 
+                    color: '#fff', fontWeight: '900', textDecoration: 'none', border: 'none', cursor: 'pointer',
+                    boxShadow: '0 10px 40px rgba(139, 92, 246, 0.3)', transition: 'all 0.3s ease', fontSize: '16px'
                 }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 15px 50px rgba(212,175,55,0.4)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(212,175,55,0.25)'; }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 15px 50px rgba(139, 92, 246, 0.5)'; }}
+                onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(139, 92, 246, 0.3)'; }}
               >
                 Request a Proposal <FiArrowRight size={20} />
               </button>
@@ -97,14 +98,14 @@ export default function EnterprisePage() {
               </ul>
             </div>
             {/* Enterprise Tier */}
-            <div style={{ padding: '48px', borderRadius: '32px', background: 'linear-gradient(180deg, rgba(212,175,55,0.08), rgba(0,0,0,0))', border: '1px solid rgba(212,175,55,0.3)', position: 'relative' }}>
-              <div style={{ position: 'absolute', top: '-1px', left: '10%', right: '10%', height: '2px', background: 'linear-gradient(90deg, transparent, #d4af37, transparent)' }} />
-              <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '24px', color: '#d4af37' }}>Enterprise Matrix</h3>
+            <div style={{ padding: '48px', borderRadius: '32px', background: 'linear-gradient(180deg, rgba(139, 92, 246, 0.1), rgba(0,0,0,0))', border: '1px solid rgba(139, 92, 246, 0.4)', position: 'relative' }}>
+              <div style={{ position: 'absolute', top: '-1px', left: '10%', right: '10%', height: '2px', background: 'linear-gradient(90deg, transparent, #8b5cf6, transparent)' }} />
+              <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '24px', color: '#a78bfa' }}>Enterprise Matrix</h3>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '16px', color: '#eee' }}>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><FiCheckCircle size={18} color="#d4af37" /> Unlimited cloud sync & storage</li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><FiCheckCircle size={18} color="#d4af37" /> Direct core team access (SLA)</li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><FiCheckCircle size={18} color="#d4af37" /> White-glove deployment</li>
-                <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><FiCheckCircle size={18} color="#d4af37" /> Custom built internal integrations</li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><FiCheckCircle size={18} color="#a78bfa" /> Unlimited cloud sync & storage</li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><FiCheckCircle size={18} color="#a78bfa" /> Direct core team access (SLA)</li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><FiCheckCircle size={18} color="#a78bfa" /> White-glove deployment</li>
+                <li style={{ display: 'flex', alignItems: 'center', gap: '12px' }}><FiCheckCircle size={18} color="#a78bfa" /> Custom built internal integrations</li>
               </ul>
             </div>
           </div>
@@ -118,10 +119,10 @@ export default function EnterprisePage() {
                   padding: '40px', borderRadius: '32px', background: 'rgba(255,255,255,0.02)', 
                   border: '1px solid rgba(255,255,255,0.05)', transition: 'all 0.3s ease' 
               }}
-              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'rgba(212,175,55,0.3)'; e.currentTarget.style.background = 'rgba(212,175,55,0.02)'; }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.borderColor = 'rgba(139, 92, 246, 0.4)'; e.currentTarget.style.background = 'rgba(139, 92, 246, 0.04)'; }}
               onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.05)'; e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; }}
               >
-                <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(212,175,55,0.1)', color: '#d4af37', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
+                <div style={{ width: '48px', height: '48px', borderRadius: '14px', background: 'rgba(139, 92, 246, 0.15)', color: '#a78bfa', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
                   {i === 0 ? <FiShield size={24} /> : i === 1 ? <FiSettings size={24} /> : i === 2 ? <FiCpu size={24} /> : <FiServer size={24} />}
                 </div>
                 <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '16px' }}>{feature.title}</h3>
@@ -142,7 +143,7 @@ export default function EnterprisePage() {
             {sent ? (
               <div style={{ textAlign: 'center', padding: '40px 0' }}>
                 <div style={{ fontSize: '64px', marginBottom: '20px' }}>✨</div>
-                <h3 style={{ fontSize: '24px', fontWeight: '800', color: '#d4af37', marginBottom: '12px' }}>Request Prepared</h3>
+                <h3 style={{ fontSize: '24px', fontWeight: '800', color: '#a78bfa', marginBottom: '12px' }}>Request Prepared</h3>
                 <p style={{ color: '#999' }}>Your email client should open shortly. Our enterprise team reviews all inquiries within 24 hours.</p>
               </div>
             ) : (
@@ -152,14 +153,14 @@ export default function EnterprisePage() {
                     <label style={{ fontSize: '12px', fontWeight: '800', color: '#777', textTransform: 'uppercase', letterSpacing: '1px' }}>Full Name</label>
                     <input type="text" required placeholder="Jane Doe" value={form.name} onChange={e => setForm({...form, name: e.target.value})}
                       style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '16px', color: '#fff', fontSize: '15px', outline: 'none' }}
-                      onFocus={e => e.target.style.borderColor = '#d4af37'} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                      onFocus={e => e.target.style.borderColor = '#8b5cf6'} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
                     />
                   </div>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                     <label style={{ fontSize: '12px', fontWeight: '800', color: '#777', textTransform: 'uppercase', letterSpacing: '1px' }}>Company</label>
                     <input type="text" required placeholder="Acme Corp" value={form.company} onChange={e => setForm({...form, company: e.target.value})}
                       style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '16px', color: '#fff', fontSize: '15px', outline: 'none' }}
-                      onFocus={e => e.target.style.borderColor = '#d4af37'} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                      onFocus={e => e.target.style.borderColor = '#8b5cf6'} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
                     />
                   </div>
                 </div>
@@ -167,24 +168,24 @@ export default function EnterprisePage() {
                   <label style={{ fontSize: '12px', fontWeight: '800', color: '#777', textTransform: 'uppercase', letterSpacing: '1px' }}>Work Email</label>
                   <input type="email" required placeholder="jane@acme.com" value={form.email} onChange={e => setForm({...form, email: e.target.value})}
                     style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '16px', color: '#fff', fontSize: '15px', outline: 'none' }}
-                    onFocus={e => e.target.style.borderColor = '#d4af37'} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                    onFocus={e => e.target.style.borderColor = '#8b5cf6'} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
                   />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                   <label style={{ fontSize: '12px', fontWeight: '800', color: '#777', textTransform: 'uppercase', letterSpacing: '1px' }}>Project Needs</label>
                   <textarea required rows={5} placeholder="Tell us about your infrastructure and team size..." value={form.needs} onChange={e => setForm({...form, needs: e.target.value})}
                     style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', padding: '16px', color: '#fff', fontSize: '15px', outline: 'none', resize: 'vertical' }}
-                    onFocus={e => e.target.style.borderColor = '#d4af37'} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                    onFocus={e => e.target.style.borderColor = '#8b5cf6'} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
                   />
                 </div>
                 <button type="submit" 
                   style={{ 
-                    marginTop: '16px', padding: '18px', borderRadius: '12px', background: '#d4af37', color: '#000', 
+                    marginTop: '16px', padding: '18px', borderRadius: '12px', background: 'linear-gradient(135deg, #8b5cf6, #6366f1)', color: '#fff', 
                     border: 'none', fontSize: '16px', fontWeight: '900', cursor: 'pointer',
-                    boxShadow: '0 10px 30px rgba(212,175,55,0.2)', transition: 'all 0.3s ease'
+                    boxShadow: '0 10px 30px rgba(139, 92, 246, 0.2)', transition: 'all 0.3s ease'
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 15px 40px rgba(212,175,55,0.3)'; }}
-                  onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 30px rgba(212,175,55,0.2)'; }}
+                  onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 15px 40px rgba(139, 92, 246, 0.4)'; }}
+                  onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 30px rgba(139, 92, 246, 0.2)'; }}
                 >
                   Send Inquiry
                 </button>
