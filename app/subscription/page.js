@@ -582,7 +582,7 @@ export default function Subscription() {
                     </h3>
                     <p style={{ fontSize: '13px', color: '#666', lineHeight: '1.6', maxWidth: '600px', margin: '0 auto' }}>
                         Need massive scale? Custom storage, unlimited autonomous agents, and raw dedicated processing power.{' '}
-                        <Link href="/contact" style={{ color: '#9b59f5', fontWeight: '800', textDecoration: 'none' }}>Contact the core team →</Link>
+                        <Link href="/enterprise" style={{ color: '#9b59f5', fontWeight: '800', textDecoration: 'none' }}>Contact the core team →</Link>
                     </p>
                 </motion.div>
 
