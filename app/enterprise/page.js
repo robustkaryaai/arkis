@@ -3,7 +3,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
-import { FiArrowRight, FiShield, FiCpu, FiServer, FiSettings, FiHeadphones, FiCheckCircle } from 'react-icons/fi';
+import { FiArrowRight, FiShield, FiCpu, FiServer, FiSettings, FiHeadphones, FiCheckCircle, FiMessageCircle } from 'react-icons/fi';
 import { useState } from 'react';
 
 const enterpriseFeatures = [
