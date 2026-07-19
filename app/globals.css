@@ -1079,3 +1079,74 @@ footer a:hover {
     transform: scale(1.08);
   }
 }
+
+/* ─── GLOBAL RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero {
+    padding: 100px 5% 60px;
+    min-height: auto;
+  }
+
+  .hero h1 {
+    font-size: clamp(36px, 10vw, 56px);
+    letter-spacing: -1px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+
+  .hero-btns {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    padding: 24px;
+  }
+
+  .tier-card {
+    padding: 20px;
+  }
+
+  section {
+    padding: 56px 5%;
+  }
+
+  .section-title {
+    font-size: clamp(24px, 6vw, 36px);
+  }
+
+  footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 {
+    font-size: clamp(30px, 11vw, 44px);
+  }
+
+  .badge {
+    font-size: 11px;
+  }
+
+  .feature-icon {
+    width: 56px;
+    height: 56px;
+  }
+}
