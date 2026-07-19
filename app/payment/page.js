@@ -112,8 +112,21 @@ function PaymentPageContent() {
                 setIsSuccess(true);
                 setStatusText('System Upgraded Successfully! Initializing reboot...');
                 triggerConfetti();
+                localStorage.setItem('rk_plan_tier', selectedPlan);
                 await new Promise(r => setTimeout(r, 2500));
-                window.location.href = redirectUri;
+                
+                if (slug) {
+                    // Append plan to deep link
+                    const finalUri = new URL(redirectUri);
+                    finalUri.searchParams.set('plan', selectedPlan);
+                    window.location.href = finalUri.toString();
+                }
+                
+                // Redirect web page to homepage
+                setTimeout(() => {
+                    setIsProcessing(false);
+                    router.push('/');
+                }, 1000);
             } else {
                 setIsProcessing(false);
                 setStatusText('Transaction rejected. Please verify credentials.');

@@ -113,7 +113,11 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
         ? (isTrial ? 'TRIAL ACTIVE' : 'CURRENT PLAN')
         : isTrial
         ? isSaving ? 'ACTIVATING...' : 'START FREE TRIAL'
+        : (plan.id === 'free' && !isActive)
+        ? 'DOWNGRADE'
         : isSaving ? 'PROCESSING...' : `UPGRADE NOW`;
+
+    const displayColor = isActive ? '#ffffff' : plan.glowColor;
 
     const desktopFeatures = plan.desktopFeatures ?? (Array.isArray(plan.features) ? plan.features.slice(0, 3) : []);
     const homeFeatures = plan.homeFeatures ?? (Array.isArray(plan.features) ? plan.features.slice(3) : []);
@@ -129,17 +133,17 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
                 borderRadius: '24px',
                 overflow: 'hidden',
                 border: isActive
-                    ? `2px solid ${plan.glowColor}`
+                    ? `2px solid #ffffff`
                     : plan.popular
                     ? `1px solid ${plan.glowColor}AA`
                     : '1px solid rgba(255,255,255,0.08)',
                 background: isActive
-                    ? `linear-gradient(160deg, rgba(15,20,35,0.9), rgba(5,8,15,0.95))`
+                    ? `linear-gradient(160deg, rgba(30,30,30,0.9), rgba(5,5,5,0.95))`
                     : 'rgba(12, 16, 30, 0.7)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
                 boxShadow: isActive
-                    ? `0 0 50px ${plan.glowColor}33, inset 0 0 80px ${plan.glowColor}15`
+                    ? `0 0 50px rgba(255,255,255,0.2), inset 0 0 80px rgba(255,255,255,0.1)`
                     : plan.popular
                     ? `0 0 35px ${plan.glowColor}20`
                     : '0 10px 30px rgba(0,0,0,0.5)',
@@ -148,7 +152,7 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
                 flexDirection: 'column'
             }}
         >
-            <MatrixRain color={plan.glowColor} opacity={0.08} />
+            <MatrixRain color={displayColor} opacity={0.08} />
 
             {plan.popular && (
                 <div style={{
@@ -161,10 +165,10 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
             {isActive && (
                 <div style={{
                     position: 'absolute', top: '20px', right: '-35px',
-                    background: plan.glowColor, color: '#000',
+                    background: '#ffffff', color: '#000',
                     fontSize: '10px', fontWeight: '900', padding: '6px 40px',
                     transform: 'rotate(45deg)', letterSpacing: '2px',
-                    boxShadow: `0 0 20px ${plan.glowColor}88`
+                    boxShadow: `0 0 20px rgba(255,255,255,0.6)`
                 }}>
                     ACTIVE
                 </div>
@@ -191,17 +195,17 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
             <div style={{ marginBottom: '24px', position: 'relative', zIndex: 1 }}>
                 {plan.badge && (
                     <div style={{ marginBottom: '16px' }}>
-                        <GlitchBadge color={plan.glowColor}>{plan.badge}</GlitchBadge>
+                        <GlitchBadge color={displayColor}>{plan.badge}</GlitchBadge>
                     </div>
                 )}
                 <h2 style={{
                     fontSize: '26px', fontWeight: '900', color: '#fff',
                     letterSpacing: '1.5px', marginBottom: '8px',
-                    textShadow: `0 0 25px ${plan.glowColor}99`,
+                    textShadow: `0 0 25px ${displayColor}99`,
                 }}>
                     {plan.name}
                 </h2>
-                <p style={{ fontSize: '13px', color: plan.glowColor, fontWeight: '700', letterSpacing: '0.8px', opacity: 0.9 }}>
+                <p style={{ fontSize: '13px', color: displayColor, fontWeight: '700', letterSpacing: '0.8px', opacity: 0.9 }}>
                     {plan.tagline}
                 </p>
             </div>
@@ -220,8 +224,8 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
                     </span>
                 )}
                 <span style={{
-                    fontSize: '48px', fontWeight: '900', color: plan.glowColor,
-                    lineHeight: 1, textShadow: `0 0 45px ${plan.glowColor}AA`,
+                    fontSize: '48px', fontWeight: '900', color: displayColor,
+                    lineHeight: 1, textShadow: `0 0 45px ${displayColor}AA`,
                 }}>
                     {plan.price}
                 </span>
@@ -237,14 +241,14 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
                 background: 'rgba(255,255,255,0.05)', padding: '8px 14px',
                 borderRadius: '10px', border: '1px solid rgba(255,255,255,0.1)'
             }}>
-                <AiOutlineDatabase size={15} color={plan.glowColor} />
+                <AiOutlineDatabase size={15} color={displayColor} />
                 {plan.storageLabel} STORAGE
             </div>
 
             <div style={{
                 padding: '16px 20px', marginBottom: '28px',
-                borderLeft: `3px solid ${plan.glowColor}`,
-                background: `linear-gradient(90deg, ${plan.glowColor}15, rgba(0,0,0,0))`,
+                borderLeft: `3px solid ${displayColor}`,
+                background: `linear-gradient(90deg, ${displayColor}15, rgba(0,0,0,0))`,
                 borderRadius: '0 12px 12px 0',
                 position: 'relative', zIndex: 1,
             }}>
@@ -255,13 +259,13 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', marginBottom: '36px', position: 'relative', zIndex: 1, flexGrow: 1 }}>
                 <div>
-                    <div style={{ fontSize: '11px', fontWeight: '900', color: plan.glowColor, letterSpacing: '1.5px', marginBottom: '12px', borderBottom: `1px solid ${plan.glowColor}33`, paddingBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ fontSize: '11px', fontWeight: '900', color: displayColor, letterSpacing: '1.5px', marginBottom: '12px', borderBottom: `1px solid ${displayColor}33`, paddingBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <AiOutlineThunderbolt size={14} /> RK AI DESKTOP FEATURES
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         {desktopFeatures.map((f, i) => (
                             <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                                <AiOutlineCheck size={14} color={plan.glowColor} style={{ flexShrink: 0, marginTop: '2px' }} />
+                                <AiOutlineCheck size={14} color={displayColor} style={{ flexShrink: 0, marginTop: '2px' }} />
                                 <span style={{ fontSize: '13px', color: '#ddd', fontWeight: '500', lineHeight: 1.4 }}>{f}</span>
                             </div>
                         ))}
@@ -269,13 +273,13 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
                 </div>
 
                 <div>
-                    <div style={{ fontSize: '11px', fontWeight: '900', color: plan.glowColor, letterSpacing: '1.5px', marginBottom: '12px', borderBottom: `1px solid ${plan.glowColor}33`, paddingBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <div style={{ fontSize: '11px', fontWeight: '900', color: displayColor, letterSpacing: '1.5px', marginBottom: '12px', borderBottom: `1px solid ${displayColor}33`, paddingBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                         <AiOutlineThunderbolt size={14} /> RK AI HOME FEATURES
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                         {homeFeatures.map((f, i) => (
                             <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                                <AiOutlineCheck size={14} color={plan.glowColor} style={{ flexShrink: 0, marginTop: '2px' }} />
+                                <AiOutlineCheck size={14} color={displayColor} style={{ flexShrink: 0, marginTop: '2px' }} />
                                 <span style={{ fontSize: '13px', color: '#ddd', fontWeight: '500', lineHeight: 1.4 }}>{f}</span>
                             </div>
                         ))}
@@ -283,13 +287,13 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
                 </div>
                 {sharedFeatures.length > 0 && (
                     <div>
-                        <div style={{ fontSize: '11px', fontWeight: '900', color: plan.glowColor, letterSpacing: '1.5px', marginBottom: '12px', borderBottom: `1px solid ${plan.glowColor}33`, paddingBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <div style={{ fontSize: '11px', fontWeight: '900', color: displayColor, letterSpacing: '1.5px', marginBottom: '12px', borderBottom: `1px solid ${displayColor}33`, paddingBottom: '6px', display: 'flex', alignItems: 'center', gap: '8px' }}>
                             <AiOutlineDatabase size={14} /> SHARED CLOUD LIMITS
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                             {sharedFeatures.map((f, i) => (
                                 <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
-                                    <AiOutlineCheck size={14} color={plan.glowColor} style={{ flexShrink: 0, marginTop: '2px' }} />
+                                    <AiOutlineCheck size={14} color={displayColor} style={{ flexShrink: 0, marginTop: '2px' }} />
                                     <span style={{ fontSize: '13px', color: '#ddd', fontWeight: '500', lineHeight: 1.4 }}>{f}</span>
                                 </div>
                             ))}
@@ -363,7 +367,10 @@ export default function Subscription() {
             if (!user) return;
             try {
                 const res = await getProfile(user.$id || user.id, user.email || '');
-                const row = Array.isArray(res?.subscriptions) && res.subscriptions.length > 0 ? res.subscriptions[0] : null;
+                const localTier = localStorage.getItem('rk_plan_tier');
+                const row = Array.isArray(res?.subscriptions) && res.subscriptions.length > 0 
+                    ? res.subscriptions[0] 
+                    : (localTier ? { planId: localTier } : null);
                 setSubRow(row);
                 setLinkedTrials(Array.isArray(res?.trials) ? res.trials : []);
                 
