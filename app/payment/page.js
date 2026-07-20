@@ -35,6 +35,15 @@ function PaymentPageContent() {
     }, []);
     const TIER_ORDER = { free: 0, pro: 1, elite: 2, quantum: 3 };
     const isDowngrade = currentPlanId && (TIER_ORDER[activePlan.id] ?? 0) < (TIER_ORDER[currentPlanId] ?? 0);
+    const currentPlan = PLANS.find(p => p.id === currentPlanId);
+    let refundAmount = 0;
+    if (isDowngrade && currentPlan && currentPlan.price && activePlan.price) {
+        const currPrice = parseInt(currentPlan.price.replace(/\D/g, ''), 10) || 0;
+        const newPrice = parseInt(activePlan.price.replace(/\D/g, ''), 10) || 0;
+        if (currPrice > newPrice) {
+            refundAmount = currPrice - newPrice;
+        }
+    }
 
     const [email, setEmail] = useState('');
     const [cardNumber, setCardNumber] = useState('');
@@ -124,6 +133,26 @@ function PaymentPageContent() {
                 setIsSuccess(true);
                 setStatusText(`Downgraded to ${activePlan.name} successfully.`);
                 localStorage.setItem('rk_plan_tier', selectedPlan);
+                
+                // If there is a refund amount, add an order to localStorage
+                if (refundAmount > 0) {
+                    try {
+                        const raw = localStorage.getItem('rexycore_orders') || '[]';
+                        const list = JSON.parse(raw);
+                        list.push({
+                            id: 'RFND-' + Date.now(),
+                            productId: 'refund',
+                            productName: `Refund: ${currentPlan?.name} to ${activePlan.name}`,
+                            price: `₹${refundAmount}`,
+                            email: user?.email || '',
+                            status: 'Refunded',
+                            createdAt: new Date().toISOString(),
+                            kind: 'order'
+                        });
+                        localStorage.setItem('rexycore_orders', JSON.stringify(list));
+                    } catch (e) {}
+                }
+                
                 await new Promise(r => setTimeout(r, 2500));
                 setTimeout(() => { setIsProcessing(false); router.push('/'); }, 1000);
             } else {
@@ -640,6 +669,13 @@ function PaymentPageContent() {
                                             <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '13px', lineHeight: 1.6 }}>
                                                 You are about to downgrade from <strong style={{ color: pal.c1 }}>{currentPlanId?.toUpperCase()}</strong> to <strong style={{ color: '#94a3b8' }}>{activePlan.name}</strong>. This will take effect immediately.
                                             </p>
+                                            {refundAmount > 0 && (
+                                                <div style={{ marginTop: '12px', background: 'rgba(52, 211, 153, 0.1)', border: '1px solid rgba(52, 211, 153, 0.3)', borderRadius: '8px', padding: '10px' }}>
+                                                    <p style={{ color: '#34d399', fontSize: '13px', fontWeight: '700', margin: 0 }}>
+                                                        Refund Amount: ₹{refundAmount} (will be processed shortly)
+                                                    </p>
+                                                </div>
+                                            )}
                                         </div>
                                         <div style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '12px', padding: '16px', marginBottom: '24px' }}>
                                             <p style={{ fontSize: '12px', fontWeight: '800', color: '#f87171', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '10px' }}>You will lose access to:</p>
