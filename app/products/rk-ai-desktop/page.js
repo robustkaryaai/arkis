@@ -1025,7 +1025,7 @@ sudo apt install -y python3 python3-pip`}
                         100% local. Completely private. Learn more about it.
                     </p>
                     <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                        <button onClick={() => window.location.href = "/products/rk-ai-desktop-learn-more"} style={{
+                        <button onClick={() => window.location.href = "/products/rk-ai-desktop/learn-more"} style={{
                             padding: '20px 52px', fontSize: '17px', borderRadius: '50px',
                             background: 'linear-gradient(135deg, #4f9cf9, #9b59f5)',
                             color: '#fff', fontWeight: '800', border: 'none', cursor: 'pointer',
