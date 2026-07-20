@@ -25,12 +25,23 @@ function PaymentPageContent() {
     const planParam = searchParams.get('plan') || 'pro';
     const [selectedPlan] = useState(planParam);
     const activePlan = PLANS.find(p => p.id === selectedPlan) || PLANS[1];
+    const isFree = activePlan.id === 'free' || activePlan.price === '₹0';
+
+    // Detect downgrade: compare stored tier to selected tier
+    const [currentPlanId, setCurrentPlanId] = useState(null);
+    useEffect(() => {
+        const stored = localStorage.getItem('rk_plan_tier') || 'free';
+        setCurrentPlanId(stored);
+    }, []);
+    const TIER_ORDER = { free: 0, pro: 1, elite: 2, quantum: 3 };
+    const isDowngrade = currentPlanId && (TIER_ORDER[activePlan.id] ?? 0) < (TIER_ORDER[currentPlanId] ?? 0);
 
     const [email, setEmail] = useState('');
     const [cardNumber, setCardNumber] = useState('');
     const [expiry, setExpiry] = useState('');
     const [cvc, setCvc] = useState('');
     const [name, setName] = useState('');
+    const [showDowngradeModal, setShowDowngradeModal] = useState(false);
 
     useEffect(() => {
         if (user) {
@@ -83,8 +94,59 @@ function PaymentPageContent() {
         }
     };
 
+    const handleDowngrade = async () => {
+        setShowDowngradeModal(false);
+        setIsProcessing(true);
+        const statuses = [
+            'Verifying account credentials...',
+            'Revoking premium access...',
+            `Reverting to ${activePlan.name} tier...`,
+            'Clearing payment schedule...'
+        ];
+        for (let i = 0; i < statuses.length; i++) {
+            setStatusText(statuses[i]);
+            await new Promise(r => setTimeout(r, i === 0 ? 600 : 900));
+        }
+        try {
+            const res = await fetch(BASE + '/rk-ai-desktop/legacy/billing/upgrade', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Device-Slug': slug || user?.$id || user?.userId || '' },
+                body: JSON.stringify({
+                    plan: selectedPlan,
+                    payment_token: 'tok_downgrade_' + Date.now(),
+                    slug: user?.$id || user?.userId || slug,
+                    email: user?.email,
+                    deviceSlug: slug,
+                    action: 'downgrade'
+                })
+            });
+            if (res.ok) {
+                setIsSuccess(true);
+                setStatusText(`Downgraded to ${activePlan.name} successfully.`);
+                localStorage.setItem('rk_plan_tier', selectedPlan);
+                await new Promise(r => setTimeout(r, 2500));
+                setTimeout(() => { setIsProcessing(false); router.push('/'); }, 1000);
+            } else {
+                setIsProcessing(false);
+                setStatusText('Downgrade failed. Please contact support.');
+            }
+        } catch {
+            setIsProcessing(false);
+            setStatusText('Connection lost. Please try again.');
+        }
+    };
+
     const handlePayment = async (e) => {
         e.preventDefault();
+        // If it's a downgrade, show the modal first
+        if (isDowngrade && !isFree) {
+            setShowDowngradeModal(true);
+            return;
+        }
+        if (isFree) {
+            await handleDowngrade();
+            return;
+        }
         setIsProcessing(true);
         const statuses = [
             'Initializing Neural Secure Gateway...',
@@ -105,7 +167,7 @@ function PaymentPageContent() {
                     payment_token: 'tok_simulated_' + Date.now(), 
                     slug: user?.$id || user?.userId || slug, 
                     email: user?.email,
-                    deviceSlug: slug 
+                    deviceSlug: slug
                 })
             });
             if (res.ok) {
@@ -114,19 +176,12 @@ function PaymentPageContent() {
                 triggerConfetti();
                 localStorage.setItem('rk_plan_tier', selectedPlan);
                 await new Promise(r => setTimeout(r, 2500));
-                
                 if (slug) {
-                    // Append plan to deep link
                     const finalUri = new URL(redirectUri);
                     finalUri.searchParams.set('plan', selectedPlan);
                     window.location.href = finalUri.toString();
                 }
-                
-                // Redirect web page to homepage
-                setTimeout(() => {
-                    setIsProcessing(false);
-                    router.push('/');
-                }, 1000);
+                setTimeout(() => { setIsProcessing(false); router.push('/'); }, 1000);
             } else {
                 setIsProcessing(false);
                 setStatusText('Transaction rejected. Please verify credentials.');
@@ -489,7 +544,7 @@ function PaymentPageContent() {
                             }}>
                                 <span className="live-dot" />
                                 <span style={{ color: pal.c2, fontSize: '10px', fontWeight: '800', letterSpacing: '1.5px' }}>
-                                    UPGRADING TO
+                                    {isDowngrade ? 'DOWNGRADING TO' : 'UPGRADING TO'}
                                 </span>
                             </div>
 
@@ -567,6 +622,85 @@ function PaymentPageContent() {
                                 </div>
                             </div>
 
+                            {/* Downgrade confirmation modal */}
+                            {showDowngradeModal && (
+                                <div style={{
+                                    position: 'fixed', inset: 0, zIndex: 9999,
+                                    background: 'rgba(0,0,0,0.85)', backdropFilter: 'blur(12px)',
+                                    display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '24px'
+                                }}>
+                                    <div style={{
+                                        background: 'rgba(10,10,18,0.98)', border: '1px solid rgba(255,255,255,0.1)',
+                                        borderRadius: '24px', padding: '40px', maxWidth: '440px', width: '100%',
+                                        boxShadow: '0 40px 80px rgba(0,0,0,0.8)', animation: 'floatUp 0.3s ease'
+                                    }}>
+                                        <div style={{ textAlign: 'center', marginBottom: '24px' }}>
+                                            <div style={{ fontSize: '40px', marginBottom: '12px' }}>⚠️</div>
+                                            <h3 style={{ fontSize: '20px', fontWeight: '900', marginBottom: '8px' }}>Confirm Downgrade</h3>
+                                            <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '13px', lineHeight: 1.6 }}>
+                                                You are about to downgrade from <strong style={{ color: pal.c1 }}>{currentPlanId?.toUpperCase()}</strong> to <strong style={{ color: '#94a3b8' }}>{activePlan.name}</strong>. This will take effect immediately.
+                                            </p>
+                                        </div>
+                                        <div style={{ background: 'rgba(239,68,68,0.06)', border: '1px solid rgba(239,68,68,0.2)', borderRadius: '12px', padding: '16px', marginBottom: '24px' }}>
+                                            <p style={{ fontSize: '12px', fontWeight: '800', color: '#f87171', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '10px' }}>You will lose access to:</p>
+                                            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                {['All premium features of your current plan', 'Cloud storage above the FREE limit', 'Priority support & response times', 'Advanced AI models & higher rate limits'].map(item => (
+                                                    <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '12px', color: 'rgba(255,255,255,0.55)' }}>
+                                                        <span style={{ color: '#f87171', fontSize: '16px', lineHeight: 1 }}>×</span> {item}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div style={{ display: 'flex', gap: '12px' }}>
+                                            <button onClick={() => setShowDowngradeModal(false)}
+                                                style={{ flex: 1, padding: '14px', borderRadius: '12px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontSize: '14px', fontWeight: '700', cursor: 'pointer' }}>
+                                                Keep Plan
+                                            </button>
+                                            <button onClick={handleDowngrade}
+                                                style={{ flex: 1, padding: '14px', borderRadius: '12px', background: 'rgba(239,68,68,0.15)', border: '1px solid rgba(239,68,68,0.35)', color: '#f87171', fontSize: '14px', fontWeight: '700', cursor: 'pointer' }}>
+                                                Yes, Downgrade
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
+                            {/* FREE plan: skip card form, show confirmation only */}
+                            {isFree ? (
+                                <div>
+                                    <div style={{ background: 'rgba(148,163,184,0.06)', border: '1px solid rgba(148,163,184,0.15)', borderRadius: '14px', padding: '20px', marginBottom: '24px' }}>
+                                        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.5)', lineHeight: 1.7 }}>
+                                            The <strong style={{ color: '#94a3b8' }}>FREE tier</strong> requires no payment. By confirming, your current plan will be cancelled and you will be moved to the free tier immediately.
+                                        </p>
+                                    </div>
+                                    <button onClick={async () => { await handleDowngrade(); }}
+                                        disabled={isProcessing}
+                                        className="pay-btn"
+                                        style={{
+                                            background: isSuccess
+                                                ? `linear-gradient(135deg, ${pal.c1}, ${pal.c2})` 
+                                                : `linear-gradient(135deg, ${pal.c1}, ${pal.c3}, ${pal.c4})`,
+                                            boxShadow: isProcessing ? 'none' : `0 14px 40px ${pal.c3}40`,
+                                        }}
+                                    >
+                                        {isProcessing ? (
+                                            <>
+                                                <div style={{ width: '18px', height: '18px', borderRadius: '50%', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: '#fff', animation: 'spinFast 0.8s linear infinite', flexShrink: 0 }} />
+                                                <span>PROCESSING...</span>
+                                            </>
+                                        ) : isSuccess ? (
+                                            <><AiOutlineCheck size={22} /><span>DOWNGRADE CONFIRMED</span></>
+                                        ) : (
+                                            'CONFIRM DOWNGRADE TO FREE'
+                                        )}
+                                    </button>
+                                    {statusText && (
+                                        <div style={{ textAlign: 'center', marginTop: '18px', fontSize: '12px', color: isSuccess ? pal.c1 : 'rgba(255,255,255,0.4)', animation: 'floatUp 0.3s ease', lineHeight: 1.5 }}>
+                                            {statusText}
+                                        </div>
+                                    )}
+                                </div>
+                            ) : (
                             <form onSubmit={handlePayment}>
                                 <div className="input-wrapper">
                                     <input type="text" className={`premium-input ${name ? 'has-val' : ''}`}
@@ -605,7 +739,7 @@ function PaymentPageContent() {
                                     className="pay-btn"
                                     style={{
                                         background: isSuccess
-                                            ? 'linear-gradient(135deg, #059669, #10b981)'
+                                            ? `linear-gradient(135deg, ${pal.c1}, ${pal.c2})`
                                             : `linear-gradient(135deg, ${pal.c1}, ${pal.c3}, ${pal.c4})`,
                                         boxShadow: isProcessing ? 'none' : `0 14px 40px ${pal.c3}55, 0 0 60px ${pal.c3}20`,
                                     }}
@@ -622,8 +756,10 @@ function PaymentPageContent() {
                                     ) : isSuccess ? (
                                         <>
                                             <AiOutlineCheck size={22} />
-                                            <span>PAYMENT SUCCESSFUL</span>
+                                            <span>{isDowngrade ? 'DOWNGRADE CONFIRMED' : 'PAYMENT SUCCESSFUL'}</span>
                                         </>
+                                    ) : isDowngrade ? (
+                                        `CONFIRM DOWNGRADE`
                                     ) : (
                                         `PAY ${activePlan.price}`
                                     )}
@@ -632,13 +768,14 @@ function PaymentPageContent() {
                                 {statusText && (
                                     <div style={{
                                         textAlign: 'center', marginTop: '18px', fontSize: '12px',
-                                        color: isSuccess ? '#10b981' : 'rgba(255,255,255,0.4)',
+                                        color: isSuccess ? pal.c1 : 'rgba(255,255,255,0.4)',
                                         animation: 'floatUp 0.3s ease', lineHeight: 1.5
                                     }}>
                                         {statusText}
                                     </div>
                                 )}
                             </form>
+                            )}
 
                             <div style={{
                                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
