@@ -49,25 +49,32 @@ export function AuthProvider({ children }) {
         return;
       }
 
+      // 1. Instantly load from cache for fast UI (Stale-While-Revalidate)
       const cachedUser = localStorage.getItem('rk_web_user_data');
       if (cachedUser) {
         try {
           setUser(JSON.parse(cachedUser));
-          setLoading(false);
-          return; // avoid pinging backend again
         } catch (e) {
-          // ignore parse errors and fetch fresh
+          // ignore parse errors
         }
       }
+      // We can stop blocking the UI loading state now since we have *something* or nothing
+      setLoading(false);
 
-      const userData = await getMe();
-      if (userData) {
-        localStorage.setItem('rk_web_user_data', JSON.stringify(userData));
+      // 2. Always ping the backend to refresh the data (in case subscription changed)
+      try {
+        const userData = await getMe();
+        if (userData) {
+          localStorage.setItem('rk_web_user_data', JSON.stringify(userData));
+          setUser(userData);
+        } else if (!cachedUser) {
+           setUser(null);
+        }
+      } catch (err) {
+        console.warn('Backend ping failed (might be asleep), keeping local cache.');
       }
-      setUser(userData || null);
     } catch (_) {
       setUser(null);
-    } finally {
       setLoading(false);
     }
   };
