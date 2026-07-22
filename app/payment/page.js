@@ -76,7 +76,12 @@ function PaymentPageContent() {
     };
     const handleExpiryChange = (e) => {
         let v = e.target.value.replace(/\D/g, '');
-        if (v.length >= 2) v = v.slice(0, 2) + '/' + v.slice(2, 4);
+        if (v.length >= 2) {
+            let month = parseInt(v.slice(0, 2), 10);
+            if (month < 1) v = '01' + v.slice(2);
+            else if (month > 12) v = '12' + v.slice(2);
+            v = v.slice(0, 2) + '/' + v.slice(2, 4);
+        }
         setExpiry(v);
     };
 

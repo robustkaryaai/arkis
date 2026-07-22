@@ -122,6 +122,7 @@ export default function Navbar() {
             >
                 <Link href="/" style={mobileLinkStyle('/')}>Home</Link>
                 <Link href="/products" style={mobileLinkStyle('/products')}>Products</Link>
+                <Link href="/academy" style={mobileLinkStyle('/academy')}>Academy</Link>
                 <Link href="/about" style={mobileLinkStyle('/about')}>About</Link>
                 <Link href="/contact" style={mobileLinkStyle('/contact')}>Contact</Link>
                 {user ? (
@@ -244,6 +245,7 @@ animation: 'logo-flow 8s linear infinite',
                     `}</style>
                     <li><Link href="/" className="_nav-link" style={navLinkStyle('/')}>Home</Link></li>
                     <li><Link href="/products" className="_nav-link" style={navLinkStyle('/products')}>Products</Link></li>
+                    <li><Link href="/academy" className="_nav-link" style={navLinkStyle('/academy')}>Academy</Link></li>
                     <li><Link href="/about" className="_nav-link" style={navLinkStyle('/about')}>About</Link></li>
                     <li><Link href="/contact" className="_nav-link" style={navLinkStyle('/contact')}>Contact</Link></li>
                 </ul>
