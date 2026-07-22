@@ -12,12 +12,12 @@ import {
 } from 'react-icons/fi';
 
 const featuredLearning = [
-    { title: 'DinoX', desc: 'Master Python through an immersive RPG experience.', icon: <FiCode size={22} />, partner: true },
-    { title: 'AI Foundations', desc: 'Understand modern AI, LLMs, and neural networks from the ground up.', icon: <FiCpu size={22} /> },
-    { title: 'Local AI', desc: 'Learn how private AI works directly on your own hardware.', icon: <FiMonitor size={22} /> },
-    { title: 'Linux Essentials', desc: 'Master the operating system that runs the modern web.', icon: <FiTerminal size={22} /> },
-    { title: 'Privacy Engineering', desc: 'Design systems that protect user data by default.', icon: <FiShield size={22} /> },
-    { title: 'Future Computing', desc: 'Explore edge AI, robotics, and the next decade of tech.', icon: <FiDatabase size={22} /> },
+    { title: 'DinoX', desc: 'Master Python through an immersive RPG experience.', icon: <FiCode size={22} />, partner: true, link: '/academy/dinox' },
+    { title: 'AI Foundations', desc: 'Understand modern AI, LLMs, and neural networks from the ground up.', icon: <FiCpu size={22} />, link: '/academy/paths/ai-foundations' },
+    { title: 'Local AI', desc: 'Learn how private AI works directly on your own hardware.', icon: <FiMonitor size={22} />, link: '/academy/paths/local-ai' },
+    { title: 'Linux Essentials', desc: 'Master the operating system that runs the modern web.', icon: <FiTerminal size={22} />, link: '/academy/paths/linux-essentials' },
+    { title: 'Privacy Engineering', desc: 'Design systems that protect user data by default.', icon: <FiShield size={22} />, link: '/academy/paths/privacy-engineering' },
+    { title: 'Future Computing', desc: 'Explore edge AI, robotics, and the next decade of tech.', icon: <FiDatabase size={22} />, link: '/academy/paths/future-computing' },
 ];
 
 const bundles = [
@@ -100,18 +100,24 @@ export default function AcademyPage() {
 
                     <div className="feature-grid">
                         {featuredLearning.map((item, i) => (
-                            <div key={i} className={`feature-card reveal reveal-delay-${i % 4 + 1}`}>
+                            <Link href={item.link} key={i} className={`feature-card reveal reveal-delay-${i % 4 + 1}`} style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column' }}>
                                 <div className="feature-icon" style={{ background: 'linear-gradient(135deg, rgba(52, 211, 153, 0.1), rgba(59, 130, 246, 0.1))', borderColor: 'rgba(52, 211, 153, 0.2)' }}>
                                     {item.icon}
                                 </div>
                                 {item.partner && (
-                                    <span style={{ display: 'inline-block', padding: '4px 10px', background: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', fontSize: '10px', fontWeight: '800', letterSpacing: '1px', borderRadius: '4px', marginBottom: '12px', textTransform: 'uppercase' }}>
+                                    <span style={{ display: 'inline-block', padding: '4px 10px', background: 'rgba(139, 92, 246, 0.1)', color: '#a855f7', fontSize: '10px', fontWeight: '800', letterSpacing: '1px', borderRadius: '4px', marginBottom: '12px', textTransform: 'uppercase' }}>
                                         Partner Experience
                                     </span>
                                 )}
                                 <h3>{item.title}</h3>
-                                <p>{item.desc}</p>
-                            </div>
+                                <p style={{ flex: 1 }}>{item.desc}</p>
+                                
+                                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '16px' }}>
+                                    <span style={{ color: 'var(--text)', fontSize: '14px', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                                        {item.partner ? 'Visit Partner' : 'Start Path'} <FiArrowRight />
+                                    </span>
+                                </div>
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -214,11 +220,16 @@ export default function AcademyPage() {
                             <h3 style={{ fontSize: '24px', fontWeight: '800' }}>Learning Paths</h3>
                         </div>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                            {['Programming (Python, C++, Rust)', 'Artificial Intelligence (LLMs, Local AI)', 'Privacy & Security (Linux, Cyber)', 'Future Computing'].map(path => (
-                                <div key={path} className="feature-card" style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer' }}>
-                                    <span style={{ fontWeight: '600' }}>{path}</span>
+                            {[
+                                { name: 'Programming (Python, C++, Rust)', slug: 'programming' }, 
+                                { name: 'Artificial Intelligence (LLMs, Local AI)', slug: 'ai-foundations' }, 
+                                { name: 'Privacy & Security (Linux, Cyber)', slug: 'privacy-engineering' }, 
+                                { name: 'Future Computing', slug: 'future-computing' }
+                            ].map(path => (
+                                <Link href={`/academy/paths/${path.slug}`} key={path.name} className="feature-card" style={{ padding: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', textDecoration: 'none' }}>
+                                    <span style={{ fontWeight: '600', color: 'var(--text)' }}>{path.name}</span>
                                     <FiArrowRight color="var(--muted)" />
-                                </div>
+                                </Link>
                             ))}
                         </div>
                     </div>
@@ -250,7 +261,7 @@ export default function AcademyPage() {
                         <p style={{ color: 'var(--muted)', fontSize: '14px', lineHeight: '1.6', marginBottom: '16px' }}>
                             Access SDK tutorials, plugin development guides, and architecture breakdowns to build on top of RexyCore infrastructure.
                         </p>
-                        <Link href="#" style={{ color: '#ec4899', fontSize: '14px', fontWeight: '700', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                        <Link href="/academy/paths/developer-docs" style={{ color: '#ec4899', fontSize: '14px', fontWeight: '700', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
                             View Developer Docs <FiArrowRight />
                         </Link>
                     </div>
