@@ -57,6 +57,7 @@ const faqs = [
 
 export default function AcademyPage() {
     const [openFaq, setOpenFaq] = useState(0);
+    const [activeBundle, setActiveBundle] = useState(0);
 
     return (
         <div style={{ background: 'var(--bg)', color: 'var(--text)', minHeight: '100vh', overflowX: 'hidden' }}>
@@ -119,13 +120,13 @@ export default function AcademyPage() {
             {/* DINOX PARTNER HIGHLIGHT & BUNDLES */}
             <section id="bundles" style={{ padding: '80px 5%' }}>
                 <div className="reveal" style={{ maxWidth: '1100px', margin: '0 auto', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '32px', padding: '60px', position: 'relative', overflow: 'hidden' }}>
-                    <div style={{ position: 'absolute', top: 0, right: 0, width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(251, 191, 36, 0.08), transparent 70%)', pointerEvents: 'none' }} />
+                    <div style={{ position: 'absolute', top: 0, right: 0, width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%)', pointerEvents: 'none' }} />
                     
                     <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'stretch' }}>
                         <div style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                                <img src="/dinox.png" alt="DinoX Logo" style={{ width: '60px', filter: 'drop-shadow(0 10px 20px rgba(251, 191, 36, 0.2))' }} />
-                                <span style={{ display: 'inline-block', padding: '6px 14px', background: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', fontSize: '11px', fontWeight: '800', letterSpacing: '1px', borderRadius: '100px', textTransform: 'uppercase', border: '1px solid rgba(251, 191, 36, 0.2)' }}>
+                                <img src="/dinox.png" alt="DinoX Logo" style={{ width: '60px', filter: 'drop-shadow(0 10px 20px rgba(139, 92, 246, 0.3))' }} />
+                                <span style={{ display: 'inline-block', padding: '6px 14px', background: 'rgba(139, 92, 246, 0.1)', color: '#a855f7', fontSize: '11px', fontWeight: '800', letterSpacing: '1px', borderRadius: '100px', textTransform: 'uppercase', border: '1px solid rgba(139, 92, 246, 0.2)' }}>
                                     Featured Learning Partner
                                 </span>
                             </div>
@@ -139,13 +140,13 @@ export default function AcademyPage() {
                             <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 40px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
                                 {['Python 3', '400+ Missions', 'XP Progression', 'RPG Learning', 'Offline Mode', 'Desktop App'].map(f => (
                                     <li key={f} style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '15px', fontWeight: '600', color: 'var(--text)' }}>
-                                        <FiCheckCircle color="#fbbf24" size={18} /> {f}
+                                        <FiCheckCircle color="#8b5cf6" size={18} /> {f}
                                     </li>
                                 ))}
                             </ul>
 
                             <div style={{ marginTop: 'auto', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                                <Link href="/academy/dinox" className="btn-primary" style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', boxShadow: '0 14px 28px rgba(251, 191, 36, 0.3)', display: 'inline-flex', alignItems: 'center' }}>
+                                <Link href="/academy/dinox" className="btn-primary" style={{ background: 'linear-gradient(135deg, #8b5cf6, #2dd4bf)', boxShadow: '0 14px 28px rgba(139, 92, 246, 0.3)', display: 'inline-flex', alignItems: 'center' }}>
                                     Learn More About DinoX
                                 </Link>
                             </div>
@@ -153,30 +154,48 @@ export default function AcademyPage() {
                         
                         <div style={{ flex: '1 1 350px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
                             <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '8px', color: '#fff' }}>Student Bundles</h3>
-                            {bundles.map(b => (
-                                <div key={b.name} style={{ background: b.featured ? 'rgba(59, 130, 246, 0.05)' : 'rgba(0,0,0,0.4)', border: `1px solid ${b.featured ? 'rgba(59, 130, 246, 0.3)' : 'var(--border)'}`, borderRadius: '20px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative', overflow: 'hidden' }}>
-                                    {b.featured && <div style={{ position: 'absolute', top: 0, right: 0, background: '#3b82f6', color: '#fff', fontSize: '10px', fontWeight: '800', padding: '4px 12px', borderBottomLeftRadius: '12px' }}>BEST VALUE</div>}
-                                    <div>
-                                        <div style={{ color: b.featured ? '#3b82f6' : '#fbbf24', fontSize: '11px', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '4px' }}>{b.badge}</div>
-                                        <div style={{ fontSize: '20px', fontWeight: '900', marginBottom: '4px' }}>{b.name}</div>
-                                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
-                                            <span style={{ fontSize: '24px', fontWeight: '900' }}>{b.price}</span>
-                                            <span style={{ fontSize: '14px', color: 'var(--muted)', textDecoration: 'line-through' }}>{b.oldPrice}</span>
+                            
+                            <div style={{ position: 'relative', overflow: 'hidden', borderRadius: '20px', flex: 1, display: 'flex' }}>
+                                <div style={{ display: 'flex', transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)', transform: `translateX(-${activeBundle * 100}%)`, width: '100%' }}>
+                                    {bundles.map((b) => (
+                                        <div key={b.name} style={{ width: '100%', flexShrink: 0 }}>
+                                            <div style={{ height: '100%', background: b.featured ? 'rgba(59, 130, 246, 0.05)' : 'rgba(0,0,0,0.4)', border: `1px solid ${b.featured ? 'rgba(59, 130, 246, 0.3)' : 'var(--border)'}`, borderRadius: '20px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative', overflow: 'hidden' }}>
+                                                {b.featured && <div style={{ position: 'absolute', top: 0, right: 0, background: '#3b82f6', color: '#fff', fontSize: '10px', fontWeight: '800', padding: '4px 12px', borderBottomLeftRadius: '12px' }}>BEST VALUE</div>}
+                                                <div>
+                                                    <div style={{ color: b.featured ? '#3b82f6' : '#8b5cf6', fontSize: '11px', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '4px' }}>{b.badge}</div>
+                                                    <div style={{ fontSize: '20px', fontWeight: '900', marginBottom: '4px' }}>{b.name}</div>
+                                                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                                                        <span style={{ fontSize: '24px', fontWeight: '900' }}>{b.price}</span>
+                                                        <span style={{ fontSize: '14px', color: 'var(--muted)', textDecoration: 'line-through' }}>{b.oldPrice}</span>
+                                                    </div>
+                                                </div>
+                                                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                                    {b.features.map(f => (
+                                                        <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '13px', color: 'var(--muted)' }}>
+                                                            <FiCheckCircle size={14} color={b.featured ? '#3b82f6' : 'var(--muted)'} style={{ flexShrink: 0, marginTop: '3px' }} />
+                                                            <span>{f}</span>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                                <Link href={b.link} className={b.featured ? 'btn-primary' : 'btn-secondary'} style={{ width: '100%', padding: '10px', fontSize: '14px', marginTop: 'auto', background: b.featured ? 'linear-gradient(135deg, #34d399, #3b82f6)' : undefined, boxShadow: b.featured ? '0 14px 28px rgba(59, 130, 246, 0.3)' : '0 8px 20px rgba(255,255,255,0.06)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                                                    Claim Bundle
+                                                </Link>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                                        {b.features.map(f => (
-                                            <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '13px', color: 'var(--muted)' }}>
-                                                <FiCheckCircle size={14} color={b.featured ? '#3b82f6' : 'var(--muted)'} style={{ flexShrink: 0, marginTop: '3px' }} />
-                                                <span>{f}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <Link href={b.link} className={b.featured ? 'btn-primary' : 'btn-secondary'} style={{ width: '100%', padding: '10px', fontSize: '14px', marginTop: 'auto', background: b.featured ? 'linear-gradient(135deg, #34d399, #3b82f6)' : undefined, boxShadow: b.featured ? '0 14px 28px rgba(59, 130, 246, 0.3)' : '0 8px 20px rgba(255,255,255,0.06)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-                                        Claim Bundle
-                                    </Link>
+                                    ))}
                                 </div>
-                            ))}
+                            </div>
+                            
+                            {/* Slider Navigation Dots */}
+                            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '4px' }}>
+                                {bundles.map((_, i) => (
+                                    <button 
+                                        key={i} 
+                                        onClick={() => setActiveBundle(i)}
+                                        style={{ width: '12px', height: '12px', borderRadius: '50%', background: activeBundle === i ? '#8b5cf6' : 'rgba(255,255,255,0.1)', border: 'none', cursor: 'pointer', transition: 'background 0.3s' }} 
+                                    />
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

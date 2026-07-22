@@ -19,13 +19,13 @@ export default function DinoXPage() {
             <section className="hero" style={{ textAlign: 'center', padding: '120px 5% 80px' }}>
                 <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div className="badge float-anim" style={{ marginBottom: '32px' }}>
-                        <span className="dot" style={{ background: '#fbbf24' }} /> Partner Experience
+                        <span className="dot" style={{ background: '#2dd4bf' }} /> Partner Experience
                     </div>
                     
-                    <img src="/dinox.png" alt="DinoX Logo" style={{ width: '140px', height: '140px', objectFit: 'contain', marginBottom: '24px', filter: 'drop-shadow(0 10px 30px rgba(251,191,36,0.3))' }} />
+                    <img src="/dinox.png" alt="DinoX Logo" style={{ width: '140px', height: '140px', objectFit: 'contain', marginBottom: '24px', filter: 'drop-shadow(0 10px 30px rgba(139, 92, 246, 0.4))' }} />
                     
                     <h1 style={{ fontSize: 'clamp(40px, 8vw, 82px)', lineHeight: '1.05', marginBottom: '24px', fontWeight: '900', letterSpacing: '-2px' }}>
-                        Project <span className="grad" style={{ backgroundImage: 'linear-gradient(135deg, #fbbf24, #f59e0b)' }}>DinoX</span>
+                        Project <span className="grad" style={{ backgroundImage: 'linear-gradient(135deg, #8b5cf6, #2dd4bf)' }}>DinoX</span>
                     </h1>
                     
                     <p style={{ fontSize: '20px', fontWeight: '600', color: 'var(--text)', marginBottom: '16px' }}>
@@ -36,7 +36,7 @@ export default function DinoXPage() {
                     </p>
                     
                     <div className="hero-btns">
-                        <Link href="/academy#bundles" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', boxShadow: '0 14px 28px rgba(251, 191, 36, 0.3)' }}>
+                        <Link href="/academy#bundles" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #8b5cf6, #2dd4bf)', boxShadow: '0 14px 28px rgba(139, 92, 246, 0.3)' }}>
                             View Bundles <FiArrowRight size={18} />
                         </Link>
                     </div>
@@ -61,7 +61,7 @@ export default function DinoXPage() {
                             { title: 'Multiplayer & Cloud', icon: <FiCloud size={24} />, desc: 'Firebase integration for cloud saves, unique @usernames, and a Community Hub to connect with friends.' }
                         ].map((f, i) => (
                             <div key={i} className={`feature-card reveal reveal-delay-${i % 3 + 1}`}>
-                                <div className="feature-icon" style={{ background: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', borderColor: 'rgba(251, 191, 36, 0.2)' }}>
+                                <div className="feature-icon" style={{ background: 'rgba(139, 92, 246, 0.1)', color: '#8b5cf6', borderColor: 'rgba(139, 92, 246, 0.2)' }}>
                                     {f.icon}
                                 </div>
                                 <h3>{f.title}</h3>
@@ -89,7 +89,7 @@ export default function DinoXPage() {
                             'Developer Cheat Codes'
                         ].map(feature => (
                             <li key={feature} style={{ display: 'flex', alignItems: 'center', gap: '12px', background: 'var(--bg)', padding: '16px 20px', borderRadius: '16px', border: '1px solid var(--border)' }}>
-                                <FiCheckCircle color="#fbbf24" size={20} />
+                                <FiCheckCircle color="#8b5cf6" size={20} />
                                 <span style={{ fontWeight: '600' }}>{feature}</span>
                             </li>
                         ))}
@@ -117,7 +117,7 @@ export default function DinoXPage() {
                         ].map((item, i) => (
                             <div key={i} className={`reveal reveal-delay-${i % 3 + 1}`} style={{ padding: '32px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '24px' }}>
                                 <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                    <FiZap color="#ec4899" /> {item.title}
+                                    <FiZap color="#8b5cf6" /> {item.title}
                                 </h3>
                                 <p style={{ color: 'var(--muted)', lineHeight: '1.6' }}>{item.desc}</p>
                             </div>
