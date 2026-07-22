@@ -36,7 +36,7 @@ export default function DinoXPage() {
                     </p>
                     
                     <div className="hero-btns">
-                        <Link href="/academy#bundles" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #fbbf24, #f59e0b)' }}>
+                        <Link href="/academy#bundles" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', boxShadow: '0 14px 28px rgba(251, 191, 36, 0.3)' }}>
                             View Bundles <FiArrowRight size={18} />
                         </Link>
                     </div>

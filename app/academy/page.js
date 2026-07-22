@@ -78,10 +78,10 @@ export default function AcademyPage() {
                     </p>
                     
                     <div className="hero-btns">
-                        <button onClick={() => document.getElementById('featured').scrollIntoView({ behavior: 'smooth' })} className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #34d399, #3b82f6)' }}>
+                        <button onClick={() => document.getElementById('featured').scrollIntoView({ behavior: 'smooth' })} className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #34d399, #3b82f6)', boxShadow: '0 14px 28px rgba(52, 211, 153, 0.3)' }}>
                             Explore Learning <FiArrowRight size={18} />
                         </button>
-                        <button onClick={() => document.getElementById('bundles').scrollIntoView({ behavior: 'smooth' })} className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                        <button onClick={() => document.getElementById('bundles').scrollIntoView({ behavior: 'smooth' })} className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', boxShadow: '0 8px 20px rgba(255,255,255,0.06)' }}>
                             <FiAward size={18} /> Student Programs
                         </button>
                     </div>
@@ -145,7 +145,7 @@ export default function AcademyPage() {
                             </ul>
 
                             <div style={{ marginTop: 'auto', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                                <Link href="/academy/dinox" className="btn-primary" style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', display: 'inline-flex', alignItems: 'center' }}>
+                                <Link href="/academy/dinox" className="btn-primary" style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', boxShadow: '0 14px 28px rgba(251, 191, 36, 0.3)', display: 'inline-flex', alignItems: 'center' }}>
                                     Learn More About DinoX
                                 </Link>
                             </div>
@@ -172,7 +172,7 @@ export default function AcademyPage() {
                                             </li>
                                         ))}
                                     </ul>
-                                    <Link href={b.link} className={b.featured ? 'btn-primary' : 'btn-secondary'} style={{ width: '100%', padding: '10px', fontSize: '14px', marginTop: 'auto', background: b.featured ? 'linear-gradient(135deg, #34d399, #3b82f6)' : undefined, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                                    <Link href={b.link} className={b.featured ? 'btn-primary' : 'btn-secondary'} style={{ width: '100%', padding: '10px', fontSize: '14px', marginTop: 'auto', background: b.featured ? 'linear-gradient(135deg, #34d399, #3b82f6)' : undefined, boxShadow: b.featured ? '0 14px 28px rgba(59, 130, 246, 0.3)' : '0 8px 20px rgba(255,255,255,0.06)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                                         Claim Bundle
                                     </Link>
                                 </div>
