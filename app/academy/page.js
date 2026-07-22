@@ -152,9 +152,9 @@ export default function AcademyPage() {
                         </div>
                         
                         <div style={{ flex: '1 1 300px', display: 'flex', justifyContent: 'center' }}>
-                            {/* Abstract mockup of DinoX */}
-                            <div style={{ width: '100%', maxWidth: '400px', aspectRatio: '4/3', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(251, 191, 36, 0.2)', borderRadius: '24px', boxShadow: '0 30px 60px rgba(0,0,0,0.5), inset 0 0 40px rgba(251, 191, 36, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '16px' }}>
-                                <FiCode size={48} color="#fbbf24" style={{ opacity: 0.8 }} />
+                            {/* DinoX Logo Showcase */}
+                            <div style={{ width: '100%', maxWidth: '400px', aspectRatio: '4/3', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(251, 191, 36, 0.2)', borderRadius: '24px', boxShadow: '0 30px 60px rgba(0,0,0,0.5), inset 0 0 40px rgba(251, 191, 36, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '24px' }}>
+                                <img src="/dinox.png" alt="DinoX Logo" style={{ width: '180px', filter: 'drop-shadow(0 20px 40px rgba(251, 191, 36, 0.2))' }} />
                                 <span style={{ color: 'rgba(255,255,255,0.3)', fontWeight: '700', letterSpacing: '2px', fontSize: '12px' }}>RPG EXPERIENCE</span>
                             </div>
                         </div>

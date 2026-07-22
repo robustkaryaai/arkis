@@ -18,9 +18,11 @@ export default function DinoXPage() {
             {/* HERO */}
             <section className="hero" style={{ textAlign: 'center', padding: '120px 5% 80px' }}>
                 <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div className="badge float-anim" style={{ marginBottom: '24px' }}>
+                    <div className="badge float-anim" style={{ marginBottom: '32px' }}>
                         <span className="dot" style={{ background: '#fbbf24' }} /> Partner Experience
                     </div>
+                    
+                    <img src="/dinox.png" alt="DinoX Logo" style={{ width: '140px', height: '140px', objectFit: 'contain', marginBottom: '24px', filter: 'drop-shadow(0 10px 30px rgba(251,191,36,0.3))' }} />
                     
                     <h1 style={{ fontSize: 'clamp(40px, 8vw, 82px)', lineHeight: '1.05', marginBottom: '24px', fontWeight: '900', letterSpacing: '-2px' }}>
                         Project <span className="grad" style={{ backgroundImage: 'linear-gradient(135deg, #fbbf24, #f59e0b)' }}>DinoX</span>
