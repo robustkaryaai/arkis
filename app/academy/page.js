@@ -22,26 +22,29 @@ const featuredLearning = [
 
 const bundles = [
     {
-        name: 'Student Starter',
-        price: '₹149',
+        name: 'RK AI Student Pack',
+        price: '₹599/mo',
         oldPrice: '₹999',
-        badge: 'Perfect for Beginners',
-        features: ['DinoX Pro (RPG Python Learning)', 'RK AI Student Edition', 'Student Community Access', 'Basic Academy Resources']
+        badge: 'AI + Coding',
+        features: ['RK AI PRO Subscription', 'DinoX Premium Unlocked', 'Exclusive Coding Missions', 'Student Community Access'],
+        link: '/payment?plan=pro'
     },
     {
-        name: 'Creator Bundle',
-        price: '₹499',
-        oldPrice: '₹2,499',
-        badge: 'Most Popular',
-        featured: true,
-        features: ['Everything in Starter', 'RK AI Creator Edition', 'Early Access Features', 'Creator Community Access', 'Priority Support']
+        name: 'Malus Student Pack',
+        price: '₹499/mo',
+        oldPrice: '₹899',
+        badge: 'Security & Learning',
+        features: ['Malus Pro (Antivirus)', 'DinoX Premium Unlocked', 'Privacy Engineering Path', 'Beta Developer Programs'],
+        link: '/products/malus'
     },
     {
-        name: 'Future Engineer Pack',
-        price: '₹999',
-        oldPrice: '₹5,999',
+        name: 'Ultimate Ecosystem Pack',
+        price: '₹1499/mo',
+        oldPrice: '₹2499',
         badge: 'Best Value',
-        features: ['Everything in Creator', 'Malus Pro Access (Discounts)', 'Future Certifications', 'Exclusive Live Workshops', 'Beta Developer Programs']
+        featured: true,
+        features: ['RK AI ELITE Subscription', 'Malus Pro (Antivirus)', 'DinoX Premium Unlocked', 'Future Certifications', 'Priority Support'],
+        link: '/payment?plan=elite'
     }
 ];
 
@@ -139,12 +142,12 @@ export default function AcademyPage() {
                             </ul>
 
                             <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                                <button className="btn-primary" style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)' }}>
+                                <Link href="#bundles" className="btn-primary" style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)' }}>
                                     Get Student Bundle
-                                </button>
-                                <button className="btn-secondary">
+                                </Link>
+                                <Link href="/academy/dinox" className="btn-secondary">
                                     Learn More
-                                </button>
+                                </Link>
                             </div>
                         </div>
                         
@@ -188,9 +191,9 @@ export default function AcademyPage() {
                                     ))}
                                 </ul>
 
-                                <button className={b.featured ? 'btn-primary' : 'btn-secondary'} style={{ width: '100%', marginTop: 'auto', background: b.featured ? 'linear-gradient(135deg, #34d399, #3b82f6)' : undefined }}>
+                                <Link href={b.link} className={b.featured ? 'btn-primary' : 'btn-secondary'} style={{ width: '100%', marginTop: 'auto', background: b.featured ? 'linear-gradient(135deg, #34d399, #3b82f6)' : undefined, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                                     Claim Bundle
-                                </button>
+                                </Link>
                             </div>
                         ))}
                     </div>
