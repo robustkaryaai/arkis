@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { 
     FiArrowRight, FiBookOpen, FiCpu, FiCode, FiAward, 
     FiUsers, FiMonitor, FiCheckCircle, FiStar, 
-    FiShield, FiTerminal, FiDatabase, FiGrid 
+    FiShield, FiTerminal, FiDatabase, FiGrid, FiChevronDown
 } from 'react-icons/fi';
 
 const featuredLearning = [
