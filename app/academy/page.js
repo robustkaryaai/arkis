@@ -116,16 +116,19 @@ export default function AcademyPage() {
                 </div>
             </section>
 
-            {/* DINOX PARTNER HIGHLIGHT */}
-            <section style={{ padding: '80px 5%' }}>
+            {/* DINOX PARTNER HIGHLIGHT & BUNDLES */}
+            <section id="bundles" style={{ padding: '80px 5%' }}>
                 <div className="reveal" style={{ maxWidth: '1100px', margin: '0 auto', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '32px', padding: '60px', position: 'relative', overflow: 'hidden' }}>
                     <div style={{ position: 'absolute', top: 0, right: 0, width: '500px', height: '500px', background: 'radial-gradient(circle, rgba(251, 191, 36, 0.08), transparent 70%)', pointerEvents: 'none' }} />
                     
-                    <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'center' }}>
-                        <div style={{ flex: '1 1 400px' }}>
-                            <span style={{ display: 'inline-block', padding: '6px 14px', background: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', fontSize: '11px', fontWeight: '800', letterSpacing: '1px', borderRadius: '100px', marginBottom: '24px', textTransform: 'uppercase', border: '1px solid rgba(251, 191, 36, 0.2)' }}>
-                                Featured Learning Partner
-                            </span>
+                    <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'stretch' }}>
+                        <div style={{ flex: '1 1 450px', display: 'flex', flexDirection: 'column' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
+                                <img src="/dinox.png" alt="DinoX Logo" style={{ width: '60px', filter: 'drop-shadow(0 10px 20px rgba(251, 191, 36, 0.2))' }} />
+                                <span style={{ display: 'inline-block', padding: '6px 14px', background: 'rgba(251, 191, 36, 0.1)', color: '#fbbf24', fontSize: '11px', fontWeight: '800', letterSpacing: '1px', borderRadius: '100px', textTransform: 'uppercase', border: '1px solid rgba(251, 191, 36, 0.2)' }}>
+                                    Featured Learning Partner
+                                </span>
+                            </div>
                             <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '900', marginBottom: '20px', letterSpacing: '-1px' }}>
                                 DinoX
                             </h2>
@@ -141,61 +144,40 @@ export default function AcademyPage() {
                                 ))}
                             </ul>
 
-                            <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-                                <Link href="#bundles" className="btn-primary" style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)' }}>
-                                    Get Student Bundle
-                                </Link>
-                                <Link href="/academy/dinox" className="btn-secondary">
-                                    Learn More
+                            <div style={{ marginTop: 'auto', display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                                <Link href="/academy/dinox" className="btn-primary" style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', display: 'inline-flex', alignItems: 'center' }}>
+                                    Learn More About DinoX
                                 </Link>
                             </div>
                         </div>
                         
-                        <div style={{ flex: '1 1 300px', display: 'flex', justifyContent: 'center' }}>
-                            {/* DinoX Logo Showcase */}
-                            <div style={{ width: '100%', maxWidth: '400px', aspectRatio: '4/3', background: 'rgba(0,0,0,0.5)', border: '1px solid rgba(251, 191, 36, 0.2)', borderRadius: '24px', boxShadow: '0 30px 60px rgba(0,0,0,0.5), inset 0 0 40px rgba(251, 191, 36, 0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '24px' }}>
-                                <img src="/dinox.png" alt="DinoX Logo" style={{ width: '180px', filter: 'drop-shadow(0 20px 40px rgba(251, 191, 36, 0.2))' }} />
-                                <span style={{ color: 'rgba(255,255,255,0.3)', fontWeight: '700', letterSpacing: '2px', fontSize: '12px' }}>RPG EXPERIENCE</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* STUDENT BUNDLES */}
-            <section id="bundles" style={{ padding: '80px 5%' }}>
-                <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-                    <div className="reveal" style={{ textAlign: 'center', marginBottom: '56px' }}>
-                        <span className="label" style={{ color: '#3b82f6' }}>Exclusive Offers</span>
-                        <h2 className="section-title">Student Bundles</h2>
-                        <p className="section-sub" style={{ margin: '0 auto' }}>Combine DinoX with RK AI and Malus at massive discounts.</p>
-                    </div>
-
-                    <div className="pricing-grid">
-                        {bundles.map((b, i) => (
-                            <div key={i} className={`tier-card reveal reveal-delay-${i + 1} ${b.featured ? 'featured' : ''}`} style={{ borderColor: b.featured ? '#3b82f6' : 'var(--border)' }}>
-                                <div style={{ color: b.featured ? '#3b82f6' : 'var(--muted)', fontSize: '12px', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase' }}>{b.badge}</div>
-                                <h3 style={{ fontSize: '24px', fontWeight: '900' }}>{b.name}</h3>
-                                
-                                <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', margin: '8px 0 24px' }}>
-                                    <span style={{ fontSize: '42px', fontWeight: '900', letterSpacing: '-2px' }}>{b.price}</span>
-                                    <span style={{ fontSize: '16px', color: 'var(--muted)', textDecoration: 'line-through', fontWeight: '600' }}>{b.oldPrice}</span>
+                        <div style={{ flex: '1 1 350px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                            <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '8px', color: '#fff' }}>Student Bundles</h3>
+                            {bundles.map(b => (
+                                <div key={b.name} style={{ background: b.featured ? 'rgba(59, 130, 246, 0.05)' : 'rgba(0,0,0,0.4)', border: `1px solid ${b.featured ? 'rgba(59, 130, 246, 0.3)' : 'var(--border)'}`, borderRadius: '20px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '16px', position: 'relative', overflow: 'hidden' }}>
+                                    {b.featured && <div style={{ position: 'absolute', top: 0, right: 0, background: '#3b82f6', color: '#fff', fontSize: '10px', fontWeight: '800', padding: '4px 12px', borderBottomLeftRadius: '12px' }}>BEST VALUE</div>}
+                                    <div>
+                                        <div style={{ color: b.featured ? '#3b82f6' : '#fbbf24', fontSize: '11px', fontWeight: '800', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '4px' }}>{b.badge}</div>
+                                        <div style={{ fontSize: '20px', fontWeight: '900', marginBottom: '4px' }}>{b.name}</div>
+                                        <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px' }}>
+                                            <span style={{ fontSize: '24px', fontWeight: '900' }}>{b.price}</span>
+                                            <span style={{ fontSize: '14px', color: 'var(--muted)', textDecoration: 'line-through' }}>{b.oldPrice}</span>
+                                        </div>
+                                    </div>
+                                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                                        {b.features.map(f => (
+                                            <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: '8px', fontSize: '13px', color: 'var(--muted)' }}>
+                                                <FiCheckCircle size={14} color={b.featured ? '#3b82f6' : 'var(--muted)'} style={{ flexShrink: 0, marginTop: '3px' }} />
+                                                <span>{f}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <Link href={b.link} className={b.featured ? 'btn-primary' : 'btn-secondary'} style={{ width: '100%', padding: '10px', fontSize: '14px', marginTop: 'auto', background: b.featured ? 'linear-gradient(135deg, #34d399, #3b82f6)' : undefined, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                                        Claim Bundle
+                                    </Link>
                                 </div>
-
-                                <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 32px', display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                                    {b.features.map(f => (
-                                        <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', fontSize: '14px', color: 'var(--text)' }}>
-                                            <FiCheckCircle size={16} color={b.featured ? '#3b82f6' : 'var(--muted)'} style={{ flexShrink: 0, marginTop: '3px' }} />
-                                            <span>{f}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-
-                                <Link href={b.link} className={b.featured ? 'btn-primary' : 'btn-secondary'} style={{ width: '100%', marginTop: 'auto', background: b.featured ? 'linear-gradient(135deg, #34d399, #3b82f6)' : undefined, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-                                    Claim Bundle
-                                </Link>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
