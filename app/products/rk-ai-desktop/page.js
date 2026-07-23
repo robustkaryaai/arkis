@@ -447,9 +447,19 @@ export default function RKDesktopProduct() {
             {/* PRODUCT HERO */}
             <section className="hero" style={{ minHeight: '80vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div className="badge float-anim" style={{ marginBottom: '24px', animation: 'fade-in 1s ease-out' }}>
-                        <span className="dot" /> Now Live for macOS, Windows & Linux
+                    <div className="badge" style={{ marginBottom: '24px', animation: 'pulse-glow 2s infinite ease-in-out' }}>
+                        <span className="dot" style={{ animation: 'dot-flash 1.5s infinite' }} /> Now Live for macOS, Windows & Linux
                     </div>
+                    <style jsx>{`
+                        @keyframes pulse-glow {
+                            0%, 100% { box-shadow: 0 0 10px rgba(79, 156, 249, 0.2); border-color: rgba(79, 156, 249, 0.2); }
+                            50% { box-shadow: 0 0 25px rgba(79, 156, 249, 0.6); border-color: rgba(79, 156, 249, 0.6); }
+                        }
+                        @keyframes dot-flash {
+                            0%, 100% { opacity: 1; transform: scale(1); }
+                            50% { opacity: 0.4; transform: scale(1.4); }
+                        }
+                    `}</style>
                     
                     <h1 style={{ 
                         fontSize: 'clamp(48px, 8vw, 92px)', 
@@ -579,28 +589,28 @@ export default function RKDesktopProduct() {
                 </div>
             </section>
 
-            {/* FEATURES SECTION (PRO & ELITE) */}
+            {/* ALL FEATURES SECTION */}
             <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '80px' }}>
                     <div className="label">Ecosystem Capabilities</div>
                     <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800' }}>Local Power. Global Intelligence.</h2>
-                    <p style={{ color: 'var(--muted)', fontSize: '18px', maxWidth: '700px', margin: '16px auto 0' }}>Explore the feature stack that runs entirely on your hardware. No cloud. No latency.</p>
+                    <p style={{ color: 'var(--muted)', fontSize: '18px', maxWidth: '700px', margin: '16px auto 0' }}>Explore the full feature stack that runs entirely on your hardware. No cloud. No latency.</p>
                 </div>
 
-                <h3 style={{ fontSize: '28px', fontWeight: '900', marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <span style={{ color: 'var(--blue)' }}>Pro</span> Features
-                </h3>
                 <div style={{
                     display: 'grid', 
                     gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
                     gap: '40px',
-                    marginBottom: '80px'
+                    marginBottom: '100px'
                 }}>
                     {[
                         { icon: <AnimatedShieldIcon />, title: 'Private On-Device Engine', desc: 'A hyper-optimized local runtime that powers all intelligent processing directly on your silicon.' },
                         { icon: <AnimatedDocumentIcon />, title: 'Intelligent Document Understanding', desc: 'Reads and analyzes complex local documents (PDFs, presentations) in seconds without leaving your machine.' },
                         { icon: <AnimatedVoiceIcon />, title: 'Offline Voice Commands', desc: 'Seamlessly converse and issue complex system commands using our entirely offline speech recognition.' },
                         { icon: <AnimatedFolderIcon />, title: 'Desktop Chat', desc: 'An ultra-fast conversational interface that understands your local context and workflows.' },
+                        { icon: <AnimatedLightningIcon />, title: 'Advanced Multi-modal Routing', desc: 'Intelligent intent routing that dynamically shifts between models based on the complexity of your task.' },
+                        { icon: <AnimatedPaletteIcon />, title: 'Snapvault Orb & Overlays', desc: 'A floating intelligence module that visually understands your screen and autonomously clicks and navigates software.' },
+                        { icon: <AnimatedShieldIcon />, title: 'Advanced System Autonomy', desc: 'Deep hooks into your OS enabling unrestricted, automated workflow macros triggered by natural language.' },
                     ].map(f => (
                         <div key={f.title} className="feature-card" style={{
                             background: 'var(--surface)', 
@@ -616,31 +626,58 @@ export default function RKDesktopProduct() {
                     ))}
                 </div>
 
-                <h3 style={{ fontSize: '28px', fontWeight: '900', marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                    <span style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Elite</span> Features
-                </h3>
-                <div style={{
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                    gap: '40px'
-                }}>
-                    {[
-                        { icon: <AnimatedLightningIcon />, title: 'Advanced Multi-modal Routing', desc: 'Intelligent intent routing that dynamically shifts between models based on the complexity of your task.' },
-                        { icon: <AnimatedPaletteIcon />, title: 'Snapvault Orb & Autonomous Overlays', desc: 'A floating intelligence module that visually understands your screen and autonomously clicks and navigates software.' },
-                        { icon: <AnimatedShieldIcon />, title: 'Unrestricted System Control', desc: 'Deep hooks into your OS enabling unrestricted, automated workflow macros triggered by natural language.' },
-                    ].map(f => (
-                        <div key={f.title} className="feature-card" style={{
-                            background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.05), transparent)', 
-                            padding: '40px', 
-                            borderRadius: '24px',
-                            border: '1px solid rgba(251, 191, 36, 0.2)',
-                            transition: 'all 0.3s ease'
-                        }}>
-                            <div style={{ height: '48px', marginBottom: '24px', display: 'flex', alignItems: 'center' }}>{f.icon}</div>
-                            <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '16px', color: '#fbbf24' }}>{f.title}</h3>
-                            <p style={{ color: 'var(--muted)', fontSize: '16px', lineHeight: '1.7' }}>{f.desc}</p>
-                        </div>
-                    ))}
+                {/* TIER COMPARISON */}
+                <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+                     <h2 style={{ fontSize: '36px', fontWeight: '900' }}>Choose Your Capability Tier</h2>
+                     <p style={{ color: 'var(--muted)', fontSize: '18px' }}>From basic local automation to advanced system autonomy.</p>
+                </div>
+
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+                    {/* Free Tier */}
+                    <div style={{ padding: '32px', borderRadius: '24px', border: '1px solid var(--border)', background: 'var(--surface)' }}>
+                        <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px' }}>Free</h3>
+                        <p style={{ color: 'var(--muted)', marginBottom: '24px' }}>Essential local AI tools.</p>
+                        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', color: 'var(--muted)' }}>
+                            <li>✓ Private On-Device Engine</li>
+                            <li>✓ Desktop Chat</li>
+                            <li>✗ Intelligent Document Understanding</li>
+                            <li>✗ Offline Voice Commands</li>
+                            <li>✗ Advanced Multi-modal Routing</li>
+                            <li>✗ Snapvault Orb & Overlays</li>
+                            <li>✗ Advanced System Autonomy</li>
+                        </ul>
+                    </div>
+
+                    {/* Pro Tier */}
+                    <div style={{ padding: '32px', borderRadius: '24px', border: '1px solid rgba(79, 156, 249, 0.3)', background: 'rgba(79, 156, 249, 0.05)', position: 'relative' }}>
+                        <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: 'var(--blue)', color: 'white', padding: '4px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold' }}>RECOMMENDED</div>
+                        <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px', color: 'var(--blue)' }}>Pro</h3>
+                        <p style={{ color: 'var(--muted)', marginBottom: '24px' }}>For everyday professionals.</p>
+                        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', color: 'var(--text)' }}>
+                            <li>✓ Private On-Device Engine</li>
+                            <li>✓ Desktop Chat</li>
+                            <li>✓ Intelligent Document Understanding</li>
+                            <li>✓ Offline Voice Commands</li>
+                            <li style={{ color: 'var(--muted)' }}>✗ Advanced Multi-modal Routing</li>
+                            <li style={{ color: 'var(--muted)' }}>✗ Snapvault Orb & Overlays</li>
+                            <li style={{ color: 'var(--muted)' }}>✗ Advanced System Autonomy</li>
+                        </ul>
+                    </div>
+
+                    {/* Elite Tier */}
+                    <div style={{ padding: '32px', borderRadius: '24px', border: '1px solid rgba(251, 191, 36, 0.3)', background: 'rgba(251, 191, 36, 0.05)' }}>
+                        <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px', color: '#fbbf24' }}>Elite</h3>
+                        <p style={{ color: 'var(--muted)', marginBottom: '24px' }}>Maximum autonomous power.</p>
+                        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', color: 'var(--text)' }}>
+                            <li>✓ Private On-Device Engine</li>
+                            <li>✓ Desktop Chat</li>
+                            <li>✓ Intelligent Document Understanding</li>
+                            <li>✓ Offline Voice Commands</li>
+                            <li>✓ Advanced Multi-modal Routing</li>
+                            <li>✓ Snapvault Orb & Overlays</li>
+                            <li>✓ Advanced System Autonomy</li>
+                        </ul>
+                    </div>
                 </div>
             </section>
           {/* CUSTOM SELECTION DIALOG MODAL */}

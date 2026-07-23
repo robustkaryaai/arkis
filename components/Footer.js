@@ -43,9 +43,11 @@ export default function Footer() {
                     }}>
                         rexycoreofficial@gmail.com
                     </a>
-                    <p style={{ color: 'var(--muted)', fontSize: '13px', opacity: 0.8 }}>
-                        © 2026 Rexycore. All rights reserved. Built for the local AI era.
-                    </p>
+                    <div style={{ display: 'flex', gap: '16px', color: 'var(--muted)', fontSize: '13px', opacity: 0.8 }}>
+                        <span>© 2026 Rexycore. All rights reserved.</span>
+                        <span>•</span>
+                        <Link href="/terms" style={{ color: 'var(--muted)', textDecoration: 'none' }}>Terms & Conditions</Link>
+                    </div>
                 </div>
             </div>
         </footer>
