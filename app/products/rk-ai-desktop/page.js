@@ -579,25 +579,28 @@ export default function RKDesktopProduct() {
                 </div>
             </section>
 
-            {/* FEATURES SECTION */}
+            {/* FEATURES SECTION (PRO & ELITE) */}
             <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-                    <div className="label">Capabilities</div>
+                    <div className="label">Ecosystem Capabilities</div>
                     <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800' }}>Local Power. Global Intelligence.</h2>
+                    <p style={{ color: 'var(--muted)', fontSize: '18px', maxWidth: '700px', margin: '16px auto 0' }}>Explore the feature stack that runs entirely on your hardware. No cloud. No latency.</p>
                 </div>
 
+                <h3 style={{ fontSize: '28px', fontWeight: '900', marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{ color: 'var(--blue)' }}>Pro</span> Features
+                </h3>
                 <div style={{
                     display: 'grid', 
                     gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                    gap: '40px'
+                    gap: '40px',
+                    marginBottom: '80px'
                 }}>
                     {[
-                        { icon: <AnimatedFolderIcon />, title: 'System Automation', desc: 'Control your machine with natural language. Open apps, manage files, and automate workflows with zero effort.' },
-                        { icon: <AnimatedDocumentIcon />, title: 'Smart Documents', desc: 'Generate professional presentations and reports in seconds. Built-in support for PPTX and DOCX formats.' },
-                        { icon: <AnimatedShieldIcon />, title: 'Privacy First', desc: 'Powered by local LLMs via Ollama. Your data never leaves your machine unless you want it to.' },
-                        { icon: <AnimatedVoiceIcon />, title: 'Voice Interaction', desc: 'Seamless voice-to-action capabilities. Hands-free productivity designed for the modern professional.' },
-                        { icon: <AnimatedPaletteIcon />, title: 'Content Engine', desc: 'Create high-quality AI images and short-form videos directly within your workspace.' },
-                        { icon: <AnimatedLightningIcon />, title: 'Indian-Made', desc: 'Founded and engineered in India, building world-class technology for global users.' },
+                        { icon: <AnimatedShieldIcon />, title: 'Private On-Device Engine', desc: 'A hyper-optimized local runtime that powers all intelligent processing directly on your silicon.' },
+                        { icon: <AnimatedDocumentIcon />, title: 'Intelligent Document Understanding', desc: 'Reads and analyzes complex local documents (PDFs, presentations) in seconds without leaving your machine.' },
+                        { icon: <AnimatedVoiceIcon />, title: 'Offline Voice Commands', desc: 'Seamlessly converse and issue complex system commands using our entirely offline speech recognition.' },
+                        { icon: <AnimatedFolderIcon />, title: 'Desktop Chat', desc: 'An ultra-fast conversational interface that understands your local context and workflows.' },
                     ].map(f => (
                         <div key={f.title} className="feature-card" style={{
                             background: 'var(--surface)', 
@@ -608,6 +611,33 @@ export default function RKDesktopProduct() {
                         }}>
                             <div style={{ height: '48px', marginBottom: '24px', display: 'flex', alignItems: 'center' }}>{f.icon}</div>
                             <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '16px' }}>{f.title}</h3>
+                            <p style={{ color: 'var(--muted)', fontSize: '16px', lineHeight: '1.7' }}>{f.desc}</p>
+                        </div>
+                    ))}
+                </div>
+
+                <h3 style={{ fontSize: '28px', fontWeight: '900', marginBottom: '32px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                    <span style={{ background: 'linear-gradient(135deg, #fbbf24, #f59e0b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Elite</span> Features
+                </h3>
+                <div style={{
+                    display: 'grid', 
+                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                    gap: '40px'
+                }}>
+                    {[
+                        { icon: <AnimatedLightningIcon />, title: 'Advanced Multi-modal Routing', desc: 'Intelligent intent routing that dynamically shifts between models based on the complexity of your task.' },
+                        { icon: <AnimatedPaletteIcon />, title: 'Snapvault Orb & Autonomous Overlays', desc: 'A floating intelligence module that visually understands your screen and autonomously clicks and navigates software.' },
+                        { icon: <AnimatedShieldIcon />, title: 'Unrestricted System Control', desc: 'Deep hooks into your OS enabling unrestricted, automated workflow macros triggered by natural language.' },
+                    ].map(f => (
+                        <div key={f.title} className="feature-card" style={{
+                            background: 'linear-gradient(135deg, rgba(251, 191, 36, 0.05), transparent)', 
+                            padding: '40px', 
+                            borderRadius: '24px',
+                            border: '1px solid rgba(251, 191, 36, 0.2)',
+                            transition: 'all 0.3s ease'
+                        }}>
+                            <div style={{ height: '48px', marginBottom: '24px', display: 'flex', alignItems: 'center' }}>{f.icon}</div>
+                            <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '16px', color: '#fbbf24' }}>{f.title}</h3>
                             <p style={{ color: 'var(--muted)', fontSize: '16px', lineHeight: '1.7' }}>{f.desc}</p>
                         </div>
                     ))}
