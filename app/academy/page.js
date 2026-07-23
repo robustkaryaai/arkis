@@ -291,7 +291,7 @@ export default function AcademyPage() {
                             { name: 'Arjun K.', role: 'Computer Science Student', text: '"The Creator Bundle completely changed how I learn. Playing DinoX while using RK AI to understand complex algorithms is literally the future of education."' },
                             { name: 'Sarah M.', role: 'Self-taught Developer', text: '"Finally, a platform that teaches real-world AI and privacy-first computing instead of just generic web dev tutorials. The quality is unmatched."' }
                         ].map((t, i) => (
-                            <div key={i} style={{ background: 'var(--bg)', padding: '32px', borderRadius: '24px', border: '1px solid var(--border)' }}>
+                            <div key={i} className={`reveal reveal-scale reveal-delay-${i + 1}`} style={{ background: 'var(--bg)', padding: '32px', borderRadius: '24px', border: '1px solid var(--border)' }}>
                                 <div style={{ display: 'flex', gap: '4px', color: '#fbbf24', marginBottom: '16px' }}>
                                     <FiStar fill="currentColor" /><FiStar fill="currentColor" /><FiStar fill="currentColor" /><FiStar fill="currentColor" /><FiStar fill="currentColor" />
                                 </div>

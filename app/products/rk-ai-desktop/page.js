@@ -592,9 +592,9 @@ export default function RKDesktopProduct() {
             {/* ALL FEATURES SECTION */}
             <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto' }}>
                 <div style={{ textAlign: 'center', marginBottom: '80px' }}>
-                    <div className="label">Ecosystem Capabilities</div>
-                    <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800' }}>Local Power. Global Intelligence.</h2>
-                    <p style={{ color: 'var(--muted)', fontSize: '18px', maxWidth: '700px', margin: '16px auto 0' }}>Explore the full feature stack that runs entirely on your hardware. No cloud. No latency.</p>
+                    <div className="label reveal">Ecosystem Capabilities</div>
+                    <h2 className="reveal reveal-delay-1" style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800' }}>Local Power. Global Intelligence.</h2>
+                    <p className="reveal reveal-delay-2" style={{ color: 'var(--muted)', fontSize: '18px', maxWidth: '700px', margin: '16px auto 0' }}>Explore the full feature stack that runs entirely on your hardware. No cloud. No latency.</p>
                 </div>
 
                 <div style={{
@@ -611,8 +611,8 @@ export default function RKDesktopProduct() {
                         { icon: <AnimatedLightningIcon />, title: 'Advanced Multi-modal Routing', desc: 'Intelligent intent routing that dynamically shifts between models based on the complexity of your task.' },
                         { icon: <AnimatedPaletteIcon />, title: 'Snapvault Orb & Overlays', desc: 'A floating intelligence module that visually understands your screen and autonomously clicks and navigates software.' },
                         { icon: <AnimatedShieldIcon />, title: 'Advanced System Autonomy', desc: 'Deep hooks into your OS enabling unrestricted, automated workflow macros triggered by natural language.' },
-                    ].map(f => (
-                        <div key={f.title} className="feature-card" style={{
+                    ].map((f, i) => (
+                        <div key={f.title} className={`feature-card reveal reveal-scale reveal-delay-${i + 1}`} style={{
                             background: 'var(--surface)', 
                             padding: '40px', 
                             borderRadius: '24px',
@@ -627,14 +627,14 @@ export default function RKDesktopProduct() {
                 </div>
 
                 {/* TIER COMPARISON */}
-                <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+                <div className="reveal" style={{ textAlign: 'center', marginBottom: '60px' }}>
                      <h2 style={{ fontSize: '36px', fontWeight: '900' }}>Choose Your Capability Tier</h2>
                      <p style={{ color: 'var(--muted)', fontSize: '18px' }}>From basic local automation to advanced system autonomy.</p>
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
                     {/* Free Tier */}
-                    <div style={{ padding: '32px', borderRadius: '24px', border: '1px solid var(--border)', background: 'var(--surface)' }}>
+                    <div className="reveal reveal-delay-1" style={{ padding: '32px', borderRadius: '24px', border: '1px solid var(--border)', background: 'var(--surface)' }}>
                         <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px' }}>Free</h3>
                         <p style={{ color: 'var(--muted)', marginBottom: '24px' }}>Essential local AI tools.</p>
                         <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', color: 'var(--muted)' }}>
@@ -649,7 +649,7 @@ export default function RKDesktopProduct() {
                     </div>
 
                     {/* Pro Tier */}
-                    <div style={{ padding: '32px', borderRadius: '24px', border: '1px solid rgba(79, 156, 249, 0.3)', background: 'rgba(79, 156, 249, 0.05)', position: 'relative' }}>
+                    <div className="reveal reveal-delay-2" style={{ padding: '32px', borderRadius: '24px', border: '1px solid rgba(79, 156, 249, 0.3)', background: 'rgba(79, 156, 249, 0.05)', position: 'relative' }}>
                         <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: 'var(--blue)', color: 'white', padding: '4px 12px', borderRadius: '12px', fontSize: '12px', fontWeight: 'bold' }}>RECOMMENDED</div>
                         <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px', color: 'var(--blue)' }}>Pro</h3>
                         <p style={{ color: 'var(--muted)', marginBottom: '24px' }}>For everyday professionals.</p>
@@ -665,7 +665,7 @@ export default function RKDesktopProduct() {
                     </div>
 
                     {/* Elite Tier */}
-                    <div style={{ padding: '32px', borderRadius: '24px', border: '1px solid rgba(251, 191, 36, 0.3)', background: 'rgba(251, 191, 36, 0.05)' }}>
+                    <div className="reveal reveal-delay-3" style={{ padding: '32px', borderRadius: '24px', border: '1px solid rgba(251, 191, 36, 0.3)', background: 'rgba(251, 191, 36, 0.05)' }}>
                         <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '8px', color: '#fbbf24' }}>Elite</h3>
                         <p style={{ color: 'var(--muted)', marginBottom: '24px' }}>Maximum autonomous power.</p>
                         <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '12px', color: 'var(--text)' }}>

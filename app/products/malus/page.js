@@ -346,7 +346,7 @@ export default function MalusProductPage() {
                         { icon: <FiActivity size={40} color="#10B981" />, title: 'Resource Aware', desc: 'Continuously monitors RAM, CPU, GPU, and system health before deciding which AI model to use.' },
                         { icon: <AnimatedChatIcon />, title: 'Smart Conversations', desc: 'Talks like a teammate instead of a robotic assistant. Supports, jokes, warns, and explains naturally.' },
                     ].map((f, i) => (
-                        <div key={f.title} className={`feature-card reveal reveal-delay-${(i % 3) + 1}`} style={{
+                        <div key={f.title} className={`feature-card reveal reveal-scale reveal-delay-${(i % 3) + 1}`} style={{
                             background: 'var(--surface)', 
                             padding: '40px', 
                             borderRadius: '24px',
@@ -401,11 +401,11 @@ export default function MalusProductPage() {
             }}>
                 <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(16,185,129,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
                 <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', margin: '0 auto' }}>
-                    <h2 style={{ fontSize: 'clamp(32px, 4vw, 56px)', fontWeight: '900', lineHeight: '1.1', letterSpacing: '-1px', marginBottom: '20px' }}>
+                    <h2 className="reveal" style={{ fontSize: 'clamp(32px, 4vw, 56px)', fontWeight: '900', lineHeight: '1.1', letterSpacing: '-1px', marginBottom: '20px' }}>
                         The smartest computer isn't the fastest one.<br />
                         <span className="grad-malus">It's the one that understands you.</span>
                     </h2>
-                    <p style={{ color: 'var(--muted)', fontSize: '19px', lineHeight: '1.7', marginBottom: '52px' }}>
+                    <p className="reveal reveal-delay-1" style={{ color: 'var(--muted)', fontSize: '19px', lineHeight: '1.7', marginBottom: '52px' }}>
                         Join the waitlist for MALUS and be the first to experience true context-aware AI.
                     </p>
                     <Link href="/notify?product=malus" style={{

@@ -22,7 +22,7 @@ export default function ScrollObserver() {
 
         // Slight delay to allow DOM to paint after route change
         const timeout = setTimeout(() => {
-            document.querySelectorAll('.reveal').forEach(el => {
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
                 observer.observe(el);
             });
         }, 150);
