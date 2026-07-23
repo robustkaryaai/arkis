@@ -447,19 +447,9 @@ export default function RKDesktopProduct() {
             {/* PRODUCT HERO */}
             <section className="hero" style={{ minHeight: '80vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative' }}>
                 <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <div className="badge" style={{ marginBottom: '24px', animation: 'badge-pulse-glow 2s infinite ease-in-out' }}>
-                        <span className="dot" style={{ animation: 'dot-flash 1.5s infinite' }} /> Now Live for macOS, Windows & Linux
+                    <div className="badge float-anim" style={{ marginBottom: '24px' }}>
+                        <span className="dot" /> Now Live for macOS, Windows & Linux
                     </div>
-                    <style jsx>{`
-                        @keyframes badge-pulse-glow {
-                            0%, 100% { box-shadow: 0 0 10px rgba(79, 156, 249, 0.2); border-color: rgba(79, 156, 249, 0.2); }
-                            50% { box-shadow: 0 0 25px rgba(79, 156, 249, 0.6); border-color: rgba(79, 156, 249, 0.6); }
-                        }
-                        @keyframes dot-flash {
-                            0%, 100% { opacity: 1; transform: scale(1); }
-                            50% { opacity: 0.4; transform: scale(1.4); }
-                        }
-                    `}</style>
                     
                     <h1 style={{ 
                         fontSize: 'clamp(48px, 8vw, 92px)', 
