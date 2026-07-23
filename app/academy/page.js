@@ -23,27 +23,27 @@ const featuredLearning = [
 const bundles = [
     {
         name: 'RK AI Student Pack',
-        price: '₹599/mo',
-        oldPrice: '₹999',
+        price: '₹399/mo',
+        oldPrice: '599',
         badge: 'AI + Coding',
-        features: ['RK AI PRO Subscription', 'DinoX Premium Unlocked', 'Exclusive Coding Missions', 'Student Community Access'],
+        features: ['RK AI PRO Subscription', 'DinoX Unlocked', 'Exclusive Coding Missions', 'Student Community Access'],
         link: '/payment?plan=pro'
     },
     {
         name: 'Malus Student Pack',
-        price: '₹499/mo',
-        oldPrice: '₹899',
+        price: '₹299/mo',
+        oldPrice: '499',
         badge: 'Security & Learning',
-        features: ['Malus Pro (Antivirus)', 'DinoX Premium Unlocked', 'Privacy Engineering Path', 'Beta Developer Programs'],
+        features: ['Malus Pro', 'DinoX Unlocked', 'Privacy Engineering Path', 'Beta Developer Programs'],
         link: '/products/malus'
     },
     {
         name: 'Ultimate Ecosystem Pack',
-        price: '₹1499/mo',
-        oldPrice: '₹2499',
+        price: '₹999/mo',
+        oldPrice: '1499',
         badge: 'Best Value',
         featured: true,
-        features: ['RK AI ELITE Subscription', 'Malus Pro (Antivirus)', 'DinoX Premium Unlocked', 'Future Certifications', 'Priority Support'],
+        features: ['RK AI ELITE Subscription', 'Malus Pro', 'DinoX Unlocked', 'Future Certifications', 'Priority Support'],
         link: '/payment?plan=elite'
     }
 ];
