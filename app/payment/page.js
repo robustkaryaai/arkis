@@ -159,6 +159,11 @@ function PaymentPageContent() {
                 }
                 
                 await new Promise(r => setTimeout(r, 2500));
+                if (slug) {
+                    const finalUri = new URL(redirectUri);
+                    finalUri.searchParams.set('plan', selectedPlan);
+                    window.location.href = finalUri.toString();
+                }
                 setTimeout(() => { setIsProcessing(false); router.push('/'); }, 1000);
             } else {
                 setIsProcessing(false);
