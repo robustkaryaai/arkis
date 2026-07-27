@@ -12,7 +12,7 @@ const AC = '#10b981';
 const ACB = '#34d399';
 
 const featuredLearning = [
-  { title: 'DinoX', desc: 'Master Python through an immersive RPG experience. Build real skills through 400+ story-driven coding missions.', icon: <FiCode size={22} />, partner: true, link: '/academy/dinox', color: '#a855f7' },
+  { title: 'DinoX', desc: 'Master Python through an immersive RPG experience. Build real skills through 400+ story-driven coding missions. A partnered product with AntVerse.', icon: <FiCode size={22} />, partner: true, link: '/academy/dinox', color: '#a855f7' },
   { title: 'AI Foundations', desc: 'Understand modern AI, LLMs, and neural networks from the ground up — no PhD required.', icon: <FiCpu size={22} />, link: '/academy/paths/ai-foundations', color: AC },
   { title: 'Local AI', desc: 'Learn how to run private AI models on your own hardware and build applications that never call home.', icon: <FiMonitor size={22} />, link: '/academy/paths/local-ai', color: '#3b82f6' },
   { title: 'Linux Essentials', desc: 'Master the operating system that runs the modern web, from shell scripting to kernel architecture.', icon: <FiTerminal size={22} />, link: '/academy/paths/linux-essentials', color: '#f59e0b' },
@@ -84,7 +84,7 @@ export default function AcademyPage() {
                   onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = `${item.color}33`; }}
                   onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; }}>
                   <div style={{ width: 52, height: 52, borderRadius: 14, background: `${item.color}15`, border: `1px solid ${item.color}33`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: item.color }}>{item.icon}</div>
-                  {item.partner && <span style={{ display: 'inline-block', padding: '3px 10px', background: 'rgba(168,85,247,0.1)', color: '#a855f7', fontSize: 10, fontWeight: 800, letterSpacing: 1.5, borderRadius: 6, textTransform: 'uppercase', border: '1px solid rgba(168,85,247,0.2)', alignSelf: 'flex-start' }}>Partner Experience</span>}
+                  {item.partner && <span style={{ display: 'inline-block', padding: '3px 10px', background: 'rgba(168,85,247,0.1)', color: '#a855f7', fontSize: 10, fontWeight: 800, letterSpacing: 1.5, borderRadius: 6, textTransform: 'uppercase', border: '1px solid rgba(168,85,247,0.2)', alignSelf: 'flex-start' }}>AntVerse Partner</span>}
                   <div>
                     <div style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginBottom: 8 }}>{item.title}</div>
                     <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, margin: 0 }}>{item.desc}</p>

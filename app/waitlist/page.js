@@ -5,201 +5,194 @@ import Footer from '@/components/Footer';
 import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { motion } from 'framer-motion';
+import { StarField, Card3D, staggerContainer, textVariant, fadeUp } from '@/components/SpaceUI';
+import { FiZap, FiArrowRight, FiCheck } from 'react-icons/fi';
+
+const VP = { once: false, amount: 0.1 };
+
+const PRODUCT_META = {
+  'lumina-os': { color: '#7dd3fc', glow: 'rgba(14,165,233,0.25)', emoji: '🖥️', desc: 'Privacy-first AI operating system' },
+  'light-key': { color: '#fcd34d', glow: 'rgba(245,158,11,0.25)', emoji: '⌨️', desc: 'AI at the keyboard level — completely local' },
+  default:     { color: '#a5b4fc', glow: 'rgba(99,102,241,0.25)', emoji: '🚀', desc: 'Get priority access to the Rexycore ecosystem' },
+};
 
 function WaitlistContent() {
-    const { user, loading: authLoading } = useAuth();
-    const router = useRouter();
-    const searchParams = useSearchParams();
+  const { user, loading: authLoading } = useAuth();
+  const router = useRouter();
+  const searchParams = useSearchParams();
 
-    const product = (searchParams.get('product') || '').toLowerCase();
-    const productLabel = useMemo(() => {
-        if (product === 'lumina-os') return 'Lumina OS';
-        if (product === 'light-key') return 'Light Key';
-        return 'Rexycore';
-    }, [product]);
+  const product = (searchParams.get('product') || '').toLowerCase();
+  const productLabel = useMemo(() => {
+    if (product === 'lumina-os') return 'Lumina OS';
+    if (product === 'light-key') return 'Light Key';
+    return 'Rexycore';
+  }, [product]);
 
-    const [form, setForm] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        country: 'India',
-        notes: '',
-    });
-    const [submitted, setSubmitted] = useState(false);
-    const [submitting, setSubmitting] = useState(false);
-    const [error, setError] = useState('');
+  const meta = PRODUCT_META[product] || PRODUCT_META.default;
 
-    useEffect(() => {
-        if (!authLoading && !user) {
-            const qp = product ? `?product=${encodeURIComponent(product)}` : '';
-            router.push(`/login?redirect=${encodeURIComponent(`/waitlist${qp}`)}`);
-        }
-        if (!authLoading && user) {
-            setForm((prev) => ({
-                ...prev,
-                name: prev.name || user.name || '',
-                email: prev.email || user.email || '',
-            }));
-        }
-    }, [authLoading, user, router, product]);
+  const [form, setForm] = useState({ name: '', email: '', phone: '', country: 'India', notes: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
-    const submit = async (e) => {
-        e.preventDefault();
-        if (!user) return;
-        setError('');
-        setSubmitting(true);
+  useEffect(() => {
+    if (!authLoading && !user) {
+      const qp = product ? `?product=${encodeURIComponent(product)}` : '';
+      router.push(`/login?redirect=${encodeURIComponent(`/waitlist${qp}`)}`);
+    }
+    if (!authLoading && user) {
+      setForm((prev) => ({ ...prev, name: prev.name || user.name || '', email: prev.email || user.email || '' }));
+    }
+  }, [authLoading, user, router, product]);
 
-        const entry = {
-            product: productLabel,
-            productKey: product || 'rexycore',
-            userId: user.$id,
-            name: form.name,
-            email: form.email,
-            phone: form.phone,
-            country: form.country,
-            notes: form.notes,
-        };
+  const submit = async (e) => {
+    e.preventDefault();
+    if (!user) return;
+    setError('');
+    setSubmitting(true);
 
-        try {
-            // 🚀 Proxy all Appwrite calls through the Backend to bypass Platform Limits
-            const response = await fetch('https://rk-ai-backend.onrender.com/web/waitlist', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(entry)
-            });
-
-            if (!response.ok) {
-                const data = await response.json().catch(() => ({}));
-                throw new Error(data.error || 'Failed to join waitlist via backend');
-            }
-
-            // Local persistence for UX
-            try {
-                const legacyRaw = localStorage.getItem('rexycore_waitlist');
-                const raw = legacyRaw || '[]';
-                const list = JSON.parse(raw);
-                list.unshift({ ...entry, createdAt: new Date().toISOString() });
-                localStorage.setItem('rexycore_waitlist', JSON.stringify(list));
-            } catch (_) { }
-
-            setSubmitted(true);
-        } catch (err) {
-            setError(err.message || 'Failed to join waitlist');
-        } finally {
-            setSubmitting(false);
-        }
+    const entry = {
+      product: productLabel, productKey: product || 'rexycore',
+      userId: user.$id, name: form.name, email: form.email,
+      phone: form.phone, country: form.country, notes: form.notes,
     };
 
-    return (
-        <div style={{ background: 'var(--void)', minHeight: '100vh', color: '#fff', position: 'relative', overflowX: 'hidden' }}>
-            <div className="noise" aria-hidden />
-            <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(circle at 50% 10%, rgba(59,130,246,0.15) 0%, transparent 60%)' }} />
-            <Navbar />
-            <div style={{ padding: '140px 5% 80px', maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
-                <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                    <div className="hero-eyebrow float-anim" style={{ margin: '0 auto 16px', border: '1px solid rgba(59,130,246,0.3)', color: '#fff' }}>
-                        <span className="pulse" style={{ background: 'var(--blue)', boxShadow: '0 0 10px var(--blue)' }} /> Early Access
-                    </div>
-                    <h1 style={{ fontSize: 'clamp(36px, 6vw, 64px)', fontWeight: '900', letterSpacing: '-1px' }}>
-                        Control your entire home with AI — <span className="flow-text flow-text--blue">privacy-first automation</span>
-                    </h1>
-                    <p style={{ color: 'var(--subtext)', fontSize: '18px', marginTop: '14px' }}>
-                        RK AI Home learns your habits, automates routines, and keeps your data safe on device.
-                    </p>
-                    <p style={{ color: 'var(--blue)', fontSize: '14px', marginTop: '12px', fontWeight: '800' }}>
-                        ⚡ Early access is limited, and you’ll get priority invites for the next launch wave.
-                    </p>
+    try {
+      const response = await fetch('https://rk-ai-backend.onrender.com/web/waitlist', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(entry),
+      });
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || 'Failed to join waitlist');
+      }
+      try {
+        const raw = localStorage.getItem('rexycore_waitlist') || '[]';
+        const list = JSON.parse(raw);
+        list.unshift({ ...entry, createdAt: new Date().toISOString() });
+        localStorage.setItem('rexycore_waitlist', JSON.stringify(list));
+      } catch (_) {}
+      setSubmitted(true);
+    } catch (err) {
+      setError(err.message || 'Failed to join waitlist');
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const inputStyle = { width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', padding: '14px 16px', color: '#fff', outline: 'none', fontSize: 14, fontFamily: 'inherit', transition: 'border-color 0.2s' };
+  const labelStyle = { display: 'block', fontSize: '11px', fontWeight: '800', color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', letterSpacing: '1.5px', marginBottom: '8px' };
+
+  return (
+    <div style={{ background: '#010104', minHeight: '100vh', color: '#fff', position: 'relative', overflowX: 'hidden' }}>
+      <StarField />
+      <div className="noise" aria-hidden />
+      <Navbar />
+
+      <div style={{ padding: '140px 5% 80px', maxWidth: '860px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+
+        {/* Header */}
+        <motion.div variants={staggerContainer(0.1, 0.1)} initial="hidden" whileInView="show" viewport={VP} style={{ textAlign: 'center', marginBottom: 52 }}>
+          <motion.div variants={fadeUp} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 18px', borderRadius: 99, border: `1px solid ${meta.color}30`, background: `${meta.color}08`, marginBottom: 28 }}>
+            <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 6, height: 6, borderRadius: '50%', background: meta.color, boxShadow: `0 0 8px ${meta.color}` }} />
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', color: meta.color }}>Early Access</span>
+          </motion.div>
+          <motion.div variants={fadeUp} style={{ fontSize: 56, marginBottom: 16 }}>{meta.emoji}</motion.div>
+          <motion.h1 variants={textVariant(0)} style={{ fontSize: 'clamp(36px, 6vw, 64px)', fontWeight: 900, letterSpacing: '-2px', lineHeight: 1.05, marginBottom: 16 }}>
+            Join the{' '}
+            <span style={{ background: `linear-gradient(135deg, ${meta.color}, #fff)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{productLabel}</span>{' '}
+            Waitlist
+          </motion.h1>
+          <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.45)', fontSize: 18, lineHeight: 1.7, maxWidth: 560, margin: '0 auto 16px' }}>
+            {meta.desc}. Get priority access and be the first to know when we launch.
+          </motion.p>
+          <motion.p variants={fadeUp} style={{ color: meta.color, fontSize: 13, fontWeight: 800 }}>
+            <FiZap size={12} style={{ display: 'inline', marginRight: 4 }} />
+            Early access is limited — priority invites go to waitlist members first.
+          </motion.p>
+        </motion.div>
+
+        {/* Form / Success */}
+        <motion.div initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={VP} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}>
+          {submitted ? (
+            <Card3D orbColor={meta.glow}>
+              <div style={{ padding: '64px 40px', textAlign: 'center' }}>
+                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ type: 'spring', duration: 0.6 }}
+                  style={{ width: 72, height: 72, borderRadius: '50%', background: `${meta.color}15`, border: `2px solid ${meta.color}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', color: meta.color }}>
+                  <FiCheck size={32} />
+                </motion.div>
+                <h2 style={{ fontSize: '28px', fontWeight: '800', marginBottom: '12px' }}>You're on the list! 🎉</h2>
+                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '16px', lineHeight: '1.7', marginBottom: 32 }}>
+                  We'll email you when <strong style={{ color: meta.color }}>{productLabel}</strong> opens for early access.
+                </p>
+                <div style={{ padding: '20px 24px', background: `${meta.color}08`, borderRadius: '16px', border: `1px solid ${meta.color}20`, marginBottom: 32 }}>
+                  <p style={{ fontSize: '13px', fontWeight: '800', color: meta.color, marginBottom: 4 }}>🔥 PRO MOVE</p>
+                  <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.4)', margin: 0 }}>Share this with 3 friends to jump the queue!</p>
                 </div>
-
-                {submitted ? (
-                    <div style={{
-                        background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)',
-                        borderRadius: '24px', padding: '60px', textAlign: 'center', backdropFilter: 'blur(20px)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
-                    }}>
-                        <div style={{ fontSize: '56px', marginBottom: '18px' }}>✅</div>
-                        <h2 style={{ fontSize: '26px', fontWeight: '800', marginBottom: '10px' }}>You’re on the list.</h2>
-                        <p style={{ color: 'var(--subtext)', fontSize: '15px', lineHeight: '1.7' }}>
-                            We’ll email you when {productLabel} opens for early access.
-                        </p>
-                        <div style={{ marginTop: '24px', padding: '20px', background: 'rgba(59,130,246,0.05)', borderRadius: '16px', border: '1px solid rgba(59,130,246,0.15)' }}>
-                            <p style={{ fontSize: '14px', fontWeight: '800', color: 'var(--blue)' }}>🔥 PRO MOVE</p>
-                            <p style={{ fontSize: '13px', color: 'var(--subtext)', marginTop: '4px' }}>Want priority access? Share this with 3 friends to jump the queue!</p>
-                        </div>
-                        <button
-                            className="btn-primary"
-                            style={{ marginTop: '28px', padding: '14px 28px', borderRadius: '50px', cursor: 'pointer' }}
-                            onClick={() => router.push('/products')}
-                        >
-                            Back to Products
-                        </button>
-                    </div>
-                ) : (
-                    <form onSubmit={submit} style={{
-                        background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)',
-                        borderRadius: '24px', padding: '40px', backdropFilter: 'blur(20px)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
-                    }}>
-                        {error ? (
-                            <div style={{ marginBottom: '18px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', color: '#fecaca', padding: '12px 14px', borderRadius: '14px', fontSize: '13px' }}>
-                                {error}
-                            </div>
-                        ) : null}
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '18px' }}>
-                            <div>
-                                <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>Full Name</label>
-                                <input
-                                    value={form.name}
-                                    onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
-                                    required
-                                    style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', outline: 'none', transition: 'border-color 0.2s' }}
-                                    onFocus={e => e.target.style.borderColor = 'var(--blue)'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'}
-                                />
-                            </div>
-                            <div>
-                                <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>Email</label>
-                                <input
-                                    type="email"
-                                    value={form.email}
-                                    onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
-                                    required
-                                    style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', outline: 'none', transition: 'border-color 0.2s' }}
-                                    onFocus={e => e.target.style.borderColor = 'var(--blue)'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'}
-                                />
-                            </div>
-                        </div>
-
-                        <div style={{ marginTop: '18px' }}>
-                            <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>What feature would make RK AI Home essential for you?</label>
-                            <textarea
-                                value={form.notes}
-                                onChange={(e) => setForm((p) => ({ ...p, notes: e.target.value }))}
-                                rows={4}
-                                placeholder="Example: Secure offline routines, advanced privacy controls, smart scene automation."
-                                style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', outline: 'none', resize: 'vertical', transition: 'border-color 0.2s' }}
-                                onFocus={e => e.target.style.borderColor = 'var(--blue)'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'}
-                            />
-                        </div>
-
-                        <button
-                            type="submit"
-                            className="btn-primary"
-                            disabled={submitting}
-                            style={{ marginTop: '24px', padding: '16px 34px', borderRadius: '50px', cursor: submitting ? 'default' : 'pointer', opacity: submitting ? 0.7 : 1, width: '100%' }}
-                        >
-                            {submitting ? 'Joining…' : 'Get Early Access →'}
-                        </button>
-                    </form>
+                <button onClick={() => router.push('/products')}
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 28px', borderRadius: 99, background: '#fff', color: '#000', fontWeight: 800, fontSize: 14, border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
+                  Explore Products <FiArrowRight size={14} />
+                </button>
+              </div>
+            </Card3D>
+          ) : (
+            <Card3D orbColor={meta.glow}>
+              <div style={{ padding: '40px' }}>
+                {error && (
+                  <div style={{ marginBottom: '18px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', color: '#fecaca', padding: '12px 16px', borderRadius: '12px', fontSize: '13px' }}>
+                    {error}
+                  </div>
                 )}
-            </div>
-            <Footer />
-            <ChatWidget />
-        </div>
-    );
+                <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '18px' }}>
+                    <div>
+                      <label style={labelStyle}>Full Name</label>
+                      <input value={form.name} onChange={(e) => setForm(p => ({ ...p, name: e.target.value }))} required placeholder="Jane Doe"
+                        style={inputStyle} onFocus={e => e.target.style.borderColor = meta.color} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
+                    </div>
+                    <div>
+                      <label style={labelStyle}>Email</label>
+                      <input type="email" value={form.email} onChange={(e) => setForm(p => ({ ...p, email: e.target.value }))} required placeholder="you@example.com"
+                        style={inputStyle} onFocus={e => e.target.style.borderColor = meta.color} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
+                    </div>
+                  </div>
+                  <div>
+                    <label style={labelStyle}>What feature would make {productLabel} essential for you?</label>
+                    <textarea value={form.notes} onChange={(e) => setForm(p => ({ ...p, notes: e.target.value }))} rows={4}
+                      placeholder="Example: Secure offline routines, advanced privacy controls, smart scene automation."
+                      style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.6 }}
+                      onFocus={e => e.target.style.borderColor = meta.color} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
+                  </div>
+                  <button type="submit" disabled={submitting}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, marginTop: '4px', padding: '16px', borderRadius: 99, background: submitting ? 'rgba(255,255,255,0.1)' : '#fff', color: submitting ? 'rgba(255,255,255,0.4)' : '#000', fontWeight: 800, fontSize: 15, border: 'none', cursor: submitting ? 'default' : 'pointer', transition: 'all 0.2s', fontFamily: 'inherit', width: '100%' }}>
+                    {submitting ? (
+                      <>
+                        <motion.div animate={{ rotate: 360 }} transition={{ repeat: Infinity, duration: 1, ease: 'linear' }} style={{ width: 14, height: 14, borderRadius: '50%', border: '2px solid rgba(255,255,255,0.2)', borderTopColor: '#fff' }} />
+                        Joining…
+                      </>
+                    ) : <>Get Early Access <FiArrowRight size={14} /></>}
+                  </button>
+                </form>
+              </div>
+            </Card3D>
+          )}
+        </motion.div>
+      </div>
+
+      <Footer />
+      <ChatWidget />
+    </div>
+  );
 }
 
 export default function WaitlistPage() {
-    return (
-        <Suspense fallback={<div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div className="spinner"></div></div>}>
-            <WaitlistContent />
-        </Suspense>
-    );
+  return (
+    <Suspense fallback={
+      <div style={{ background: '#010104', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <motion.div animate={{ opacity: [0.3, 1, 0.3] }} transition={{ repeat: Infinity, duration: 1.5 }} style={{ color: 'rgba(255,255,255,0.3)', fontSize: 14 }}>Loading…</motion.div>
+      </div>
+    }>
+      <WaitlistContent />
+    </Suspense>
+  );
 }

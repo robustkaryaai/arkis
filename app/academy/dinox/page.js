@@ -25,7 +25,7 @@ export default function DinoXPage() {
             <section className="hero" style={{ textAlign: 'center', padding: '120px 5% 80px', position: 'relative', zIndex: 10 }}>
                 <motion.div variants={staggerContainer(0.12, 0.1)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <motion.div variants={fadeUp} style={{ marginBottom: '32px', color: GL, border: '1px solid rgba(52,211,153,0.3)', background: 'rgba(16,185,129,0.08)', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 99, fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase' }}>
-                        <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: G, boxShadow: `0 0 10px ${G}` }} /> Partner Experience
+                        <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: G, boxShadow: `0 0 10px ${G}` }} /> AntVerse Partner Experience
                     </motion.div>
                     
                     <motion.img variants={fadeUp} src="/dinox.png" alt="DinoX Logo" style={{ width: '140px', height: '140px', objectFit: 'contain', marginBottom: '24px', filter: `drop-shadow(0 10px 40px rgba(16,185,129,0.5))` }} />
@@ -38,14 +38,14 @@ export default function DinoXPage() {
                         The Ultimate Gamified Coding Universe.
                     </motion.p>
                     <motion.p variants={fadeUp} style={{ fontSize: '18px', lineHeight: '1.8', color: 'rgba(255,255,255,0.5)', marginBottom: '40px', maxWidth: '700px' }}>
-                        Learning to code shouldn't be boring. DinoX merges addictive RPG progression with real-world programming education. Play for free, level up, and master Python and JavaScript.
+                        Learning to code shouldn't be boring. A proud partnered product with AntVerse, DinoX merges addictive RPG progression with real-world programming education. Play for free, level up, and master Python and JavaScript.
                     </motion.p>
                     
                     <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
                         <Link href="/academy#bundles" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', borderRadius: '99px', background: `linear-gradient(135deg, ${G}, #059669)`, color: '#fff', fontWeight: 800, fontSize: 15, textDecoration: 'none', boxShadow: `0 8px 32px rgba(16,185,129,0.4)` }}>
                             View Bundles <FiArrowRight size={18} />
                         </Link>
-                        <a href="https://antverse.vercel.app" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', borderRadius: '99px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(52,211,153,0.2)', color: GL, fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
+                        <a href="https://antverse.vercel.app/products/dinox" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', borderRadius: '99px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(52,211,153,0.2)', color: GL, fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
                             Play DinoX ↗
                         </a>
                     </motion.div>
@@ -147,7 +147,7 @@ export default function DinoXPage() {
 
                         {/* CTA */}
                         <motion.div variants={fadeUp} style={{ marginTop: '64px', textAlign: 'center' }}>
-                            <a href="https://antverse.vercel.app" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '18px 40px', borderRadius: '99px', background: `linear-gradient(135deg, ${G}, #059669)`, color: '#fff', fontWeight: 900, fontSize: 16, textDecoration: 'none', boxShadow: `0 10px 40px rgba(16,185,129,0.4)` }}>
+                            <a href="https://antverse.vercel.app/products/dinox" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '18px 40px', borderRadius: '99px', background: `linear-gradient(135deg, ${G}, #059669)`, color: '#fff', fontWeight: 900, fontSize: 16, textDecoration: 'none', boxShadow: `0 10px 40px rgba(16,185,129,0.4)` }}>
                                 Play DinoX Now <FiArrowRight size={18} />
                             </a>
                         </motion.div>

@@ -4,137 +4,146 @@ import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
 import { FiShield, FiLock, FiAlertCircle, FiRepeat, FiCode, FiFileText, FiArrowRight } from 'react-icons/fi';
+import { motion } from 'framer-motion';
+import { StarField, Card3D, staggerContainer, textVariant, fadeUp } from '@/components/SpaceUI';
+
+const VP = { once: false, amount: 0.1 };
 
 const sections = [
   {
-    icon: <FiShield size={20} />,
+    icon: <FiShield size={20} />, color: '#a5b4fc',
     title: '1. Local-First Processing & Privacy Guarantee',
     content: [
       'By using RK AI Desktop and Malus, you acknowledge that all primary processing, document parsing, and inference occurs locally on your hardware. We do not harvest, upload, or monetize your local application data, chat logs, or visual screen data.',
-      'Certain account management, billing, and authentication actions (such as logging in via our web portal) require a network connection to our secure servers. These requests are always encrypted with TLS 1.3 and never contain local AI context.',
+      'Certain account management, billing, and authentication actions require a network connection to our secure servers. These requests are always encrypted with TLS 1.3 and never contain local AI context.',
     ],
   },
   {
-    icon: <FiRepeat size={20} />,
-    title: '2. Subscription Tiers (Pro & Elite)',
+    icon: <FiRepeat size={20} />, color: '#7dd3fc',
+    title: '2. Subscription',
     content: [
-      'Access to advanced capabilities — including Autonomous Overlays, Snapvault Orb, and high-parameter on-device routing — requires an active subscription to a Pro or Elite tier.',
+      'Access to advanced capabilities requires an active subscription to the unified RK AI plan. There are no separate Pro or Elite tiers — one plan covers all Rexycore products.',
       'Subscriptions are billed on a recurring basis. You may cancel at any time, and cancellation takes effect at the end of the current billing period. Partial-month refunds are not provided unless legally mandated in your jurisdiction.',
     ],
   },
   {
-    icon: <FiCode size={20} />,
+    icon: <FiCode size={20} />, color: '#6ee7b7',
     title: '3. Acceptable Use of Automation',
     content: [
-      'RK AI Desktop provides powerful autonomous UI navigation and macro execution capabilities. You agree not to use these features to bypass security controls, commit fraud, engage in denial-of-service attacks, scrape data from services in violation of their terms, or violate the terms of service of third-party software installed on your system.',
+      'RK AI Desktop provides powerful autonomous UI navigation and macro execution capabilities. You agree not to use these features to bypass security controls, commit fraud, engage in denial-of-service attacks, or scrape data from services in violation of their terms.',
       'Any misuse detected may result in immediate suspension of your account without refund.',
     ],
   },
   {
-    icon: <FiAlertCircle size={20} />,
+    icon: <FiAlertCircle size={20} />, color: '#fcd34d',
     title: '4. Disclaimer of Warranties',
     content: [
-      'The software is provided "as is", without warranty of any kind, express or implied. While Malus provides robust heuristics and local sandboxing, no security software can guarantee 100% protection against zero-day threats.',
-      'You are solely responsible for maintaining system backups and data integrity on your device. RexyCore shall not be held liable for any data loss, system damage, or business interruption arising from the use of our software.',
+      'The software is provided "as is", without warranty of any kind. While Malus provides robust heuristics and local sandboxing, no security software can guarantee 100% protection against zero-day threats.',
+      'You are solely responsible for maintaining system backups and data integrity. RexyCore shall not be held liable for any data loss, system damage, or business interruption.',
     ],
   },
   {
-    icon: <FiLock size={20} />,
+    icon: <FiLock size={20} />, color: '#f9a8d4',
     title: '5. Intellectual Property',
     content: [
-      'All branding, product names, architecture designs, and source code are the exclusive intellectual property of RexyCore. You may not reverse-engineer, decompile, redistribute, or create derivative works based on our software without explicit written permission.',
+      'All branding, product names, architecture designs, and source code are the exclusive intellectual property of RexyCore. You may not reverse-engineer, decompile, redistribute, or create derivative works without explicit written permission.',
       'User-generated prompts and macros created through our SDK remain your intellectual property.',
     ],
   },
   {
-    icon: <FiFileText size={20} />,
+    icon: <FiFileText size={20} />, color: '#a78bfa',
     title: '6. Governing Law & Amendments',
     content: [
       'These terms are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of courts located in India.',
-      'We reserve the right to update these terms at any time. Continued use of our products following any changes constitutes your acceptance of the revised terms. We will notify registered users of material changes via email.',
+      'We reserve the right to update these terms at any time. Continued use of our products following any changes constitutes your acceptance of the revised terms.',
     ],
   },
 ];
 
 export default function TermsAndConditions() {
   return (
-    <div style={{ background: 'var(--void)', color: '#fff', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
+    <div style={{ background: '#010104', color: '#fff', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
+      <StarField />
       <div className="noise" aria-hidden />
-      <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(circle at 15% 20%, rgba(99,102,241,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(59,130,246,0.08) 0%, transparent 50%)' }} />
       <Navbar />
 
-      <section style={{ padding: '140px 5% 60px', maxWidth: '860px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        
+      <section style={{ padding: '140px 5% 60px', maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
+
         {/* Header */}
-        <div className="reveal" style={{ marginBottom: '60px' }}>
-          <div className="hero-eyebrow" style={{ marginBottom: '24px', color: 'rgba(255,255,255,0.7)', border: '1px solid rgba(255,255,255,0.1)' }}>
-            <span className="pulse" style={{ background: 'rgba(99,102,241,0.8)' }} /> Legal Document
-          </div>
-          <h1 style={{ fontSize: 'clamp(40px, 7vw, 64px)', fontWeight: '900', letterSpacing: '-1.5px', lineHeight: '1.05', marginBottom: '20px' }}>
-            Terms &{' '}
-            <span className="flow-text flow-text--blue" style={{ display: 'inline-block' }}>Conditions</span>
-          </h1>
-          <p style={{ fontSize: '17px', color: 'var(--subtext)', lineHeight: '1.7' }}>
-            Last Updated: July 2026. Please read these terms carefully before using any product within the RexyCore ecosystem.
-          </p>
-        </div>
+        <motion.div variants={staggerContainer(0.1, 0.1)} initial="hidden" whileInView="show" viewport={VP} style={{ marginBottom: '60px' }}>
+          <motion.div variants={fadeUp} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 18px', borderRadius: 99, border: '1px solid rgba(165,180,252,0.2)', background: 'rgba(165,180,252,0.05)', marginBottom: 28 }}>
+            <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 6, height: 6, borderRadius: '50%', background: '#a5b4fc', boxShadow: '0 0 8px #a5b4fc' }} />
+            <span style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', color: '#a5b4fc' }}>Legal Document</span>
+          </motion.div>
+          <motion.h1 variants={textVariant(0)} style={{ fontSize: 'clamp(40px, 7vw, 72px)', fontWeight: 900, letterSpacing: '-2px', lineHeight: 1.0, marginBottom: 20 }}>
+            Terms &amp;{' '}
+            <span style={{ background: 'linear-gradient(135deg, #a5b4fc, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Conditions</span>
+          </motion.h1>
+          <motion.p variants={fadeUp} style={{ fontSize: 17, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7 }}>
+            Last Updated: July 2026. Please read these terms carefully before using any product within the Rexycore ecosystem.
+          </motion.p>
+        </motion.div>
 
         {/* Nav Pills */}
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '60px' }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={VP} transition={{ duration: 0.5 }}
+          style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '60px' }}>
           {sections.map((s, i) => (
             <a key={i} href={`#section-${i}`} style={{
               padding: '6px 16px', borderRadius: '99px', fontSize: '12px', fontWeight: '700',
-              background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)',
-              color: 'rgba(255,255,255,0.5)', textDecoration: 'none', letterSpacing: '0.3px',
+              background: `${s.color}10`, border: `1px solid ${s.color}25`,
+              color: s.color, textDecoration: 'none', letterSpacing: '0.3px',
               transition: 'all 0.2s',
             }}>
               §{i + 1} {s.title.replace(`${i + 1}. `, '')}
             </a>
           ))}
-        </div>
+        </motion.div>
 
         {/* Sections */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           {sections.map((sec, i) => (
-            <div key={i} id={`section-${i}`} className="reveal" style={{
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid rgba(255,255,255,0.06)',
-              borderRadius: '20px',
-              padding: '36px',
-              marginBottom: '16px',
-              backdropFilter: 'blur(20px)',
-            }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
-                <div style={{
-                  width: '40px', height: '40px', borderRadius: '10px',
-                  background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.2)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#818cf8', flexShrink: 0,
-                }}>
-                  {sec.icon}
+            <motion.div key={i} id={`section-${i}`}
+              initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }}
+              viewport={VP} transition={{ duration: 0.6, delay: 0.05, ease: [0.16, 1, 0.3, 1] }}>
+              <Card3D orbColor={`${sec.color}20`}>
+                <div style={{ padding: '36px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '20px' }}>
+                    <div style={{
+                      width: '40px', height: '40px', borderRadius: '10px',
+                      background: `${sec.color}12`, border: `1px solid ${sec.color}30`,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', color: sec.color, flexShrink: 0,
+                    }}>
+                      {sec.icon}
+                    </div>
+                    <h2 style={{ fontSize: '18px', fontWeight: '800', letterSpacing: '-0.3px' }}>{sec.title}</h2>
+                  </div>
+                  {sec.content.map((para, j) => (
+                    <p key={j} style={{ color: 'rgba(255,255,255,0.45)', lineHeight: '1.8', marginBottom: j < sec.content.length - 1 ? '12px' : 0, fontSize: '15px' }}>
+                      {para}
+                    </p>
+                  ))}
                 </div>
-                <h2 style={{ fontSize: '18px', fontWeight: '800', letterSpacing: '-0.3px' }}>{sec.title}</h2>
-              </div>
-              {sec.content.map((para, j) => (
-                <p key={j} style={{ color: 'var(--subtext)', lineHeight: '1.8', marginBottom: j < sec.content.length - 1 ? '12px' : 0, fontSize: '15px' }}>
-                  {para}
-                </p>
-              ))}
-            </div>
+              </Card3D>
+            </motion.div>
           ))}
         </div>
 
-        {/* Footer Links */}
-        <div className="reveal" style={{ marginTop: '60px', display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', justifyContent: 'space-between', padding: '32px 36px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: '20px' }}>
-          <div>
-            <p style={{ fontWeight: '700', marginBottom: '4px' }}>Have questions about these terms?</p>
-            <p style={{ color: 'var(--subtext)', fontSize: '14px', margin: 0 }}>Reach out to our legal team at legal@rexycore.ai</p>
-          </div>
-          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-            <Link href="/privacy" className="btn-secondary" style={{ fontSize: '14px', padding: '10px 20px' }}>Privacy Policy</Link>
-            <Link href="/contact" className="btn-primary" style={{ fontSize: '14px', padding: '10px 20px' }}>Contact Us <FiArrowRight /></Link>
-          </div>
-        </div>
-
+        {/* Footer CTA */}
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={VP} transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          style={{ marginTop: '60px' }}>
+          <Card3D orbColor="rgba(165,180,252,0.15)">
+            <div style={{ padding: '32px 36px', display: 'flex', flexWrap: 'wrap', gap: '20px', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div>
+                <p style={{ fontWeight: '700', marginBottom: '4px', fontSize: 16 }}>Have questions about these terms?</p>
+                <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '14px', margin: 0 }}>Reach out to our legal team at legal@rexycore.ai</p>
+              </div>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <Link href="/privacy" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 99, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 14, textDecoration: 'none' }}>Privacy Policy</Link>
+                <Link href="/contact" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '10px 20px', borderRadius: 99, background: '#fff', color: '#000', fontWeight: 800, fontSize: 14, textDecoration: 'none' }}>Contact Us <FiArrowRight size={14} /></Link>
+              </div>
+            </div>
+          </Card3D>
+        </motion.div>
       </section>
 
       <Footer />
