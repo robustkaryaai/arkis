@@ -9,6 +9,12 @@ export const metadata = {
   description: 'Rexycore builds next-generation local AI assistants. Voice AI, image generation, video AI — all on your machine.',
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>

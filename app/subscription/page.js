@@ -20,6 +20,7 @@ import {
     AiOutlineLink,
 } from 'react-icons/ai';
 import { getProfile, getWaitlistSlots } from '@/lib/api';
+import { StarField, Card3D, staggerContainer, textVariant, fadeUp } from '@/components/SpaceUI';
 
 /* ── Matrix Rain Canvas ─────────────────────────────────────────── */
 function MatrixRain({ color = '#00ff9d', opacity = 0.08 }) {
@@ -124,34 +125,31 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
     const sharedFeatures = plan.sharedFeatures ?? [];
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0, transition: { delay: idx * 0.1, type: 'spring', stiffness: 100, damping: 15 } }}
-            whileHover={!isActive ? { y: -10, scale: 1.02, boxShadow: `0 25px 50px ${plan.glowColor}25` } : {}}
-            style={{
-                position: 'relative',
-                borderRadius: '24px',
-                overflow: 'hidden',
-                border: isActive
-                    ? `2px solid #ffffff`
-                    : plan.popular
-                    ? `1px solid ${plan.glowColor}AA`
-                    : '1px solid rgba(255,255,255,0.08)',
-                background: isActive
-                    ? `linear-gradient(160deg, rgba(30,30,30,0.9), rgba(5,5,5,0.95))`
-                    : 'rgba(12, 16, 30, 0.7)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
-                boxShadow: isActive
-                    ? `0 0 50px rgba(255,255,255,0.2), inset 0 0 80px rgba(255,255,255,0.1)`
-                    : plan.popular
-                    ? `0 0 35px ${plan.glowColor}20`
-                    : '0 10px 30px rgba(0,0,0,0.5)',
-                padding: '36px 32px',
-                display: 'flex',
-                flexDirection: 'column'
-            }}
-        >
+        <motion.div variants={fadeUp} style={{ height: '100%' }}>
+            <Card3D
+                delay={0}
+                orbColor={isActive ? 'rgba(255,255,255,0.2)' : plan.glowColor}
+                style={{
+                    position: 'relative',
+                    height: '100%',
+                    border: isActive
+                        ? `2px solid #ffffff`
+                        : plan.popular
+                        ? `1px solid ${plan.glowColor}AA`
+                        : '1px solid rgba(255,255,255,0.08)',
+                    background: isActive
+                        ? `linear-gradient(160deg, rgba(30,30,30,0.9), rgba(15,15,15,0.95))`
+                        : 'rgba(10, 10, 15, 0.7)',
+                    boxShadow: isActive
+                        ? `0 0 50px rgba(255,255,255,0.2), inset 0 0 80px rgba(255,255,255,0.1)`
+                        : plan.popular
+                        ? `0 0 35px ${plan.glowColor}20`
+                        : '0 10px 30px rgba(0,0,0,0.5)',
+                    padding: '36px 32px',
+                    display: 'flex',
+                    flexDirection: 'column'
+                }}
+            >
             <MatrixRain color={displayColor} opacity={0.08} />
 
             {plan.popular && (
@@ -330,6 +328,7 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx, dy
                     <span style={{ color: plan.glowColor }}>🔒</span> Locked pricing — never goes up
                 </p>
             )}
+            </Card3D>
         </motion.div>
     );
 }
@@ -484,19 +483,17 @@ export default function Subscription() {
     }
 
     return (
-        <div style={{ background: 'var(--void)', minHeight: '100vh', color: '#fff', overflowX: 'hidden', position: 'relative' }}>
+        <div style={{ background: '#010104', minHeight: '100vh', color: '#fff', overflowX: 'hidden', position: 'relative' }}>
+            <StarField />
             <div className="noise" aria-hidden />
-            <div className="nebula">
-              <div className="nebula__orb" style={{ background: 'radial-gradient(circle, rgba(155,89,245,0.35) 0%, transparent 60%)', animation: 'drift1 30s infinite ease-in-out alternate' }} />
-              <div className="nebula__orb" style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.2) 0%, transparent 60%)', animation: 'drift3 38s infinite ease-in-out alternate-reverse' }} />
-            </div>
             <Navbar />
             
             <div style={{ padding: '120px 20px 80px', maxWidth: '1400px', margin: '0 auto' }}>
                 
                 {/* ── Header ── */}
-                <header style={{ marginBottom: '50px', display: 'flex', alignItems: 'center', gap: '24px' }}>
+                <motion.header variants={staggerContainer(0.1, 0.1)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ marginBottom: '50px', display: 'flex', alignItems: 'center', gap: '24px' }}>
                     <motion.button
+                        variants={fadeUp}
                         whileTap={{ scale: 0.9 }}
                         whileHover={{ scale: 1.05, background: 'rgba(155,89,245,0.1)' }}
                         onClick={() => router.back()}
@@ -510,40 +507,43 @@ export default function Subscription() {
                     >
                         <AiOutlineArrowLeft size={22} />
                     </motion.button>
-                    <div>
-                        <h1 className="flow-text flow-text--purple" style={{
+                    <motion.div variants={fadeUp}>
+                        <h1 style={{
                             fontSize: '38px', fontWeight: '900',
                             letterSpacing: '2.5px', marginBottom: '6px',
                             textTransform: 'uppercase',
+                            background: 'linear-gradient(135deg, #a855f7 0%, #d8b4fe 100%)',
+                            WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'
                         }}>
                             MATRIX TIERS
                         </h1>
                         <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', fontWeight: '800', letterSpacing: '3px', textTransform: 'uppercase' }}>
                             RK AI DESKTOP &amp; REXYCORE CLOUD SUBSCRIPTION
                         </p>
-                    </div>
-                </header>
+                    </motion.div>
+                </motion.header>
 
                 {/* ── Early-access notice ── */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    style={{
-                        padding: '16px 20px', marginBottom: '32px',
-                        borderRadius: '16px', background: 'rgba(79,156,249,0.05)',
-                        border: '1px solid rgba(79,156,249,0.2)',
-                        display: 'flex', alignItems: 'center', gap: '14px',
-                    }}
-                >
-                    <AiOutlineInfoCircle size={20} color="#4f9cf9" style={{ flexShrink: 0 }} />
-                    <p style={{ fontSize: '13px', color: '#999', lineHeight: '1.5' }}>
-                        <span style={{ color: '#4f9cf9', fontWeight: '800' }}>Pricing Notice</span>
-                        {' '}— Subscription prices may change after the public launch. Existing subscribers keep their current price for as long as their subscription remains active.
-                    </p>
+                <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+                    <motion.div
+                        variants={fadeUp}
+                        style={{
+                            padding: '16px 20px', marginBottom: '32px',
+                            borderRadius: '16px', background: 'rgba(79,156,249,0.05)',
+                            border: '1px solid rgba(79,156,249,0.2)',
+                            display: 'flex', alignItems: 'center', gap: '14px',
+                        }}
+                    >
+                        <AiOutlineInfoCircle size={20} color="#4f9cf9" style={{ flexShrink: 0 }} />
+                        <p style={{ fontSize: '13px', color: '#999', lineHeight: '1.5' }}>
+                            <span style={{ color: '#4f9cf9', fontWeight: '800' }}>Pricing Notice</span>
+                            {' '}— Subscription prices may change after the public launch. Existing subscribers keep their current price for as long as their subscription remains active.
+                        </p>
+                    </motion.div>
                 </motion.div>
 
                 {/* ── Plans Grid ── */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+                <motion.div variants={staggerContainer(0.1, 0.3)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
                     {PLANS.map((plan, idx) => (
                         <PlanCard
                             key={plan.id}
@@ -569,27 +569,27 @@ export default function Subscription() {
                         slotsReady={slotsReady}
                     />
                 ))}
-                </div>
+                </motion.div>
 
                 {/* ── Enterprise section ── */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.6 }}
-                    style={{
-                        marginTop: '50px', textAlign: 'center', padding: '32px',
-                        borderRadius: '20px', background: 'rgba(155,89,245,0.03)',
-                        border: '1px solid rgba(155,89,245,0.15)',
-                    }}
-                >
-                    <AiOutlineThunderbolt size={24} color="#9b59f5" style={{ marginBottom: '12px' }} />
-                    <h3 style={{ fontSize: '15px', fontWeight: '900', color: '#fff', marginBottom: '8px', letterSpacing: '1px' }}>
-                        ENTERPRISE MATRIX
-                    </h3>
-                    <p style={{ fontSize: '13px', color: '#666', lineHeight: '1.6', maxWidth: '600px', margin: '0 auto' }}>
-                        Need massive scale? Custom storage, unlimited autonomous agents, and raw dedicated processing power.{' '}
-                        <Link href="/enterprise" style={{ color: '#9b59f5', fontWeight: '800', textDecoration: 'none' }}>Contact the core team →</Link>
-                    </p>
+                <motion.div variants={staggerContainer(0.1, 0.5)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+                    <motion.div
+                        variants={fadeUp}
+                        style={{
+                            marginTop: '50px', textAlign: 'center', padding: '32px',
+                            borderRadius: '20px', background: 'rgba(155,89,245,0.03)',
+                            border: '1px solid rgba(155,89,245,0.15)',
+                        }}
+                    >
+                        <AiOutlineThunderbolt size={24} color="#9b59f5" style={{ marginBottom: '12px' }} />
+                        <h3 style={{ fontSize: '15px', fontWeight: '900', color: '#fff', marginBottom: '8px', letterSpacing: '1px' }}>
+                            ENTERPRISE MATRIX
+                        </h3>
+                        <p style={{ fontSize: '13px', color: '#666', lineHeight: '1.6', maxWidth: '600px', margin: '0 auto' }}>
+                            Need massive scale? Custom storage, unlimited autonomous agents, and raw dedicated processing power.{' '}
+                            <Link href="/enterprise" style={{ color: '#9b59f5', fontWeight: '800', textDecoration: 'none' }}>Contact the core team →</Link>
+                        </p>
+                    </motion.div>
                 </motion.div>
 
                 {/* ── Waitlist / Survey Modal ── */}
@@ -603,7 +603,7 @@ export default function Subscription() {
                             <motion.div
                                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                                 onClick={() => setShowSurvey(false)}
-                                style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(12px)' }}
+                                style={{ position: 'absolute', inset: 0, background: 'rgba(1,1,4,0.92)', backdropFilter: 'blur(12px)' }}
                             />
                             <motion.div
                                 initial={{ scale: 0.9, opacity: 0, y: 30 }}
@@ -612,7 +612,7 @@ export default function Subscription() {
                                 style={{
                                     width: '100%', maxWidth: '440px', padding: '36px',
                                     position: 'relative', zIndex: 1,
-                                    background: 'rgba(6,9,22,0.97)', borderRadius: '24px',
+                                    background: 'rgba(10,10,18,0.97)', borderRadius: '24px',
                                     border: `1px solid ${selectedPlan.glowColor}44`,
                                     boxShadow: `0 0 60px ${selectedPlan.glowColor}20`,
                                     overflow: 'hidden',

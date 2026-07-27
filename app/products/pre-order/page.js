@@ -4,8 +4,9 @@ import ChatWidget from '@/components/ChatWidget';
 import Footer from '@/components/Footer';
 import { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { useRouter, useSearchParams } from 'next/navigation';
 import { FiHome } from 'react-icons/fi';
+import { motion } from 'framer-motion';
+import { StarField, Card3D, staggerContainer, fadeUp, textVariant } from '@/components/SpaceUI';
 
 function PreOrderContent() {
     const { user, loading: authLoading } = useAuth();
@@ -91,19 +92,22 @@ function PreOrderContent() {
     }
 
     return (
-        <div style={{ background: 'var(--void)', minHeight: '100vh', color: '#fff', position: 'relative', overflowX: 'hidden' }}>
+        <div style={{ background: '#010104', minHeight: '100vh', color: '#fff', position: 'relative', overflowX: 'hidden' }}>
+            <StarField />
             <div className="noise" aria-hidden />
-            <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(circle at 50% 10%, rgba(245,158,11,0.15) 0%, transparent 60%)' }} />
 
             <Navbar />
             <div style={{ padding: '140px 5% 80px', maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
-                <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '900', marginBottom: '40px', textAlign: 'center' }}>
-                    Complete Your <span className="flow-text flow-text--orange">Pre-order</span>
-                </h1>
+                <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+                    <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '900', marginBottom: '40px', textAlign: 'center' }}>
+                        Complete Your <span style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Pre-order</span>
+                    </motion.h1>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
-                    {/* Checkout Form */}
-                    <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)', borderRadius: '24px', padding: '40px', backdropFilter: 'blur(20px)' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
+                        {/* Checkout Form */}
+                        <motion.div variants={fadeUp}>
+                            <Card3D orbColor="rgba(245, 158, 11, 0.2)">
+                                <div style={{ padding: '40px' }}>
                         <h2 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '24px' }}>Shipping Details</h2>
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                             {error ? (
@@ -158,13 +162,17 @@ function PreOrderContent() {
                                     e.currentTarget.style.boxShadow = '0 0 30px rgba(245, 158, 11, 0.3)';
                                 }}
                             >
-                                {isSubmitting ? 'Processing...' : 'Book RK AI Home!'}
-                            </button>
-                        </form>
-                    </div>
+                                    {isSubmitting ? 'Processing...' : 'Book RK AI Home!'}
+                                </button>
+                            </form>
+                        </div>
+                    </Card3D>
+                </motion.div>
 
-                    {/* Order Summary */}
-                    <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '24px', padding: '40px', alignSelf: 'start' }}>
+                {/* Order Summary */}
+                <motion.div variants={fadeUp}>
+                    <Card3D orbColor="rgba(245, 158, 11, 0.15)" style={{ alignSelf: 'start' }}>
+                        <div style={{ padding: '40px' }}>
                         <h2 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '24px' }}>Order Summary</h2>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '24px', paddingBottom: '24px', borderBottom: '1px solid var(--border)' }}>
                             <div style={{ 
@@ -201,12 +209,14 @@ function PreOrderContent() {
                                 No Commitment, Cancel Anytime.
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </Card3D>
+                </motion.div>
             </div>
-            <Footer />
-            <ChatWidget />
-        </div>
+        </motion.div>
+    </div>
+    <Footer />
+    <ChatWidget />
+</div>
     );
 }
 

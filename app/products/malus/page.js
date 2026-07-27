@@ -8,63 +8,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FiDownload, FiEye, FiActivity, FiZap, FiTarget, FiCheckCircle } from 'react-icons/fi';
 import Image from 'next/image';
 import Link from 'next/link';
-
-/* ── BENTO CARD WITH CURSOR TRACKING ─────────────────────────── */
-function FeatureCard({ feature, index }) {
-  const ref = useRef(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 });
-  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15 });
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['7deg', '-7deg']);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-7deg', '7deg']);
-
-  const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    x.set((e.clientX - rect.left) / rect.width - 0.5);
-    y.set((e.clientY - rect.top) / rect.height - 0.5);
-    setMousePosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
-
-  const handleMouseLeave = () => { setIsHovered(false); x.set(0); y.set(0); };
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove} onMouseEnter={() => setIsHovered(true)} onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
-      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', perspective: '1000px' }}
-      className={`bento-cell bento-cell--${feature.size || 'narrow'}`}
-    >
-      <motion.div
-        animate={{ opacity: isHovered ? 1 : 0 }} transition={{ duration: 0.3 }}
-        style={{
-          position: 'absolute', top: mousePosition.y - 150, left: mousePosition.x - 150,
-          width: 300, height: 300,
-          background: `radial-gradient(circle, rgba(16,185,129,0.3) 0%, transparent 70%)`,
-          filter: 'blur(40px)', pointerEvents: 'none', zIndex: 0,
-        }}
-      />
-      <div style={{ position: 'relative', zIndex: 10, transform: 'translateZ(30px)' }}>
-        <div style={{
-          width: 44, height: 44, borderRadius: 12,
-          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, marginBottom: 24,
-          background: 'rgba(16,185,129,0.15)', color: '#34d399'
-        }}>
-          {feature.icon}
-        </div>
-        <h3 className="bento-title">{feature.title}</h3>
-        <p className="bento-desc">{feature.desc}</p>
-      </div>
-    </motion.div>
-  );
-}
+import { StarField, Card3D, staggerContainer, fadeUp, textVariant } from '@/components/SpaceUI';
 
 const FEATURES = [
   { size: 'wide', icon: <FiEye />, title: 'Context-Aware Observation', desc: 'MALUS visually processes your screen context securely on-device, understanding exactly what you are looking at to provide relevant, immediate assistance without you needing to explain everything.' },
@@ -75,15 +19,9 @@ const FEATURES = [
 
 export default function MalusPage() {
   return (
-    <div style={{ minHeight: '100vh', background: '#000', color: '#fff', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', background: '#010104', color: '#fff', position: 'relative' }}>
       
-      {/* Product Specific Ambient Background */}
-      <div
-        style={{
-          position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none',
-          background: 'radial-gradient(circle at 25% 50%, rgba(16,185,129,0.2) 0%, transparent 55%), radial-gradient(circle at 75% 35%, rgba(5,150,105,0.15) 0%, transparent 50%)',
-        }}
-      />
+      <StarField />
       <div className="noise" aria-hidden />
 
       <BackButton />
@@ -95,104 +33,117 @@ export default function MalusPage() {
         minHeight: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
         textAlign: 'center', padding: '140px 24px 80px',
       }}>
-        <motion.div 
-          initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="hero-eyebrow"
-          style={{ background: 'rgba(16,185,129,0.12)', borderColor: 'rgba(16,185,129,0.3)', color: '#6ee7b7' }}
-        >
-          <span className="pulse" style={{ background: '#10b981', boxShadow: '0 0 6px #10b981' }} />
-          Available for Windows
-        </motion.div>
+        <motion.div variants={staggerContainer(0.12, 0.1)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+          <motion.div 
+            variants={fadeUp}
+            className="hero-eyebrow"
+            style={{ background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.3)', color: '#6ee7b7', margin: '0 auto 24px', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 99, fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase' }}
+          >
+            <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981' }} />
+            Available for Windows
+          </motion.div>
 
-        <motion.h1 
-          initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          style={{ fontSize: 'clamp(52px, 8.5vw, 130px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.95, marginBottom: 20 }}
-        >
-          <span style={{ color: 'rgba(255,255,255,0.2)' }}>Meet</span> MALUS
-        </motion.h1>
-        
-        <motion.h2
-          initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28,
-            background: 'linear-gradient(135deg, #10b981, #059669)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'
-          }}
-        >
-          Ambient intelligence for your desktop.
-        </motion.h2>
+          <motion.h1 
+            variants={textVariant(0.1)}
+            style={{ fontSize: 'clamp(52px, 8.5vw, 130px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.95, marginBottom: 20 }}
+          >
+            <span style={{ color: 'rgba(255,255,255,0.2)' }}>Meet</span> MALUS
+          </motion.h1>
+          
+          <motion.h2
+            variants={textVariant(0.2)}
+            style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28,
+              background: 'linear-gradient(135deg, #10b981, #059669)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'
+            }}
+          >
+            Ambient intelligence for your desktop.
+          </motion.h2>
 
-        <motion.p 
-          initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, marginBottom: 48 }}
-        >
-          A context-aware AI operating companion that understands your computer, adapts to your workflow, and naturally helps you while respecting your privacy.
-        </motion.p>
+          <motion.p 
+            variants={fadeUp}
+            style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, margin: '0 auto 48px' }}
+          >
+            A context-aware AI operating companion that understands your computer, adapts to your workflow, and naturally helps you while respecting your privacy.
+          </motion.p>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="hero-actions"
-        >
-          <a href="#download" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16 }}>
-            Download MALUS
-          </a>
-          <Link href="/products/malus/learn-more" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
-            Learn More
-          </Link>
+          <motion.div 
+            variants={fadeUp}
+            className="hero-actions"
+            style={{ display: 'flex', gap: 16, justifyContent: 'center' }}
+          >
+            <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#download" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16, borderRadius: 99, display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 800, textDecoration: 'none' }}>
+              Download MALUS
+            </motion.a>
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link href="/products/malus/learn-more" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16, borderRadius: 99, border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)', color: '#fff', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                Learn More
+              </Link>
+            </motion.div>
+          </motion.div>
         </motion.div>
       </section>
 
       <hr className="divider" />
 
       {/* ── FEATURES BENTO ─────────────────── */}
-      <section className="section layer" style={{ paddingBottom: 60, paddingTop: 0 }}>
-        <motion.p 
-          initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
-          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="section-label" style={{ color: '#34d399' }}
-        >
-          Capabilities
-        </motion.p>
-        <motion.h2 
-          initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
-          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="section-heading"
-        >
-          Companion <br />Intelligence.
-        </motion.h2>
+      <section className="section layer" style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+            <motion.p 
+              variants={fadeUp}
+              className="section-label" style={{ color: '#34d399', fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16, display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)' }}
+            >
+              Capabilities
+            </motion.p>
+            <motion.h2 
+              variants={textVariant(0)}
+              style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 48 }}
+            >
+              Companion <br />Intelligence.
+            </motion.h2>
 
-        <div className="bento">
-          {FEATURES.map((feature, index) => (
-            <FeatureCard key={feature.title} feature={feature} index={index} />
-          ))}
+            <motion.div variants={staggerContainer(0.05, 0.1)} className="bento" style={{ display: 'grid', gap: 20, gridTemplateColumns: 'repeat(4, 1fr)', gridAutoRows: 'minmax(200px, auto)' }}>
+              {FEATURES.map((feature, index) => (
+                <motion.div key={feature.title} variants={fadeUp} className={`bento-cell bento-cell--${feature.size || 'narrow'}`} style={{
+                  gridColumn: feature.size === 'wide' ? 'span 4' : feature.size === 'half' ? 'span 2' : 'span 4'
+                }}>
+                  <Card3D style={{ padding: '32px 28px', height: '100%', boxSizing: 'border-box', display: 'flex', flexDirection: 'column' }} orbColor="rgba(16,185,129,0.3)">
+                    <div style={{
+                      width: 44, height: 44, borderRadius: 12,
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, marginBottom: 24,
+                      background: 'rgba(16,185,129,0.15)', color: '#34d399'
+                    }}>
+                      {feature.icon}
+                    </div>
+                    <h3 style={{ fontSize: 20, fontWeight: 800, marginBottom: 12 }}>{feature.title}</h3>
+                    <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, fontSize: 15 }}>{feature.desc}</p>
+                  </Card3D>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── DOWNLOAD ─────────────────── */}
-      <section id="download" className="section layer" style={{ paddingTop: 60 }}>
-        <div style={{ background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: 32, padding: '80px 40px', textAlign: 'center' }}>
-          <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Start Your Companion.</h2>
-          <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 48, fontSize: 18, maxWidth: 600, margin: '0 auto 48px' }}>
-            MALUS is currently available exclusively for Windows 10/11. macOS and Linux support coming later this year.
-          </p>
-          
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <a href="/downloads/malus-windows.exe" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '24px 48px', fontSize: 20, borderRadius: 99, display: 'flex', alignItems: 'center', gap: 12 }}>
-              <FiDownload size={24} /> Download for Windows
-            </a>
-          </div>
+      <section id="download" style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+            <motion.div variants={fadeUp}>
+              <Card3D style={{ padding: '80px 40px', textAlign: 'center' }} orbColor="rgba(16,185,129,0.15)">
+                <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Start Your Companion.</h2>
+                <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 48, fontSize: 18, maxWidth: 600, margin: '0 auto 48px' }}>
+                  MALUS is currently available exclusively for Windows 10/11. macOS and Linux support coming later this year.
+                </p>
+                
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/downloads/malus-windows.exe" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '24px 48px', fontSize: 20, borderRadius: 99, display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', fontWeight: 800 }}>
+                    <FiDownload size={24} /> Download for Windows
+                  </motion.a>
+                </div>
+              </Card3D>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 

@@ -154,7 +154,7 @@ body {
   letter-spacing: -0.5px;
   text-decoration: none;
   margin-right: 0;
-  background: linear-gradient(90deg, #3b82f6 0%, #818cf8 35%, #c4b5fd 60%, #3b82f6 100%);
+  background: linear-gradient(90deg, #FF9933 0%, #ffcc88 20%, #ffffff 40%, #ffffff 60%, #86efac 80%, #138808 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -1327,4 +1327,240 @@ footer a:hover { color: var(--text); }
   section { padding: 56px 4% !important; }
   .feature-grid { grid-template-columns: 1fr; }
   .section { padding: 60px 16px; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE — PHONE-FIRST, KEEP DESKTOP INTACT
+   Breakpoints: 480px (small phone), 640px (large phone)
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+
+  /* ── Hero Sections ─────────────────────────── */
+  .hero {
+    padding: 100px 20px 48px !important;
+    min-height: auto !important;
+  }
+  .hero-btns {
+    flex-direction: column !important;
+    width: 100%;
+  }
+  .hero-btns a,
+  .hero-btns button {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-actions a,
+  .hero-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* ── Typography scaling ────────────────────── */
+  h1 { font-size: clamp(36px, 10vw, 56px) !important; letter-spacing: -0.03em !important; }
+  h2 { font-size: clamp(26px, 7vw, 40px) !important; }
+  h3 { font-size: clamp(18px, 5vw, 26px) !important; }
+
+  /* ── Grids → single column ─────────────────── */
+  [style*="grid-template-columns: repeat(auto-fit"] {
+    grid-template-columns: 1fr !important;
+  }
+  [style*="gridTemplateColumns: 'repeat(auto-fit"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Cards & Padding ───────────────────────── */
+  .bento-cell { padding: 24px !important; }
+
+  /* ── Footer ────────────────────────────────── */
+  footer {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 20px !important;
+  }
+  footer nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  /* ── Section padding ───────────────────────── */
+  section { padding: 48px 5% !important; }
+
+  /* ── Feature grids ─────────────────────────── */
+  .feature-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Product page specifics ────────────────── */
+  .product-hero-grid {
+    grid-template-columns: 1fr !important;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* ── Navbar ────────────────────────────────── */
+  .nav-island {
+    top: 12px !important;
+    padding: 10px 14px 10px 18px !important;
+    gap: 8px !important;
+  }
+
+  /* ── Hero ──────────────────────────────────── */
+  .hero { padding: 90px 16px 40px !important; }
+
+  /* ── Buttons ───────────────────────────────── */
+  .btn-primary, .btn-secondary {
+    padding: 13px 20px !important;
+    font-size: 14px !important;
+  }
+
+  /* ── Stat / metric cards ───────────────────── */
+  .stat-card, [class*="stat"] {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  /* ── Code blocks ───────────────────────────── */
+  pre, code {
+    font-size: 12px !important;
+    overflow-x: auto !important;
+  }
+
+  /* ── Card inner padding ────────────────────── */
+  [style*="padding: '40px'"],
+  [style*="padding: '32px 28px'"] {
+    padding: 20px !important;
+  }
+
+  /* ── Two-column → single ───────────────────── */
+  [style*="gridTemplateColumns: '1fr 1fr'"] {
+    grid-template-columns: 1fr !important;
+  }
+  [style*="grid-template-columns: '1fr 1fr'"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ── Timeline ──────────────────────────────── */
+  [style*="paddingLeft: '80px'"] {
+    padding-left: 40px !important;
+  }
+
+  /* ── Journey cards that are side-by-side ──── */
+  [style*="flexDirection: 'row'"] {
+    flex-direction: column !important;
+  }
+
+  /* ── Subscription / pricing cards ─────────── */
+  [style*="gridTemplateColumns: 'repeat(auto-fit, minmax(300px"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Utility: responsive images ─────────────────────────── */
+img { max-width: 100%; height: auto; }
+
+/* ── Utility: overflow protection ───────────────────────── */
+@media (max-width: 640px) {
+  * { max-width: 100%; word-break: break-word; }
+  /* but let fixed/absolute positioned elements be free */
+  [style*="position: fixed"],
+  [style*="position: absolute"] { max-width: none; }
+}
+
+/* ── Subscription page tiers ───────────────────────────── */
+@media (max-width: 640px) {
+  [style*="minmax(300px, 1fr)"] { grid-template-columns: 1fr !important; }
+  [style*="minmax(320px, 1fr)"] { grid-template-columns: 1fr !important; }
+  [style*="minmax(350px, 1fr)"] { grid-template-columns: 1fr !important; }
+  [style*="minmax(400px, 1fr)"] { grid-template-columns: 1fr !important; }
+  /* Contact / login two-column forms */
+  [style*="minmax(400px, 1fr)"] { grid-template-columns: 1fr !important; }
+}
+
+/* ── Login / Auth pages ─────────────────────────────────── */
+@media (max-width: 640px) {
+  /* Center the auth card on mobile */
+  [style*="maxWidth: '480px'"],
+  [style*="maxWidth: '500px'"] {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+}
+
+/* ── Navbar logo size fix on tiny screens ───────────────── */
+@media (max-width: 360px) {
+  .nav-logo { font-size: 16px !important; }
+}
+
+/* ══════════════════════════════════════════════════════════
+   FINE-GRAINED PHONE OVERRIDES (≤640px)
+   Target React inline-style grid patterns
+   ══════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+
+  /* All inline-style auto-fit grids → single column */
+  div[style*="repeat(auto-fit, minmax("] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Specific pixel-minmax patterns */
+  div[style*="minmax(220px"] { grid-template-columns: 1fr !important; }
+  div[style*="minmax(240px"] { grid-template-columns: 1fr !important; }
+  div[style*="minmax(260px"] { grid-template-columns: 1fr !important; }
+  div[style*="minmax(280px"] { grid-template-columns: 1fr !important; }
+  div[style*="minmax(300px"] { grid-template-columns: 1fr !important; }
+  div[style*="minmax(320px"] { grid-template-columns: 1fr !important; }
+  div[style*="minmax(340px"] { grid-template-columns: 1fr !important; }
+  div[style*="minmax(350px"] { grid-template-columns: 1fr !important; }
+  div[style*="minmax(360px"] { grid-template-columns: 1fr !important; }
+  div[style*="minmax(380px"] { grid-template-columns: 1fr !important; }
+  div[style*="minmax(400px"] { grid-template-columns: 1fr !important; }
+
+  /* Two-column explicit grids */
+  div[style*="1fr 1fr"] { grid-template-columns: 1fr !important; }
+  div[style*="\"1fr 1fr\""] { grid-template-columns: 1fr !important; }
+
+  /* Three-column explicit grids */
+  div[style*="1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+  /* Flex rows → columns on mobile */
+  div[style*="flex-direction: row"] { flex-direction: column !important; }
+
+  /* Large padding reductions for cards */
+  div[style*="padding: 60px"] { padding: 32px 20px !important; }
+  div[style*="padding: '60px"] { padding: 32px 20px !important; }
+
+  /* Main content container max-width on phones */
+  div[style*="maxWidth: '1100px'"] { max-width: 100% !important; }
+  div[style*="maxWidth: '1200px'"] { max-width: 100% !important; }
+  div[style*="maxWidth: '900px'"] { max-width: 100% !important; }
+
+  /* Hero sections with large top padding */
+  section[style*="paddingTop: '160px'"] { padding-top: 100px !important; }
+  section[style*="paddingTop: '140px'"] { padding-top: 100px !important; }
+  section[style*="paddingTop: '120px'"] { padding-top: 90px !important; }
+
+  /* Fix timeline padding */
+  div[style*="paddingLeft: '80px'"] { padding-left: 40px !important; }
+  div[style*="paddingLeft: '64px'"] { padding-left: 32px !important; }
+}
+
+/* ── Extra small phones (≤420px) ───────────────────────── */
+@media (max-width: 420px) {
+  div[style*="gap: 48"] { gap: 24px !important; }
+  div[style*="gap: 64"] { gap: 32px !important; }
+  div[style*="gap: 80"] { gap: 40px !important; }
+
+  /* Reduce hero font sizes further */
+  .hero-title { font-size: clamp(32px, 9vw, 48px) !important; }
 }

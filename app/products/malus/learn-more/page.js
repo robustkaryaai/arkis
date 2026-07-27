@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FiArrowRight, FiShield, FiEye, FiZap, FiTarget, FiActivity, FiCpu, FiLock } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { StarField, Card3D, staggerContainer, fadeUp, textVariant } from '@/components/SpaceUI';
 
 const AC = '#10b981';
 const ACB = '#34d399';
@@ -43,14 +44,9 @@ const charts = [
 
 export default function MalusLearnMore() {
   return (
-    <div style={{ background: 'var(--void)', color: '#fff', minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
-      {/* Product Specific Ambient Background */}
-      <div
-        style={{
-          position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none',
-          background: 'radial-gradient(circle at 80% 20%, rgba(16,185,129,0.2) 0%, transparent 55%), radial-gradient(circle at 10% 80%, rgba(52,211,153,0.15) 0%, transparent 50%)',
-        }}
-      />
+    <div style={{ background: '#010104', color: '#fff', minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
+      
+      <StarField />
       <div className="noise" aria-hidden />
 
       <BackButton href="/products/malus" label="MALUS" />
@@ -59,91 +55,96 @@ export default function MalusLearnMore() {
       {/* HERO */}
       <section style={{ minHeight: '90vh', display: 'flex', alignItems: 'center', padding: '160px 5% 80px', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', width: '100%', margin: '0 auto' }}>
-          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 99, background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.25)', color: ACB, fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 28 }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: AC, boxShadow: `0 0 10px ${AC}` }} /> Ambient AI Companion
-            </div>
-            <h1 style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: 28, maxWidth: 900 }}>
+          <motion.div variants={staggerContainer(0.12, 0.1)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+            <motion.div variants={fadeUp} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 99, background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.25)', color: ACB, fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 28 }}>
+              <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: AC, boxShadow: `0 0 10px ${AC}` }} /> Ambient AI Companion
+            </motion.div>
+            <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: 28, maxWidth: 900 }}>
               It sees what you see.<br />
               <span style={{ color: ACB }}>It knows what you mean.</span>
-            </h1>
-            <p style={{ maxWidth: 640, fontSize: 20, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: 44 }}>
+            </motion.h1>
+            <motion.p variants={fadeUp} style={{ maxWidth: 640, fontSize: 20, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: 44 }}>
               MALUS is a context-aware AI companion that operates as a living layer over your desktop. Instead of answering questions you ask, it anticipates them — because it already understands your screen.
-            </p>
-            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+            </motion.p>
+            <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
               <a href="#journey" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: `linear-gradient(135deg, ${AC}, ${ACB})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
                 How We Built It <FiArrowRight />
               </a>
               <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
                 Back to MALUS
               </Link>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* STATS */}
       <section style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 24 }}>
-          {stats.map((s, i) => (
-            <motion.div key={s.label} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
-              style={{ background: 'rgba(16,185,129,0.03)', border: '1px solid rgba(16,185,129,0.08)', borderRadius: 24, padding: '32px 28px' }}>
-              <div style={{ fontSize: 44, fontWeight: 900, letterSpacing: '-2px', color: ACB, marginBottom: 8 }}>{s.value}</div>
-              <div style={{ fontWeight: 700, fontSize: 14, color: '#fff', marginBottom: 4 }}>{s.label}</div>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>{s.sub}</div>
-            </motion.div>
-          ))}
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 24 }}>
+            {stats.map((s, i) => (
+              <motion.div key={s.label} variants={fadeUp}>
+                <Card3D style={{ padding: '32px 28px', height: '100%' }} orbColor="rgba(16,185,129,0.3)">
+                  <div style={{ fontSize: 44, fontWeight: 900, letterSpacing: '-2px', color: ACB, marginBottom: 8 }}>{s.value}</div>
+                  <div style={{ fontWeight: 700, fontSize: 14, color: '#fff', marginBottom: 4 }}>{s.label}</div>
+                  <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>{s.sub}</div>
+                </Card3D>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
       {/* CORE FEATURES */}
       <section style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ marginBottom: 56 }}>
-            <div style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Capabilities</div>
-            <h2 style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.1 }}>Ambient intelligence, redefined.</h2>
+          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ marginBottom: 56 }}>
+            <motion.div variants={fadeUp} style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Capabilities</motion.div>
+            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.1 }}>Ambient intelligence, redefined.</motion.h2>
           </motion.div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
+          <motion.div variants={staggerContainer(0.05, 0.1)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
             {features.map((f, i) => (
-              <motion.div key={f.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}
-                style={{ background: 'rgba(16,185,129,0.02)', border: '1px solid rgba(16,185,129,0.07)', borderRadius: 24, padding: '32px 28px' }}>
-                <div style={{ width: 48, height: 48, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(16,185,129,0.1)', color: ACB, marginBottom: 20 }}>{f.icon}</div>
-                <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 10, color: '#fff' }}>{f.title}</h3>
-                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
+              <motion.div key={f.title} variants={fadeUp}>
+                <Card3D style={{ padding: '32px 28px', height: '100%' }} orbColor="rgba(16,185,129,0.3)">
+                  <div style={{ width: 48, height: 48, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(16,185,129,0.1)', color: ACB, marginBottom: 20 }}>{f.icon}</div>
+                  <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 10, color: '#fff' }}>{f.title}</h3>
+                  <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
+                </Card3D>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* TIMELINE */}
       <section id="journey" style={{ padding: '100px 5%', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 80 }}>
-            <div style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Engineering Journey</div>
-            <h2 style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em' }}>10 months to ambient intelligence.</h2>
+          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ textAlign: 'center', marginBottom: 80 }}>
+            <motion.div variants={fadeUp} style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Engineering Journey</motion.div>
+            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em' }}>10 months to ambient intelligence.</motion.h2>
           </motion.div>
           <div style={{ position: 'relative' }}>
             <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 2, background: `linear-gradient(to bottom, transparent, ${AC}, ${ACB}, transparent)` }} />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
+            <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
               {timeline.map((item, i) => {
                 const isLeft = i % 2 === 0;
                 return (
-                  <motion.div key={item.title} initial={{ opacity: 0, x: isLeft ? -40 : 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
-                    style={{ display: 'flex', justifyContent: isLeft ? 'flex-start' : 'flex-end', position: 'relative' }}>
+                  <motion.div key={item.title} variants={fadeUp} style={{ display: 'flex', justifyContent: isLeft ? 'flex-start' : 'flex-end', position: 'relative' }}>
                     <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 18, height: 18, borderRadius: '50%', background: '#000', border: `4px solid ${AC}`, boxShadow: `0 0 20px ${AC}66`, zIndex: 2 }} />
-                    <div style={{ width: 'calc(50% - 52px)', background: 'rgba(16,185,129,0.02)', border: `1px solid rgba(16,185,129,0.1)`, borderRadius: 24, padding: '28px 28px', borderLeft: isLeft ? `3px solid ${AC}` : undefined, borderRight: !isLeft ? `3px solid ${ACB}` : undefined }}>
-                      <div style={{ display: 'flex', gap: 10, marginBottom: 14, alignItems: 'center' }}>
-                        <span style={{ padding: '3px 10px', borderRadius: 6, background: 'rgba(16,185,129,0.1)', color: ACB, fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase' }}>{item.phase}</span>
-                        <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{item.year}</span>
-                      </div>
-                      <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 10, color: '#fff' }}>{item.title}</h3>
-                      <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0 }}>{item.desc}</p>
+                    <div style={{ width: 'calc(50% - 52px)' }}>
+                      <Card3D style={{ padding: '28px 28px', borderLeft: isLeft ? `3px solid ${AC}` : undefined, borderRight: !isLeft ? `3px solid ${ACB}` : undefined }} orbColor="rgba(16,185,129,0.2)">
+                        <div style={{ display: 'flex', gap: 10, marginBottom: 14, alignItems: 'center' }}>
+                          <span style={{ padding: '3px 10px', borderRadius: 6, background: 'rgba(16,185,129,0.1)', color: ACB, fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase' }}>{item.phase}</span>
+                          <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{item.year}</span>
+                        </div>
+                        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 10, color: '#fff' }}>{item.title}</h3>
+                        <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0 }}>{item.desc}</p>
+                      </Card3D>
                     </div>
                   </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -151,34 +152,38 @@ export default function MalusLearnMore() {
       {/* CHARTS + IMAGE */}
       <section style={{ padding: '100px 5%', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 64, alignItems: 'center' }}>
-          <div>
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+            <motion.div variants={fadeUp}>
               <div style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Performance</div>
               <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 40 }}>Privacy and speed, both.</h2>
             </motion.div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+            <motion.div variants={staggerContainer(0.1, 0.2)} style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
               {charts.map((c, i) => (
-                <motion.div key={c.label} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                <motion.div key={c.label} variants={fadeUp}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
                     <span style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.8)' }}>{c.label}</span>
                     <span style={{ fontSize: 13, fontWeight: 900, color: ACB }}>{c.progress}%</span>
                   </div>
                   <div style={{ height: 8, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden', marginBottom: 6 }}>
-                    <motion.div initial={{ width: 0 }} whileInView={{ width: `${c.progress}%` }} viewport={{ once: true }} transition={{ duration: 1.4, delay: i * 0.1 }}
+                    <motion.div initial={{ width: 0 }} whileInView={{ width: `${c.progress}%` }} viewport={{ once: false, amount: 0.15 }} transition={{ duration: 1.4, delay: i * 0.1 }}
                       style={{ height: '100%', background: `linear-gradient(90deg, ${AC}99, ${ACB})`, borderRadius: 99 }} />
                   </div>
                   <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', fontWeight: 600 }}>{c.sub}</div>
                 </motion.div>
               ))}
-            </div>
-          </div>
-          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
-            style={{ background: 'rgba(16,185,129,0.03)', border: `1px solid rgba(16,185,129,0.1)`, borderRadius: 32, padding: '48px', display: 'flex', flexDirection: 'column', gap: 24 }}>
-            <Image src="/malus.jpeg" width={400} height={260} alt="MALUS" style={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 20, filter: `drop-shadow(0 0 40px ${AC}33)` }} />
-            <blockquote style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.6, color: '#fff', fontStyle: 'italic', margin: 0 }}>
-              "MALUS noticed I was stuck on a bug before I even typed a single question. It just offered the solution."
-            </blockquote>
-            <p style={{ color: ACB, fontWeight: 800, fontSize: 12, letterSpacing: 1, textTransform: 'uppercase', margin: 0 }}>— Alpha Tester #4, Mumbai</p>
+            </motion.div>
+          </motion.div>
+          
+          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+            <motion.div variants={fadeUp}>
+              <Card3D style={{ padding: '48px', display: 'flex', flexDirection: 'column', gap: 24 }} orbColor="rgba(16,185,129,0.3)">
+                <Image src="/malus.jpeg" width={400} height={260} alt="MALUS" style={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 20, filter: `drop-shadow(0 0 40px ${AC}33)` }} />
+                <blockquote style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.6, color: '#fff', fontStyle: 'italic', margin: 0 }}>
+                  "MALUS noticed I was stuck on a bug before I even typed a single question. It just offered the solution."
+                </blockquote>
+                <p style={{ color: ACB, fontWeight: 800, fontSize: 12, letterSpacing: 1, textTransform: 'uppercase', margin: 0 }}>— Alpha Tester #4, Mumbai</p>
+              </Card3D>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -186,20 +191,23 @@ export default function MalusLearnMore() {
       {/* CTA */}
       <section style={{ padding: '80px 5% 120px', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-            style={{ background: `linear-gradient(135deg, rgba(16,185,129,0.05), rgba(52,211,153,0.08))`, border: `1px solid rgba(16,185,129,0.15)`, borderRadius: 32, padding: '60px 48px', display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ flex: '1 1 320px' }}>
-              <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 12 }}>Get MALUS for your machine.</h2>
-              <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0, fontSize: 15 }}>Available for Windows and macOS. Download and experience a new category of AI companion.</p>
-            </div>
-            <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-              <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(135deg, ${AC}, ${ACB})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
-                Get MALUS <FiArrowRight />
-              </Link>
-              <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
-                Back to MALUS
-              </Link>
-            </div>
+          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+            <motion.div variants={fadeUp}>
+              <Card3D style={{ padding: '60px 48px', display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'center', justifyContent: 'space-between' }} orbColor="rgba(16,185,129,0.3)">
+                <div style={{ flex: '1 1 320px' }}>
+                  <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 12 }}>Get MALUS for your machine.</h2>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0, fontSize: 15 }}>Available for Windows and macOS. Download and experience a new category of AI companion.</p>
+                </div>
+                <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+                  <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(135deg, ${AC}, ${ACB})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
+                    Get MALUS <FiArrowRight />
+                  </Link>
+                  <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
+                    Back to MALUS
+                  </Link>
+                </div>
+              </Card3D>
+            </motion.div>
           </motion.div>
         </div>
       </section>

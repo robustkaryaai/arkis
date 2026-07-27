@@ -183,7 +183,7 @@ function PlanCard({ plan, accentPrimary }) {
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: false, amount: 0.15 }}
       style={{
         position: 'relative',
         display: 'flex',
@@ -318,7 +318,7 @@ export default function Tiers() {
 
       {/* ── RK AI SECTION ────────────────────────────── */}
       <section style={{ padding: '40px 5% 100px', maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: '48px' }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }} style={{ marginBottom: '48px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
             <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(129,140,248,0.12)', border: '1px solid rgba(129,140,248,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <FiZap size={20} color="#818cf8" />
@@ -348,7 +348,7 @@ export default function Tiers() {
 
       {/* ── MALUS SECTION ────────────────────────────── */}
       <section style={{ padding: '0 5% 120px', maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: '48px' }}>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }} style={{ marginBottom: '48px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
             <div style={{ width: '44px', height: '44px', borderRadius: '12px', background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <FiCpu size={20} color="#10b981" />
@@ -382,7 +382,7 @@ export default function Tiers() {
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: false, amount: 0.15 }}
           style={{ padding: '48px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '28px', textAlign: 'center' }}
         >
           <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: '2px', fontWeight: 700, marginBottom: '12px' }}>Any questions?</p>

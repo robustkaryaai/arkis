@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { FiArrowRight, FiBookOpen, FiCpu, FiCode, FiAward, FiUsers, FiMonitor, FiCheckCircle, FiStar, FiShield, FiTerminal, FiDatabase, FiGrid, FiChevronDown } from 'react-icons/fi';
+import { StarField } from '@/components/SpaceUI';
 
 const AC = '#10b981';
 const ACB = '#34d399';
@@ -37,13 +38,8 @@ export default function AcademyPage() {
 
   return (
     <div style={{ background: 'var(--void)', color: '#fff', minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
+      <StarField />
       <div className="noise" aria-hidden />
-      <div className="nebula" aria-hidden>
-        <div className="nebula__orb" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.4) 0%, transparent 60%)', width: '80vw', height: '80vw', top: '-25%', left: '-20%', animation: 'drift1 28s ease-in-out infinite alternate' }} />
-        <div className="nebula__orb" style={{ background: 'radial-gradient(circle, rgba(5,150,105,0.25) 0%, transparent 60%)', width: '60vw', height: '60vw', bottom: '-15%', right: '-15%', animation: 'drift2 35s ease-in-out infinite alternate-reverse' }} />
-        <div className="nebula__orb" style={{ background: 'radial-gradient(circle, rgba(52,211,153,0.15) 0%, transparent 60%)', width: '40vw', height: '40vw', top: '40%', left: '35%', animation: 'drift3 22s ease-in-out infinite alternate' }} />
-        <div className="nebula__orb" style={{ background: 'radial-gradient(circle, rgba(16,185,129,0.12) 0%, transparent 60%)', width: '30vw', height: '30vw', top: '15%', right: '10%', animation: 'drift4 30s ease-in-out infinite alternate' }} />
-      </div>
       <Navbar />
 
       {/* HERO */}
@@ -77,13 +73,13 @@ export default function AcademyPage() {
       {/* FEATURED LEARNING */}
       <section id="featured" style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} style={{ marginBottom: 56 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }} style={{ marginBottom: 56 }}>
             <div style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Curriculum</div>
             <h2 style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em' }}>Featured learning paths.</h2>
           </motion.div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
             {featuredLearning.map((item, i) => (
-              <motion.div key={item.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}>
+              <motion.div key={item.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }} transition={{ delay: i * 0.07 }}>
                 <Link href={item.link} style={{ display: 'flex', flexDirection: 'column', gap: 16, background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 24, padding: '32px 28px', textDecoration: 'none', height: '100%', boxSizing: 'border-box', transition: 'background 0.2s, border-color 0.2s' }}
                   onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.borderColor = `${item.color}33`; }}
                   onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.02)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; }}>
@@ -106,7 +102,7 @@ export default function AcademyPage() {
       {/* DINOX PARTNER + BUNDLES */}
       <section id="bundles" style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }}
             style={{ background: 'rgba(16,185,129,0.03)', border: '1px solid rgba(16,185,129,0.12)', borderRadius: 32, padding: '60px 48px', display: 'flex', flexWrap: 'wrap', gap: 48, alignItems: 'stretch', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: 0, right: 0, width: 400, height: 400, background: 'radial-gradient(circle, rgba(16,185,129,0.06), transparent 70%)', pointerEvents: 'none' }} />
             {/* DinoX info */}
@@ -161,7 +157,7 @@ export default function AcademyPage() {
       {/* LEARNING PATHS + CERTS */}
       <section style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 40 }}>
-          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+          <motion.div initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.15 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
               <div style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(59,130,246,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#3b82f6' }}><FiGrid size={20} /></div>
               <div style={{ fontSize: 22, fontWeight: 800 }}>Learning Paths</div>
@@ -177,7 +173,7 @@ export default function AcademyPage() {
               ))}
             </div>
           </motion.div>
-          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+          <motion.div initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.15 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
               <div style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(168,85,247,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a855f7' }}><FiAward size={20} /></div>
               <div style={{ fontSize: 22, fontWeight: 800 }}>Certifications</div>
@@ -198,7 +194,7 @@ export default function AcademyPage() {
       {/* COMMUNITY */}
       <section style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }}
             style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.05), rgba(16,185,129,0.05))', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 32, padding: '60px', textAlign: 'center' }}>
             <FiUsers size={40} color={AC} style={{ marginBottom: 24 }} />
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 16 }}>Join the Academy Community</h2>
@@ -232,12 +228,12 @@ export default function AcademyPage() {
       {/* FAQ */}
       <section style={{ padding: '80px 5% 120px', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 48 }}>
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: false, amount: 0.15 }} style={{ textAlign: 'center', marginBottom: 48 }}>
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, letterSpacing: '-0.03em' }}>Frequently asked questions.</h2>
           </motion.div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {faqs.map((faq, i) => (
-              <motion.div key={i} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}
+              <motion.div key={i} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }} transition={{ delay: i * 0.07 }}
                 style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${openFaq === i ? 'rgba(16,185,129,0.25)' : 'rgba(255,255,255,0.06)'}`, borderRadius: 18, overflow: 'hidden', transition: 'border-color 0.2s' }}>
                 <button onClick={() => setOpenFaq(openFaq === i ? null : i)} style={{ width: '100%', padding: '22px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'none', border: 'none', color: '#fff', cursor: 'pointer', textAlign: 'left' }}>
                   <span style={{ fontSize: 16, fontWeight: 700 }}>{faq.q}</span>

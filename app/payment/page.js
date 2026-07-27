@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { AiOutlineCheck, AiOutlineArrowLeft } from 'react-icons/ai';
 import { PLANS } from '@/lib/plans';
 import { useAuth } from '@/context/AuthContext';
+import { StarField } from '@/components/SpaceUI';
 
 /* ── per-plan colour palette ── */
 function getPalette(id, color, accent) {
@@ -321,7 +322,6 @@ function PaymentPageContent() {
 
                 .page-root {
                     position: relative; min-height: 100vh; overflow-x: hidden;
-                    background: var(--void);
                 }
 
                 /* ── NEW: Scanline grid background ── */
@@ -536,16 +536,13 @@ function PaymentPageContent() {
             `}</style>
 
             <div id="confetti-container" style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 9999 }} />
-
-            {/* ── Fluid blob background ── */}
-            <div className="fluid-bg">
-                <div className="blob blob-1" />
-                <div className="blob blob-2" />
-                <div className="blob blob-3" />
-                <div className="blob blob-4" />
+            
+            <div style={{ position: 'fixed', inset: 0, zIndex: 0, background: '#010104' }}>
+                <StarField />
+                <div className="noise" aria-hidden />
             </div>
 
-            <div className="page-root">
+            <div className="page-root" style={{ background: 'transparent' }}>
 
                 {/* ══ TOP ROW: video | payment ══ */}
                 <div className="top-row">
