@@ -3,6 +3,7 @@ import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Footer from '@/components/Footer';
 import { useState, useEffect, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import { FiHome } from 'react-icons/fi';
 import { motion } from 'framer-motion';
@@ -208,6 +209,7 @@ function PreOrderContent() {
                             <div style={{ marginTop: '20px', padding: '12px', background: 'rgba(255,255,255,0.05)', borderRadius: '14px', fontSize: '13px', color: 'var(--muted)' }}>
                                 No Commitment, Cancel Anytime.
                             </div>
+                        </div>
                         </div>
                     </Card3D>
                 </motion.div>
