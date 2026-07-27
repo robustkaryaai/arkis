@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
+import BackButton from '@/components/BackButton';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FiDownload, FiTerminal, FiShield, FiMic, FiLayout, FiCpu, FiBox, FiCheckCircle } from 'react-icons/fi';
 import { FaApple, FaWindows, FaLinux } from 'react-icons/fa';
@@ -85,9 +86,10 @@ export default function RkAiDesktop() {
       />
       <div className="noise" aria-hidden />
 
+      <BackButton />
       <Navbar />
 
-      {/* ── HERO ──────────────────────────── */}
+      {/* ── HERO ────────────────────────────────────────────── */}
       <section style={{
         position: 'relative', zIndex: 10,
         minHeight: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',

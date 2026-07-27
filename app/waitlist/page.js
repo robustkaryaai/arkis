@@ -91,41 +91,42 @@ function WaitlistContent() {
     };
 
     return (
-        <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
+        <div style={{ background: 'var(--void)', minHeight: '100vh', color: '#fff', position: 'relative', overflowX: 'hidden' }}>
+            <div className="noise" aria-hidden />
+            <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(circle at 50% 10%, rgba(59,130,246,0.15) 0%, transparent 60%)' }} />
             <Navbar />
-            <div style={{ padding: '120px 20px 60px', maxWidth: '900px', margin: '0 auto' }}>
+            <div style={{ padding: '140px 5% 80px', maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
                 <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                    <div className="badge float-anim" style={{ margin: '0 auto 16px' }}>
-                        <span className="dot" style={{ background: 'var(--blue)' }} />
-                        Early Access
+                    <div className="hero-eyebrow float-anim" style={{ margin: '0 auto 16px', border: '1px solid rgba(59,130,246,0.3)', color: '#fff' }}>
+                        <span className="pulse" style={{ background: 'var(--blue)', boxShadow: '0 0 10px var(--blue)' }} /> Early Access
                     </div>
                     <h1 style={{ fontSize: 'clamp(36px, 6vw, 64px)', fontWeight: '900', letterSpacing: '-1px' }}>
-                        Control your entire home with AI — <span className="grad">privacy-first automation</span>
+                        Control your entire home with AI — <span className="flow-text flow-text--blue">privacy-first automation</span>
                     </h1>
-                    <p style={{ color: 'var(--muted)', fontSize: '18px', marginTop: '14px' }}>
+                    <p style={{ color: 'var(--subtext)', fontSize: '18px', marginTop: '14px' }}>
                         RK AI Home learns your habits, automates routines, and keeps your data safe on device.
                     </p>
-                    <p style={{ color: 'var(--blue)', fontSize: '14px', marginTop: '12px', fontWeight: '700' }}>
+                    <p style={{ color: 'var(--blue)', fontSize: '14px', marginTop: '12px', fontWeight: '800' }}>
                         ⚡ Early access is limited, and you’ll get priority invites for the next launch wave.
                     </p>
                 </div>
 
                 {submitted ? (
                     <div style={{
-                        background: 'var(--surface)', border: '1px solid var(--border)',
-                        borderRadius: '24px', padding: '60px', textAlign: 'center'
+                        background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)',
+                        borderRadius: '24px', padding: '60px', textAlign: 'center', backdropFilter: 'blur(20px)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
                     }}>
                         <div style={{ fontSize: '56px', marginBottom: '18px' }}>✅</div>
                         <h2 style={{ fontSize: '26px', fontWeight: '800', marginBottom: '10px' }}>You’re on the list.</h2>
-                        <p style={{ color: 'var(--muted)', fontSize: '15px', lineHeight: '1.7' }}>
+                        <p style={{ color: 'var(--subtext)', fontSize: '15px', lineHeight: '1.7' }}>
                             We’ll email you when {productLabel} opens for early access.
                         </p>
-                        <div style={{ marginTop: '24px', padding: '20px', background: 'rgba(59,130,246,0.05)', borderRadius: '16px', border: '1px solid rgba(59,130,246,0.1)' }}>
-                            <p style={{ fontSize: '14px', fontWeight: '700', color: 'var(--blue)' }}>🔥 PRO MOVE</p>
-                            <p style={{ fontSize: '13px', color: 'var(--muted)', marginTop: '4px' }}>Want priority access? Share this with 3 friends to jump the queue!</p>
+                        <div style={{ marginTop: '24px', padding: '20px', background: 'rgba(59,130,246,0.05)', borderRadius: '16px', border: '1px solid rgba(59,130,246,0.15)' }}>
+                            <p style={{ fontSize: '14px', fontWeight: '800', color: 'var(--blue)' }}>🔥 PRO MOVE</p>
+                            <p style={{ fontSize: '13px', color: 'var(--subtext)', marginTop: '4px' }}>Want priority access? Share this with 3 friends to jump the queue!</p>
                         </div>
                         <button
-                            className="btn-secondary"
+                            className="btn-primary"
                             style={{ marginTop: '28px', padding: '14px 28px', borderRadius: '50px', cursor: 'pointer' }}
                             onClick={() => router.push('/products')}
                         >
@@ -134,44 +135,47 @@ function WaitlistContent() {
                     </div>
                 ) : (
                     <form onSubmit={submit} style={{
-                        background: 'var(--surface)', border: '1px solid var(--border)',
-                        borderRadius: '24px', padding: '40px'
+                        background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)',
+                        borderRadius: '24px', padding: '40px', backdropFilter: 'blur(20px)', boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
                     }}>
                         {error ? (
-                            <div style={{ marginBottom: '18px', background: 'rgba(239,68,68,0.08)', border: '1px solid rgba(239,68,68,0.25)', color: '#fecaca', padding: '12px 14px', borderRadius: '14px', fontSize: '13px' }}>
+                            <div style={{ marginBottom: '18px', background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', color: '#fecaca', padding: '12px 14px', borderRadius: '14px', fontSize: '13px' }}>
                                 {error}
                             </div>
                         ) : null}
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '18px' }}>
                             <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Full Name</label>
+                                <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>Full Name</label>
                                 <input
                                     value={form.name}
                                     onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                                     required
-                                    style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '12px', padding: '14px', color: 'var(--text)', outline: 'none' }}
+                                    style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', outline: 'none', transition: 'border-color 0.2s' }}
+                                    onFocus={e => e.target.style.borderColor = 'var(--blue)'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'}
                                 />
                             </div>
                             <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Email</label>
+                                <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>Email</label>
                                 <input
                                     type="email"
                                     value={form.email}
                                     onChange={(e) => setForm((p) => ({ ...p, email: e.target.value }))}
                                     required
-                                    style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '12px', padding: '14px', color: 'var(--text)', outline: 'none' }}
+                                    style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', outline: 'none', transition: 'border-color 0.2s' }}
+                                    onFocus={e => e.target.style.borderColor = 'var(--blue)'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'}
                                 />
                             </div>
                         </div>
 
                         <div style={{ marginTop: '18px' }}>
-                            <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>What feature would make RK AI Home essential for you?</label>
+                            <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>What feature would make RK AI Home essential for you?</label>
                             <textarea
                                 value={form.notes}
                                 onChange={(e) => setForm((p) => ({ ...p, notes: e.target.value }))}
                                 rows={4}
                                 placeholder="Example: Secure offline routines, advanced privacy controls, smart scene automation."
-                                style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '12px', padding: '14px', color: 'var(--text)', outline: 'none', resize: 'vertical' }}
+                                style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', outline: 'none', resize: 'vertical', transition: 'border-color 0.2s' }}
+                                onFocus={e => e.target.style.borderColor = 'var(--blue)'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'}
                             />
                         </div>
 

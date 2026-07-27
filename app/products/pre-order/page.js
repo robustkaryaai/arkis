@@ -91,16 +91,19 @@ function PreOrderContent() {
     }
 
     return (
-        <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
+        <div style={{ background: 'var(--void)', minHeight: '100vh', color: '#fff', position: 'relative', overflowX: 'hidden' }}>
+            <div className="noise" aria-hidden />
+            <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(circle at 50% 10%, rgba(245,158,11,0.15) 0%, transparent 60%)' }} />
+
             <Navbar />
-            <div style={{ padding: '140px 5% 80px', maxWidth: '1000px', margin: '0 auto' }}>
+            <div style={{ padding: '140px 5% 80px', maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
                 <h1 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '900', marginBottom: '40px', textAlign: 'center' }}>
-                    Complete Your <span className="grad">Pre-order</span>
+                    Complete Your <span className="flow-text flow-text--orange">Pre-order</span>
                 </h1>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '40px' }}>
                     {/* Checkout Form */}
-                    <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '24px', padding: '40px' }}>
+                    <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)', borderRadius: '24px', padding: '40px', backdropFilter: 'blur(20px)' }}>
                         <h2 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '24px' }}>Shipping Details</h2>
                         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                             {error ? (
@@ -109,29 +112,29 @@ function PreOrderContent() {
                                 </div>
                             ) : null}
                             <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Full Name</label>
-                                <input name="fullName" value={formData.fullName} onChange={handleChange} required style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '10px', padding: '12px', color: 'var(--text)' }} />
+                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>Full Name</label>
+                                <input name="fullName" value={formData.fullName} onChange={handleChange} required style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', outline: 'none' }} onFocus={e => e.target.style.borderColor = '#f59e0b'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'} />
                             </div>
                             <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Email Address</label>
-                                <input name="email" type="email" value={formData.email} onChange={handleChange} required style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '10px', padding: '12px', color: 'var(--text)' }} />
+                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>Email Address</label>
+                                <input name="email" type="email" value={formData.email} onChange={handleChange} required style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', outline: 'none' }} onFocus={e => e.target.style.borderColor = '#f59e0b'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'} />
                             </div>
                             <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Phone Number</label>
-                                <input name="phone" type="tel" value={formData.phone} onChange={handleChange} required style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '10px', padding: '12px', color: 'var(--text)' }} />
+                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>Phone Number</label>
+                                <input name="phone" type="tel" value={formData.phone} onChange={handleChange} required style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', outline: 'none' }} onFocus={e => e.target.style.borderColor = '#f59e0b'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'} />
                             </div>
                             <div>
-                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>Shipping Address</label>
-                                <textarea name="address" value={formData.address} onChange={handleChange} required style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '10px', padding: '12px', color: 'var(--text)', minHeight: '100px' }} />
+                                <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>Shipping Address</label>
+                                <textarea name="address" value={formData.address} onChange={handleChange} required style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', minHeight: '100px', outline: 'none', resize: 'vertical' }} onFocus={e => e.target.style.borderColor = '#f59e0b'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'} />
                             </div>
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>City</label>
-                                    <input name="city" value={formData.city} onChange={handleChange} required style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '10px', padding: '12px', color: 'var(--text)' }} />
+                                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>City</label>
+                                    <input name="city" value={formData.city} onChange={handleChange} required style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', outline: 'none' }} onFocus={e => e.target.style.borderColor = '#f59e0b'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'} />
                                 </div>
                                 <div>
-                                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '8px' }}>ZIP Code</label>
-                                    <input name="zipCode" value={formData.zipCode} onChange={handleChange} required style={{ width: '100%', background: 'rgba(255,255,255,0.05)', border: '1px solid var(--border)', borderRadius: '10px', padding: '12px', color: 'var(--text)' }} />
+                                    <label style={{ display: 'block', fontSize: '12px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '8px' }}>ZIP Code</label>
+                                    <input name="zipCode" value={formData.zipCode} onChange={handleChange} required style={{ width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', borderRadius: '12px', padding: '14px', color: '#fff', outline: 'none' }} onFocus={e => e.target.style.borderColor = '#f59e0b'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'} />
                                 </div>
                             </div>
                             <button 

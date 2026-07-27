@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { FiMessageSquare, FiX, FiSend } from 'react-icons/fi';
+import { FiMessageSquare, FiX, FiSend, FiZap } from 'react-icons/fi';
 
 // Rexycore KNOWLEDGE BASE
 const SYSTEM_PROMPT = `
@@ -65,14 +65,16 @@ Instructions for responding:
 - Always be polite and representative of the Rexycore brand.
 `;
 
+const QUICK_REPLIES = ['What is RK AI Desktop?', 'How much is the subscription?', 'When does RK AI Home ship?'];
+
 export default function ChatWidget() {
     const [open, setOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [loading, setLoading] = useState(false);
     const [isTyping, setIsTyping] = useState(false);
-    const [modelLabel, setModelLabel] = useState('Gemma');
     const messagesEndRef = useRef(null);
+    const inputRef = useRef(null);
 
     const formatMessage = (text) => {
         if (!text) return { __html: '' };
@@ -88,21 +90,23 @@ export default function ChatWidget() {
         }
     }, [messages, isTyping]);
 
+    useEffect(() => {
+        if (open && inputRef.current) {
+            setTimeout(() => inputRef.current?.focus(), 300);
+        }
+    }, [open]);
+
     const handleOpen = () => {
         setOpen(o => !o);
         if (!open && messages.length === 0) {
-            typewriter('Hi! I\'m the Rexycore Assistant. How can I help you explore our ecosystem today?');
+            typewriter('Hi! I\'m the Rexycore Assistant. Ask me anything about our products, subscriptions, or ecosystem.');
         }
     };
 
     const typewriter = async (text) => {
         setIsTyping(true);
         let currentText = '';
-        const delay = 20; // ms per character
-
-        // Add an empty bot message first
         setMessages(prev => [...prev, { text: '', role: 'bot' }]);
-
         for (let i = 0; i < text.length; i++) {
             currentText += text[i];
             setMessages(prev => {
@@ -110,22 +114,21 @@ export default function ChatWidget() {
                 newMessages[newMessages.length - 1] = { text: currentText, role: 'bot' };
                 return newMessages;
             });
-            await new Promise(resolve => setTimeout(resolve, delay));
+            await new Promise(resolve => setTimeout(resolve, 15));
         }
         setIsTyping(false);
     };
 
-    const send = async () => {
-        if (!input.trim() || loading || isTyping) return;
-
-        const userMsg = input;
+    const send = async (msgOverride) => {
+        const userMsg = msgOverride || input;
+        if (!userMsg.trim() || loading || isTyping) return;
         setInput('');
         setMessages(prev => [...prev, { text: userMsg, role: 'user' }]);
         setLoading(true);
 
         const apiKey = process.env.NEXT_PUBLIC_GEMINI_KEY;
         if (!apiKey) {
-            setMessages(prev => [...prev, { text: 'Gemini API Key not found.', role: 'bot' }]);
+            setMessages(prev => [...prev, { text: 'API key not configured.', role: 'bot' }]);
             setLoading(false);
             return;
         }
@@ -133,104 +136,122 @@ export default function ChatWidget() {
         const rawModels = (process.env.NEXT_PUBLIC_GEMINI_MODELS || '').trim();
         const fallbackModels = rawModels
             ? rawModels.split(',').map(s => s.trim()).filter(Boolean)
-            : ['gemma-3-12b-it', 'gemini-3.1-flash-lite', 'gemini-2.5-flash-lite'];
+            : ['gemma-3-12b-it', 'gemini-2.5-flash-lite'];
 
         const genAI = new GoogleGenerativeAI(apiKey);
-
-        const history = messages.map(m => `${m.role === 'user' ? 'User' : 'AI Assistant'}: ${m.text}`).join('\n');
-        const prompt = `${SYSTEM_PROMPT}\n\n${history}\nUser: ${userMsg}\nAI Assistant:`;
+        const history = messages.map(m => `${m.role === 'user' ? 'User' : 'AI'}: ${m.text}`).join('\n');
+        const prompt = `${SYSTEM_PROMPT}\n\n${history}\nUser: ${userMsg}\nAI:`;
 
         const isRetryable = (e) => {
             const msg = `${e?.message || ''}`.toLowerCase();
-            return msg.includes('503') || msg.includes('429') || msg.includes('high demand') || msg.includes('timeout') || msg.includes('temporar');
+            return msg.includes('503') || msg.includes('429') || msg.includes('timeout');
         };
-
         const withTimeout = async (promise, ms) => {
-            let timeoutId;
-            const timeoutPromise = new Promise((_, reject) => {
-                timeoutId = setTimeout(() => reject(new Error('timeout')), ms);
-            });
-            try {
-                return await Promise.race([promise, timeoutPromise]);
-            } finally {
-                clearTimeout(timeoutId);
-            }
+            let id;
+            const t = new Promise((_, rej) => { id = setTimeout(() => rej(new Error('timeout')), ms); });
+            try { return await Promise.race([promise, t]); } finally { clearTimeout(id); }
         };
 
-        const maxAttemptsPerModel = 2;
         const timeoutMs = Number(process.env.NEXT_PUBLIC_GEMINI_TIMEOUT_MS || 20000);
-
         let lastError = null;
-        for (let modelIndex = 0; modelIndex < fallbackModels.length; modelIndex++) {
-            const modelName = fallbackModels[modelIndex];
-            setModelLabel(modelName.startsWith('gemma') ? 'Gemma' : 'Gemini');
-
-            for (let attempt = 1; attempt <= maxAttemptsPerModel; attempt++) {
+        for (const modelName of fallbackModels) {
+            for (let attempt = 1; attempt <= 2; attempt++) {
                 try {
                     const model = genAI.getGenerativeModel({ model: modelName });
                     const result = await withTimeout(model.generateContent(prompt), timeoutMs);
-                    const responseText = result.response.text();
                     setLoading(false);
-                    await typewriter(responseText);
+                    await typewriter(result.response.text());
                     return;
                 } catch (e) {
                     lastError = e;
-                    const retryable = isRetryable(e);
-                    if (!retryable) break;
-
-                    const base = 1000 * Math.pow(2, attempt - 1);
-                    const jitter = Math.floor(Math.random() * 400);
-                    const waitTime = Math.min(8000, base + jitter);
-                    await new Promise(resolve => setTimeout(resolve, waitTime));
+                    if (!isRetryable(e)) break;
+                    const wait = Math.min(8000, 1000 * Math.pow(2, attempt - 1) + Math.random() * 400);
+                    await new Promise(r => setTimeout(r, wait));
                 }
             }
         }
-
-        console.error('Gemini/Gemma request failed:', lastError);
-        setMessages(prev => [...prev, { text: 'The chat model is busy right now. Please try again in a moment.', role: 'bot' }]);
+        setMessages(prev => [...prev, { text: 'The assistant is busy. Please try again in a moment.', role: 'bot' }]);
         setLoading(false);
     };
 
     return (
         <div id="chat-widget">
+            {/* Panel */}
             <div id="chat-panel" className={open ? 'open' : ''}>
+                {/* Header */}
                 <div id="chat-header">
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                        <FiMessageSquare size={18} />
-                        <span>Rexycore Assistant</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <div style={{
+                            width: '32px', height: '32px', borderRadius: '10px',
+                            background: 'linear-gradient(135deg, #7c3aed, #6366f1)',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                        }}>
+                            <FiZap size={16} color="#fff" />
+                        </div>
+                        <div>
+                            <div style={{ fontWeight: '800', fontSize: '14px', lineHeight: 1.2 }}>Rexycore Assistant</div>
+                            <div style={{ fontSize: '11px', color: 'rgba(255,255,255,0.4)', display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#4ade80', display: 'inline-block', boxShadow: '0 0 6px #4ade80' }} />
+                                Online
+                            </div>
+                        </div>
                     </div>
-                    <button onClick={() => setOpen(false)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <FiX size={18} />
+                    <button onClick={() => setOpen(false)} aria-label="Close chat">
+                        <FiX size={16} />
                     </button>
                 </div>
+
+                {/* Messages */}
                 <div id="chat-messages">
                     {messages.map((m, i) => (
-                        <div key={i} className={`msg ${m.role}`} dangerouslySetInnerHTML={formatMessage(m.text)} />
+                        <div key={i} className={`msg ${m.role}`}>
+                            {m.role === 'bot' && (
+                                <div className="msg-avatar">RX</div>
+                            )}
+                            <div className="msg-bubble" dangerouslySetInnerHTML={formatMessage(m.text)} />
+                        </div>
                     ))}
                     {loading && (
                         <div className="msg bot">
-                            <div className="typing-dots">
-                                <span></span><span></span><span></span>
+                            <div className="msg-avatar">RX</div>
+                            <div className="msg-bubble">
+                                <div className="typing-dots">
+                                    <span /><span /><span />
+                                </div>
                             </div>
                         </div>
                     )}
                     <div ref={messagesEndRef} />
                 </div>
-                <div id="chat-input-row" style={{ flexDirection: 'column', gap: '8px' }}>
-                    <div style={{ display: 'flex', width: '100%', gap: '8px' }}>
-                        <input id="chat-input" value={input} onChange={e => setInput(e.target.value)}
-                            onKeyDown={e => e.key === 'Enter' && send()} placeholder="Ask Rexycore anything..." />
-                        <button id="chat-send" onClick={send} disabled={loading} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <FiSend size={16} />
-                        </button>
+
+                {/* Quick replies */}
+                {messages.length <= 1 && !loading && (
+                    <div id="chat-quick-replies">
+                        {QUICK_REPLIES.map(q => (
+                            <button key={q} className="quick-reply-btn" onClick={() => send(q)}>{q}</button>
+                        ))}
                     </div>
-                    <div style={{ fontSize: '10px', color: 'var(--muted)', textAlign: 'center', opacity: 0.6 }}>
-                        Powered by Google API
-                    </div>
+                )}
+
+                {/* Input */}
+                <div id="chat-input-row">
+                    <input
+                        id="chat-input"
+                        ref={inputRef}
+                        value={input}
+                        onChange={e => setInput(e.target.value)}
+                        onKeyDown={e => e.key === 'Enter' && send()}
+                        placeholder="Ask anything..."
+                    />
+                    <button id="chat-send" onClick={() => send()} disabled={loading || isTyping}>
+                        <FiSend size={15} />
+                    </button>
                 </div>
             </div>
-            <button id="chat-toggle" onClick={handleOpen} title="Chat with Rexycore" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
-                <FiMessageSquare size={24} />
+
+            {/* Toggle button */}
+            <button id="chat-toggle" onClick={handleOpen} title="Chat with Rexycore" aria-label="Open chat">
+                {open ? <FiX size={22} /> : <FiMessageSquare size={22} />}
             </button>
         </div>
     );

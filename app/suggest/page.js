@@ -48,42 +48,45 @@ function SuggestContent() {
     };
 
     return (
-        <div style={{ background: 'var(--background)', color: 'var(--text)', minHeight: '100vh', overflowX: 'hidden' }}>
+        <div style={{ background: 'var(--void)', color: '#fff', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
+            <div className="noise" aria-hidden />
+            <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', background: `radial-gradient(circle at 50% 10%, ${theme.bgGlow} 0%, transparent 60%)` }} />
             <Navbar />
 
-            <section className="hero" style={{ minHeight: '50vh', paddingTop: '140px', paddingBottom: '40px', textAlign: 'center', position: 'relative' }}>
-                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '800px', height: '800px', background: `radial-gradient(circle, ${theme.bgGlow} 0%, transparent 70%)`, pointerEvents: 'none' }} />
+            <section className="hero" style={{ minHeight: '50vh', paddingTop: '140px', paddingBottom: '40px', textAlign: 'center', position: 'relative', zIndex: 10 }}>
                 
                 <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-                    <div className="badge float-anim" style={{ margin: '0 auto 16px', color: theme.primary, border: `1px solid ${theme.glow}` }}>
-                        <span className="dot" style={{ background: theme.primary }} /> Shape the Future
+                    <div className="hero-eyebrow float-anim" style={{ margin: '0 auto 16px', color: theme.primary, border: `1px solid ${theme.glow}` }}>
+                        <span className="pulse" style={{ background: theme.primary }} /> Shape the Future
                     </div>
-                    <h1 style={{ fontSize: 'clamp(42px,7vw,80px)', lineHeight: '1.05', fontWeight: '900', letterSpacing: '-2px' }}>
-                        Suggest a<br />
-                        <span style={{ background: theme.gradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Feature.</span>
+                    <h1 className="reveal" style={{ fontSize: 'clamp(40px, 8vw, 72px)', fontWeight: '900', letterSpacing: '-2px', lineHeight: '1.05', marginBottom: '24px' }}>
+                        Suggest a <span style={{ background: theme.gradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Feature</span>
                     </h1>
-                    <p style={{ fontSize: '1.2rem', color: 'var(--muted)', marginTop: '24px', lineHeight: '1.7' }}>
-                        Your ideas power {productName}. Tell us what you want to see built next.
+                    <p className="reveal reveal-delay-1" style={{ fontSize: '18px', color: 'var(--subtext)', maxWidth: '600px', margin: '0 auto', lineHeight: '1.7' }}>
+                        Missing something in {productName}? Tell us what you need. We prioritize updates based directly on community feedback.
                     </p>
                 </div>
             </section>
 
-            <section style={{ maxWidth: '800px', margin: '0 auto', padding: '40px 5% 100px', position: 'relative', zIndex: 1 }}>
+            <section style={{ padding: '0 5% 100px', maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
                 <div className="reveal" style={{ transition: 'all 0.6s ease', opacity: 1, transform: 'none' }}>
                     {sent ? (
-                        <div style={{ textAlign: 'center', padding: '80px 40px', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '32px' }}>
-                            <div style={{ fontSize: '72px', marginBottom: '24px' }}>🚀</div>
-                            <h2 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '16px' }}>Idea submitted!</h2>
-                            <p style={{ color: 'var(--muted)', fontSize: '16px', lineHeight: '1.7', maxWidth: '400px', margin: '0 auto' }}>
+                        <div style={{
+                            background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)',
+                            borderRadius: '32px', padding: '60px 40px', textAlign: 'center', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(20px)'
+                        }}>
+                            <div style={{ fontSize: '64px', marginBottom: '24px' }}>✨</div>
+                            <h2 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '16px' }}>Feedback Sent!</h2>
+                            <p style={{ color: 'var(--subtext)', fontSize: '16px', lineHeight: '1.7', maxWidth: '400px', margin: '0 auto' }}>
                                 Your email client should open. The engineering team reads every submission for {productName}.
                             </p>
                         </div>
                     ) : (
                         <form onSubmit={handleSubmit} style={{ 
                             display: 'flex', flexDirection: 'column', gap: '28px', 
-                            background: 'var(--surface)', border: '1px solid var(--border)', 
+                            background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)', 
                             padding: '48px', borderRadius: '32px',
-                            boxShadow: '0 20px 40px rgba(0,0,0,0.4)' 
+                            boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(20px)' 
                         }}>
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '20px' }}>
                                 {[
@@ -91,47 +94,47 @@ function SuggestContent() {
                                     { label: 'Email Address', key: 'email', type: 'email', placeholder: 'you@example.com' },
                                 ].map(({ label, key, type, placeholder }) => (
                                     <div key={key} style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                                        <label style={{ fontSize: '13px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>{label}</label>
+                                        <label style={{ fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', letterSpacing: '1px' }}>{label}</label>
                                         <input type={type} required placeholder={placeholder} value={form[key]}
                                             onChange={e => setForm(f => ({ ...f, [key]: e.target.value }))}
                                             style={{ 
-                                                background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', 
-                                                borderRadius: '16px', padding: '16px 20px', color: 'var(--text)', 
+                                                background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', 
+                                                borderRadius: '16px', padding: '16px 20px', color: '#fff', 
                                                 fontFamily: 'inherit', fontSize: '15px', outline: 'none',
                                                 transition: 'all 0.3s ease' 
                                             }}
                                             onFocus={e => e.target.style.borderColor = theme.primary}
-                                            onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                                            onBlur={e => e.target.style.borderColor = 'var(--glass-border)'}
                                         />
                                     </div>
                                 ))}
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                                <label style={{ fontSize: '13px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>Feature Idea</label>
+                                <label style={{ fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', letterSpacing: '1px' }}>Feature Idea</label>
                                 <input type="text" required placeholder="e.g. Integrate with smart blinds" value={form.feature}
                                     onChange={e => setForm(f => ({ ...f, feature: e.target.value }))}
                                     style={{ 
-                                        background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', 
-                                        borderRadius: '16px', padding: '16px 20px', color: 'var(--text)', 
+                                        background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', 
+                                        borderRadius: '16px', padding: '16px 20px', color: '#fff', 
                                         fontFamily: 'inherit', fontSize: '15px', outline: 'none',
                                         transition: 'all 0.3s ease' 
                                     }}
                                     onFocus={e => e.target.style.borderColor = theme.primary}
-                                    onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                                    onBlur={e => e.target.style.borderColor = 'var(--glass-border)'}
                                 />
                             </div>
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                                <label style={{ fontSize: '13px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>How would this impact your daily life?</label>
+                                <label style={{ fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', letterSpacing: '1px' }}>How would this impact your daily life?</label>
                                 <textarea required rows={6} placeholder="Tell us how you would use it..." value={form.impact}
                                     onChange={e => setForm(f => ({ ...f, impact: e.target.value }))}
                                     style={{ 
-                                        background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', 
-                                        borderRadius: '16px', padding: '16px 20px', color: 'var(--text)', 
+                                        background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)', 
+                                        borderRadius: '16px', padding: '16px 20px', color: '#fff', 
                                         fontFamily: 'inherit', fontSize: '15px', outline: 'none', resize: 'vertical',
                                         transition: 'all 0.3s ease' 
                                     }}
                                     onFocus={e => e.target.style.borderColor = theme.primary}
-                                    onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                                    onBlur={e => e.target.style.borderColor = 'var(--glass-border)'}
                                 />
                             </div>
                             <button type="submit" 
@@ -159,7 +162,7 @@ function SuggestContent() {
 
 export default function Suggest() {
     return (
-        <Suspense fallback={<div style={{ minHeight: '100vh', background: 'var(--background)' }} />}>
+        <Suspense fallback={<div style={{ minHeight: '100vh', background: 'var(--void)' }} />}>
             <SuggestContent />
         </Suspense>
     );

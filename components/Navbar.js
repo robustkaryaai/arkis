@@ -8,16 +8,40 @@ import { useRef } from 'react';
 const NAV_LINKS = [
   { href: '/products', label: 'Products' },
   { href: '/about', label: 'About' },
-  { href: '/tiers', label: 'Pricing' },
   { href: '/academy', label: 'Academy' },
   { href: '/contact', label: 'Contact' },
 ];
+
+/* ── Animated Hamburger Icon ────────────── */
+function HamburgerIcon({ open }) {
+  const bar = (deg, y) => ({
+    display: 'block',
+    width: '22px',
+    height: '2px',
+    borderRadius: '2px',
+    background: '#fff',
+    transformOrigin: 'center',
+    transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease',
+    transform: open
+      ? y === 0 ? `translateY(8px) rotate(${deg}deg)` : y === 1 ? 'scaleX(0)' : `translateY(-8px) rotate(${deg}deg)`
+      : 'none',
+    opacity: open && y === 1 ? 0 : 1,
+  });
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', cursor: 'pointer' }}>
+      <span style={bar(45, 0)} />
+      <span style={bar(0, 1)} />
+      <span style={bar(-45, 2)} />
+    </div>
+  );
+}
 
 export default function Navbar() {
   const path = usePathname();
   const { user, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
@@ -25,7 +49,18 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handler);
   }, []);
 
-  useEffect(() => { setMobileOpen(false); }, [path]);
+  // Close drawer on route change
+  useEffect(() => { setDrawerOpen(false); }, [path]);
+
+  // Lock body scroll when drawer open
+  useEffect(() => {
+    if (drawerOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [drawerOpen]);
 
   const handleLogout = async () => {
     try { await logout(); window.location.href = '/'; }
@@ -34,17 +69,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav
-        className={`nav-island${scrolled ? ' compact' : ''}`}
-        style={{
-          boxShadow: scrolled
-            ? '0 12px 48px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08)'
-            : '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)',
-          background: scrolled
-            ? 'rgba(5, 5, 14, 0.94)'
-            : 'rgba(10, 10, 20, 0.75)',
-        }}
-      >
+      <nav className={`nav-island${scrolled ? ' compact' : ''}`}>
         {/* Logo */}
         <Link
           href="/"
@@ -74,65 +99,87 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
+        {/* Desktop CTA */}
         {user ? (
           <Link href="/profile" className="nav-cta" style={{ fontSize: scrolled ? '13px' : '15px', padding: scrolled ? '7px 16px' : '11px 24px', transition: 'padding 0.4s ease, font-size 0.4s ease' }}>Profile</Link>
         ) : (
           <Link href="/login" className="nav-cta" style={{ fontSize: scrolled ? '13px' : '15px', padding: scrolled ? '7px 16px' : '11px 24px', transition: 'padding 0.4s ease, font-size 0.4s ease' }}>Sign In</Link>
         )}
 
-        {/* Hamburger */}
+        {/* Mobile Hamburger */}
         <button
-          data-hamburger
-          onClick={() => setMobileOpen(p => !p)}
-          style={{
-            display: 'none',
-            background: 'none',
-            border: 'none',
-            color: '#fff',
-            fontSize: '22px',
-            cursor: 'pointer',
-            marginLeft: '12px',
-            padding: '4px 8px',
-          }}
+          className="nav-hamburger"
+          onClick={() => setDrawerOpen(p => !p)}
+          aria-label={drawerOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={drawerOpen}
         >
-          {mobileOpen ? '✕' : '☰'}
+          <HamburgerIcon open={drawerOpen} />
         </button>
       </nav>
 
-      {/* Mobile Drawer */}
-      {mobileOpen && (
-        <div style={{
-          position: 'fixed', top: 76, left: 16, right: 16, zIndex: 999,
-          background: 'rgba(8,8,18,0.97)', backdropFilter: 'blur(40px)',
-          border: '1px solid rgba(255,255,255,0.08)', borderRadius: 22,
-          padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: 8,
-          boxShadow: '0 20px 60px rgba(0,0,0,0.6)',
-        }}>
-          {NAV_LINKS.map(({ href, label }) => (
+      {/* ── MOBILE SIDE DRAWER ─────────────────── */}
+
+      {/* Backdrop */}
+      <div
+        className={`drawer-backdrop${drawerOpen ? ' open' : ''}`}
+        onClick={() => setDrawerOpen(false)}
+        aria-hidden
+      />
+
+      {/* Drawer Panel */}
+      <aside className={`nav-drawer${drawerOpen ? ' open' : ''}`} aria-label="Navigation menu">
+        {/* Drawer header */}
+        <div className="drawer-header">
+          <Link href="/" className="nav-logo" style={{ fontSize: '20px' }}>Rexycore</Link>
+          <button
+            onClick={() => setDrawerOpen(false)}
+            className="drawer-close"
+            aria-label="Close menu"
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Nav links */}
+        <nav className="drawer-nav">
+          {NAV_LINKS.map(({ href, label }, i) => (
             <Link
               key={href}
               href={href}
-              style={{
-                padding: '12px 16px', borderRadius: 12,
-                color: path === href ? '#fff' : 'rgba(255,255,255,0.6)',
-                textDecoration: 'none', fontSize: '15px', fontWeight: 600,
-                background: path === href ? 'rgba(255,255,255,0.06)' : 'transparent',
-              }}
+              className={`drawer-link${path === href ? ' active' : ''}`}
+              style={{ animationDelay: `${0.05 + i * 0.04}s` }}
             >
-              {label}
+              <span>{label}</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
             </Link>
           ))}
+        </nav>
+
+        {/* Divider */}
+        <div className="drawer-divider" />
+
+        {/* Auth CTA */}
+        <div className="drawer-footer">
           {user ? (
             <>
-              <Link href="/profile" style={{ padding: '12px 16px', borderRadius: 12, color: 'rgba(255,255,255,0.6)', textDecoration: 'none', fontSize: '15px', fontWeight: 600 }}>Profile</Link>
-              <button onClick={handleLogout} style={{ padding: '12px 16px', borderRadius: 12, color: '#f472b6', background: 'none', border: 'none', textAlign: 'left', fontSize: '15px', fontWeight: 700, cursor: 'pointer' }}>Sign Out</button>
+              <Link href="/profile" className="drawer-cta-secondary">
+                View Profile
+              </Link>
+              <button onClick={handleLogout} className="drawer-logout">
+                Sign Out
+              </button>
             </>
           ) : (
-            <Link href="/login" style={{ marginTop: 8, padding: '14px', borderRadius: 14, background: '#fff', color: '#000', fontSize: '15px', fontWeight: 700, textDecoration: 'none', textAlign: 'center' }}>Sign In</Link>
+            <Link href="/login" className="drawer-cta-primary">
+              Sign In to Rexycore
+            </Link>
           )}
+
+          <p className="drawer-footer-tag">Engineered in India 🇮🇳</p>
         </div>
-      )}
+      </aside>
     </>
   );
 }

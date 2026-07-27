@@ -472,18 +472,24 @@ export default function Subscription() {
     };
 
     if (authLoading || subLoading) {
-        return <div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        return <div style={{ background: 'var(--void)', minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 16 }}>
             <div className="spinner" />
-            <style>{`.spinner { width: 36px; height: 36px; border: 3px solid rgba(79,156,249,0.15); border-top-color: #4f9cf9; border-radius: 50%; animation: spin 0.8s linear infinite; } @keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            <div style={{ color: 'rgba(255,255,255,0.3)', fontSize: 13, fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase' }}>Loading your plan...</div>
+            <style>{`.spinner { width: 36px; height: 36px; border: 3px solid rgba(155,89,245,0.15); border-top-color: #9b59f5; border-radius: 50%; animation: spin 0.8s linear infinite; } @keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </div>;
     }
 
     if (!user) {
-        return <div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--text)' }}>Redirecting...</div>;
+        return <div style={{ background: 'var(--void)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.4)' }}>Redirecting...</div>;
     }
 
     return (
-        <div style={{ background: 'var(--background)', minHeight: '100vh', color: '#fff', overflowX: 'hidden' }}>
+        <div style={{ background: 'var(--void)', minHeight: '100vh', color: '#fff', overflowX: 'hidden', position: 'relative' }}>
+            <div className="noise" aria-hidden />
+            <div className="nebula">
+              <div className="nebula__orb" style={{ background: 'radial-gradient(circle, rgba(155,89,245,0.35) 0%, transparent 60%)', animation: 'drift1 30s infinite ease-in-out alternate' }} />
+              <div className="nebula__orb" style={{ background: 'radial-gradient(circle, rgba(14,165,233,0.2) 0%, transparent 60%)', animation: 'drift3 38s infinite ease-in-out alternate-reverse' }} />
+            </div>
             <Navbar />
             
             <div style={{ padding: '120px 20px 80px', maxWidth: '1400px', margin: '0 auto' }}>
@@ -492,28 +498,28 @@ export default function Subscription() {
                 <header style={{ marginBottom: '50px', display: 'flex', alignItems: 'center', gap: '24px' }}>
                     <motion.button
                         whileTap={{ scale: 0.9 }}
-                        whileHover={{ scale: 1.05, background: 'rgba(79,156,249,0.1)' }}
+                        whileHover={{ scale: 1.05, background: 'rgba(155,89,245,0.1)' }}
                         onClick={() => router.back()}
                         style={{
                             background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)',
                             borderRadius: '16px', width: '54px', height: '54px',
                             display: 'flex', alignItems: 'center', justifyContent: 'center',
-                            cursor: 'pointer', color: '#4f9cf9', flexShrink: 0,
+                            cursor: 'pointer', color: '#9b59f5', flexShrink: 0,
                             backdropFilter: 'blur(10px)', transition: 'all 0.2s ease'
                         }}
                     >
                         <AiOutlineArrowLeft size={22} />
                     </motion.button>
                     <div>
-                        <h1 style={{
-                            fontSize: '38px', fontWeight: '900', color: '#fff',
+                        <h1 className="flow-text flow-text--purple" style={{
+                            fontSize: '38px', fontWeight: '900',
                             letterSpacing: '2.5px', marginBottom: '6px',
-                            animation: 'glowPulse 3s infinite', textTransform: 'uppercase'
+                            textTransform: 'uppercase',
                         }}>
                             MATRIX TIERS
                         </h1>
-                        <p style={{ fontSize: '13px', color: '#888', fontWeight: '800', letterSpacing: '3px', textTransform: 'uppercase' }}>
-                            RK AI DESKTOP & REXYCORE CLOUD SUBSCRIPTION
+                        <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.35)', fontWeight: '800', letterSpacing: '3px', textTransform: 'uppercase' }}>
+                            RK AI DESKTOP &amp; REXYCORE CLOUD SUBSCRIPTION
                         </p>
                     </div>
                 </header>

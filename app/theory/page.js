@@ -6,10 +6,13 @@ import ChatWidget from '@/components/ChatWidget';
 
 export default function TheoryPage() {
     return (
-        <div style={{ background: 'var(--background)', color: 'var(--text)', minHeight: '100vh' }}>
+        <div style={{ background: 'var(--void)', color: '#fff', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
+            <div className="noise" aria-hidden />
+            <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', background: 'radial-gradient(circle at 50% 10%, rgba(59,130,246,0.1) 0%, transparent 60%)' }} />
+
             <Navbar />
 
-            <main style={{ maxWidth: '720px', margin: '0 auto', padding: '120px 5% 80px' }}>
+            <main style={{ maxWidth: '720px', margin: '0 auto', padding: '140px 5% 80px', position: 'relative', zIndex: 10 }}>
                 <p
                     style={{
                         fontSize: '11px',
@@ -23,19 +26,20 @@ export default function TheoryPage() {
                 </p>
                 <h1
                     style={{
-                        fontSize: 'clamp(28px, 5vw, 40px)',
-                        fontWeight: '800',
-                        lineHeight: 1.2,
+                        fontSize: 'clamp(32px, 6vw, 48px)',
+                        fontWeight: '900',
+                        lineHeight: 1.1,
                         marginBottom: '24px',
+                        letterSpacing: '-1px'
                     }}
                 >
-                    Local first. <span className="grad">You in control.</span>
+                    Local first. <span className="flow-text flow-text--blue">You in control.</span>
                 </h1>
                 <div
                     style={{
-                        fontSize: '1.05rem',
+                        fontSize: '18px',
                         lineHeight: 1.75,
-                        color: 'var(--muted)',
+                        color: 'var(--subtext)',
                     }}
                 >
                     <p style={{ marginBottom: '20px' }}>

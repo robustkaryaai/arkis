@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
+import BackButton from '@/components/BackButton';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FiDownload, FiEye, FiActivity, FiZap, FiTarget, FiCheckCircle } from 'react-icons/fi';
 import Image from 'next/image';
@@ -85,6 +86,7 @@ export default function MalusPage() {
       />
       <div className="noise" aria-hidden />
 
+      <BackButton />
       <Navbar />
 
       {/* ── HERO ──────────────────────────── */}

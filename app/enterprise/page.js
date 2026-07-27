@@ -29,9 +29,8 @@ export default function EnterprisePage() {
 
       {/* HERO */}
       <section className="hero">
-        <div className="badge float-anim">
-          <span className="dot" style={{ background: '#8b5cf6' }} />
-          RK AI For Enterprise
+        <div className="hero-eyebrow float-anim">
+          <span className="pulse" style={{ background: '#8b5cf6' }} /> RK AI For Enterprise
         </div>
         <h1>Built for <span className="grad" style={{ backgroundImage: 'linear-gradient(135deg, #a855f7, #6366f1)' }}>Scale.</span></h1>
         <p>Empower your organization with total privacy, custom integrations, and unlimited local compute — the ultimate AI for high-security teams.</p>

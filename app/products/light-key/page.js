@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
+import BackButton from '@/components/BackButton';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FiEdit3, FiCpu, FiMessageSquare, FiSettings } from 'react-icons/fi';
 import Link from 'next/link';
@@ -84,6 +85,7 @@ export default function LightKeyPage() {
       />
       <div className="noise" aria-hidden />
 
+      <BackButton />
       <Navbar />
 
       {/* ── HERO ──────────────────────────── */}

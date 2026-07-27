@@ -68,8 +68,8 @@ export default function LuminaJourney() {
             <section style={{ minHeight: '60vh', paddingTop: '140px', paddingBottom: '60px', textAlign: 'center', position: 'relative', padding: '140px 5% 60px' }}>
                 <div style={{ position: 'absolute', top: '30%', left: '50%', transform: 'translate(-50%, -50%)', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(168,85,247,0.15) 0%, transparent 70%)', zIndex: 0, pointerEvents: 'none' }} />
                 <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-                    <div className="badge float-anim" style={{ margin: '0 auto 16px', background: 'rgba(168,85,247,0.1)', color: '#a855f7', border: '1px solid rgba(168,85,247,0.3)' }}>
-                        <span className="dot" style={{ background: '#a855f7', boxShadow: '0 0 10px #a855f7' }} />
+                    <div className="hero-eyebrow float-anim" style={{ margin: '0 auto 16px', background: 'rgba(168,85,247,0.1)', color: '#a855f7', border: '1px solid rgba(168,85,247,0.3)' }}>
+                        <span className="pulse" style={{ background: '#a855f7', boxShadow: '0 0 10px #a855f7' }} />
                         Lumina OS — Build Journey
                     </div>
                     <h1 style={{ fontSize: 'clamp(36px, 8vw, 80px)', lineHeight: '1.1', letterSpacing: '-2px', fontWeight: '900' }}>

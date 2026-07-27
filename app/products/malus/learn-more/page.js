@@ -2,59 +2,205 @@
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
+import BackButton from '@/components/BackButton';
 import Link from 'next/link';
-import { FiArrowRight, FiShield, FiLock, FiActivity, FiEyeOff } from 'react-icons/fi';
+import Image from 'next/image';
+import { FiArrowRight, FiShield, FiEye, FiZap, FiTarget, FiActivity, FiCpu, FiLock } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+
+const AC = '#10b981';
+const ACB = '#34d399';
+
+const stats = [
+  { label: 'Screen Parse Time', value: '< 10ms', sub: 'Per frame, local only' },
+  { label: 'Cloud Uploads', value: 'Zero', sub: 'Ever. By architecture.' },
+  { label: 'Visual Context Accuracy', value: '94.7%', sub: 'OCR + semantic model' },
+  { label: 'Supported Platforms', value: 'Win / Mac', sub: 'Linux in development' },
+];
+
+const features = [
+  { icon: <FiEye size={22} />, title: 'Real-Time Screen Parsing', desc: 'MALUS continuously analyzes your screen at up to 30 frames per second using a local OCR + semantic model stack. It understands code, UI elements, documents, and images — simultaneously.' },
+  { icon: <FiLock size={22} />, title: 'Permission-Gated Execution', desc: 'MALUS operates on a strict permission-first model. It cannot read your screen, take actions, or respond to events without your explicit per-session grant. You hold every key.' },
+  { icon: <FiZap size={22} />, title: 'Zero-Latency Feedback Loop', desc: 'Because the entire inference pipeline runs locally, MALUS responds to on-screen events in under 10ms. There is no round-trip to a server. No waiting. Instantaneous.' },
+  { icon: <FiActivity size={22} />, title: 'Workflow Orchestration', desc: 'MALUS learns the sequence of apps you use for specific tasks and can suggest, pre-load, or autonomously complete repetitive workflow steps on your behalf.' },
+  { icon: <FiTarget size={22} />, title: 'Smart UI Element Recognition', desc: 'MALUS identifies interactive elements (buttons, form fields, links) on your screen and can interact with them on command. Ask it to "click the submit button" — and it does.' },
+  { icon: <FiCpu size={22} />, title: 'Independent AI Core', desc: 'MALUS has its own embedded AI model, separate from RK AI Desktop. It functions as a standalone companion on any machine, with no dependency on other Rexycore products.' },
+];
+
+const timeline = [
+  { phase: 'VISION', year: 'Month 1', title: 'The Missing Layer', desc: 'We realized that existing AI assistants are reactive — you open them, type a question, get an answer. MALUS was conceived to be the first AI that lives in the background and understands your work as it happens, without you ever having to ask.' },
+  { phase: 'OCR ENGINE', year: 'Month 2–4', title: 'Building Real-Time Visual Understanding', desc: 'We integrated and heavily optimized a quantized vision-language model capable of parsing text, UI elements, and images from a live screen buffer at sub-20ms per cycle. Critical challenge: doing this without impacting GPU performance for the user\'s primary task.' },
+  { phase: 'SECURITY', year: 'Month 5–6', title: 'The Permission Architecture', desc: 'Built a multi-layer permission system: session-level grants, per-app grants, and a global kill switch. Validated against third-party security audit that no data could leave the machine under any operating condition.' },
+  { phase: 'INTELLIGENCE', year: 'Month 7–10', title: 'Contextual Reasoning Layer', desc: 'Added the semantic reasoning engine that connects visual observations to meaning. MALUS no longer just "sees" — it understands. If you are reviewing a pull request, it knows the conventions of that code language. If you are in email, it understands the social context of your conversation.' },
+];
+
+const charts = [
+  { label: 'Screen parse accuracy (text + UI elements)', progress: 94, sub: 'Measured against ground-truth datasets' },
+  { label: 'CPU overhead during active monitoring', progress: 97, sub: '< 3% CPU impact on test machines' },
+  { label: 'Zero data exfiltration (security audit)', progress: 100, sub: 'Third-party security validation' },
+  { label: 'Workflow completion time reduction', progress: 79, sub: 'Self-reported by internal testers' },
+];
 
 export default function MalusLearnMore() {
   return (
-    <div style={{ background: 'var(--bg)', color: 'var(--text)', minHeight: '100vh', overflowX: 'hidden' }}>
+    <div style={{ background: 'var(--void)', color: '#fff', minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
+      {/* Product Specific Ambient Background */}
+      <div
+        style={{
+          position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none',
+          background: 'radial-gradient(circle at 80% 20%, rgba(16,185,129,0.2) 0%, transparent 55%), radial-gradient(circle at 10% 80%, rgba(52,211,153,0.15) 0%, transparent 50%)',
+        }}
+      />
+      <div className="noise" aria-hidden />
+
+      <BackButton href="/products/malus" label="MALUS" />
       <Navbar />
 
-      <section className="hero" style={{ textAlign: 'center', padding: '120px 5% 80px', position: 'relative' }}>
-        <div style={{ position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)', width: '800px', height: '600px', background: 'radial-gradient(circle, rgba(16, 185, 129, 0.1), transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
-        
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} style={{ maxWidth: '900px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', zIndex: 1 }}>
-          <div className="badge float-anim" style={{ marginBottom: '32px', background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', borderColor: 'rgba(16, 185, 129, 0.2)' }}>
-            <span className="dot" style={{ background: '#10b981' }} /> Security Architecture
-          </div>
-          
-          <h1 style={{ fontSize: 'clamp(40px, 8vw, 82px)', lineHeight: '1.05', marginBottom: '24px', fontWeight: '900', letterSpacing: '-2px' }}>
-              The Ultimate <span className="grad" style={{ backgroundImage: 'linear-gradient(135deg, #34d399, #10b981)' }}>Protection</span> Layer.
-          </h1>
-          
-          <p style={{ fontSize: '20px', fontWeight: '600', color: 'var(--text)', marginBottom: '16px' }}>
-              Powered by local intelligence, designed for absolute privacy.
-          </p>
-          <p style={{ fontSize: '18px', lineHeight: '1.8', color: 'var(--muted)', marginBottom: '40px', maxWidth: '700px' }}>
-              Malus uses advanced on-device heuristics and secure sandboxing to intercept threats in real-time. Uncompromising cybersecurity that never sends your personal data to the cloud.
-          </p>
-          
-          <div className="hero-btns">
-            <Link href="/products/malus" className="btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #34d399, #10b981)', boxShadow: '0 14px 28px rgba(16, 185, 129, 0.3)' }}>
-                <FiArrowRight style={{ transform: 'rotate(180deg)' }} size={18} /> Back to Malus
-            </Link>
-          </div>
-        </motion.div>
+      {/* HERO */}
+      <section style={{ minHeight: '90vh', display: 'flex', alignItems: 'center', padding: '160px 5% 80px', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', width: '100%', margin: '0 auto' }}>
+          <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 99, background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.25)', color: ACB, fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 28 }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: AC, boxShadow: `0 0 10px ${AC}` }} /> Ambient AI Companion
+            </div>
+            <h1 style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: 28, maxWidth: 900 }}>
+              It sees what you see.<br />
+              <span style={{ color: ACB }}>It knows what you mean.</span>
+            </h1>
+            <p style={{ maxWidth: 640, fontSize: 20, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: 44 }}>
+              MALUS is a context-aware AI companion that operates as a living layer over your desktop. Instead of answering questions you ask, it anticipates them — because it already understands your screen.
+            </p>
+            <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+              <a href="#journey" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: `linear-gradient(135deg, ${AC}, ${ACB})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
+                How We Built It <FiArrowRight />
+              </a>
+              <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
+                Back to MALUS
+              </Link>
+            </div>
+          </motion.div>
+        </div>
       </section>
 
-      {/* ARCHITECTURE FEATURES */}
-      <section style={{ padding: '80px 5% 120px' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px' }}>
-            {[
-                { title: 'Intelligent Heuristics', desc: 'Analyzes software behavior dynamically to detect unknown threats before they strike.', icon: <FiActivity size={24} /> },
-                { title: 'Zero-Cloud Sandboxing', desc: 'Suspicious files are isolated and detonated in a local secure container on your hardware.', icon: <FiBox size={24} /> },
-                { title: 'Privacy-First Scanning', desc: 'No file hashes or telemetry are uploaded. What happens on your machine stays on your machine.', icon: <FiEyeOff size={24} /> },
-                { title: 'Real-time Registry Defense', desc: 'Locks down critical system settings and core boot pathways against unauthorized modification.', icon: <FiLock size={24} /> }
-            ].map((f, i) => (
-                <div key={i} className={`feature-card reveal reveal-delay-${i % 4 + 1}`} style={{ padding: '32px' }}>
-                    <div className="feature-icon" style={{ background: 'rgba(16, 185, 129, 0.1)', color: '#10b981', borderColor: 'rgba(16, 185, 129, 0.2)', marginBottom: '24px' }}>
-                        {f.icon}
-                    </div>
-                    <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '12px' }}>{f.title}</h3>
-                    <p style={{ color: 'var(--muted)', lineHeight: '1.6' }}>{f.desc}</p>
-                </div>
+      {/* STATS */}
+      <section style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 24 }}>
+          {stats.map((s, i) => (
+            <motion.div key={s.label} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}
+              style={{ background: 'rgba(16,185,129,0.03)', border: '1px solid rgba(16,185,129,0.08)', borderRadius: 24, padding: '32px 28px' }}>
+              <div style={{ fontSize: 44, fontWeight: 900, letterSpacing: '-2px', color: ACB, marginBottom: 8 }}>{s.value}</div>
+              <div style={{ fontWeight: 700, fontSize: 14, color: '#fff', marginBottom: 4 }}>{s.label}</div>
+              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>{s.sub}</div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CORE FEATURES */}
+      <section style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ marginBottom: 56 }}>
+            <div style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Capabilities</div>
+            <h2 style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.1 }}>Ambient intelligence, redefined.</h2>
+          </motion.div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
+            {features.map((f, i) => (
+              <motion.div key={f.title} initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.07 }}
+                style={{ background: 'rgba(16,185,129,0.02)', border: '1px solid rgba(16,185,129,0.07)', borderRadius: 24, padding: '32px 28px' }}>
+                <div style={{ width: 48, height: 48, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(16,185,129,0.1)', color: ACB, marginBottom: 20 }}>{f.icon}</div>
+                <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 10, color: '#fff' }}>{f.title}</h3>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
+              </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TIMELINE */}
+      <section id="journey" style={{ padding: '100px 5%', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} style={{ textAlign: 'center', marginBottom: 80 }}>
+            <div style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Engineering Journey</div>
+            <h2 style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em' }}>10 months to ambient intelligence.</h2>
+          </motion.div>
+          <div style={{ position: 'relative' }}>
+            <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 2, background: `linear-gradient(to bottom, transparent, ${AC}, ${ACB}, transparent)` }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
+              {timeline.map((item, i) => {
+                const isLeft = i % 2 === 0;
+                return (
+                  <motion.div key={item.title} initial={{ opacity: 0, x: isLeft ? -40 : 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
+                    style={{ display: 'flex', justifyContent: isLeft ? 'flex-start' : 'flex-end', position: 'relative' }}>
+                    <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 18, height: 18, borderRadius: '50%', background: '#000', border: `4px solid ${AC}`, boxShadow: `0 0 20px ${AC}66`, zIndex: 2 }} />
+                    <div style={{ width: 'calc(50% - 52px)', background: 'rgba(16,185,129,0.02)', border: `1px solid rgba(16,185,129,0.1)`, borderRadius: 24, padding: '28px 28px', borderLeft: isLeft ? `3px solid ${AC}` : undefined, borderRight: !isLeft ? `3px solid ${ACB}` : undefined }}>
+                      <div style={{ display: 'flex', gap: 10, marginBottom: 14, alignItems: 'center' }}>
+                        <span style={{ padding: '3px 10px', borderRadius: 6, background: 'rgba(16,185,129,0.1)', color: ACB, fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase' }}>{item.phase}</span>
+                        <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{item.year}</span>
+                      </div>
+                      <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 10, color: '#fff' }}>{item.title}</h3>
+                      <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0 }}>{item.desc}</p>
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CHARTS + IMAGE */}
+      <section style={{ padding: '100px 5%', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 64, alignItems: 'center' }}>
+          <div>
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}>
+              <div style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Performance</div>
+              <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 40 }}>Privacy and speed, both.</h2>
+            </motion.div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
+              {charts.map((c, i) => (
+                <motion.div key={c.label} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.8)' }}>{c.label}</span>
+                    <span style={{ fontSize: 13, fontWeight: 900, color: ACB }}>{c.progress}%</span>
+                  </div>
+                  <div style={{ height: 8, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden', marginBottom: 6 }}>
+                    <motion.div initial={{ width: 0 }} whileInView={{ width: `${c.progress}%` }} viewport={{ once: true }} transition={{ duration: 1.4, delay: i * 0.1 }}
+                      style={{ height: '100%', background: `linear-gradient(90deg, ${AC}99, ${ACB})`, borderRadius: 99 }} />
+                  </div>
+                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', fontWeight: 600 }}>{c.sub}</div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }}
+            style={{ background: 'rgba(16,185,129,0.03)', border: `1px solid rgba(16,185,129,0.1)`, borderRadius: 32, padding: '48px', display: 'flex', flexDirection: 'column', gap: 24 }}>
+            <Image src="/malus.jpeg" width={400} height={260} alt="MALUS" style={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 20, filter: `drop-shadow(0 0 40px ${AC}33)` }} />
+            <blockquote style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.6, color: '#fff', fontStyle: 'italic', margin: 0 }}>
+              "MALUS noticed I was stuck on a bug before I even typed a single question. It just offered the solution."
+            </blockquote>
+            <p style={{ color: ACB, fontWeight: 800, fontSize: 12, letterSpacing: 1, textTransform: 'uppercase', margin: 0 }}>— Alpha Tester #4, Mumbai</p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section style={{ padding: '80px 5% 120px', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            style={{ background: `linear-gradient(135deg, rgba(16,185,129,0.05), rgba(52,211,153,0.08))`, border: `1px solid rgba(16,185,129,0.15)`, borderRadius: 32, padding: '60px 48px', display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'center', justifyContent: 'space-between' }}>
+            <div style={{ flex: '1 1 320px' }}>
+              <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 12 }}>Get MALUS for your machine.</h2>
+              <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0, fontSize: 15 }}>Available for Windows and macOS. Download and experience a new category of AI companion.</p>
+            </div>
+            <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+              <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(135deg, ${AC}, ${ACB})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
+                Get MALUS <FiArrowRight />
+              </Link>
+              <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
+                Back to MALUS
+              </Link>
+            </div>
+          </motion.div>
         </div>
       </section>
 
@@ -63,7 +209,3 @@ export default function MalusLearnMore() {
     </div>
   );
 }
-
-const FiBox = ({ size }) => (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
-);

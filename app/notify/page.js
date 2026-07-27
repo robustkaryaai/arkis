@@ -62,69 +62,68 @@ function NotifyContent() {
     };
 
     return (
-        <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)', overflowX: 'hidden' }}>
+        <div style={{ background: 'var(--void)', minHeight: '100vh', color: '#fff', position: 'relative', overflowX: 'hidden' }}>
+            <div className="noise" aria-hidden />
+            <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none', background: `radial-gradient(circle at 50% 10%, ${theme.bgGlow} 0%, transparent 60%)` }} />
             <Navbar />
             
-            <div style={{ padding: '120px 20px 60px', maxWidth: '900px', margin: '0 auto', position: 'relative' }}>
-                <div style={{ position: 'absolute', top: '20%', left: '50%', transform: 'translate(-50%,-50%)', width: '800px', height: '800px', background: `radial-gradient(circle, ${theme.bgGlow} 0%, transparent 70%)`, pointerEvents: 'none' }} />
+            <div style={{ padding: '140px 5% 80px', maxWidth: '600px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
                 
                 <div style={{ textAlign: 'center', marginBottom: '50px', position: 'relative', zIndex: 1 }}>
-                    <div className="badge float-anim" style={{ margin: '0 auto 16px', color: theme.primary, border: `1px solid ${theme.glow}` }}>
-                        <span className="dot" style={{ background: theme.primary }} />
-                        Product Alerts
+                    <div className="hero-eyebrow float-anim" style={{ margin: '0 auto 16px', color: theme.primary, border: `1px solid ${theme.glow}` }}>
+                        <span className="pulse" style={{ background: theme.primary }} /> Product Alerts
                     </div>
                     <h1 style={{ fontSize: 'clamp(42px, 7vw, 80px)', fontWeight: '900', letterSpacing: '-2px', lineHeight: '1.05' }}>
                         Notify <span style={{ background: theme.gradient, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Me</span>
                     </h1>
-                    <p style={{ color: 'var(--muted)', fontSize: '18px', marginTop: '20px', lineHeight: '1.7' }}>
+                    <p style={{ color: 'var(--subtext)', fontSize: '18px', marginTop: '20px', lineHeight: '1.7' }}>
                         Get an email when {productLabel} becomes available.
                     </p>
                 </div>
 
                 {submitted ? (
                     <div style={{
-                        background: 'var(--surface)', border: '1px solid var(--border)',
-                        borderRadius: '32px', padding: '80px 40px', textAlign: 'center',
-                        position: 'relative', zIndex: 1, boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
+                        background: 'rgba(255,255,255,0.02)', border: `1px solid var(--glass-border)`,
+                        borderRadius: '24px', padding: '60px 40px', textAlign: 'center', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(20px)'
                     }}>
-                        <div style={{ fontSize: '72px', marginBottom: '24px' }}>🔔</div>
-                        <h2 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '16px' }}>Done.</h2>
-                        <p style={{ color: 'var(--muted)', fontSize: '16px', lineHeight: '1.7', maxWidth: '400px', margin: '0 auto' }}>
-                            We’ll email you at <span style={{ color: 'var(--text)', fontWeight: '700' }}>{email}</span>.
+                        <div style={{
+                            width: '80px', height: '80px', borderRadius: '50%',
+                            background: theme.bgGlow, border: `1px solid ${theme.glow}`,
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            margin: '0 auto 24px', boxShadow: `0 0 30px ${theme.bgGlow}`
+                        }}>
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={theme.primary} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <path d="M22 17H2a3 3 0 0 0 3-3V9a7 7 0 0 1 14 0v5a3 3 0 0 0 3 3zm-8.27 4a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                        </div>
+                        <h2 style={{ fontSize: '28px', fontWeight: '900', marginBottom: '12px' }}>Notification Active</h2>
+                        <p style={{ color: 'var(--subtext)', fontSize: '15px' }}>
+                            We'll alert you at <strong>{email}</strong> the moment {productLabel} is ready.
                         </p>
-                        <button
-                            style={{ 
-                                marginTop: '32px', padding: '16px 36px', borderRadius: '999px', cursor: 'pointer',
-                                background: 'rgba(255,255,255,0.05)', color: '#fff', border: '1px solid rgba(255,255,255,0.1)',
-                                fontSize: '16px', fontWeight: '800', transition: 'all 0.3s ease'
-                            }}
-                            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.08)'}
-                            onMouseLeave={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
-                            onClick={() => router.push('/products')}
-                        >
-                            Back to Products
+                        <button onClick={() => router.push('/products')} className="btn-primary" style={{ marginTop: '30px', padding: '14px 28px', borderRadius: '99px', background: theme.gradient, border: 'none', boxShadow: `0 0 20px ${theme.bgGlow}` }}>
+                            Explore More Products
                         </button>
                     </div>
                 ) : (
                     <form onSubmit={submit} style={{
-                        background: 'var(--surface)', border: '1px solid var(--border)',
-                        borderRadius: '32px', padding: '48px', position: 'relative', zIndex: 1,
-                        boxShadow: '0 20px 40px rgba(0,0,0,0.4)'
+                        background: 'rgba(255,255,255,0.02)', border: `1px solid var(--glass-border)`,
+                        borderRadius: '24px', padding: '48px', position: 'relative', zIndex: 1,
+                        boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(20px)'
                     }}>
                         <div>
-                            <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '10px', letterSpacing: '1px' }}>Email</label>
+                            <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', textTransform: 'uppercase', marginBottom: '10px', letterSpacing: '1px' }}>Email</label>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                                 style={{ 
-                                    width: '100%', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', 
-                                    borderRadius: '16px', padding: '18px 24px', color: 'var(--text)', outline: 'none',
+                                    width: '100%', background: 'rgba(0,0,0,0.2)', border: '1px solid var(--glass-border)', 
+                                    borderRadius: '16px', padding: '18px 24px', color: '#fff', outline: 'none',
                                     fontSize: '16px', transition: 'all 0.3s ease'
                                 }}
                                 onFocus={e => e.target.style.borderColor = theme.primary}
-                                onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                                onBlur={e => e.target.style.borderColor = 'var(--glass-border)'}
                             />
                         </div>
                         <button
@@ -151,7 +150,7 @@ function NotifyContent() {
 
 export default function NotifyPage() {
     return (
-        <Suspense fallback={<div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div className="spinner"></div></div>}>
+        <Suspense fallback={<div style={{ background: 'var(--void)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div className="spinner"></div></div>}>
             <NotifyContent />
         </Suspense>
     );

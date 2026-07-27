@@ -3,6 +3,7 @@ import { useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
+import BackButton from '@/components/BackButton';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FiLock, FiCpu, FiLayers, FiShield, FiCheckCircle, FiArrowRight } from 'react-icons/fi';
 import Image from 'next/image';
@@ -46,7 +47,7 @@ function FeatureCard({ feature, index }) {
         style={{
           position: 'absolute', top: mousePosition.y - 150, left: mousePosition.x - 150,
           width: 300, height: 300,
-          background: `radial-gradient(circle, rgba(168,85,247,0.3) 0%, transparent 70%)`,
+          background: `radial-gradient(circle, rgba(207,232,255,0.3) 0%, transparent 70%)`,
           filter: 'blur(40px)', pointerEvents: 'none', zIndex: 0,
         }}
       />
@@ -54,7 +55,7 @@ function FeatureCard({ feature, index }) {
         <div style={{
           width: 44, height: 44, borderRadius: 12,
           display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, marginBottom: 24,
-          background: 'rgba(168,85,247,0.15)', color: '#c084fc'
+          background: 'rgba(207,232,255,0.12)', color: '#cfe8ff'
         }}>
           {feature.icon}
         </div>
@@ -80,11 +81,12 @@ export default function LuminaOSPage() {
       <div
         style={{
           position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none',
-          background: 'radial-gradient(circle at 60% 30%, rgba(168,85,247,0.25) 0%, transparent 55%), radial-gradient(circle at 25% 70%, rgba(99,102,241,0.15) 0%, transparent 50%)',
+          background: 'radial-gradient(circle at 60% 30%, rgba(207,232,255,0.2) 0%, transparent 55%), radial-gradient(circle at 25% 70%, rgba(180,210,255,0.12) 0%, transparent 50%)',
         }}
       />
       <div className="noise" aria-hidden />
 
+      <BackButton />
       <Navbar />
 
       {/* ── HERO ──────────────────────────── */}
@@ -98,9 +100,9 @@ export default function LuminaOSPage() {
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="hero-eyebrow"
-          style={{ background: 'rgba(168,85,247,0.12)', borderColor: 'rgba(168,85,247,0.3)', color: '#c084fc' }}
+          style={{ background: 'rgba(207,232,255,0.08)', borderColor: 'rgba(207,232,255,0.25)', color: '#cfe8ff' }}
         >
-          <span className="pulse" style={{ background: '#a855f7', boxShadow: '0 0 6px #a855f7' }} />
+          <span className="pulse" style={{ background: '#cfe8ff', boxShadow: '0 0 6px #cfe8ff' }} />
           Limited Alpha Phase
         </motion.div>
 
@@ -117,9 +119,8 @@ export default function LuminaOSPage() {
           initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28,
-            background: 'linear-gradient(135deg, #a855f7, #6366f1)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'
-          }}
+          className="flow-text flow-text--ice"
+          style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
         >
           The OS reimagined from the ground up.
         </motion.h2>
@@ -157,7 +158,7 @@ export default function LuminaOSPage() {
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="section-label" style={{ color: '#c084fc' }}
+          className="section-label" style={{ color: '#cfe8ff' }}
         >
           System Architecture
         </motion.p>
@@ -180,7 +181,7 @@ export default function LuminaOSPage() {
 
       {/* ── DOWNLOAD ─────────────────── */}
       <section id="alpha" className="section layer" style={{ paddingTop: 60 }}>
-        <div style={{ background: 'rgba(168,85,247,0.05)', border: '1px solid rgba(168,85,247,0.2)', borderRadius: 32, padding: '80px 40px', textAlign: 'center' }}>
+        <div style={{ background: 'rgba(207,232,255,0.03)', border: '1px solid rgba(207,232,255,0.15)', borderRadius: 32, padding: '80px 40px', textAlign: 'center' }}>
           <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Request Alpha Access.</h2>
           <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 48, fontSize: 18, maxWidth: 600, margin: '0 auto 48px' }}>
             Spots for the Lumina OS Alpha are extremely limited. Join the waitlist to receive your unique ISO download link when a spot opens.

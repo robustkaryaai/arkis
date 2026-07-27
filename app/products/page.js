@@ -35,10 +35,10 @@ const PRODUCTS = [
     desc: 'An AI system designed for physical environments — enabling voice control, automation, and intelligent coordination across your entire living space.',
     tags: ['Smart Home', 'Hardware', 'Pre-order'],
     accent: '#ec4899',
-    accentB: '#a855f7',
-    nebula: 'radial-gradient(circle at 30% 40%, rgba(236,72,153,0.3) 0%, transparent 55%), radial-gradient(circle at 70% 60%, rgba(168,85,247,0.2) 0%, transparent 50%)',
+    accentB: '#f472b6',
+    nebula: 'radial-gradient(circle at 30% 40%, rgba(236,72,153,0.3) 0%, transparent 55%), radial-gradient(circle at 70% 60%, rgba(244,114,182,0.2) 0%, transparent 50%)',
     badge: 'Pre-order',
-    badgeDot: '#f472b6',
+    badgeDot: '#fbcfe8',
     href: '/products/rk-ai-home',
     cta: 'Pre-order Now',
     ctaIcon: <FiShoppingCart />,
@@ -71,11 +71,11 @@ const PRODUCTS = [
     tagline: 'The OS reimagined from the ground up.',
     desc: 'Witness the evolution of computing. An AI-native Linux experience built around privacy, performance, and deep system intelligence.',
     tags: ['Linux', 'AI-Native', 'Privacy First'],
-    accent: '#a855f7',
-    accentB: '#6366f1',
-    nebula: 'radial-gradient(circle at 60% 30%, rgba(168,85,247,0.35) 0%, transparent 55%), radial-gradient(circle at 25% 70%, rgba(99,102,241,0.2) 0%, transparent 50%)',
+    accent: '#f8fafc',
+    accentB: '#cfe8ff',
+    nebula: 'radial-gradient(circle at 60% 30%, rgba(248,250,252,0.35) 0%, transparent 55%), radial-gradient(circle at 25% 70%, rgba(207,232,255,0.2) 0%, transparent 50%)',
     badge: 'Alpha',
-    badgeDot: '#a78bfa',
+    badgeDot: '#e2e8f0',
     href: '/products/lumina-os',
     cta: 'Explore More',
     ctaIcon: <FiArrowRight />,
@@ -92,11 +92,11 @@ const PRODUCTS = [
     accent: '#f59e0b',
     accentB: '#d97706',
     nebula: 'radial-gradient(circle at 40% 40%, rgba(245,158,11,0.3) 0%, transparent 55%), radial-gradient(circle at 70% 70%, rgba(217,119,6,0.2) 0%, transparent 50%)',
-    badge: 'Coming Soon',
+    badge: 'Beta',
     badgeDot: '#fbbf24',
-    href: '/notify?product=light-key',
-    cta: 'Notify Me',
-    ctaIcon: <FiBell />,
+    href: '/products/light-key',
+    cta: 'Get Insight',
+    ctaIcon: <FiArrowRight />,
     comingSoon: true,
   },
   {
@@ -112,7 +112,7 @@ const PRODUCTS = [
     badge: 'Live',
     badgeDot: '#4ade80',
     href: '/subscription',
-    cta: 'Open Cloud',
+    cta: 'Explore Cloud',
     ctaIcon: <FiArrowRight />,
     comingSoon: false,
   },
@@ -229,12 +229,12 @@ function ProductCard({ product, isActive, onHover, onLeave }) {
           </div>
           <h3 style={{
             fontSize: 22, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4,
-            background: `linear-gradient(90deg, ${product.accent} 0%, #fff 25%, ${product.accentB} 50%, #fff 75%, ${product.accent} 100%)`,
+            background: `linear-gradient(110deg, ${product.accent} 30%, #fff 50%, ${product.accent} 70%)`,
             backgroundSize: '200% auto',
             WebkitBackgroundClip: 'text',
             backgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
-            animation: 'logo-flow 5s ease-in-out infinite alternate'
+            animation: 'text-shine 3s linear infinite'
           }}>{product.name}</h3>
           <p style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.4)', marginBottom: 8, fontStyle: 'italic' }}>{product.tagline}</p>
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65 }}>{product.desc}</p>
@@ -260,7 +260,7 @@ function ProductCard({ product, isActive, onHover, onLeave }) {
               padding: '13px 20px',
               borderRadius: 99,
               background: `linear-gradient(135deg, ${product.accent}, ${product.accentB})`,
-              color: '#fff',
+              color: product.id === 'lumina-os' ? '#000' : '#fff',
               fontWeight: 700, fontSize: 15,
               textDecoration: 'none',
               transition: 'opacity 0.2s, transform 0.2s, box-shadow 0.2s',
@@ -272,28 +272,6 @@ function ProductCard({ product, isActive, onHover, onLeave }) {
           >
             {product.ctaIcon} {product.cta}
           </Link>
-          {product.id !== 'light-key' && !product.comingSoon && (
-            <Link
-              href={`/products/${product.id}/learn-more`}
-              style={{
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                width: '100%',
-                padding: '12px 20px',
-                borderRadius: 99,
-                background: 'rgba(255,255,255,0.05)',
-                color: '#fff',
-                fontWeight: 600, fontSize: 14,
-                textDecoration: 'none',
-                border: '1px solid rgba(255,255,255,0.1)',
-                transition: 'background 0.2s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
-              onClick={e => e.stopPropagation()}
-            >
-              Learn More
-            </Link>
-          )}
         </div>
       </div>
     </div>
@@ -352,9 +330,9 @@ export default function Products() {
           <h1 style={{ fontSize: 'clamp(44px, 7vw, 84px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 1.05, marginBottom: 24 }}>
             The Rexycore<br />
             <span style={{ 
-              background: 'linear-gradient(90deg, #a78bfa 0%, #f472b6 33%, #60a5fa 66%, #a78bfa 100%)', 
+              background: 'linear-gradient(110deg, #7C3AED 30%, #fff 50%, #7C3AED 70%)', 
               WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', 
-              backgroundSize: '200% auto', animation: 'logo-flow 5s ease-in-out infinite alternate' 
+              backgroundSize: '200% auto', animation: 'text-shine 4s linear infinite' 
             }}>
               Product Suite.
             </span>

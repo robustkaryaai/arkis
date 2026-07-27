@@ -239,10 +239,7 @@ function PaymentPageContent() {
             <style>{`
                 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
                 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-                body {
-                    font-family: 'Inter', system-ui, sans-serif;
-                    background: #06060e; color: #fff; overflow-x: hidden;
-                }
+                /* Body styles handled by globals.css */
 
                 /* ── Keyframes ── */
                 @keyframes fall {
@@ -322,10 +319,9 @@ function PaymentPageContent() {
                     100% { border-radius: 60% 40% 50% 50% / 40% 60% 50% 50%; transform: translate(0,0) scale(1); }
                 }
 
-                /* ── Layout ── */
                 .page-root {
                     position: relative; min-height: 100vh; overflow-x: hidden;
-                    background: #06060e;
+                    background: var(--void);
                 }
 
                 /* ── NEW: Scanline grid background ── */

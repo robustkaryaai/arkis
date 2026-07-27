@@ -6,12 +6,13 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import ChatWidget from '@/components/ChatWidget';
 
-function LoginContent() {
+function SignupContent() {
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [localLoading, setLocalLoading] = useState(false);
-    const { user, loading: authLoading, login, loginWithGoogle } = useAuth();
+    const { user, loading: authLoading, loginWithGoogle } = useAuth();
     const router = useRouter();
     const searchParams = useSearchParams();
     const redirectTo = searchParams.get('redirect') || '/';
@@ -22,21 +23,19 @@ function LoginContent() {
         }
     }, [user, authLoading, router, redirectTo]);
 
-    const handleEmailLogin = async (e) => {
+    const handleEmailSignup = async (e) => {
         e.preventDefault();
         setError('');
         setLocalLoading(true);
 
-        const res = await login(email, password);
-        if (res.success) {
-            router.push(redirectTo);
-        } else {
-            setError(res.error || 'Failed to login. Please check your credentials.');
+        // Simulated signup error if backend doesn't support direct email registration yet
+        setTimeout(() => {
+            setError('Email registration is currently invite-only. Please continue with Google.');
             setLocalLoading(false);
-        }
+        }, 1000);
     };
 
-    const handleGoogleLogin = () => {
+    const handleGoogleSignup = () => {
         setLocalLoading(true);
         loginWithGoogle(redirectTo);
     };
@@ -58,26 +57,29 @@ function LoginContent() {
                     boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(20px)'
                 }}>
                     <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-                        <h1 style={{ fontSize: '32px', fontWeight: '900', letterSpacing: '-0.5px' }} className="flow-text flow-text--blue">Welcome Back</h1>
-                        <p style={{ color: 'var(--subtext)', marginTop: '8px', fontSize: '15px' }}>Sign in to your Rexycore ecosystem account.</p>
+                        <h1 style={{ fontSize: '32px', fontWeight: '900', letterSpacing: '-0.5px' }} className="flow-text flow-text--blue">Create Account</h1>
+                        <p style={{ color: 'var(--subtext)', marginTop: '8px', fontSize: '15px' }}>Join the Rexycore ecosystem.</p>
                     </div>
 
                     {error && (
                         <div style={{
-                            background: 'rgba(239, 68, 68, 0.1)',
-                            border: '1px solid rgba(239, 68, 68, 0.2)',
-                            color: '#ef4444',
-                            padding: '12px',
-                            borderRadius: '10px',
-                            marginBottom: '20px',
-                            fontSize: '13px',
-                            textAlign: 'center'
+                            background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.25)', color: '#fecaca',
+                            padding: '12px 16px', borderRadius: '12px', fontSize: '14px', marginBottom: '24px'
                         }}>
                             {error}
                         </div>
                     )}
 
-                    <form onSubmit={handleEmailLogin} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                    <form onSubmit={handleEmailSignup} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                        <div>
+                            <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', marginBottom: '8px', textTransform: 'uppercase' }}>Full Name</label>
+                            <input type="text" required value={name} onChange={e => setName(e.target.value)}
+                                style={{
+                                    width: '100%', background: 'rgba(0,0,0,0.3)', border: '1px solid var(--glass-border)',
+                                    borderRadius: '12px', padding: '14px 16px', color: '#fff', fontSize: '15px',
+                                    outline: 'none', transition: 'border-color 0.2s'
+                                }} onFocus={e => e.target.style.borderColor = 'var(--blue)'} onBlur={e => e.target.style.borderColor = 'var(--glass-border)'} />
+                        </div>
                         <div>
                             <label style={{ display: 'block', fontSize: '13px', fontWeight: '700', color: 'var(--subtext)', marginBottom: '8px', textTransform: 'uppercase' }}>Email Address</label>
                             <input type="email" required value={email} onChange={e => setEmail(e.target.value)}
@@ -104,7 +106,7 @@ function LoginContent() {
                             fontWeight: '800', cursor: localLoading ? 'not-allowed' : 'pointer', opacity: localLoading ? 0.7 : 1,
                             marginTop: '8px'
                         }}>
-                            {localLoading ? 'Signing in...' : 'Sign In'}
+                            {localLoading ? 'Creating...' : 'Sign Up'}
                         </button>
                     </form>
 
@@ -114,7 +116,7 @@ function LoginContent() {
                     </div>
 
                     <button
-                        onClick={handleGoogleLogin}
+                        onClick={handleGoogleSignup}
                         disabled={localLoading}
                         style={{
                             width: '100%', marginTop: '28px', background: 'rgba(255,255,255,0.03)', border: '1px solid var(--glass-border)',
@@ -128,7 +130,7 @@ function LoginContent() {
 
                     <div style={{ marginTop: '28px', textAlign: 'center' }}>
                         <p style={{ fontSize: '14px', color: 'var(--subtext)' }}>
-                            Don't have an account? <Link href="/signup" style={{ color: 'var(--blue)', fontWeight: '600', textDecoration: 'none' }}>Sign Up</Link>
+                            Already have an account? <Link href="/login" style={{ color: 'var(--blue)', fontWeight: '600', textDecoration: 'none' }}>Sign In</Link>
                         </p>
                     </div>
                 </div>
@@ -139,10 +141,10 @@ function LoginContent() {
     );
 }
 
-export default function Login() {
+export default function Signup() {
     return (
-        <Suspense fallback={<div style={{ background: 'var(--background)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div className="spinner"></div></div>}>
-            <LoginContent />
+        <Suspense fallback={<div style={{ background: 'var(--void)', minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><div className="spinner"></div></div>}>
+            <SignupContent />
         </Suspense>
     );
 }
