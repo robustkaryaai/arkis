@@ -69,6 +69,33 @@ export default function Navbar() {
 
   return (
     <>
+      <Link
+        href={user ? "/profile" : "/login"}
+        className="desktop-auth-btn"
+        style={{
+          position: 'fixed',
+          top: scrolled ? 12 : 24,
+          right: 24,
+          zIndex: 999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: scrolled ? '10px 20px' : '12px 24px',
+          borderRadius: 99,
+          background: 'rgba(10, 10, 15, 0.75)',
+          backdropFilter: 'blur(16px)',
+          border: '1px solid rgba(255, 255, 255, 0.15)',
+          color: '#fff',
+          textDecoration: 'none',
+          fontWeight: 600,
+          fontSize: scrolled ? 13 : 14,
+          transition: 'all 0.5s cubic-bezier(0.34, 1.2, 0.64, 1)',
+          whiteSpace: 'nowrap'
+        }}
+      >
+        {user ? "Profile" : "Sign In"}
+      </Link>
+
       <nav className={`nav-island${scrolled ? ' compact' : ''}`}>
         {/* Logo */}
         <Link
@@ -99,12 +126,7 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop CTA */}
-        {user ? (
-          <Link href="/profile" className="nav-cta" style={{ fontSize: scrolled ? '13px' : '15px', padding: scrolled ? '7px 16px' : '11px 24px', transition: 'padding 0.4s ease, font-size 0.4s ease' }}>Profile</Link>
-        ) : (
-          <Link href="/login" className="nav-cta" style={{ fontSize: scrolled ? '13px' : '15px', padding: scrolled ? '7px 16px' : '11px 24px', transition: 'padding 0.4s ease, font-size 0.4s ease' }}>Sign In</Link>
-        )}
+        {/* Desktop CTA is now extracted to top right */}
 
         {/* Mobile Hamburger */}
         <button
