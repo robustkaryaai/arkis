@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { FiShield, FiFlag, FiCpu, FiGlobe } from 'react-icons/fi';
 
 /* ── BLUR WORDS COMPONENT ────────────────────────────── */
 function BlurWords({ text, baseDelay = 0 }) {
@@ -168,7 +169,7 @@ function BentoCard({ card, index }) {
         <div className={`bento-icon ${card.iconClass}`}>{card.icon}</div>
         <p className="bento-label">{card.label}</p>
         {card.big !== undefined && (
-          <p className="bento-big">{card.big}<sup style={{ fontSize: '0.35em', fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase' }}>{card.bigSuffix}</sup></p>
+          <p className="bento-big">{card.big}<sup style={{ fontSize: '0.35em', fontWeight: 700, letterSpacing: 2, textTransform: 'uppercase', marginLeft: '12px' }}>{card.bigSuffix}</sup></p>
         )}
         <h3 className="bento-title">{card.title}</h3>
         <p className="bento-desc">{card.desc}</p>
@@ -181,7 +182,7 @@ function BentoCard({ card, index }) {
 const BENTO = [
   {
     size: 'wide',
-    icon: '🔒',
+    icon: <FiShield />,
     iconClass: 'bento-icon--v',
     label: 'Privacy Architecture',
     title: 'Your data stays yours.',
@@ -192,7 +193,7 @@ const BENTO = [
   },
   {
     size: 'narrow',
-    icon: '🇮🇳',
+    icon: <FiFlag />,
     iconClass: 'bento-icon--b',
     label: 'Origin',
     title: 'Engineered in India.',
@@ -201,7 +202,7 @@ const BENTO = [
   },
   {
     size: 'half',
-    icon: '🧠',
+    icon: <FiCpu />,
     iconClass: 'bento-icon--p',
     label: 'AI-Optional',
     title: 'You control the AI.',
@@ -210,7 +211,7 @@ const BENTO = [
   },
   {
     size: 'half',
-    icon: '🌐',
+    icon: <FiGlobe />,
     iconClass: 'bento-icon--c',
     label: 'Ecosystem',
     title: 'Everything connects.',

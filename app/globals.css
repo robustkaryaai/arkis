@@ -119,8 +119,8 @@ body {
   z-index: 1000;
   display: flex;
   align-items: center;
-  gap: 0;
-  padding: 16px 16px 16px 36px;
+  gap: 60px;
+  padding: 16px 24px 16px 36px;
   background: rgba(10, 10, 20, 0.75);
   backdrop-filter: blur(40px) saturate(180%);
   -webkit-backdrop-filter: blur(40px) saturate(180%);
@@ -131,13 +131,15 @@ body {
   white-space: nowrap;
   transition: padding 0.5s cubic-bezier(0.34, 1.2, 0.64, 1),
               top 0.5s cubic-bezier(0.34, 1.2, 0.64, 1),
+              gap 0.5s cubic-bezier(0.34, 1.2, 0.64, 1),
               background 0.4s ease,
               box-shadow 0.4s ease;
 }
 /* Compact state when scrolled (applied via inline style in Navbar.js) */
 .nav-island.compact {
-  padding: 8px 8px 8px 20px;
+  padding: 8px 12px 8px 24px;
   top: 12px;
+  gap: 32px;
   background: rgba(5, 5, 14, 0.94);
   box-shadow: 0 8px 32px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08);
 }
@@ -151,7 +153,7 @@ body {
   font-weight: 900;
   letter-spacing: -0.5px;
   text-decoration: none;
-  margin-right: 40px;
+  margin-right: 0;
   background: linear-gradient(90deg, #ff9933 0%, #ffcda5 20%, #ffffff 40%, #ffffff 60%, #86efac 80%, #138808 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
@@ -168,6 +170,10 @@ body {
   display: flex;
   align-items: center;
   list-style: none;
+  gap: 16px;
+  transition: gap 0.5s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+.nav-island.compact .nav-links {
   gap: 4px;
 }
 .nav-links a {
