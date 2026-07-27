@@ -113,33 +113,33 @@ body {
 /* ── FLOATING NAVBAR ───────────────────────────────────── */
 .nav-island {
   position: fixed;
-  top: 20px;
+  top: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
   display: flex;
   align-items: center;
   gap: 0;
-  padding: 14px 14px 14px 28px;
+  padding: 16px 16px 16px 36px;
   background: rgba(10, 10, 20, 0.75);
   backdrop-filter: blur(40px) saturate(180%);
   -webkit-backdrop-filter: blur(40px) saturate(180%);
   border: 1px solid var(--glass-border-strong);
   border-radius: var(--r-pill);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255,255,255,0.08);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.08);
   animation: nav-appear 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
   white-space: nowrap;
-  transition: padding 0.4s cubic-bezier(0.34, 1.2, 0.64, 1),
-              top 0.4s cubic-bezier(0.34, 1.2, 0.64, 1),
-              background 0.3s ease,
-              box-shadow 0.3s ease;
+  transition: padding 0.5s cubic-bezier(0.34, 1.2, 0.64, 1),
+              top 0.5s cubic-bezier(0.34, 1.2, 0.64, 1),
+              background 0.4s ease,
+              box-shadow 0.4s ease;
 }
 /* Compact state when scrolled (applied via inline style in Navbar.js) */
 .nav-island.compact {
   padding: 8px 8px 8px 20px;
   top: 12px;
   background: rgba(5, 5, 14, 0.94);
-  box-shadow: 0 12px 48px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
 @keyframes nav-appear {
@@ -148,21 +148,20 @@ body {
 }
 
 .nav-logo {
-  font-size: 17px;
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing: -0.5px;
   text-decoration: none;
-  margin-right: 28px;
-  background: linear-gradient(90deg, #ff9933 0%, #f8f8ff 40%, #4ade80 65%, #138808 100%);
-  background-size: 200% 100%;
+  margin-right: 40px;
+  background: linear-gradient(90deg, #ff9933 0%, #ffcda5 20%, #ffffff 40%, #ffffff 60%, #86efac 80%, #138808 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: logo-flow 6s linear infinite;
+  animation: logo-flow 6s ease-in-out infinite alternate;
 }
 @keyframes logo-flow {
-  0%   { background-position: 100% 0; }
-  100% { background-position: -100% 0; }
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
 }
 
 .nav-links {
@@ -513,15 +512,15 @@ footer {
   border-top: 1px solid var(--glass-border);
 }
 footer .footer-logo {
-  font-size: 16px;
-  font-weight: 800;
+  font-size: 18px;
+  font-weight: 900;
   text-decoration: none;
-  background: linear-gradient(90deg, #ff9933 0%, #f8f8ff 40%, #4ade80 65%, #138808 100%);
-  background-size: 200% 100%;
+  background: linear-gradient(90deg, #ff9933 0%, #ffcda5 20%, #ffffff 40%, #ffffff 60%, #86efac 80%, #138808 100%);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: logo-flow 6s linear infinite;
+  animation: logo-flow 6s ease-in-out infinite alternate;
 }
 footer p {
   font-size: 13px;

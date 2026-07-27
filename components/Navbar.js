@@ -50,8 +50,8 @@ export default function Navbar() {
           href="/"
           className="nav-logo"
           style={{
-            fontSize: scrolled ? '15px' : '18px',
-            transition: 'font-size 0.4s cubic-bezier(0.34, 1.2, 0.64, 1)',
+            fontSize: scrolled ? '16px' : '22px',
+            transition: 'font-size 0.5s cubic-bezier(0.34, 1.2, 0.64, 1)',
           }}
         >Rexycore</Link>
 
@@ -63,8 +63,8 @@ export default function Navbar() {
                 href={href}
                 className={path === href ? 'active' : ''}
                 style={{
-                  fontSize: scrolled ? '12.5px' : '14px',
-                  padding: scrolled ? '6px 12px' : '8px 16px',
+                  fontSize: scrolled ? '13px' : '15.5px',
+                  padding: scrolled ? '6px 12px' : '10px 18px',
                   transition: 'font-size 0.4s ease, padding 0.4s ease',
                 }}
               >
@@ -76,9 +76,9 @@ export default function Navbar() {
 
         {/* CTA */}
         {user ? (
-          <Link href="/profile" className="nav-cta" style={{ padding: scrolled ? '7px 16px' : '9px 20px', transition: 'padding 0.4s ease' }}>Profile</Link>
+          <Link href="/profile" className="nav-cta" style={{ fontSize: scrolled ? '13px' : '15px', padding: scrolled ? '7px 16px' : '11px 24px', transition: 'padding 0.4s ease, font-size 0.4s ease' }}>Profile</Link>
         ) : (
-          <Link href="/login" className="nav-cta" style={{ padding: scrolled ? '7px 16px' : '9px 20px', transition: 'padding 0.4s ease' }}>Sign In</Link>
+          <Link href="/login" className="nav-cta" style={{ fontSize: scrolled ? '13px' : '15px', padding: scrolled ? '7px 16px' : '11px 24px', transition: 'padding 0.4s ease, font-size 0.4s ease' }}>Sign In</Link>
         )}
 
         {/* Hamburger */}
