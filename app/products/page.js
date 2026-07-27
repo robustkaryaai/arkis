@@ -1,482 +1,357 @@
 'use client';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Footer from '@/components/Footer';
-import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { FiShoppingCart, FiBell, FiX, FiDatabase, FiVideo, FiCheck, FiSlash, FiLock, FiCloud, FiActivity, FiZap, FiCpu, FiStar, FiGlobe, FiHexagon } from 'react-icons/fi';
+import { FiBell, FiArrowRight, FiDownload, FiShoppingCart } from 'react-icons/fi';
 
-// ─── RexyCore Cloud / Matrix tiers (aligned with rexycore-website /subscription) ──
-const plans = [
-    {
-        icon: <FiHexagon />, name: 'FREE AGENT', color: '#888888',
-        price: '₹0', period: '/mo', desc: 'Enter the matrix.',
-        storage: '50 MB', videos: '1 AI video / week (5 sec)',
-        features: ['Voice chat + wake word', '1 AI Video / week (5 sec)', '24h data retention', 'Basic matrix commands'],
-        locked: ['Higher storage', 'Priority processing'],
-        cta: 'Open RexyCore Cloud', href: '/subscription', ghost: true,
-    },
-    {
-        icon: <FiZap />, name: '7-DAY TRIAL', color: '#00ff9d',
-        price: '₹0', period: '/ 7 days', desc: 'Full access. Zero cost.',
-        storage: '500 MB', videos: '10 AI videos / day (trial)',
-        features: ['Everything in FREE', 'Unlimited AI images (7d)', '10 AI videos / day', '500 MB cloud', 'Priority processing'],
-        locked: [],
-        cta: 'Start in app', href: '/subscription',
-    },
-    {
-        icon: <FiStar />, name: 'STUDENT NODE', color: '#4f9cf9',
-        price: '₹151', period: '/mo', desc: 'Learn. Build. Dominate.',
-        storage: '500 MB', videos: '2 AI videos / week (5 sec)',
-        features: ['Everything in FREE', '2 AI Videos / week (5 sec)', '36h retention', 'Homework AI Buddy', 'Drive integration', 'Lifetime ₹151/mo locked'],
-        locked: [],
-        cta: 'Join waitlist', href: '/subscription',
-    },
-    {
-        icon: <FiActivity />, name: 'CREATOR PROTOCOL', color: '#ff8500', featured: true,
-        price: '₹451', period: '/mo', desc: 'Create. Inspire. Expand.',
-        storage: '2 GB', videos: '3 AI videos / week (10 sec)',
-        features: ['Everything in STUDENT', '3 AI Videos / week (10 sec)', '5 days retention', 'LTX-2 Fast', 'Viral thumbnails', '2 GB cloud', 'Lifetime ₹451/mo locked'],
-        locked: [],
-        cta: 'Join waitlist', href: '/subscription',
-    },
-    {
-        icon: <FiCpu />, name: 'PRO OPERATIVE', color: '#9b59f5',
-        price: '₹951', period: '/mo', desc: 'Unlimited. Unstoppable.',
-        storage: '5 GB', videos: '3 AI videos / week (2K Pro)',
-        features: ['Everything in CREATOR', '3 AI Videos / week (2K Pro)', '7 days retention', 'Custom voice (rk-voice)', 'Personalized files', '5 GB cloud', 'Lifetime ₹951/mo locked'],
-        locked: [],
-        cta: 'Join waitlist', href: '/subscription',
-    },
-    {
-        icon: <FiGlobe />, name: 'STUDIO MATRIX', color: '#e8305f',
-        price: '₹1601', period: '/mo', desc: 'The ultimate AI arsenal.',
-        storage: '10 GB', videos: '3 AI videos / week (4K Pro)',
-        features: ['Everything in PRO', '3 AI Videos / week (4K Pro)', '2 weeks retention', 'Multi-character scenes', 'Best model tier (4K+)', '10 GB cloud', 'Lifetime ₹1601/mo locked'],
-        locked: [],
-        cta: 'Join waitlist', href: '/subscription',
-    },
+/* ─── Product definitions ─────────────────────────────────────── */
+const PRODUCTS = [
+  {
+    id: 'rk-ai-desktop',
+    category: 'AI Desktop Assistant',
+    name: 'RK AI Desktop',
+    tagline: 'Intelligence, locally run.',
+    desc: 'A local-first AI system built for personal computing. Voice-enabled, automation-ready, and powered by on-device models that never leave your machine.',
+    tags: ['Productivity', 'Local AI', 'System Control'],
+    accent: '#3b82f6',
+    accentB: '#6366f1',
+    nebula: 'radial-gradient(circle at 20% 30%, rgba(59,130,246,0.3) 0%, transparent 55%), radial-gradient(circle at 75% 70%, rgba(99,102,241,0.2) 0%, transparent 50%)',
+    badge: 'Live',
+    badgeDot: '#4ade80',
+    href: '/products/rk-ai-desktop',
+    cta: 'Download Free',
+    ctaIcon: <FiDownload />,
+    logo: '/RK AI logo.png',
+    comingSoon: false,
+  },
+  {
+    id: 'rk-ai-home',
+    category: 'Smart Home Device',
+    name: 'RK AI Home',
+    tagline: 'Your home, thinking with you.',
+    desc: 'An AI system designed for physical environments — enabling voice control, automation, and intelligent coordination across your entire living space.',
+    tags: ['Smart Home', 'Hardware', 'Pre-order'],
+    accent: '#ec4899',
+    accentB: '#a855f7',
+    nebula: 'radial-gradient(circle at 30% 40%, rgba(236,72,153,0.3) 0%, transparent 55%), radial-gradient(circle at 70% 60%, rgba(168,85,247,0.2) 0%, transparent 50%)',
+    badge: 'Pre-order',
+    badgeDot: '#f472b6',
+    href: '/products/rk-ai-home',
+    cta: 'Pre-order Now',
+    ctaIcon: <FiShoppingCart />,
+    bgImage: '/rk-ai-home-images/feature.jpg',
+    comingSoon: false,
+    isBuyable: true,
+  },
+  {
+    id: 'malus',
+    category: 'AI Operating Companion',
+    name: 'MALUS',
+    tagline: 'Ambient intelligence for your desktop.',
+    desc: 'A context-aware AI operating companion that understands your computer, adapts to your workflow, and naturally helps you while respecting your privacy.',
+    tags: ['Companion', 'Context-Aware', 'Windows'],
+    accent: '#10b981',
+    accentB: '#059669',
+    nebula: 'radial-gradient(circle at 25% 50%, rgba(16,185,129,0.3) 0%, transparent 55%), radial-gradient(circle at 75% 35%, rgba(5,150,105,0.2) 0%, transparent 50%)',
+    badge: 'New',
+    badgeDot: '#34d399',
+    href: '/products/malus',
+    cta: 'Meet MALUS',
+    ctaIcon: <FiArrowRight />,
+    logo: '/malus.jpeg',
+    comingSoon: false,
+  },
+  {
+    id: 'lumina-os',
+    category: 'Operating System',
+    name: 'Lumina OS',
+    tagline: 'The OS reimagined from the ground up.',
+    desc: 'Witness the evolution of computing. An AI-native Linux experience built around privacy, performance, and deep system intelligence.',
+    tags: ['Linux', 'AI-Native', 'Privacy First'],
+    accent: '#a855f7',
+    accentB: '#6366f1',
+    nebula: 'radial-gradient(circle at 60% 30%, rgba(168,85,247,0.35) 0%, transparent 55%), radial-gradient(circle at 25% 70%, rgba(99,102,241,0.2) 0%, transparent 50%)',
+    badge: 'Alpha',
+    badgeDot: '#a78bfa',
+    href: '/products/lumina-os',
+    cta: 'Explore More',
+    ctaIcon: <FiArrowRight />,
+    logo: '/luminaos.png',
+    comingSoon: false,
+  },
+  {
+    id: 'light-key',
+    category: 'Intelligent Input',
+    name: 'Light Key',
+    tagline: 'Type smarter. Think faster.',
+    desc: 'An intelligent input system that enhances typing with contextual suggestions, AI-powered auto-complete, and deep workflow integration.',
+    tags: ['Input', 'AI-Keyboard', 'Beta'],
+    accent: '#f59e0b',
+    accentB: '#d97706',
+    nebula: 'radial-gradient(circle at 40% 40%, rgba(245,158,11,0.3) 0%, transparent 55%), radial-gradient(circle at 70% 70%, rgba(217,119,6,0.2) 0%, transparent 50%)',
+    badge: 'Coming Soon',
+    badgeDot: '#fbbf24',
+    href: '/notify?product=light-key',
+    cta: 'Notify Me',
+    ctaIcon: <FiBell />,
+    comingSoon: true,
+  },
+  {
+    id: 'rexycore-cloud',
+    category: 'Rexycore Ecosystem',
+    name: 'RexyCore Cloud',
+    tagline: 'Your AI, everywhere.',
+    desc: 'Matrix tiers for RK AI. Cloud storage, video generation caps, and advanced AI features accessible across all your devices.',
+    tags: ['Cloud AI', 'Subscription', 'Live'],
+    accent: '#0ea5e9',
+    accentB: '#38bdf8',
+    nebula: 'radial-gradient(circle at 50% 30%, rgba(14,165,233,0.3) 0%, transparent 55%), radial-gradient(circle at 30% 70%, rgba(56,189,248,0.2) 0%, transparent 50%)',
+    badge: 'Live',
+    badgeDot: '#4ade80',
+    href: '/subscription',
+    cta: 'Open Cloud',
+    ctaIcon: <FiArrowRight />,
+    comingSoon: false,
+  },
 ];
 
-function ProductCard({ product, onSelect }) {
-    const isOrange = product.accentColor === '#f59e0b';
-    const shadowColor = isOrange ? 'rgba(245, 158, 11, 0.2)' : `${product.accentColor}22`;
+/* ─── 3D Card Component ───────────────────────────────────────── */
+function ProductCard({ product, isActive, onHover, onLeave }) {
+  const cardRef = useRef(null);
 
-    return (
-        <div className="product-card" style={{
-            background: 'var(--surface)', border: '1px solid var(--border)',
-            borderRadius: '20px', overflow: 'hidden',
-            transition: 'transform 0.25s, border-color 0.25s, box-shadow 0.25s',
-            cursor: 'pointer', display: 'flex', flexDirection: 'column',
-            height: '100%' // Ensure all cards take full height of their container
-        }}
-            onMouseEnter={e => {
-                e.currentTarget.style.transform = 'translateY(-6px)';
-                e.currentTarget.style.borderColor = product.accentColor;
-                e.currentTarget.style.boxShadow = `0 20px 60px ${shadowColor}`;
-            }}
-            onMouseLeave={e => {
-                e.currentTarget.style.transform = '';
-                e.currentTarget.style.borderColor = 'var(--border)';
-                e.currentTarget.style.boxShadow = '';
-            }}
-        >
-            {/* Product image / banner */}
-            <div style={{
-                height: '180px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: product.bgImage ? `url("${product.bgImage}") center/cover no-repeat` : `linear-gradient(135deg, ${product.accentColor}22, ${product.accentColor2 || product.accentColor}11)`,
-                borderBottom: '1px solid var(--border)', position: 'relative',
-            }}>
-                {product.bgImage && (
-                    <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to top, var(--surface) 0%, transparent 40%, ${product.accentColor}66 100%)` }} />
-                )}
-                {product.badge && (
-                    <div style={{
-                        position: 'absolute', top: '14px', right: '14px',
-                        background: product.badgeColor || 'linear-gradient(135deg, #f59e0b, #d97706)',
-                        color: '#fff', fontSize: '11px', fontWeight: '700', padding: '4px 12px',
-                        borderRadius: '50px', letterSpacing: '1px', textTransform: 'uppercase',
-                        zIndex: 2,
-                        boxShadow: '0 4px 12px rgba(0,0,0,0.3)'
-                    }}>{product.badge}</div>
-                )}
-                {!product.bgImage && (
-                    <div style={{ fontSize: '72px', filter: product.dimmed ? 'grayscale(0.4) opacity(0.7)' : '' }}>
-                        {product.icon}
-                    </div>
-                )}
-            </div>
+  const handleMouseMove = (e) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const cx = rect.width / 2;
+    const cy = rect.height / 2;
+    const rotX = ((y - cy) / cy) * -8;
+    const rotY = ((x - cx) / cx) * 8;
+    card.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-8px) scale(1.02)`;
+    // Move shine spot
+    const shine = card.querySelector('.card-shine');
+    if (shine) {
+      shine.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.12) 0%, transparent 60%)`;
+    }
+  };
 
-            {/* Info */}
-            <div style={{ padding: '24px', flex: 1, display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <div>
-                    <div style={{ fontSize: '11px', fontWeight: '700', letterSpacing: '2px', color: 'var(--muted)', textTransform: 'uppercase', marginBottom: '6px' }}>
-                        {product.category}
-                    </div>
-                    <h3 style={{ fontSize: '22px', fontWeight: '800', letterSpacing: '-0.5px' }}>{product.name}</h3>
-                    <p style={{ fontSize: '14px', color: 'var(--muted)', marginTop: '6px', lineHeight: '1.7' }}>{product.desc}</p>
-                </div>
+  const handleMouseLeave = () => {
+    const card = cardRef.current;
+    if (!card) return;
+    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0) scale(1)';
+    const shine = card.querySelector('.card-shine');
+    if (shine) shine.style.background = 'none';
+    onLeave?.();
+  };
 
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
-                    {product.tags.map(t => (
-                        <span key={t} style={{ background: `${product.accentColor}18`, color: product.accentColor, border: `1px solid ${product.accentColor}33`, borderRadius: '50px', padding: '3px 12px', fontSize: '12px', fontWeight: '600' }}>{t}</span>
-                    ))}
-                </div>
+  const handleMouseEnter = () => {
+    onHover?.(product);
+  };
 
-                <div style={{ marginTop: 'auto', paddingTop: '16px' }}>
-                    {product.isBuyable ? (
-                        <>
-                            <button onClick={onSelect} style={{
-                                width: '100%', background: `linear-gradient(135deg, ${product.accentColor}, ${product.accentColor2 || product.accentColor}cc)`,
-                                color: '#fff', border: 'none', borderRadius: '50px', padding: '13px 20px',
-                                fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
-                                transition: 'transform 0.2s, box-shadow 0.2s',
-                                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px'
-                            }}
-                                onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = `0 10px 20px ${product.accentColor}33`; }}
-                                onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}
-                            >
-                                <FiShoppingCart size={18} />
-                                {product.cta}
-                            </button>
-                            {product.secondaryCta && (
-                                <Link href={product.secondaryHref} style={{
-                                    width: '100%', background: 'rgba(255,255,255,0.04)',
-                                    color: product.accentColor, border: `1px solid ${product.accentColor}44`, borderRadius: '50px', padding: '13px 20px',
-                                    fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
-                                    transition: 'all 0.3s ease', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
-                                    textDecoration: 'none', marginTop: '10px'
-                                }}
-                                    onMouseEnter={e => { e.currentTarget.style.transform = 'scale(1.02)'; e.currentTarget.style.boxShadow = `0 10px 20px ${product.accentColor}22`; }}
-                                    onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = ''; }}
-                                >
-                                    {product.secondaryCta}
-                                </Link>
-                            )}
-                        </>
-                    ) : product.comingSoon ? (
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                            <Link
-                                href={product.href || '#'}
-                                style={{
-                                    display: 'block',
-                                    width: '100%',
-                                    background: `linear-gradient(135deg, ${product.accentColor}, ${product.accentColor2 || product.accentColor}cc)`,
-                                    borderRadius: '50px',
-                                    padding: '12px 16px',
-                                    textAlign: 'center',
-                                    color: '#fff',
-                                    fontWeight: '700',
-                                    fontSize: '14px',
-                                    textDecoration: 'none',
-                                    transition: 'all 0.3s ease',
-                                    boxShadow: `0 0 18px ${product.accentColor}22`,
-                                }}
-                                onClick={e => {
-                                    e.stopPropagation();
-                                }}
-                                onMouseEnter={e => {
-                                    e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
-                                    e.currentTarget.style.boxShadow = `0 10px 25px ${product.accentColor}33`;
-                                }}
-                                onMouseLeave={e => {
-                                    e.currentTarget.style.transform = '';
-                                    e.currentTarget.style.boxShadow = `0 0 18px ${product.accentColor}22`;
-                                }}
-                            >
-                                See More
-                            </Link>
-                            <Link
-                                href={`/notify?product=${encodeURIComponent(product.notifyProductKey || product.id)}`}
-                                style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: '8px',
-                                    width: '100%',
-                                    background: 'rgba(255,255,255,0.04)',
-                                    border: `1px solid ${product.accentColor}44`,
-                                    borderRadius: '50px',
-                                    padding: '12px 16px',
-                                    textAlign: 'center',
-                                    color: product.accentColor,
-                                    fontWeight: '700',
-                                    fontSize: '14px',
-                                    textDecoration: 'none',
-                                    transition: 'all 0.3s ease',
-                                    boxShadow: `0 0 18px ${product.accentColor}22`,
-                                }}
-                                onClick={e => {
-                                    e.stopPropagation();
-                                }}
-                                onMouseEnter={e => {
-                                    e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
-                                    e.currentTarget.style.boxShadow = `0 10px 25px ${product.accentColor}33`;
-                                }}
-                                onMouseLeave={e => {
-                                    e.currentTarget.style.transform = '';
-                                    e.currentTarget.style.boxShadow = `0 0 18px ${product.accentColor}22`;
-                                }}
-                            >
-                                <FiBell size={16} />
-                                Notify Me
-                            </Link>
-                        </div>
-                    ) : (
-                        <button
-                            onClick={onSelect}
-                            style={{
-                                width: '100%', background: `linear-gradient(135deg, ${product.accentColor}, ${product.accentColor2 || product.accentColor}cc)`,
-                                color: '#fff', border: 'none', borderRadius: '50px', padding: '13px 20px',
-                                fontWeight: '700', fontSize: '15px', cursor: 'pointer', fontFamily: 'inherit',
-                                transition: 'all 0.3s ease',
-                                boxShadow: `0 0 20px ${product.accentColor}33`
-                            }}
-                            onMouseEnter={e => {
-                                e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)';
-                                e.currentTarget.style.boxShadow = `0 10px 25px ${product.accentColor}66`;
-                            }}
-                            onMouseLeave={e => {
-                                e.currentTarget.style.transform = '';
-                                e.currentTarget.style.boxShadow = `0 0 20px ${product.accentColor}33`;
-                            }}
-                        >
-                            {product.cta}
-                        </button>
-                    )}
-                </div>
-            </div>
-        </div>
-    );
-}
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      style={{
+        position: 'relative',
+        background: 'rgba(255,255,255,0.028)',
+        border: `1px solid ${isActive ? product.accent + '55' : 'rgba(255,255,255,0.08)'}`,
+        borderRadius: 28,
+        overflow: 'hidden',
+        transition: 'transform 0.4s cubic-bezier(0.23,1,0.32,1), border-color 0.3s, box-shadow 0.4s',
+        transformStyle: 'preserve-3d',
+        boxShadow: isActive
+          ? `0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px ${product.accent}33, 0 0 60px ${product.accent}22`
+          : '0 4px 24px rgba(0,0,0,0.25)',
+        cursor: 'pointer',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+      }}
+    >
+      {/* Mouse-tracked shine overlay */}
+      <div className="card-shine" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 3, borderRadius: 28 }} />
 
-function TierModal({ onClose }) {
-    return (
+      {/* Top edge shine */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent)', zIndex: 4 }} />
+
+      {/* Banner */}
+      <div style={{
+        height: 200,
+        position: 'relative',
+        overflow: 'hidden',
+        background: product.bgImage ? undefined : `linear-gradient(135deg, ${product.accent}22 0%, ${product.accentB}15 100%)`,
+        flexShrink: 0,
+      }}>
+        {product.bgImage && (
+          <>
+            <Image src={product.bgImage} alt={product.name} fill style={{ objectFit: 'cover', opacity: 0.7 }} />
+            <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to bottom, ${product.accent}33, rgba(0,0,0,0.7))` }} />
+          </>
+        )}
+        {product.logo && !product.bgImage && (
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <Image src={product.logo} alt={product.name} width={72} height={72} style={{ objectFit: 'contain', borderRadius: 18, filter: `drop-shadow(0 0 24px ${product.accent}88)` }} />
+          </div>
+        )}
+        {!product.logo && !product.bgImage && (
+          <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 64, filter: `drop-shadow(0 0 20px ${product.accent}88)` }}>
+            ✦
+          </div>
+        )}
+
+        {/* Badge */}
         <div style={{
-            position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.75)', backdropFilter: 'blur(8px)',
-            zIndex: 1000, display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
-            overflowY: 'auto', padding: '60px 20px',
-        }} onClick={e => e.target === e.currentTarget && onClose()}>
-            <div style={{ width: '100%', maxWidth: '1000px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
-                    <div>
-                        <h2 style={{ fontSize: '32px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                            <FiCloud style={{ color: 'var(--blue)' }} /> RexyCore Cloud — Matrix tiers
-                        </h2>
-                        <p style={{ color: 'var(--muted)', marginTop: '6px' }}>Same plans as the subscription hub. RK Home billing is tied to your linked device in the app.</p>
-                    </div>
-                    <button onClick={onClose} style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: '50%', width: '44px', height: '44px', color: 'var(--text)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.2s' }}>
-                        <FiX size={20} />
-                    </button>
-                </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(175px, 1fr))', gap: '16px' }}>
-                    {plans.map(p => (
-                        <div key={p.name} style={{
-                            background: 'rgba(255,255,255,0.04)', border: `1px solid ${p.featured ? 'var(--blue)' : p.color + '33'}`,
-                            borderRadius: '16px', padding: '24px', display: 'flex', flexDirection: 'column', gap: '14px',
-                            boxShadow: p.featured ? '0 0 40px rgba(79,156,249,0.12)' : '',
-                            position: 'relative',
-                        }}>
-                            {p.featured && <div style={{ position: 'absolute', top: '-12px', left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg, var(--blue), var(--violet))', color: '#fff', fontSize: '10px', fontWeight: '700', padding: '3px 14px', borderRadius: '50px', letterSpacing: '2px' }}>POPULAR</div>}
-                            <div>
-                                <div style={{ fontSize: '12px', fontWeight: '700', letterSpacing: '2px', color: p.color, textTransform: 'uppercase', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                    {p.icon} {p.name}
-                                </div>
-                                <div style={{ fontSize: '36px', fontWeight: '900', letterSpacing: '-1.5px', marginTop: '4px' }}>{p.price}<span style={{ fontSize: '13px', color: 'var(--muted)', fontWeight: '400' }}>{p.period}</span></div>
-                                <div style={{ fontSize: '12px', color: 'var(--muted)', marginTop: '4px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                                    <FiDatabase size={14} /> {p.storage} · <FiVideo size={14} /> {p.videos}
-                                </div>
-                            </div>
-                            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '7px' }}>
-                                {p.features.map(f => <li key={f} style={{ fontSize: '12px', display: 'flex', gap: '7px' }}><FiCheck style={{ color: 'var(--blue)', flexShrink: 0 }} />{f}</li>)}
-                                {p.locked.map(f => <li key={f} style={{ fontSize: '12px', display: 'flex', gap: '7px', color: 'var(--muted)' }}><FiSlash style={{ flexShrink: 0 }} />{f}</li>)}
-                            </ul>
-                            <a href={p.href || '#'}
-                                onClick={!p.href ? e => { e.preventDefault(); alert(`Payments launching soon!\nEmail hello@arkis.ai for early access to ${p.name}.`); } : undefined}
-                                style={{
-                                    display: 'block', marginTop: 'auto', padding: '10px', textAlign: 'center',
-                                    background: p.ghost ? 'var(--surface)' : `linear-gradient(135deg, ${p.color}, ${p.color}bb)`,
-                                    border: p.ghost ? '1px solid var(--border)' : 'none',
-                                    borderRadius: '50px', color: '#fff', fontWeight: '700', fontSize: '13px', textDecoration: 'none',
-                                    cursor: 'pointer',
-                                }}>{p.cta}</a>
-                        </div>
-                    ))}
-                </div>
-                <p style={{ textAlign: 'center', color: 'var(--muted)', fontSize: '13px', marginTop: '20px' }}>
-                    🔒 Secure payments via Paytm · UPI · Cards
-                </p>
-            </div>
+          position: 'absolute', top: 14, left: 14, zIndex: 5,
+          display: 'flex', alignItems: 'center', gap: 5,
+          padding: '4px 10px', borderRadius: 99,
+          background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255,255,255,0.12)',
+          fontSize: 11, fontWeight: 700, color: '#fff',
+        }}>
+          <span style={{ width: 6, height: 6, borderRadius: '50%', background: product.badgeDot, boxShadow: `0 0 6px ${product.badgeDot}` }} />
+          {product.badge}
         </div>
-    );
+      </div>
+
+      {/* Body */}
+      <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
+        <div>
+          <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: product.accent, marginBottom: 6 }}>
+            {product.category}
+          </div>
+          <h3 style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 4 }}>{product.name}</h3>
+          <p style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.4)', marginBottom: 8, fontStyle: 'italic' }}>{product.tagline}</p>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65 }}>{product.desc}</p>
+        </div>
+
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+          {product.tags.map(t => (
+            <span key={t} style={{
+              padding: '3px 10px', borderRadius: 99,
+              background: `${product.accent}18`, color: product.accent,
+              border: `1px solid ${product.accent}33`,
+              fontSize: 11, fontWeight: 700,
+            }}>{t}</span>
+          ))}
+        </div>
+
+        <div style={{ marginTop: 'auto', paddingTop: 8 }}>
+          <Link
+            href={product.href}
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+              width: '100%',
+              padding: '13px 20px',
+              borderRadius: 99,
+              background: `linear-gradient(135deg, ${product.accent}, ${product.accentB})`,
+              color: '#fff',
+              fontWeight: 700, fontSize: 15,
+              textDecoration: 'none',
+              transition: 'opacity 0.2s, transform 0.2s, box-shadow 0.2s',
+              boxShadow: `0 4px 20px ${product.accent}44`,
+            }}
+            onMouseEnter={e => { e.currentTarget.style.boxShadow = `0 8px 30px ${product.accent}66`; e.currentTarget.style.transform = 'translateY(-1px)'; }}
+            onMouseLeave={e => { e.currentTarget.style.boxShadow = `0 4px 20px ${product.accent}44`; e.currentTarget.style.transform = ''; }}
+            onClick={e => e.stopPropagation()}
+          >
+            {product.ctaIcon} {product.cta}
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-const products = [
-    {
-        id: 'rkai_desktop',
-        icon: <Image src="/RK AI logo.png" alt="RK AI" width={80} height={80} style={{ objectFit: 'contain', borderRadius: '16px', filter: 'drop-shadow(0 0 20px rgba(79, 156, 249, 0.4))' }} />,
-        category: 'AI Desktop Assistant',
-        name: 'RK AI Desktop',
-        desc: 'A local-first AI system built for personal computing. Voice-enabled, automation-ready, and powered by on-device models.',
-        tags: ['Productivity', 'Local AI', 'System Control'],
-        accentColor: '#4f9cf9',
-        accentColor2: '#9b59f5',
-        badge: 'Live',
-        badgeColor: 'linear-gradient(135deg, #4ade80, #16a34a)',
-        cta: 'Download',
-        href: '/products/rk-ai-desktop',
-        comingSoon: false,
-    },
-    {
-        id: 'rkai_home',
-        icon: null,
-        bgImage: '/rk-ai-home-images/feature.jpg',
-        logo: '/rkhome.png',
-        category: 'Smart Home Device',
-        name: 'RK AI Home',
-        desc: 'An AI system designed for physical environments — enabling voice control, automation, and intelligent coordination.',
-        tags: ['Smart Home', 'Hardware', 'Pre-order'],
-        accentColor: '#ec4899',
-        accentColor2: '#be185d',
-        badge: 'Pre-order',
-        badgeColor: 'linear-gradient(135deg, #ec4899, #be185d)',
-        cta: 'Pre-order Now',
-        href: '/products/rk-ai-home',
-        comingSoon: false,
-        isPhysical: true,
-        isBuyable: true
-    },
-    {
-        id: 'malus',
-        icon: <Image src="/malus.jpeg" alt="MALUS" width={80} height={80} style={{ objectFit: 'contain', borderRadius: '16px', filter: 'drop-shadow(0 0 20px rgba(16, 185, 129, 0.4))' }} />,
-        category: 'AI Operating Companion',
-        name: 'MALUS',
-        desc: 'A context-aware AI operating companion that understands your computer, adapts to your workflow, and naturally helps you while respecting your privacy.',
-        tags: ['Companion', 'Context-Aware', 'Windows'],
-        accentColor: '#10B981',
-        accentColor2: '#059669',
-        badge: 'New',
-        badgeColor: 'linear-gradient(135deg, #10B981, #059669)',
-        cta: 'Meet MALUS',
-        href: '/products/malus',
-        comingSoon: false,
-    },
-    {
-        id: 'lumina_os',
-        icon: <Image src="/luminaos.png" alt="Lumina OS" width={90} height={90} style={{ objectFit: 'contain', filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.4))', transform: 'translateY(15px)' }} />,
-        category: 'Operating System',
-        name: 'Lumina OS',
-        desc: 'Witness the evolution of computing. Early access spots for Lumina OS Alpha are limited. Secure yours now.',
-        tags: ['Linux', 'AI-Native', 'Privacy First'],
-        accentColor: '#a855f7',
-        accentColor2: '#6366f1',
-        badge: 'Limited Alpha',
-        badgeColor: 'linear-gradient(135deg, #3b82f6, #1d4ed8)',
-        cta: 'Explore more',
-        href: '/products/lumina-os',
-        comingSoon: false,
-    },
-    {
-        id: 'lightkey',
-        icon: <FiCpu size={80} style={{ color: '#f59e0b', filter: 'drop-shadow(0 0 20px rgba(245, 158, 11, 0.4))' }} />,
-        category: 'Intelligent Input',
-        name: 'Light Key',
-        desc: 'An intelligent input system that enhances typing with contextual suggestions and AI-powered assistance.',
-        tags: ['Input', 'AI-Keyboard', 'Beta'],
-        accentColor: '#f59e0b',
-        accentColor2: '#d97706',
-        badge: 'Coming Soon',
-        badgeColor: 'linear-gradient(135deg, #f59e0b, #d97706)',
-        cta: 'Learn more',
-        href: '/product/light-key',
-        comingSoon: true,
-        notifyProductKey: 'light-key',
-        isBuyable: false
-    },
-    {
-        id: 'cloud',
-        icon: <FiCloud size={80} style={{ color: '#0ea5e9', filter: 'drop-shadow(0 0 20px rgba(14, 165, 233, 0.4))' }} />,
-        category: 'Rexycore Ecosystem',
-        name: 'RexyCore Cloud',
-        desc: 'Matrix tiers for RK AI — storage, video caps, and cloud features. View your active plan, waitlist, and account on the subscription hub.',
-        tags: ['Cloud AI', 'Matrix tiers', 'Live'],
-        accentColor: '#0ea5e9',
-        accentColor2: '#38bdf8',
-        badge: 'Live',
-        badgeColor: 'linear-gradient(135deg, #0ea5e9, #38bdf8)',
-        cta: 'RexyCore Cloud',
-        href: '/subscription',
-        isModal: false,
-        comingSoon: false,
-    },
-];
-
+/* ─── Page ────────────────────────────────────────────────────── */
 export default function Products() {
-    const [showTiers, setShowTiers] = useState(false);
-    const { user, loading: authLoading } = useAuth();
-    const router = useRouter();
+  const [activeProduct, setActiveProduct] = useState(null);
+  const bgRef = useRef(null);
 
-    const handleProductAction = (product) => {
-        if (product.isModal) {
-            setShowTiers(true);
-        } else if (product.href) {
-            window.location.href = product.href;
-        }
-    };
+  // Morph background on hover
+  useEffect(() => {
+    const bg = bgRef.current;
+    if (!bg) return;
+    if (activeProduct) {
+      bg.style.opacity = '1';
+      bg.style.background = activeProduct.nebula;
+    } else {
+      bg.style.opacity = '0';
+    }
+  }, [activeProduct]);
 
-    useEffect(() => {
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+  return (
+    <div style={{ minHeight: '100vh', background: '#000', color: '#fff', position: 'relative' }}>
+      {/* Morphing ambient background */}
+      <div
+        ref={bgRef}
+        style={{
+          position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none',
+          transition: 'opacity 0.8s ease, background 1s ease',
+          opacity: 0,
+        }}
+      />
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
-            });
-        }, observerOptions);
+      {/* Static void nebula */}
+      <div className="nebula" aria-hidden>
+        <div className="nebula__orb nebula__orb--1" />
+        <div className="nebula__orb nebula__orb--3" />
+      </div>
+      <div className="noise" aria-hidden />
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        return () => observer.disconnect();
-    }, []);
+      <Navbar />
 
-    return (
-        <div style={{ background: 'var(--background)', color: 'var(--text)', minHeight: '100vh' }}>
-            <Navbar />
-
-            <section className="hero" style={{ minHeight: '60vh', paddingTop: '120px', paddingBottom: '60px', textAlign: 'center' }}>
-                <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                    <div className="badge float-anim" style={{ margin: '0 auto 16px' }}><span className="dot" />Ecosystem</div>
-                    <h1 style={{ fontSize: 'clamp(36px,6vw,72px)', lineHeight: '1.2' }}>The Rexycore<br /><span className="grad">Product Suite.</span></h1>
-                    <p style={{ fontSize: '1.2rem', opacity: 0.8, marginTop: '20px' }}>Explore our range of AI-first products designed for privacy, performance, and control.</p>
-                </div>
-            </section>
-
-            <section style={{ padding: '40px 5%' }}>
-                <div className="label reveal">Our Products</div>
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                    gap: '32px',
-                    marginTop: '40px',
-                    alignItems: 'stretch'
-                }}>
-                    {products.map((p, i) => (
-                        <div key={p.id} className={`reveal reveal-delay-${(i % 3) + 1}`}>
-                            <ProductCard product={p} onSelect={() => handleProductAction(p)} />
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            <Footer />
-            {showTiers && <TierModal onClose={() => setShowTiers(false)} />}
-            <ChatWidget />
+      {/* Hero */}
+      <section style={{
+        position: 'relative', zIndex: 10,
+        minHeight: '52vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
+        textAlign: 'center', padding: '140px 24px 80px',
+      }}>
+        <div style={{ maxWidth: 700 }}>
+          <div className="hero-eyebrow" style={{ margin: '0 auto 28px', display: 'inline-flex' }}>
+            <span className="pulse" />
+            Rexycore Ecosystem
+          </div>
+          <h1 style={{ fontSize: 'clamp(44px, 7vw, 84px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 1.05, marginBottom: 24 }}>
+            The Rexycore<br />
+            <span style={{ background: 'linear-gradient(135deg, #a78bfa, #f472b6, #60a5fa)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundSize: '200%', animation: 'grad-shift 5s ease infinite' }}>
+              Product Suite.
+            </span>
+          </h1>
+          <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.5)', lineHeight: 1.65, fontWeight: 400 }}>
+            Privacy-first, AI-powered products built for the way you live, work, and create — with no compromises.
+          </p>
         </div>
-    );
+      </section>
+
+      {/* Products Grid */}
+      <section style={{ position: 'relative', zIndex: 10, padding: '0 24px 120px', maxWidth: 1200, margin: '0 auto' }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+          gap: 24,
+        }}>
+          {PRODUCTS.map(product => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              isActive={activeProduct?.id === product.id}
+              onHover={setActiveProduct}
+              onLeave={() => setActiveProduct(null)}
+            />
+          ))}
+        </div>
+      </section>
+
+      <Footer />
+      <ChatWidget />
+    </div>
+  );
 }

@@ -1,430 +1,225 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
-import Link from 'next/link';
-import { FiDownload, FiTerminal, FiAlertCircle, FiCpu, FiShield, FiCheckCircle, FiMic, FiLayout, FiActivity, FiBox, FiArchive } from 'react-icons/fi';
-import { FaWindows } from 'react-icons/fa';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { FiEye, FiActivity, FiZap, FiTarget, FiCheckCircle } from 'react-icons/fi';
+import Image from 'next/image';
 
-// ── CUSTOM CSS ANIMATED COMPONENTS ────────────────────────────────────────
+/* ── BENTO CARD WITH CURSOR TRACKING ─────────────────────────── */
+function FeatureCard({ feature, index }) {
+  const ref = useRef(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 });
+  const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15 });
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['7deg', '-7deg']);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-7deg', '7deg']);
 
-// 🧠 Animated AI Core Component (Hero Section)
-function AnimatedCoreIcon() {
-    return (
-        <div className="css-core-container">
-            <div className="css-core-outer">
-                <div className="css-core-inner">
-                    <div className="css-core-pulse" />
-                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="css-core-svg">
-                        <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
-                        <line x1="12" y1="22" x2="12" y2="15.5" />
-                        <polyline points="22 8.5 12 15.5 2 8.5" />
-                        <polyline points="2 15.5 12 8.5 22 15.5" />
-                        <line x1="12" y1="2" x2="12" y2="8.5" />
-                    </svg>
-                    <div className="css-core-dots">
-                        <span className="dot-c" style={{ top: '-15px', left: '50%' }} />
-                        <span className="dot-c" style={{ bottom: '-15px', left: '50%' }} />
-                        <span className="dot-c" style={{ top: '50%', left: '-15px' }} />
-                        <span className="dot-c" style={{ top: '50%', right: '-15px' }} />
-                    </div>
-                </div>
-            </div>
-            
-            {/* Connecting Lines */}
-            <div className="css-line-horizontal" />
-            <div className="css-line-vertical" />
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    x.set((e.clientX - rect.left) / rect.width - 0.5);
+    y.set((e.clientY - rect.top) / rect.height - 0.5);
+    setMousePosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
 
-            <style jsx>{`
-                .css-core-container {
-                    width: 280px;
-                    height: 280px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    position: relative;
-                    margin-bottom: 20px;
-                }
-                .css-core-outer {
-                    width: 160px;
-                    height: 160px;
-                    border-radius: 50%;
-                    border: 1px dashed rgba(16, 185, 129, 0.4);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    position: relative;
-                    animation: spin-slow 20s linear infinite;
-                    z-index: 2;
-                    background: var(--surface);
-                }
-                .css-core-inner {
-                    width: 100px;
-                    height: 100px;
-                    border-radius: 50%;
-                    background: rgba(16, 185, 129, 0.1);
-                    border: 1px solid rgba(16, 185, 129, 0.3);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    position: relative;
-                    animation: spin-slow-reverse 15s linear infinite;
-                    box-shadow: 0 0 40px rgba(16, 185, 129, 0.2);
-                }
-                .css-core-pulse {
-                    position: absolute;
-                    inset: 0;
-                    border-radius: 50%;
-                    background: radial-gradient(circle at center, rgba(16, 185, 129, 0.4) 0%, transparent 70%);
-                    animation: core-pulse 3s infinite alternate;
-                }
-                .css-core-svg {
-                    position: relative;
-                    z-index: 3;
-                    animation: float-icon 4s ease-in-out infinite;
-                }
-                .css-core-dots .dot-c {
-                    position: absolute;
-                    width: 8px;
-                    height: 8px;
-                    background: #10B981;
-                    border-radius: 50%;
-                    box-shadow: 0 0 10px #10B981;
-                    transform: translate(-50%, -50%);
-                    animation: dot-pulse 2s infinite alternate;
-                }
-                .css-line-horizontal, .css-line-vertical {
-                    position: absolute;
-                    background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.5), transparent);
-                    z-index: 1;
-                }
-                .css-line-horizontal {
-                    width: 100%;
-                    height: 1px;
-                    left: 0;
-                    top: 50%;
-                }
-                .css-line-vertical {
-                    height: 100%;
-                    width: 1px;
-                    top: 0;
-                    left: 50%;
-                    background: linear-gradient(0deg, transparent, rgba(16, 185, 129, 0.5), transparent);
-                }
-                @keyframes spin-slow { 100% { transform: rotate(360deg); } }
-                @keyframes spin-slow-reverse { 100% { transform: rotate(-360deg); } }
-                @keyframes core-pulse { 0% { opacity: 0.5; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1.1); } }
-                @keyframes float-icon { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-                @keyframes dot-pulse { 0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.8); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); } }
-            `}</style>
+  const handleMouseLeave = () => { setIsHovered(false); x.set(0); y.set(0); };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove} onMouseEnter={() => setIsHovered(true)} onMouseLeave={handleMouseLeave}
+      initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      style={{ rotateX, rotateY, transformStyle: 'preserve-3d', perspective: '1000px' }}
+      className={`bento-cell bento-cell--${feature.size || 'narrow'}`}
+    >
+      <motion.div
+        animate={{ opacity: isHovered ? 1 : 0 }} transition={{ duration: 0.3 }}
+        style={{
+          position: 'absolute', top: mousePosition.y - 150, left: mousePosition.x - 150,
+          width: 300, height: 300,
+          background: `radial-gradient(circle, rgba(16,185,129,0.3) 0%, transparent 70%)`,
+          filter: 'blur(40px)', pointerEvents: 'none', zIndex: 0,
+        }}
+      />
+      <div style={{ position: 'relative', zIndex: 10, transform: 'translateZ(30px)' }}>
+        <div style={{
+          width: 44, height: 44, borderRadius: 12,
+          display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20, marginBottom: 24,
+          background: 'rgba(16,185,129,0.15)', color: '#34d399'
+        }}>
+          {feature.icon}
         </div>
-    );
+        <h3 className="bento-title">{feature.title}</h3>
+        <p className="bento-desc">{feature.desc}</p>
+      </div>
+    </motion.div>
+  );
 }
 
-// 👁️ Context Awareness Icon
-function AnimatedEyeIcon() {
-    return (
-        <div className="animated-icon-box">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="eye-svg">
-                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                <circle cx="12" cy="12" r="3" className="eye-pupil" />
-            </svg>
-            <style jsx>{`
-                .animated-icon-box { display: inline-block; }
-                .eye-svg { animation: eye-float 4s ease-in-out infinite; }
-                .eye-pupil { animation: pupil-move 6s infinite; }
-                @keyframes eye-float {
-                    0%, 100% { transform: translateY(0); }
-                    50% { transform: translateY(-4px); }
-                }
-                @keyframes pupil-move {
-                    0%, 10% { transform: translate(0, 0); }
-                    20%, 30% { transform: translate(-2px, 0); }
-                    40%, 50% { transform: translate(2px, 0); }
-                    60%, 100% { transform: translate(0, 0); }
-                }
-            `}</style>
+const FEATURES = [
+  { size: 'wide', icon: <FiEye />, title: 'Context-Aware Observation', desc: 'MALUS visually processes your screen context securely on-device, understanding exactly what you are looking at to provide relevant, immediate assistance without you needing to explain everything.' },
+  { size: 'narrow', icon: <FiActivity />, title: 'Workflow Integration', desc: 'Adapts to how you work, acting as an intelligent co-pilot for coding, designing, or researching.' },
+  { size: 'half', icon: <FiZap />, title: 'Zero Latency Mode', desc: 'Because it runs locally, MALUS responds instantly to on-screen events without round-tripping to a server.' },
+  { size: 'half', icon: <FiTarget />, title: 'Permission First', desc: 'MALUS cannot run, observe, or execute anything without explicit user consent. You hold the keys.' },
+];
+
+export default function MalusPage() {
+  return (
+    <div style={{ minHeight: '100vh', background: '#000', color: '#fff', position: 'relative' }}>
+      
+      {/* Product Specific Ambient Background */}
+      <div
+        style={{
+          position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none',
+          background: 'radial-gradient(circle at 25% 50%, rgba(16,185,129,0.2) 0%, transparent 55%), radial-gradient(circle at 75% 35%, rgba(5,150,105,0.15) 0%, transparent 50%)',
+        }}
+      />
+      <div className="noise" aria-hidden />
+
+      <Navbar />
+
+      {/* ── HERO ──────────────────────────── */}
+      <section style={{
+        position: 'relative', zIndex: 10,
+        minHeight: '90vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        textAlign: 'center', padding: '140px 24px 80px',
+      }}>
+        <motion.div 
+          initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="hero-eyebrow"
+          style={{ background: 'rgba(16,185,129,0.12)', borderColor: 'rgba(16,185,129,0.3)', color: '#6ee7b7' }}
+        >
+          <span className="pulse" style={{ background: '#10b981', boxShadow: '0 0 6px #10b981' }} />
+          Available for Windows
+        </motion.div>
+
+        <motion.h1 
+          initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          style={{ fontSize: 'clamp(52px, 8.5vw, 130px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.95, marginBottom: 20 }}
+        >
+          <span style={{ color: 'rgba(255,255,255,0.2)' }}>Meet</span> MALUS
+        </motion.h1>
+        
+        <motion.h2
+          initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28,
+            background: 'linear-gradient(135deg, #10b981, #059669)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'
+          }}
+        >
+          Ambient intelligence for your desktop.
+        </motion.h2>
+
+        <motion.p 
+          initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, marginBottom: 48 }}
+        >
+          A context-aware AI operating companion that understands your computer, adapts to your workflow, and naturally helps you while respecting your privacy.
+        </motion.p>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="hero-actions"
+        >
+          <a href="#download" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16 }}>
+            Download MALUS
+          </a>
+          <a href="#deepdive" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
+            Learn More
+          </a>
+        </motion.div>
+      </section>
+
+      <hr className="divider" />
+
+      {/* ── LEARN MORE (DEEP DIVE) ─────────────────── */}
+      <section id="deepdive" className="section layer" style={{ paddingBottom: 60 }}>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+          style={{ 
+            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', 
+            borderRadius: 32, padding: '80px 5%', marginBottom: 60, display: 'flex', flexWrap: 'wrap', gap: 40, alignItems: 'center'
+          }}
+        >
+          <div style={{ flex: '1 1 400px' }}>
+            <h3 style={{ fontSize: '40px', fontWeight: 800, marginBottom: 20, letterSpacing: '-1px' }}>Sees what you see.<br/>Knows what you mean.</h3>
+            <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 18, lineHeight: 1.7, marginBottom: 24 }}>
+              Instead of switching context to ask a question, MALUS observes your screen in real-time. If you are stuck on a piece of code or reading a complex document, just ask "What does this mean?" and it already knows.
+            </p>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#34d399" /> Real-time screen processing</li>
+              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#34d399" /> Independent from RK AI Desktop</li>
+            </ul>
+          </div>
+          <div style={{ flex: '1 1 400px', display: 'flex', justifyContent: 'center' }}>
+            <Image src="/malus.jpeg" width={300} height={300} alt="MALUS" style={{ borderRadius: 32, filter: 'drop-shadow(0 0 40px rgba(16,185,129,0.3))' }} />
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── FEATURES BENTO ─────────────────── */}
+      <section className="section layer" style={{ paddingBottom: 60, paddingTop: 0 }}>
+        <motion.p 
+          initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="section-label" style={{ color: '#34d399' }}
+        >
+          Capabilities
+        </motion.p>
+        <motion.h2 
+          initial={{ opacity: 0, y: 20, filter: 'blur(8px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.1 }}
+          className="section-heading"
+        >
+          Companion <br />Intelligence.
+        </motion.h2>
+
+        <div className="bento">
+          {FEATURES.map((feature, index) => (
+            <FeatureCard key={feature.title} feature={feature} index={index} />
+          ))}
         </div>
-    );
-}
+      </section>
 
-// ⚡ Workflow Intelligence Icon
-function AnimatedZapIcon() {
-    return (
-        <div className="animated-icon-box">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="zap-svg">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-            </svg>
-            <style jsx>{`
-                .zap-svg { animation: zap-flicker 2s infinite ease-in-out; filter: drop-shadow(0 0 4px rgba(16, 185, 129, 0.5)); }
-                @keyframes zap-flicker {
-                    0%, 100% { opacity: 1; transform: scale(1); }
-                    45%, 55% { opacity: 0.8; }
-                    50% { opacity: 1; transform: scale(1.1); }
-                }
-            `}</style>
+      {/* ── DOWNLOAD ─────────────────── */}
+      <section id="download" className="section layer" style={{ paddingTop: 60 }}>
+        <div style={{ background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: 32, padding: '80px 40px', textAlign: 'center' }}>
+          <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Start Your Companion.</h2>
+          <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 48, fontSize: 18, maxWidth: 600, margin: '0 auto 48px' }}>
+            MALUS is currently available exclusively for Windows 10/11. macOS and Linux support coming later this year.
+          </p>
+          
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <a href="/downloads/malus-windows.exe" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '24px 48px', fontSize: 20, borderRadius: 99, display: 'flex', alignItems: 'center', gap: 12 }}>
+              <FiDownload size={24} /> Download for Windows
+            </a>
+          </div>
         </div>
-    );
-}
+      </section>
 
-// 🛡️ Privacy Icon (Emerald)
-function AnimatedEmeraldShieldIcon() {
-    return (
-        <div className="animated-icon-box">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shield-svg">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-            <style jsx>{`
-                .shield-svg { animation: shield-rotate 4s infinite ease-in-out; }
-                @keyframes shield-rotate {
-                    0%, 100% { transform: rotateY(0deg); }
-                    50% { transform: rotateY(20deg); }
-                }
-            `}</style>
-        </div>
-    );
-}
-
-// 💬 Smart Conversations Icon
-function AnimatedChatIcon() {
-    return (
-        <div className="animated-icon-box">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="chat-svg">
-                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                <line x1="9" y1="10" x2="15" y2="10" className="c-line l1" />
-                <line x1="9" y1="14" x2="13" y2="14" className="c-line l2" />
-            </svg>
-            <style jsx>{`
-                .chat-svg { animation: chat-bounce 3s infinite ease-in-out; }
-                .c-line { stroke-dasharray: 10; stroke-dashoffset: 10; }
-                .l1 { animation: type-line 2s infinite steps(10); }
-                .l2 { animation: type-line 2s infinite steps(10) 0.5s; }
-                @keyframes chat-bounce {
-                    0%, 100% { transform: translateY(0); }
-                    50% { transform: translateY(-4px); }
-                }
-                @keyframes type-line {
-                    0%, 20% { stroke-dashoffset: 10; }
-                    80%, 100% { stroke-dashoffset: 0; }
-                }
-            `}</style>
-        </div>
-    );
-}
-
-export default function MalusProductPage() {
-    const startDownload = () => {
-        alert("MALUS Windows release is coming soon. Join the waitlist!");
-    };
-
-    return (
-        <div style={{ background: 'var(--background)', minHeight: '100vh', color: 'var(--text)' }}>
-            <Navbar />
-
-            {/* SVG Gradients definitions */}
-            <svg style={{ position: 'absolute', width: 0, height: 0 }} aria-hidden="true">
-                <defs>
-                    <linearGradient id="emerald-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#34D399" />
-                        <stop offset="100%" stopColor="#059669" />
-                    </linearGradient>
-                </defs>
-            </svg>
-
-            {/* PRODUCT HERO */}
-            <section className="hero" style={{ minHeight: '80vh', padding: '140px 5% 80px', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-                <div style={{ maxWidth: '1000px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', zIndex: 2 }}>
-                    
-                    <div className="badge float-anim" style={{ marginBottom: '24px' }}>
-                        <span className="dot" style={{ background: '#10B981' }} /> In Development
-                    </div>
-                    
-                    <h1 style={{ 
-                        fontSize: 'clamp(48px, 8vw, 92px)', 
-                        fontWeight: '900', 
-                        lineHeight: '1.1', 
-                        letterSpacing: '-2px',
-                        marginBottom: '24px',
-                        animation: 'fade-up 1s ease-out'
-                    }}>
-                        Meet <span className="grad-malus">MALUS</span>
-                    </h1>
-                    
-                    <p style={{ 
-                        fontSize: 'clamp(18px, 2.5vw, 24px)', 
-                        color: '#10B981', 
-                        fontWeight: '600',
-                        marginBottom: '16px',
-                        letterSpacing: '1px',
-                        textTransform: 'uppercase',
-                        animation: 'fade-up 1.2s ease-out'
-                    }}>
-                        Your AI Operating Companion.
-                    </p>
-
-                    <p style={{ 
-                        fontSize: 'clamp(16px, 1.8vw, 20px)', 
-                        color: 'var(--muted)', 
-                        maxWidth: '800px', 
-                        lineHeight: '1.7',
-                        marginBottom: '40px',
-                        animation: 'fade-up 1.4s ease-out'
-                    }}>
-                        Your computer already knows what's happening. Now it has an intelligence that understands it.
-                        Malus observes your workflow with your permission, and naturally offers help when it matters.
-                        It doesn't wait for commands—it understands context.
-                    </p>
-
-                    <div style={{ 
-                        display: 'flex', 
-                        flexWrap: 'wrap', 
-                        gap: '16px', 
-                        justifyContent: 'center',
-                        animation: 'fade-up 1.6s ease-out'
-                    }}>
-                        <button onClick={startDownload} style={{
-                            padding: '16px 32px', display: 'flex', alignItems: 'center', gap: '10px',
-                            background: 'linear-gradient(135deg, #10B981, #059669)',
-                            border: 'none', borderRadius: '50px', color: '#fff', fontSize: '18px', fontWeight: '700',
-                            cursor: 'pointer', boxShadow: '0 10px 30px rgba(16, 185, 129, 0.3)',
-                            transition: 'all 0.3s ease'
-                        }}
-                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px) scale(1.02)'; e.currentTarget.style.boxShadow = '0 15px 40px rgba(16, 185, 129, 0.5)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 30px rgba(16, 185, 129, 0.3)'; }}
-                        >
-                            <FaWindows size={20} />
-                            Download for Windows
-                        </button>
-                    </div>
-
-                    {/* PRODUCT IMAGE PLACEHOLDER (Animated Core) */}
-                    <div style={{ 
-                        marginTop: '80px', 
-                        width: '100%', 
-                        maxWidth: '900px', 
-                        aspectRatio: '16/9',
-                        background: 'var(--surface)',
-                        border: '1px solid var(--border)',
-                        borderRadius: '32px',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        boxShadow: '0 40px 100px rgba(0,0,0,0.5), inset 0 0 80px rgba(16, 185, 129, 0.05)',
-                        position: 'relative',
-                        overflow: 'hidden',
-                        animation: 'scale-up 1.5s cubic-bezier(0.16, 1, 0.3, 1)'
-                    }}>
-                        <AnimatedCoreIcon />
-                        <div style={{
-                            position: 'absolute', inset: 0,
-                            background: 'radial-gradient(circle at center, rgba(16, 185, 129, 0.08), transparent 70%)',
-                            pointerEvents: 'none'
-                        }} />
-                    </div>
-                </div>
-            </section>
-
-            {/* FEATURES SECTION */}
-            <section style={{ padding: '100px 5%', maxWidth: '1200px', margin: '0 auto' }}>
-                <div style={{ textAlign: 'center', marginBottom: '80px' }} className="reveal">
-                    <div className="label">Beyond an Assistant</div>
-                    <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800' }}>An Extension of You.</h2>
-                </div>
-
-                <div style={{
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-                    gap: '40px'
-                }}>
-                    {[
-                        { icon: <AnimatedEyeIcon />, title: 'Context Awareness', desc: 'Understands what application you\'re using and what you\'re trying to accomplish.' },
-                        { icon: <AnimatedZapIcon />, title: 'Workflow Intelligence', desc: 'Learns your workflow and offers timely suggestions without interrupting your flow.' },
-                        { icon: <AnimatedEmeraldShieldIcon />, title: 'Privacy by Design', desc: 'Nothing is observed without user permission. Privacy is a core principle—not an afterthought.' },
-                        { icon: <FiCpu size={40} color="#10B981" />, title: 'Local AI First', desc: 'Runs with local language models whenever possible for privacy and speed.' },
-                        { icon: <FiActivity size={40} color="#10B981" />, title: 'Resource Aware', desc: 'Continuously monitors RAM, CPU, GPU, and system health before deciding which AI model to use.' },
-                        { icon: <AnimatedChatIcon />, title: 'Smart Conversations', desc: 'Talks like a teammate instead of a robotic assistant. Supports, jokes, warns, and explains naturally.' },
-                    ].map((f, i) => (
-                        <div key={f.title} className={`feature-card reveal reveal-scale reveal-delay-${(i % 3) + 1}`} style={{
-                            background: 'var(--surface)', 
-                            padding: '40px', 
-                            borderRadius: '24px',
-                            border: '1px solid var(--border)',
-                            transition: 'all 0.3s ease'
-                        }}>
-                            <div style={{ height: '48px', marginBottom: '24px', display: 'flex', alignItems: 'center' }}>{f.icon}</div>
-                            <h3 style={{ fontSize: '22px', fontWeight: '800', marginBottom: '16px' }}>{f.title}</h3>
-                            <p style={{ color: 'var(--muted)', fontSize: '16px', lineHeight: '1.7' }}>{f.desc}</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* REXYCORE ECOSYSTEM FLOW */}
-            <section style={{ padding: '100px 5%', maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }} className="reveal">
-                <div className="label">Architecture</div>
-                <h2 style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '800', marginBottom: '40px' }}>The Context Engine</h2>
-                <p style={{ color: 'var(--muted)', fontSize: '18px', lineHeight: '1.7', marginBottom: '60px', maxWidth: '700px', margin: '0 auto 60px' }}>
-                    Malus acts as a context engine that securely understands what's happening on your system in real-time, feeding that awareness into its intelligence layer.
-                </p>
-
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
-                    
-                    <div style={{ width: '100%', maxWidth: '600px', padding: '40px', borderRadius: '24px', background: 'rgba(16, 185, 129, 0.05)', border: '1px solid #10B981', textAlign: 'center' }} className="reveal reveal-delay-1">
-                        <h3 style={{ fontSize: '28px', color: '#10B981', marginBottom: '8px', fontWeight: '800' }}>MALUS</h3>
-                        <p style={{ color: '#34D399', fontWeight: '600', marginBottom: '16px' }}>AI Operating Companion</p>
-                        <p style={{ color: 'var(--muted)', lineHeight: '1.6' }}>Observes context, understands workflows, and provides intelligent awareness.</p>
-                    </div>
-
-                    <div style={{ height: '40px', width: '2px', background: 'linear-gradient(to bottom, #10B981, var(--border))' }} className="reveal reveal-delay-2" />
-
-                    <div style={{ width: '100%', maxWidth: '600px', padding: '40px', borderRadius: '24px', background: 'var(--surface)', border: '1px solid var(--border)', textAlign: 'center' }} className="reveal reveal-delay-3">
-                        <h3 style={{ fontSize: '28px', color: '#fff', marginBottom: '8px', fontWeight: '800' }}>RK AI</h3>
-                        <p style={{ color: 'var(--blue)', fontWeight: '600', marginBottom: '16px' }}>AI Assistant</p>
-                        <p style={{ color: 'var(--muted)', lineHeight: '1.6' }}>Executes tasks, performs reasoning, automation, generation, and tool usage.</p>
-                    </div>
-                    
-                </div>
-                
-                <p style={{ textAlign: 'center', marginTop: '60px', color: 'var(--muted)', fontStyle: 'italic', fontSize: '16px' }}>
-                    "MALUS and RK AI are independent products that become even more powerful when used together."
-                </p>
-            </section>
-
-            {/* BOTTOM CTA */}
-            <section style={{
-                position: 'relative', overflow: 'hidden',
-                padding: '160px 5%', textAlign: 'center',
-                background: 'linear-gradient(160deg, rgba(16,185,129,0.05) 0%, rgba(0,0,0,0) 60%, rgba(5,150,105,0.03) 100%)',
-                borderTop: '1px solid rgba(16,185,129,0.12)'
-            }}>
-                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', width: '700px', height: '700px', background: 'radial-gradient(circle, rgba(16,185,129,0.07) 0%, transparent 65%)', pointerEvents: 'none' }} />
-                <div style={{ position: 'relative', zIndex: 1, maxWidth: '800px', margin: '0 auto' }}>
-                    <h2 className="reveal" style={{ fontSize: 'clamp(32px, 4vw, 56px)', fontWeight: '900', lineHeight: '1.1', letterSpacing: '-1px', marginBottom: '20px' }}>
-                        The smartest computer isn't the fastest one.<br />
-                        <span className="grad-malus">It's the one that understands you.</span>
-                    </h2>
-                    <p className="reveal reveal-delay-1" style={{ color: 'var(--muted)', fontSize: '19px', lineHeight: '1.7', marginBottom: '52px' }}>
-                        Join the waitlist for MALUS and be the first to experience true context-aware AI.
-                    </p>
-                    <Link href="/notify?product=malus" style={{
-                        display: 'inline-flex', alignItems: 'center', gap: '10px',
-                        padding: '20px 56px', fontSize: '17px', borderRadius: '50px',
-                        background: 'linear-gradient(135deg, #10B981, #059669)',
-                        color: '#fff', fontWeight: '800', textDecoration: 'none',
-                        boxShadow: '0 10px 40px rgba(16,185,129,0.4)', transition: 'all 0.3s ease'
-                    }}
-                        onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-3px) scale(1.04)'; e.currentTarget.style.boxShadow = '0 20px 60px rgba(16,185,129,0.6)'; }}
-                        onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '0 10px 40px rgba(16,185,129,0.4)'; }}
-                    >
-                        Notify Me →
-                    </Link>
-                </div>
-            </section>
-
-            <Footer />
-            <ChatWidget />
-        </div>
-    );
+      <Footer />
+      <ChatWidget />
+    </div>
+  );
 }
