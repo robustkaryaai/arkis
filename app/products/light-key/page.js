@@ -4,7 +4,8 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { FiEdit3, FiCpu, FiMessageSquare, FiSettings, FiCheckCircle } from 'react-icons/fi';
+import { FiEdit3, FiCpu, FiMessageSquare, FiSettings } from 'react-icons/fi';
+import Link from 'next/link';
 
 /* ── BENTO CARD WITH CURSOR TRACKING ─────────────────────────── */
 function FeatureCard({ feature, index }) {
@@ -140,48 +141,13 @@ export default function LightKeyPage() {
           <a href="#beta" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16 }}>
             Join Beta Waitlist
           </a>
-          <a href="#deepdive" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
+          <Link href="/products/light-key/learn-more" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
             Learn More
-          </a>
+          </Link>
         </motion.div>
       </section>
 
       <hr className="divider" />
-
-      {/* ── LEARN MORE (DEEP DIVE) ─────────────────── */}
-      <section id="deepdive" className="section layer" style={{ paddingBottom: 60 }}>
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ 
-            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', 
-            borderRadius: 32, padding: '80px 5%', marginBottom: 60, display: 'flex', flexWrap: 'wrap', gap: 40, alignItems: 'center'
-          }}
-        >
-          <div style={{ flex: '1 1 400px' }}>
-            <h3 style={{ fontSize: '40px', fontWeight: 800, marginBottom: 20, letterSpacing: '-1px' }}>Your keyboard,<br/>supercharged.</h3>
-            <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 18, lineHeight: 1.7, marginBottom: 24 }}>
-              Light Key replaces your standard system input method with a highly optimized, AI-driven layer. Press Tab to complete full thoughts, or use a quick shortcut to ask the AI to rewrite your current paragraph.
-            </p>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#f59e0b" /> Works in every app (Word, Chrome, VSCode)</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#f59e0b" /> Multi-language translation on the fly</li>
-            </ul>
-          </div>
-          <div style={{ flex: '1 1 400px', background: '#0a0a0f', borderRadius: 24, padding: 32, border: '1px solid rgba(245,158,11,0.2)', boxShadow: '0 20px 60px rgba(0,0,0,0.5), inset 0 0 20px rgba(245,158,11,0.05)' }}>
-            <div style={{ fontFamily: 'Inter', fontSize: 18, lineHeight: 1.6, color: '#fff' }}>
-              Dear team, <br/><br/>
-              I wanted to follow up on our meeting from yesterday.
-              <span style={{ color: 'rgba(245,158,11,0.6)', fontStyle: 'italic', background: 'rgba(245,158,11,0.1)', padding: '0 4px', borderRadius: 4, marginLeft: 4 }}>
-                I have reviewed the proposal and everything looks good to proceed with Phase 1.
-              </span>
-              <span className="typewriter-cursor" style={{ background: '#f59e0b', width: 8, height: 18, marginLeft: 4 }} />
-            </div>
-            <div style={{ marginTop: 24, display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.1)', padding: '6px 12px', borderRadius: 8, fontSize: 12, color: 'rgba(255,255,255,0.6)', fontWeight: 600 }}>
-              <span style={{ background: 'rgba(255,255,255,0.2)', padding: '2px 6px', borderRadius: 4, color: '#fff' }}>Tab</span> to accept
-            </div>
-          </div>
-        </motion.div>
-      </section>
 
       {/* ── FEATURES BENTO ─────────────────── */}
       <section className="section layer" style={{ paddingBottom: 60, paddingTop: 0 }}>

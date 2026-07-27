@@ -6,6 +6,7 @@ import ChatWidget from '@/components/ChatWidget';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FiLock, FiCpu, FiLayers, FiShield, FiCheckCircle, FiArrowRight } from 'react-icons/fi';
 import Image from 'next/image';
+import Link from 'next/link';
 
 /* ── BENTO CARD WITH CURSOR TRACKING ─────────────────────────── */
 function FeatureCard({ feature, index }) {
@@ -141,61 +142,13 @@ export default function LuminaOSPage() {
           <a href="#alpha" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16 }}>
             Join Alpha Waitlist
           </a>
-          <a href="#deepdive" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
+          <Link href="/products/lumina-os/learn-more" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
             Learn More
-          </a>
+          </Link>
         </motion.div>
       </section>
 
       <hr className="divider" />
-
-      {/* ── LEARN MORE (DEEP DIVE) ─────────────────── */}
-      <section id="deepdive" className="section layer" style={{ paddingBottom: 60 }}>
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ 
-            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', 
-            borderRadius: 32, padding: '80px 5%', marginBottom: 60, display: 'flex', flexWrap: 'wrap', gap: 40, alignItems: 'center'
-          }}
-        >
-          <div style={{ flex: '1 1 400px' }}>
-            <h3 style={{ fontSize: '40px', fontWeight: 800, marginBottom: 20, letterSpacing: '-1px' }}>Built on Linux.<br/>Made for Humans.</h3>
-            <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 18, lineHeight: 1.7, marginBottom: 24 }}>
-              Lumina OS takes the rock-solid stability of Linux and wraps it in a breathtaking custom desktop environment. We removed the complexity of the terminal while maintaining the freedom of open source.
-            </p>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#a855f7" /> Custom Window Manager</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#a855f7" /> Wayland Native</li>
-            </ul>
-          </div>
-          <div style={{ flex: '1 1 400px', display: 'flex', justifyContent: 'center' }}>
-            <Image src="/luminaos.png" width={300} height={300} alt="Lumina OS" style={{ filter: 'drop-shadow(0 0 40px rgba(168,85,247,0.4))' }} />
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ── THE LUMINA OS JOURNEY ─────────────────── */}
-      <section className="section layer" style={{ paddingBottom: 60, paddingTop: 0 }}>
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ 
-            background: 'rgba(168,85,247,0.05)', border: '1px solid rgba(168,85,247,0.2)', 
-            borderRadius: 32, padding: '80px 5%', marginBottom: 60, display: 'flex', flexWrap: 'wrap', gap: 40, alignItems: 'center'
-          }}
-        >
-          <div style={{ flex: '1 1 100%' }}>
-            <h3 style={{ fontSize: '36px', fontWeight: 800, marginBottom: 20, letterSpacing: '-1px', color: '#c084fc' }}>The Lumina OS Journey</h3>
-            <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: 18, lineHeight: 1.7, marginBottom: 32 }}>
-              Building an operating system from scratch is no small feat. The Lumina OS journey started with a simple question: What if the OS itself was aware, but entirely under your control? Over the past 14 months, our engineering team in India has built a bespoke display server, integrated raw LLM inference directly into the system scheduler, and designed a user interface that feels organic, not mechanical. 
-              <br/><br/>
-              We are currently in a highly restricted Alpha phase, stabilizing the kernel and ensuring our strict zero-telemetry protocols hold up under load.
-            </p>
-            <a href="https://luminaos.vercel.app" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#a855f7', fontWeight: 700, textDecoration: 'none' }}>
-              View the Web Preview <FiArrowRight />
-            </a>
-          </div>
-        </motion.div>
-      </section>
 
       {/* ── FEATURES BENTO ─────────────────── */}
       <section className="section layer" style={{ paddingBottom: 60, paddingTop: 0 }}>

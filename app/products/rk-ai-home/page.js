@@ -6,6 +6,7 @@ import ChatWidget from '@/components/ChatWidget';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FiHome, FiWifiOff, FiCpu, FiSettings, FiShoppingCart, FiCheckCircle } from 'react-icons/fi';
 import Image from 'next/image';
+import Link from 'next/link';
 
 /* ── BENTO CARD WITH CURSOR TRACKING ─────────────────────────── */
 function FeatureCard({ feature, index }) {
@@ -138,45 +139,16 @@ export default function RkAiHome() {
           transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="hero-actions"
         >
-          <a href="#preorder" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16 }}>
+          <Link href="#preorder" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16 }}>
             <FiShoppingCart /> Pre-order Now
-          </a>
-          <a href="#deepdive" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
+          </Link>
+          <Link href="/products/rk-ai-home/learn-more" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
             Learn More
-          </a>
+          </Link>
         </motion.div>
       </section>
 
       <hr className="divider" />
-
-      {/* ── LEARN MORE (DEEP DIVE) ─────────────────── */}
-      <section id="deepdive" className="section layer" style={{ paddingBottom: 60 }}>
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ 
-            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', 
-            borderRadius: 32, padding: '80px 5%', marginBottom: 60, display: 'flex', flexWrap: 'wrap', gap: 40, alignItems: 'center'
-          }}
-        >
-          <div style={{ flex: '1 1 400px' }}>
-            <div style={{ position: 'relative', width: '100%', height: 300, borderRadius: 24, overflow: 'hidden', boxShadow: '0 20px 60px rgba(236,72,153,0.3)' }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)', zIndex: 1 }} />
-              <img src="/rk-ai-home-images/feature.jpg" alt="RK AI Home" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-          </div>
-          <div style={{ flex: '1 1 400px' }}>
-            <h3 style={{ fontSize: '40px', fontWeight: 800, marginBottom: 20, letterSpacing: '-1px' }}>Hardware<br/>Meets Intelligence.</h3>
-            <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 18, lineHeight: 1.7, marginBottom: 24 }}>
-              The RK AI Home client is a sleek, unobtrusive hardware node that connects your physical environment to the Rexycore ecosystem. Powered by a highly optimized Raspberry Pi Zero W architecture.
-            </p>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#ec4899" /> Matter / Tuya / Thread Integration</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#ec4899" /> Edge-processed voice recognition</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#ec4899" /> Seamless sync with RK AI Desktop</li>
-            </ul>
-          </div>
-        </motion.div>
-      </section>
 
       {/* ── FEATURES BENTO ─────────────────── */}
       <section className="section layer" style={{ paddingBottom: 60, paddingTop: 0 }}>

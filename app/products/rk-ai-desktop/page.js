@@ -6,6 +6,7 @@ import ChatWidget from '@/components/ChatWidget';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FiDownload, FiTerminal, FiShield, FiMic, FiLayout, FiCpu, FiBox, FiCheckCircle } from 'react-icons/fi';
 import { FaApple, FaWindows, FaLinux } from 'react-icons/fa';
+import Link from 'next/link';
 
 /* ── BENTO CARD WITH CURSOR TRACKING ─────────────────────────── */
 function FeatureCard({ feature, index }) {
@@ -141,51 +142,13 @@ export default function RkAiDesktop() {
           <a href="#download" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16 }}>
             <FiDownload /> Download RK AI
           </a>
-          <a href="#deepdive" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
+          <Link href="/products/rk-ai-desktop/learn-more" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
             Learn More
-          </a>
+          </Link>
         </motion.div>
       </section>
 
       <hr className="divider" />
-
-      {/* ── LEARN MORE (DEEP DIVE) ─────────────────── */}
-      <section id="deepdive" className="section layer" style={{ paddingBottom: 60 }}>
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ 
-            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', 
-            borderRadius: 32, padding: '80px 5%', marginBottom: 60, display: 'flex', flexWrap: 'wrap', gap: 40, alignItems: 'center'
-          }}
-        >
-          <div style={{ flex: '1 1 400px' }}>
-            <h3 style={{ fontSize: '40px', fontWeight: 800, marginBottom: 20, letterSpacing: '-1px' }}>Local LLMs.<br/>Unlimited Freedom.</h3>
-            <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 18, lineHeight: 1.7, marginBottom: 24 }}>
-              Using the integrated <strong>Spark Engine</strong> (powered by Ollama), RK AI pulls down massive language models directly to your hardware. No internet required. No subscriptions. No data harvesting.
-            </p>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#60a5fa" /> Fully uncensored local execution</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#60a5fa" /> Direct file system access</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#60a5fa" /> Free, unlimited token generation</li>
-            </ul>
-          </div>
-          <div style={{ flex: '1 1 400px', background: '#0a0a0f', borderRadius: 24, padding: 32, border: '1px solid rgba(59,130,246,0.2)', boxShadow: '0 20px 60px rgba(0,0,0,0.5), inset 0 0 20px rgba(59,130,246,0.05)' }}>
-            <div style={{ display: 'flex', gap: 8, marginBottom: 20 }}>
-              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ff5f56' }} />
-              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ffbd2e' }} />
-              <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#27c93f' }} />
-            </div>
-            <div style={{ fontFamily: 'monospace', color: '#94a3b8', fontSize: 14, lineHeight: 1.8 }}>
-              <span style={{ color: '#60a5fa' }}>rexycore</span>@local:~$ <span style={{ color: '#fff' }}>start spark-engine</span><br/>
-              <span style={{ color: '#a78bfa' }}>[INFO]</span> Initializing local models...<br/>
-              <span style={{ color: '#a78bfa' }}>[INFO]</span> Llama 3 loaded into memory (8.2GB).<br/>
-              <span style={{ color: '#a78bfa' }}>[INFO]</span> Hardware acceleration: <span style={{ color: '#4ade80' }}>ACTIVE (Metal/CUDA)</span><br/>
-              <span style={{ color: '#60a5fa' }}>rexycore</span>@local:~$ <span style={{ color: '#fff' }}>AI is ready.</span><br/>
-              <span className="typewriter-cursor" style={{ background: '#fff', width: 8, height: 16 }} />
-            </div>
-          </div>
-        </motion.div>
-      </section>
 
       {/* ── FEATURES BENTO ─────────────────── */}
       <section className="section layer" style={{ paddingBottom: 60, paddingTop: 0 }}>

@@ -4,8 +4,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { FiEye, FiActivity, FiZap, FiTarget, FiCheckCircle } from 'react-icons/fi';
+import { FiDownload, FiEye, FiActivity, FiZap, FiTarget, FiCheckCircle } from 'react-icons/fi';
 import Image from 'next/image';
+import Link from 'next/link';
 
 /* ── BENTO CARD WITH CURSOR TRACKING ─────────────────────────── */
 function FeatureCard({ feature, index }) {
@@ -141,38 +142,13 @@ export default function MalusPage() {
           <a href="#download" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16 }}>
             Download MALUS
           </a>
-          <a href="#deepdive" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
+          <Link href="/products/malus/learn-more" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16 }}>
             Learn More
-          </a>
+          </Link>
         </motion.div>
       </section>
 
       <hr className="divider" />
-
-      {/* ── LEARN MORE (DEEP DIVE) ─────────────────── */}
-      <section id="deepdive" className="section layer" style={{ paddingBottom: 60 }}>
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          style={{ 
-            background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', 
-            borderRadius: 32, padding: '80px 5%', marginBottom: 60, display: 'flex', flexWrap: 'wrap', gap: 40, alignItems: 'center'
-          }}
-        >
-          <div style={{ flex: '1 1 400px' }}>
-            <h3 style={{ fontSize: '40px', fontWeight: 800, marginBottom: 20, letterSpacing: '-1px' }}>Sees what you see.<br/>Knows what you mean.</h3>
-            <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 18, lineHeight: 1.7, marginBottom: 24 }}>
-              Instead of switching context to ask a question, MALUS observes your screen in real-time. If you are stuck on a piece of code or reading a complex document, just ask "What does this mean?" and it already knows.
-            </p>
-            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#34d399" /> Real-time screen processing</li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: 12, color: 'rgba(255,255,255,0.8)' }}><FiCheckCircle color="#34d399" /> Independent from RK AI Desktop</li>
-            </ul>
-          </div>
-          <div style={{ flex: '1 1 400px', display: 'flex', justifyContent: 'center' }}>
-            <Image src="/malus.jpeg" width={300} height={300} alt="MALUS" style={{ borderRadius: 32, filter: 'drop-shadow(0 0 40px rgba(16,185,129,0.3))' }} />
-          </div>
-        </motion.div>
-      </section>
 
       {/* ── FEATURES BENTO ─────────────────── */}
       <section className="section layer" style={{ paddingBottom: 60, paddingTop: 0 }}>

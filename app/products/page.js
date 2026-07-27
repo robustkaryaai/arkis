@@ -227,7 +227,15 @@ function ProductCard({ product, isActive, onHover, onLeave }) {
           <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '2px', textTransform: 'uppercase', color: product.accent, marginBottom: 6 }}>
             {product.category}
           </div>
-          <h3 style={{ fontSize: 22, fontWeight: 800, letterSpacing: '-0.5px', marginBottom: 4 }}>{product.name}</h3>
+          <h3 style={{
+            fontSize: 22, fontWeight: 900, letterSpacing: '-0.5px', marginBottom: 4,
+            background: `linear-gradient(90deg, ${product.accent} 0%, #fff 25%, ${product.accentB} 50%, #fff 75%, ${product.accent} 100%)`,
+            backgroundSize: '200% auto',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            animation: 'logo-flow 5s ease-in-out infinite alternate'
+          }}>{product.name}</h3>
           <p style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.4)', marginBottom: 8, fontStyle: 'italic' }}>{product.tagline}</p>
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65 }}>{product.desc}</p>
         </div>
@@ -243,7 +251,7 @@ function ProductCard({ product, isActive, onHover, onLeave }) {
           ))}
         </div>
 
-        <div style={{ marginTop: 'auto', paddingTop: 8 }}>
+        <div style={{ marginTop: 'auto', paddingTop: 8, display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <Link
             href={product.href}
             style={{
@@ -264,6 +272,28 @@ function ProductCard({ product, isActive, onHover, onLeave }) {
           >
             {product.ctaIcon} {product.cta}
           </Link>
+          {product.id !== 'light-key' && !product.comingSoon && (
+            <Link
+              href={`/products/${product.id}/learn-more`}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                width: '100%',
+                padding: '12px 20px',
+                borderRadius: 99,
+                background: 'rgba(255,255,255,0.05)',
+                color: '#fff',
+                fontWeight: 600, fontSize: 14,
+                textDecoration: 'none',
+                border: '1px solid rgba(255,255,255,0.1)',
+                transition: 'background 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
+              onClick={e => e.stopPropagation()}
+            >
+              Learn More
+            </Link>
+          )}
         </div>
       </div>
     </div>
@@ -321,7 +351,11 @@ export default function Products() {
           </div>
           <h1 style={{ fontSize: 'clamp(44px, 7vw, 84px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 1.05, marginBottom: 24 }}>
             The Rexycore<br />
-            <span style={{ background: 'linear-gradient(135deg, #a78bfa, #f472b6, #60a5fa)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundSize: '200%', animation: 'grad-shift 5s ease infinite' }}>
+            <span style={{ 
+              background: 'linear-gradient(90deg, #a78bfa 0%, #f472b6 33%, #60a5fa 66%, #a78bfa 100%)', 
+              WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', 
+              backgroundSize: '200% auto', animation: 'logo-flow 5s ease-in-out infinite alternate' 
+            }}>
               Product Suite.
             </span>
           </h1>
@@ -332,7 +366,7 @@ export default function Products() {
       </section>
 
       {/* Products Grid */}
-      <section style={{ position: 'relative', zIndex: 10, padding: '0 24px 120px', maxWidth: 1200, margin: '0 auto' }}>
+      <section style={{ position: 'relative', zIndex: 10, padding: '0 24px 120px', maxWidth: 1360, margin: '0 auto' }}>
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
