@@ -22,8 +22,8 @@ export function StarField() {
       baseOpacity: Math.random() * 0.55 + 0.1,
       twinkleSpeed: Math.random() * 0.018 + 0.004,
       twinkleOffset: Math.random() * Math.PI * 2,
-      driftX: (Math.random() - 0.5) * 0.06,
-      driftY: Math.random() * 0.05 + 0.006,
+      driftX: (Math.random() - 0.5) * 0.006,
+      driftY: Math.random() * 0.005 + 0.0006,
       parallax: Math.random() * 0.4 + 0.08,
     }));
 
@@ -204,3 +204,182 @@ export function GradientDivider({ color = 'rgba(165,180,252,0.2)' }) {
     </div>
   );
 }
+
+/* ─── FLOW TEXT ─────────────────────────────────────────────────── */
+/* Usage: <FlowText gradient="linear-gradient(135deg,#8b5cf6,#10b981)">Word</FlowText>
+   Pass speed="fast|slow" or a number in seconds (default 4s). */
+export function FlowText({ children, gradient, speed = 12, as: Tag = 'span', style = {}, className = '' }) {
+  const seconds = typeof speed === 'number' ? speed : speed === 'fast' ? 6 : speed === 'slow' ? 18 : 12;
+  const safeGradient = (gradient || 'linear-gradient(90deg, #a5b4fc, #7dd3fc, #6ee7b7, #7dd3fc, #a5b4fc)')
+    .replace(/135deg/g, '90deg')
+    .replace(/to bottom right/gi, 'to right');
+
+  return (
+    <Tag
+      className={className}
+      style={{
+        display: 'inline-block',
+        background: safeGradient,
+        backgroundSize: '200% auto',
+        WebkitBackgroundClip: 'text',
+        backgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        animation: `flow-text-shine ${seconds}s linear infinite`,
+        paddingBottom: '0.1em',
+        marginBottom: '-0.1em',
+        paddingRight: '0.05em',
+        marginRight: '-0.05em',
+        ...style,
+      }}
+    >
+      {children}
+      <style>{`@keyframes flow-text-shine { to { background-position: -200% center; } }`}</style>
+    </Tag>
+  );
+}
+
+/* ─── NEBULA BURST ──────────────────────────────────────────────── */
+/* Listens for window event 'nebula-burst' with detail: { color?, preset? }
+   Presets: 'upgrade' | 'download' | 'preorder' | 'success' | 'random'
+   Also fires randomly ~once every 5-9 minutes on its own.
+   Trigger from anywhere: triggerNebula('upgrade')  */
+
+export function triggerNebula(preset = 'random', color = null) {
+  if (typeof window === 'undefined') return;
+  window.dispatchEvent(new CustomEvent('nebula-burst', { detail: { preset, color } }));
+}
+
+const NEBULA_PRESETS = {
+  upgrade:  { colors: ['#8b5cf6', '#a78bfa', '#6d28d9'], label: '✦ Plan Upgraded' },
+  download: { colors: ['#10b981', '#34d399', '#059669'], label: '✦ Download Started' },
+  preorder: { colors: ['#f59e0b', '#fbbf24', '#d97706'], label: '✦ Pre-order Placed' },
+  success:  { colors: ['#3b82f6', '#60a5fa', '#1d4ed8'], label: '✦ Success' },
+  random:   { colors: ['#f43f5e', '#8b5cf6', '#10b981', '#f59e0b', '#3b82f6'], label: null },
+};
+
+export function NebulaBurst() {
+  const [burst, setBurst] = useState(null); // { colors, label }
+  const timeoutRef = useRef(null);
+  const randomTimerRef = useRef(null);
+
+  const fire = (preset = 'random', color = null) => {
+    const cfg = NEBULA_PRESETS[preset] || NEBULA_PRESETS.random;
+    const colors = color ? [color] : cfg.colors;
+    setBurst({ colors, label: cfg.label });
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setBurst(null), 3200);
+  };
+
+  useEffect(() => {
+    const handler = (e) => fire(e.detail?.preset, e.detail?.color);
+    window.addEventListener('nebula-burst', handler);
+
+    // Random ambient burst every 5–9 minutes
+    const scheduleRandom = () => {
+      const delay = (Math.random() * 4 + 5) * 60 * 1000; // 5-9 min
+      randomTimerRef.current = setTimeout(() => {
+        fire('random');
+        scheduleRandom();
+      }, delay);
+    };
+    scheduleRandom();
+
+    return () => {
+      window.removeEventListener('nebula-burst', handler);
+      clearTimeout(timeoutRef.current);
+      clearTimeout(randomTimerRef.current);
+    };
+  }, []);
+
+  if (!burst) return null;
+
+  const [c1, c2, c3] = [
+    burst.colors[0] || '#8b5cf6',
+    burst.colors[1] || burst.colors[0] || '#3b82f6',
+    burst.colors[2] || burst.colors[0] || '#10b981',
+  ];
+
+  return (
+    <AnimatePresence>
+      {burst && (
+        <>
+          {/* Full-screen radial nebula bloom */}
+          <motion.div
+            key="nebula-bg"
+            initial={{ opacity: 0, scale: 0.7 }}
+            animate={{ opacity: 1, scale: 1.08 }}
+            exit={{ opacity: 0, scale: 1.2 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            aria-hidden
+            style={{
+              position: 'fixed', inset: 0, zIndex: 9990, pointerEvents: 'none',
+              background: `radial-gradient(ellipse at 50% 40%, ${c1}28 0%, ${c2}14 35%, ${c3}08 60%, transparent 80%)`,
+              filter: 'blur(30px)',
+            }}
+          />
+          {/* Particle streaks - CSS only, no extra lib */}
+          <motion.div
+            key="nebula-streaks"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.7, 0] }}
+            transition={{ duration: 2.5, ease: 'easeInOut' }}
+            aria-hidden
+            style={{ position: 'fixed', inset: 0, zIndex: 9991, pointerEvents: 'none', overflow: 'hidden' }}
+          >
+            {Array.from({ length: 16 }).map((_, i) => {
+              const angle = (i / 16) * 360;
+              const len = 80 + Math.random() * 120;
+              const col = burst.colors[i % burst.colors.length];
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: [0, 0.9, 0], scale: [0, 1, 1.5] }}
+                  transition={{ duration: 1.8 + Math.random() * 0.8, delay: Math.random() * 0.3, ease: 'easeOut' }}
+                  style={{
+                    position: 'absolute',
+                    top: '50%', left: '50%',
+                    width: len, height: 2,
+                    borderRadius: 99,
+                    background: `linear-gradient(90deg, ${col}CC, transparent)`,
+                    transformOrigin: '0 50%',
+                    transform: `rotate(${angle}deg) translateY(-50%)`,
+                    boxShadow: `0 0 8px ${col}88`,
+                  }}
+                />
+              );
+            })}
+          </motion.div>
+          {/* Optional label toast */}
+          {burst.label && (
+            <motion.div
+              key="nebula-label"
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -10, scale: 0.95 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                position: 'fixed', bottom: 32, left: '50%', transform: 'translateX(-50%)',
+                zIndex: 9992, pointerEvents: 'none',
+                background: 'rgba(10,10,18,0.85)', backdropFilter: 'blur(20px)',
+                border: `1px solid ${c1}55`,
+                borderRadius: 99, padding: '10px 24px',
+                fontSize: 13, fontWeight: 800, color: '#fff',
+                letterSpacing: 1,
+                boxShadow: `0 0 30px ${c1}44, 0 8px 32px rgba(0,0,0,0.5)`,
+              }}
+            >
+              <span style={{
+                background: `linear-gradient(135deg, ${c1}, ${c2})`,
+                WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent',
+              }}>
+                {burst.label}
+              </span>
+            </motion.div>
+          )}
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+

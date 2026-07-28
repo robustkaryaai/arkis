@@ -7,7 +7,7 @@ import Footer from '@/components/Footer';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiBell, FiArrowRight, FiDownload, FiShoppingCart } from 'react-icons/fi';
-import { StarField, HoverNebula, textVariant, fadeUp, staggerContainer, SectionHeader } from '@/components/SpaceUI';
+import { StarField, HoverNebula, textVariant, fadeUp, staggerContainer, SectionHeader, FlowText } from '@/components/SpaceUI';
 
 /* ─── Product data ────────────────────────────────────────────── */
 const PRODUCTS = [
@@ -249,7 +249,7 @@ export default function Products() {
           </motion.div>
           <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(44px, 7vw, 88px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 1.05, marginBottom: 24 }}>
             The Rexycore<br />
-            <span style={{ background: 'linear-gradient(135deg, #a5b4fc 0%, #7dd3fc 55%, #6ee7b7 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Product Suite.</span>
+            <FlowText gradient="linear-gradient(135deg, #a5b4fc, #7dd3fc, #6ee7b7, #7dd3fc, #a5b4fc)">Product Suite.</FlowText>
           </motion.h1>
           <motion.p variants={fadeUp(0.3)} style={{ fontSize: 18, color: 'rgba(255,255,255,0.4)', lineHeight: 1.7 }}>
             Privacy-first, AI-powered products built for the way you live, work, and create — with no compromises.

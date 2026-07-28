@@ -69,33 +69,6 @@ export default function Navbar() {
 
   return (
     <>
-      <Link
-        href={user ? "/profile" : "/login"}
-        className="desktop-auth-btn"
-        style={{
-          position: 'fixed',
-          top: scrolled ? 12 : 24,
-          right: 24,
-          zIndex: 999,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: scrolled ? '10px 20px' : '12px 24px',
-          borderRadius: 99,
-          background: 'rgba(10, 10, 15, 0.75)',
-          backdropFilter: 'blur(16px)',
-          border: '1px solid rgba(255, 255, 255, 0.15)',
-          color: '#fff',
-          textDecoration: 'none',
-          fontWeight: 600,
-          fontSize: scrolled ? 13 : 14,
-          transition: 'all 0.5s cubic-bezier(0.34, 1.2, 0.64, 1)',
-          whiteSpace: 'nowrap'
-        }}
-      >
-        {user ? "Profile" : "Sign In"}
-      </Link>
-
       <nav className={`nav-island${scrolled ? ' compact' : ''}`}>
         {/* Logo */}
         <Link
@@ -126,7 +99,31 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Desktop CTA is now extracted to top right */}
+        {/* Desktop Profile Badge / Sign In */}
+        <Link
+          href={user ? "/profile" : "/login"}
+          className="desktop-auth-btn"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: user ? (scrolled ? '32px' : '36px') : 'auto',
+            height: user ? (scrolled ? '32px' : '36px') : 'auto',
+            padding: user ? '0' : (scrolled ? '8px 16px' : '10px 20px'),
+            borderRadius: 99,
+            background: user ? 'linear-gradient(135deg, #10b981, #059669)' : 'rgba(255, 255, 255, 0.1)',
+            color: '#fff',
+            textDecoration: 'none',
+            fontWeight: 700,
+            fontSize: scrolled ? 13 : 14,
+            transition: 'all 0.5s cubic-bezier(0.34, 1.2, 0.64, 1)',
+            marginLeft: '16px',
+            boxShadow: user ? '0 4px 12px rgba(16,185,129,0.3)' : 'none',
+            border: user ? 'none' : '1px solid rgba(255,255,255,0.2)',
+          }}
+        >
+          {user ? (user?.email?.charAt(0).toUpperCase() || 'U') : "Sign In"}
+        </Link>
 
         {/* Mobile Hamburger */}
         <button

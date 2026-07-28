@@ -8,7 +8,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FiLock, FiCpu, FiLayers, FiShield, FiCheckCircle, FiArrowRight } from 'react-icons/fi';
 import Image from 'next/image';
 import Link from 'next/link';
-import { StarField, Card3D, staggerContainer, fadeUp, textVariant } from '@/components/SpaceUI';
+import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
   { size: 'wide', icon: <FiLock />, title: 'Hardware Level Kill-Switch.', desc: 'The defining feature of Lumina OS is the system-level AI DISABLE SWITCH. With one click, every single AI component, daemon, and process is killed at the kernel level. You have absolute control.' },
@@ -47,16 +47,14 @@ export default function LuminaOSPage() {
             variants={textVariant(0.1)}
             style={{ fontSize: 'clamp(52px, 8.5vw, 130px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.95, marginBottom: 20 }}
           >
-            Lumina <span style={{ color: 'rgba(255,255,255,0.2)' }}>OS</span>
+            Lumina <FlowText gradient="linear-gradient(135deg, #cfe8ff, #60a5fa, #cfe8ff)">OS</FlowText>
           </motion.h1>
           
           <motion.h2
             variants={textVariant(0.2)}
-            style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28,
-              background: 'linear-gradient(135deg, #cfe8ff, #60a5fa)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'
-            }}
+            style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            The OS reimagined from the ground up.
+            <FlowText gradient="linear-gradient(135deg, #cfe8ff, #60a5fa, #cfe8ff)">The OS reimagined from the ground up.</FlowText>
           </motion.h2>
 
           <motion.p 

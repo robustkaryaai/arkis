@@ -108,7 +108,7 @@ export default function AcademyPage() {
             {/* DinoX info */}
             <div style={{ flex: '1 1 400px', display: 'flex', flexDirection: 'column', position: 'relative', zIndex: 1 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>
-                <img src="/dinox.png" alt="DinoX Logo" style={{ width: 60, filter: 'drop-shadow(0 10px 20px rgba(168,85,247,0.4))' }} />
+                <img src="/dinox.png" alt="DinoX Logo" style={{ width: 60, filter: 'drop-shadow(0 10px 20px rgba(16,185,129,0.5))' }} />
                 <span style={{ padding: '6px 16px', background: 'rgba(16,185,129,0.1)', color: '#34d399', fontSize: 11, fontWeight: 800, letterSpacing: 1, borderRadius: 99, border: '1px solid rgba(16,185,129,0.25)', textTransform: 'uppercase' }}>Featured Learning Partner</span>
               </div>
               <h2 style={{ fontSize: 'clamp(32px, 4vw, 48px)', fontWeight: 900, marginBottom: 16, letterSpacing: '-0.03em' }}>DinoX</h2>
@@ -129,7 +129,7 @@ export default function AcademyPage() {
               <div style={{ fontSize: 18, fontWeight: 800, marginBottom: 20, color: '#fff' }}>Student Bundles</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                 {bundles.map((b) => (
-                  <div key={b.name} style={{ background: b.featured ? `rgba(59,130,246,0.06)` : 'rgba(0,0,0,0.4)', border: `1px solid ${b.featured ? 'rgba(59,130,246,0.3)' : 'rgba(255,255,255,0.06)'}`, borderRadius: 20, padding: '24px', position: 'relative', overflow: 'hidden' }}>
+                  <motion.div whileHover={{ scale: 1.03, y: -4, boxShadow: '0 15px 35px rgba(0,0,0,0.5)' }} transition={{ type: 'spring', stiffness: 300, damping: 20 }} key={b.name} style={{ background: b.featured ? `rgba(59,130,246,0.06)` : 'rgba(0,0,0,0.4)', border: `1px solid ${b.featured ? 'rgba(59,130,246,0.3)' : 'rgba(255,255,255,0.06)'}`, borderRadius: 20, padding: '24px', position: 'relative', overflow: 'hidden' }}>
                     {b.featured && <div style={{ position: 'absolute', top: 0, right: 0, background: '#3b82f6', color: '#fff', fontSize: 9, fontWeight: 900, padding: '4px 14px', borderBottomLeftRadius: 12, letterSpacing: 1 }}>BEST VALUE</div>}
                     <div style={{ fontSize: 10, color: b.color, fontWeight: 800, letterSpacing: 1.5, textTransform: 'uppercase', marginBottom: 4 }}>{b.badge}</div>
                     <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 12 }}>
@@ -146,7 +146,7 @@ export default function AcademyPage() {
                     <Link href={b.link} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '100%', padding: '10px', borderRadius: 12, background: b.featured ? 'linear-gradient(135deg, #34d399, #3b82f6)' : 'rgba(255,255,255,0.06)', color: '#fff', fontWeight: 700, fontSize: 14, textDecoration: 'none', boxSizing: 'border-box' }}>
                       Claim Bundle
                     </Link>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>

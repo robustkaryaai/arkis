@@ -3,6 +3,8 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { AuthProvider } from '@/context/AuthContext';
 import ScrollObserver from '@/components/ScrollObserver';
+import LoadingBar from '@/components/LoadingBar';
+import { NebulaBurst } from '@/components/SpaceUI';
 
 export const metadata = {
   title: { default: 'Rexycore — AI, Redefined', template: '%s | Rexycore' },
@@ -20,6 +22,8 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <AuthProvider>
+          <LoadingBar />
+          <NebulaBurst />
           <ScrollObserver />
           {children}
         </AuthProvider>

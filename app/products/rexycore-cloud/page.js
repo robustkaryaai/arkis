@@ -6,7 +6,7 @@ import BackButton from '@/components/BackButton';
 import Link from 'next/link';
 import { FiArrowRight, FiCloud, FiShield, FiZap, FiDatabase, FiLock, FiGlobe, FiCpu, FiCheckCircle, FiStar } from 'react-icons/fi';
 import { motion } from 'framer-motion';
-import { StarField, Card3D, staggerContainer, fadeUp, textVariant } from '@/components/SpaceUI';
+import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const AC = '#0ea5e9';
 const ACB = '#38bdf8';
@@ -67,9 +67,9 @@ export default function RexyCoreCloudPage() {
             </motion.div>
             <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: 28, maxWidth: 900 }}>
               Your AI,<br />
-              <span style={{ background: `linear-gradient(135deg, ${AC} 0%, ${ACB} 100%)`, WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              <FlowText gradient={`linear-gradient(135deg, ${AC} 0%, ${ACB} 100%, ${AC})`}>
                 everywhere.
-              </span>
+              </FlowText>
             </motion.h1>
             <motion.p variants={fadeUp} style={{ maxWidth: 640, fontSize: 20, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: 44 }}>
               RexyCore Cloud extends your local AI with encrypted storage, powerful generation capacity, and seamless cross-device sync — while maintaining our zero-telemetry, privacy-first architecture throughout.

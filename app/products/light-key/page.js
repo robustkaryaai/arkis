@@ -7,7 +7,7 @@ import BackButton from '@/components/BackButton';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FiEdit3, FiCpu, FiMessageSquare, FiSettings } from 'react-icons/fi';
 import Link from 'next/link';
-import { StarField, Card3D, staggerContainer, fadeUp, textVariant } from '@/components/SpaceUI';
+import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
   { size: 'wide', icon: <FiCpu />, title: 'Contextual AI Autocomplete.', desc: 'Light Key doesn\'t just guess the next word — it understands the context of your entire document, email, or code block, offering full sentence and paragraph completions natively across your OS.' },
@@ -46,16 +46,14 @@ export default function LightKeyPage() {
             variants={textVariant(0.1)}
             style={{ fontSize: 'clamp(52px, 8.5vw, 130px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.95, marginBottom: 20 }}
           >
-            Light <span style={{ color: 'rgba(255,255,255,0.2)' }}>Key</span>
+            Light <FlowText gradient="linear-gradient(135deg, #f59e0b, #d97706, #f59e0b)">Key</FlowText>
           </motion.h1>
           
           <motion.h2
             variants={textVariant(0.2)}
-            style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28,
-              background: 'linear-gradient(135deg, #f59e0b, #d97706)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'
-            }}
+            style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            Type smarter. Think faster.
+            <FlowText gradient="linear-gradient(135deg, #f59e0b, #d97706, #f59e0b)">Type smarter. Think faster.</FlowText>
           </motion.h2>
 
           <motion.p 

@@ -349,7 +349,7 @@ export default function HomeSpace() {
 
           <motion.h1 variants={textVariant(0.2)} style={{ fontSize: 'clamp(50px, 9vw, 118px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 1, marginBottom: 32 }}>
             AI that works<br />
-            <span style={{ background: 'linear-gradient(135deg, #a5b4fc 0%, #7dd3fc 55%, #6ee7b7 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>for you.</span>
+            <span className="flowing-gradient" style={{ background: 'linear-gradient(135deg, #a5b4fc 0%, #7dd3fc 55%, #6ee7b7 100%)' }}>for you.</span>
           </motion.h1>
 
           <motion.p variants={fadeIn('up', 'tween', 0.4, 0.9)} style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: 'rgba(255,255,255,0.4)', maxWidth: 680, margin: '0 auto', lineHeight: 1.75, marginBottom: 52 }}>

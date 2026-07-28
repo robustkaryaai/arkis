@@ -6,17 +6,18 @@ import ChatWidget from '@/components/ChatWidget';
 import { motion } from 'framer-motion';
 import { StarField, textVariant, fadeUp, staggerContainer } from '@/components/SpaceUI';
 import { FiArrowRight, FiHome } from 'react-icons/fi';
+import { FlowText } from '@/components/SpaceUI';
 
 const VP = { once: false, amount: 0.1 };
 
 export default function NotFound() {
   return (
-    <div style={{ background: '#010104', color: '#fff', minHeight: '100vh', position: 'relative', overflowX: 'hidden' }}>
+    <div style={{ background: '#010104', color: '#fff', minHeight: '100vh', display: 'flex', flexDirection: 'column', position: 'relative', overflowX: 'hidden' }}>
       <StarField />
       <div className="noise" aria-hidden />
       <Navbar />
 
-      <section style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '140px 5% 80px', position: 'relative', zIndex: 10 }}>
+      <section style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '140px 5% 80px', position: 'relative', zIndex: 10 }}>
         <motion.div variants={staggerContainer(0.1, 0.1)} initial="hidden" animate="show" style={{ textAlign: 'center', maxWidth: 600, width: '100%' }}>
           
           <motion.div variants={fadeUp} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 18px', borderRadius: 99, border: '1px solid rgba(239,68,68,0.25)', background: 'rgba(239,68,68,0.07)', marginBottom: 28 }}>
@@ -26,7 +27,7 @@ export default function NotFound() {
 
           <motion.h1 variants={textVariant(0)} style={{ fontSize: 'clamp(64px, 10vw, 120px)', fontWeight: 900, letterSpacing: '-4px', lineHeight: 1.0, marginBottom: 16 }}>
             Lost in{' '}
-            <span style={{ background: 'linear-gradient(135deg, #f87171, #fca5a5)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Space.</span>
+            <span style={{ display: 'inline-block' }}><FlowText gradient="linear-gradient(135deg, #f87171, #fca5a5, #fecaca)" speed={3}>Space.</FlowText></span>
           </motion.h1>
 
           <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.45)', fontSize: 18, lineHeight: 1.7, margin: '0 auto 40px' }}>
@@ -45,7 +46,7 @@ export default function NotFound() {
         </motion.div>
       </section>
 
-      <div style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+      <div style={{ width: '100%', marginTop: 'auto' }}>
         <Footer />
       </div>
       <ChatWidget />

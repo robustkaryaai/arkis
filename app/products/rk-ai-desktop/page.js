@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
@@ -8,7 +8,7 @@ import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { FiDownload, FiTerminal, FiShield, FiMic, FiLayout, FiCpu, FiBox, FiCheckCircle } from 'react-icons/fi';
 import { FaApple, FaWindows, FaLinux } from 'react-icons/fa';
 import Link from 'next/link';
-import { StarField, Card3D, staggerContainer, fadeUp, textVariant } from '@/components/SpaceUI';
+import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
   { size: 'wide', icon: <FiShield />, title: 'Absolute Privacy. Zero Cloud.', desc: 'Your data never leaves your machine. Powered by the Spark Engine, RK AI runs powerful LLMs entirely locally using Ollama. Read, write, and analyze documents completely offline.' },
@@ -18,6 +18,14 @@ const FEATURES = [
 ];
 
 export default function RkAiDesktop() {
+  const [activeOS, setActiveOS] = useState(null);
+
+  useEffect(() => {
+    const platform = window.navigator.platform.toLowerCase();
+    if (platform.includes('mac')) setActiveOS('mac');
+    else if (platform.includes('win')) setActiveOS('win');
+    else if (platform.includes('linux')) setActiveOS('linux');
+  }, []);
   return (
     <div style={{ minHeight: '100vh', background: '#010104', color: '#fff', position: 'relative' }}>
       
@@ -47,16 +55,17 @@ export default function RkAiDesktop() {
             variants={textVariant(0.1)}
             style={{ fontSize: 'clamp(52px, 8.5vw, 130px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.95, marginBottom: 20 }}
           >
-            RK AI <span style={{ color: 'rgba(255,255,255,0.2)' }}>Desktop</span>
+            RK AI <FlowText gradient="linear-gradient(135deg, #3b82f6, #60a5fa, #3b82f6)">Desktop</FlowText>
           </motion.h1>
           
           <motion.h2
             variants={textVariant(0.2)}
-            style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28,
-              background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent'
-            }}
+            className="tagline-fix"
+            style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            Intelligence, locally run.
+            <FlowText gradient="linear-gradient(135deg, #3b82f6, #8b5cf6, #3b82f6)">
+              Intelligence, locally run.
+            </FlowText>
           </motion.h2>
 
           <motion.p 
@@ -137,22 +146,22 @@ export default function RkAiDesktop() {
                 </p>
                 
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 20, flexWrap: 'wrap' }}>
-                  <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/downloads/rk-ai-windows.exe" className="btn-secondary" style={{ padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', width: 220, borderRadius: 24, background: 'rgba(59,130,246,0.05)', border: '1px solid rgba(59,130,246,0.2)', textDecoration: 'none' }}>
-                    <FaWindows size={48} style={{ color: '#3b82f6' }} />
+                  <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/downloads/rk-ai-windows.exe" className="btn-secondary" style={{ padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', width: 220, borderRadius: 24, background: activeOS === 'win' ? 'rgba(59,130,246,0.1)' : 'rgba(255,255,255,0.03)', border: activeOS === 'win' ? '1px solid rgba(59,130,246,0.5)' : '1px solid rgba(255,255,255,0.08)', boxShadow: activeOS === 'win' ? '0 0 20px rgba(59,130,246,0.3)' : 'none', textDecoration: 'none' }}>
+                    <FaWindows size={48} style={{ color: activeOS === 'win' ? '#60a5fa' : '#3b82f6' }} />
                     <div>
                       <div style={{ fontWeight: 800, fontSize: 20, color: '#fff' }}>Windows</div>
                       <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginTop: 4 }}>Windows 10 / 11<br/>(.exe)</div>
                     </div>
                   </motion.a>
-                  <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/downloads/rk-ai-macos.dmg" className="btn-secondary" style={{ padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', width: 220, borderRadius: 24, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', textDecoration: 'none' }}>
+                  <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/downloads/rk-ai-macos.dmg" className="btn-secondary" style={{ padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', width: 220, borderRadius: 24, background: activeOS === 'mac' ? 'rgba(255,255,255,0.1)' : 'rgba(255,255,255,0.03)', border: activeOS === 'mac' ? '1px solid rgba(255,255,255,0.5)' : '1px solid rgba(255,255,255,0.08)', boxShadow: activeOS === 'mac' ? '0 0 20px rgba(255,255,255,0.2)' : 'none', textDecoration: 'none' }}>
                     <FaApple size={48} style={{ color: '#fff' }} />
                     <div>
                       <div style={{ fontWeight: 800, fontSize: 20, color: '#fff' }}>macOS</div>
                       <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginTop: 4 }}>Apple Silicon M1+<br/>(.dmg)</div>
                     </div>
                   </motion.a>
-                  <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/downloads/rk-ai-linux.AppImage" className="btn-secondary" style={{ padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', width: 220, borderRadius: 24, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', textDecoration: 'none' }}>
-                    <FaLinux size={48} style={{ color: '#fbbf24' }} />
+                  <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/downloads/rk-ai-linux.AppImage" className="btn-secondary" style={{ padding: '24px 32px', display: 'flex', flexDirection: 'column', gap: 12, alignItems: 'center', width: 220, borderRadius: 24, background: activeOS === 'linux' ? 'rgba(251,191,36,0.1)' : 'rgba(255,255,255,0.03)', border: activeOS === 'linux' ? '1px solid rgba(251,191,36,0.5)' : '1px solid rgba(255,255,255,0.08)', boxShadow: activeOS === 'linux' ? '0 0 20px rgba(251,191,36,0.3)' : 'none', textDecoration: 'none' }}>
+                    <FaLinux size={48} style={{ color: activeOS === 'linux' ? '#fde68a' : '#fbbf24' }} />
                     <div>
                       <div style={{ fontWeight: 800, fontSize: 20, color: '#fff' }}>Linux</div>
                       <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginTop: 4 }}>Ubuntu / Debian<br/>(AppImage)</div>

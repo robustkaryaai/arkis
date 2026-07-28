@@ -138,7 +138,7 @@ export default function Contact() {
               { icon: <FiTwitter size={22} />, label: 'Twitter / X', value: '@rexycoreofficial', color: '#3B82F6', sub: 'Quick updates and announcements' },
               { icon: <FiMessageCircle size={22} />, label: 'Discord', value: 'Coming soon', color: '#a78bfa', sub: 'Community & real-time support' },
             ].map((ch, i) => (
-              <motion.div key={ch.label} variants={fadeUp}>
+              <motion.div key={ch.label} variants={fadeUp} style={{ marginBottom: 16 }}>
                 <Card3D style={{ padding: '24px 28px', display: 'flex', gap: 20, alignItems: 'center' }} orbColor={`${ch.color}33`} delay={0}>
                   <div style={{ width: 52, height: 52, borderRadius: 14, background: `${ch.color}15`, border: `1px solid ${ch.color}33`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: ch.color, flexShrink: 0 }}>{ch.icon}</div>
                   <div>
