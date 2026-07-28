@@ -330,7 +330,7 @@ export default function ChatWidget() {
         const rawModels = (process.env.NEXT_PUBLIC_GEMINI_MODELS || '').trim();
         const fallbackModels = rawModels
             ? rawModels.split(',').map(s => s.trim()).filter(Boolean)
-            : ['gemma-3-12b-it', 'gemini-2.5-flash-lite'];
+            : ['gemma-4-26b-a4b-it', 'gemini-3.1-flash-lite-preview'];
 
         const genAI = new GoogleGenerativeAI(apiKey);
         const history = messages.map(m => `${m.role === 'user' ? 'User' : 'AI'}: ${m.text}`).join('\n');
