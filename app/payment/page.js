@@ -165,7 +165,7 @@ function PaymentPageContent() {
                     finalUri.searchParams.set('plan', selectedPlan);
                     window.location.href = finalUri.toString();
                 }
-                setTimeout(() => { setIsProcessing(false); router.push('/'); }, 1000);
+                setTimeout(() => { setIsProcessing(false); router.push('/success?plan=' + selectedPlan); }, 1000);
             } else {
                 setIsProcessing(false);
                 setStatusText('Downgrade failed. Please contact support.');
@@ -221,7 +221,7 @@ function PaymentPageContent() {
                     finalUri.searchParams.set('plan', selectedPlan);
                     window.location.href = finalUri.toString();
                 }
-                setTimeout(() => { setIsProcessing(false); router.push('/'); }, 1000);
+                setTimeout(() => { setIsProcessing(false); router.push('/success?plan=' + selectedPlan); }, 1000);
             } else {
                 setIsProcessing(false);
                 setStatusText('Transaction rejected. Please verify credentials.');

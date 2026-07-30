@@ -22,7 +22,7 @@ import {
     AiOutlineCrown,
     AiOutlineRocket,
 } from 'react-icons/ai';
-import { FiZap, FiShield, FiCpu, FiGlobe, FiAward } from 'react-icons/fi';
+import { FiZap, FiShield, FiCpu, FiGlobe, FiAward, FiMonitor, FiHome, FiCloud, FiAperture } from 'react-icons/fi';
 import { getProfile, getWaitlistSlots } from '@/lib/api';
 import { StarField, staggerContainer, textVariant, fadeUp, triggerNebula } from '@/components/SpaceUI';
 
@@ -242,7 +242,7 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
 
                 {/* Tab switcher */}
                 <div style={{ display: 'flex', gap: 6, marginBottom: 16 }}>
-                    {[['desktop', '🖥 Desktop'], ['home', '🏠 Home'], ['cloud', '☁ Cloud']].map(([key, label]) => (
+                    {[['desktop', <><FiMonitor size={10} style={{ marginRight: 4 }}/>Desktop</>], ['home', <><FiHome size={10} style={{ marginRight: 4 }}/>Home</>], ['cloud', <><FiCloud size={10} style={{ marginRight: 4 }}/>Cloud</>]].map(([key, label]) => (
                         <button
                             key={key}
                             onClick={() => setTab(key)}
@@ -414,7 +414,6 @@ export default function Subscription() {
 
     const handleAction = (plan) => {
         if (plan.type === 'trial') { handleTrial(); return; }
-        if (plan.id !== 'free') triggerNebula('upgrade');
         router.push(`/payment?plan=${plan.id}`);
     };
 
@@ -630,13 +629,13 @@ export default function Subscription() {
                         </div>
                         <div style={{ flex: '1 1 280px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                             {[
-                                ['🖥', 'RK AI Desktop', 'Included'],
-                                ['🏠', 'RK AI Home', 'Included'],
-                                ['☁', 'RexyCore Cloud', 'Included'],
-                                ['🔮', 'MALUS', 'Standalone — separate license'],
+                                [<FiMonitor />, 'RK AI Desktop', 'Included'],
+                                [<FiHome />, 'RK AI Home', 'Included'],
+                                [<FiCloud />, 'RexyCore Cloud', 'Included'],
+                                [<FiAperture />, 'MALUS', 'Standalone — separate license'],
                             ].map(([icon, name, note]) => (
                                 <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 12, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                                    <span style={{ fontSize: 18 }}>{icon}</span>
+                                    <span style={{ fontSize: 18, color: '#10b981', display: 'flex' }}>{icon}</span>
                                     <div>
                                         <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>{name}</div>
                                         <div style={{ fontSize: 11, color: note.includes('separate') ? '#f59e0b' : '#10b981', fontWeight: 600 }}>{note}</div>

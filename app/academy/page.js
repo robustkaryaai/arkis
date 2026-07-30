@@ -59,7 +59,7 @@ export default function AcademyPage() {
               Learn the technologies shaping tomorrow — from programming and AI to privacy-first computing — with carefully curated paths, partner products, and exclusive student benefits.
             </p>
             <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button onClick={() => document.getElementById('featured').scrollIntoView({ behavior: 'smooth' })} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, #3b82f6, ${AC})`, color: '#fff', fontWeight: 800, fontSize: 15, border: 'none', cursor: 'pointer', boxShadow: `0 8px 32px ${AC}44` }}>
+              <button onClick={() => document.getElementById('featured').scrollIntoView({ behavior: 'smooth' })} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: '#fff', color: '#000', fontWeight: 800, fontSize: 15, border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px rgba(255,255,255,0.25)' }}>
                 Explore Learning <FiArrowRight />
               </button>
               <button onClick={() => document.getElementById('bundles').scrollIntoView({ behavior: 'smooth' })} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, cursor: 'pointer' }}>

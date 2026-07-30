@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
-import { useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const NAV_LINKS = [
   { href: '/products', label: 'Products' },
@@ -42,6 +42,7 @@ export default function Navbar() {
   const { user, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40);
@@ -100,30 +101,74 @@ export default function Navbar() {
         </ul>
 
         {/* Desktop Profile Badge / Sign In */}
-        <Link
-          href={user ? "/profile" : "/login"}
-          className="desktop-auth-btn"
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: user ? (scrolled ? '32px' : '36px') : 'auto',
-            height: user ? (scrolled ? '32px' : '36px') : 'auto',
-            padding: user ? '0' : (scrolled ? '8px 16px' : '10px 20px'),
-            borderRadius: 99,
-            background: user ? 'linear-gradient(90deg, #10b981, #059669, #10b981)' : 'rgba(255, 255, 255, 0.1)',
-            color: '#fff',
-            textDecoration: 'none',
-            fontWeight: 700,
-            fontSize: scrolled ? 13 : 14,
-            transition: 'all 0.5s cubic-bezier(0.34, 1.2, 0.64, 1)',
-            marginLeft: '16px',
-            boxShadow: user ? '0 4px 12px rgba(16,185,129,0.3)' : 'none',
-            border: user ? 'none' : '1px solid rgba(255,255,255,0.2)',
-          }}
-        >
-          {user ? (user?.email?.charAt(0).toUpperCase() || 'U') : "Sign In"}
-        </Link>
+        <div style={{ position: 'relative' }}>
+          {user ? (
+            <button
+              onClick={() => setProfileOpen(p => !p)}
+              className="desktop-auth-btn"
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                width: scrolled ? '32px' : '36px', height: scrolled ? '32px' : '36px',
+                padding: '0', borderRadius: '50%',
+                background: 'rgba(255, 255, 255, 0.08)',
+                color: '#fff', border: '1px solid rgba(255,255,255,0.2)',
+                fontWeight: 700, fontSize: scrolled ? 13 : 14,
+                transition: 'all 0.5s cubic-bezier(0.34, 1.2, 0.64, 1)',
+                marginLeft: '16px', cursor: 'pointer',
+                boxShadow: 'inset 0 0 10px rgba(255,255,255,0.05)'
+              }}
+            >
+              {user?.email?.charAt(0).toUpperCase() || 'U'}
+            </button>
+          ) : (
+            <Link
+              href="/login"
+              className="desktop-auth-btn"
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                padding: scrolled ? '8px 16px' : '10px 20px', borderRadius: 99,
+                background: 'rgba(255, 255, 255, 0.1)', color: '#fff',
+                textDecoration: 'none', fontWeight: 700, fontSize: scrolled ? 13 : 14,
+                transition: 'all 0.5s cubic-bezier(0.34, 1.2, 0.64, 1)',
+                marginLeft: '16px', border: '1px solid rgba(255,255,255,0.2)',
+              }}
+            >
+              Sign In
+            </Link>
+          )}
+
+          {/* Desktop Dropdown */}
+          <AnimatePresence>
+            {user && profileOpen && (
+              <>
+                <div style={{ position: 'fixed', inset: 0, zIndex: 998 }} onClick={() => setProfileOpen(false)} />
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  style={{
+                    position: 'absolute', top: '100%', right: 0, marginTop: '12px',
+                    width: '220px', background: 'rgba(10,10,15,0.95)',
+                    backdropFilter: 'blur(20px)', border: '1px solid rgba(255,255,255,0.1)',
+                    borderRadius: '16px', padding: '8px', zIndex: 999,
+                    boxShadow: '0 20px 40px rgba(0,0,0,0.5)'
+                  }}
+                >
+                  <Link href="/subscription" onClick={() => setProfileOpen(false)} style={{ display: 'block', padding: '10px 14px', color: '#fff', textDecoration: 'none', fontSize: '13px', fontWeight: 600, borderRadius: '8px', marginBottom: '4px', background: 'rgba(255,255,255,0.03)' }}>
+                    Manage Subscription
+                  </Link>
+                  <Link href="/orders" onClick={() => setProfileOpen(false)} style={{ display: 'block', padding: '10px 14px', color: '#fff', textDecoration: 'none', fontSize: '13px', fontWeight: 600, borderRadius: '8px', marginBottom: '4px', background: 'rgba(255,255,255,0.03)' }}>
+                    View Orders
+                  </Link>
+                  <button onClick={() => { setProfileOpen(false); handleLogout(); }} style={{ width: '100%', textAlign: 'left', padding: '10px 14px', color: '#ef4444', background: 'rgba(239,68,68,0.1)', border: 'none', fontSize: '13px', fontWeight: 600, borderRadius: '8px', cursor: 'pointer' }}>
+                    Log Out
+                  </button>
+                </motion.div>
+              </>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Mobile Hamburger */}
         <button
@@ -183,10 +228,13 @@ export default function Navbar() {
         <div className="drawer-footer">
           {user ? (
             <>
-              <Link href="/profile" className="drawer-cta-secondary">
-                View Profile
+              <Link href="/subscription" className="drawer-cta-secondary" onClick={() => setDrawerOpen(false)} style={{ marginBottom: '8px' }}>
+                Manage Subscription
               </Link>
-              <button onClick={handleLogout} className="drawer-logout">
+              <Link href="/orders" className="drawer-cta-secondary" onClick={() => setDrawerOpen(false)} style={{ marginBottom: '8px' }}>
+                View Orders
+              </Link>
+              <button onClick={() => { setDrawerOpen(false); handleLogout(); }} className="drawer-logout">
                 Sign Out
               </button>
             </>
