@@ -32,8 +32,8 @@ const timeline = [
         date: "Q1 2027"
     },
     {
-        title: "Worldwide Shipping",
-        desc: "Pre-orders begin shipping globally. The smart keyboard revolution arrives on your desk.",
+        title: "Looking ahead",
+        desc: "Light Key is in development. Follow the project for future updates on the intelligent keyboard.",
         status: "upcoming",
         date: "Q2 2027"
     }
@@ -158,7 +158,7 @@ export default function LightKeyJourney() {
                 <div style={{ maxWidth: '600px', margin: '0 auto' }} className="reveal">
                     <h2 style={{ fontSize: '36px', fontWeight: '900', marginBottom: '20px' }}>Join the Hardware Beta.</h2>
                     <p style={{ fontSize: '16px', color: 'var(--muted)', marginBottom: '40px' }}>
-                        Be one of the first to type on the Light Key. Early signups get priority shipping and a lifetime discount on AI services.
+                        Follow Light Key as it develops and hear about future milestones.
                     </p>
                     <Link href="/notify?product=light-key" style={{
                         display: 'inline-flex', alignItems: 'center', gap: '12px',

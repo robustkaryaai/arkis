@@ -12,25 +12,25 @@ const VP = { once: false, amount: 0.1 };
 const sections = [
   {
     icon: <FiShield size={20} />, color: '#a5b4fc',
-    title: '1. Local-First Processing & Privacy Guarantee',
+    title: '1. Local-First Processing & Privacy',
     content: [
-      'By using RK AI Desktop and Malus, you acknowledge that all primary processing, document parsing, and inference occurs locally on your hardware. We do not harvest, upload, or monetize your local application data, chat logs, or visual screen data.',
-      'Certain account management, billing, and authentication actions require a network connection to our secure servers. These requests are always encrypted with TLS 1.3 and never contain local AI context.',
+      'RexyCore products prefer local processing whenever practical. Some requests may use cloud services when they need online capabilities, real-time information, cloud-only AI, or more computing power than local hardware can reasonably provide.',
+      'Cloud services are never used silently. When information is sent to a cloud service, the user is kept informed and must give permission.',
     ],
   },
   {
     icon: <FiRepeat size={20} />, color: '#7dd3fc',
-    title: '2. Subscription',
+    title: '2. Product access',
     content: [
-      'Access to advanced capabilities requires an active subscription to the unified RK AI plan. There are no separate Pro or Elite tiers — one plan covers all Rexycore products.',
-      'Subscriptions are billed on a recurring basis. You may cancel at any time, and cancellation takes effect at the end of the current billing period. Partial-month refunds are not provided unless legally mandated in your jurisdiction.',
+      'Product access, availability, and any pricing are described on the relevant published product page. Do not rely on unannounced product capabilities or release dates.',
+      'Where a subscription is offered, the applicable terms are presented before purchase.',
     ],
   },
   {
     icon: <FiCode size={20} />, color: '#6ee7b7',
-    title: '3. Acceptable Use of Automation',
+    title: '3. Acceptable use',
     content: [
-      'RK AI Desktop provides powerful autonomous UI navigation and macro execution capabilities. You agree not to use these features to bypass security controls, commit fraud, engage in denial-of-service attacks, or scrape data from services in violation of their terms.',
+      'You may not use RexyCore products to bypass security controls, commit fraud, engage in denial-of-service attacks, or scrape data from services in violation of their terms.',
       'Any misuse detected may result in immediate suspension of your account without refund.',
     ],
   },
@@ -38,7 +38,7 @@ const sections = [
     icon: <FiAlertCircle size={20} />, color: '#fcd34d',
     title: '4. Disclaimer of Warranties',
     content: [
-      'The software is provided "as is", without warranty of any kind. While Malus provides robust heuristics and local sandboxing, no security software can guarantee 100% protection against zero-day threats.',
+      'The software is provided "as is", without warranty of any kind. No software can guarantee protection against every security threat or error.',
       'You are solely responsible for maintaining system backups and data integrity. RexyCore shall not be held liable for any data loss, system damage, or business interruption.',
     ],
   },
@@ -47,7 +47,7 @@ const sections = [
     title: '5. Intellectual Property',
     content: [
       'All branding, product names, architecture designs, and source code are the exclusive intellectual property of RexyCore. You may not reverse-engineer, decompile, redistribute, or create derivative works without explicit written permission.',
-      'User-generated prompts and macros created through our SDK remain your intellectual property.',
+      'User-generated content remains your intellectual property.',
     ],
   },
   {

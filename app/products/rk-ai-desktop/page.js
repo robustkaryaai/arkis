@@ -11,10 +11,10 @@ import Link from 'next/link';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
-  { size: 'wide', icon: <FiShield />, title: 'Local AI execution.', desc: 'RK AI Desktop runs AI models on your own hardware. When you send a query, it is processed by your CPU or GPU. Nothing in that process requires a network connection or sends your input to a remote server.' },
-  { size: 'narrow', icon: <FiCpu />, title: 'Works with your documents', desc: 'It can read and work with documents, notes, code, and images you already have. That context stays on your machine.' },
-  { size: 'half', icon: <FiMic />, title: 'Offline-capable', desc: 'Because AI runs locally, RK AI Desktop can function without an internet connection. You need local model files installed, but no subscription to a cloud service.' },
-  { size: 'half', icon: <FiLayout />, title: 'Part of the ecosystem', desc: 'When MALUS is also installed, RK AI Desktop can use your current system state as context. Each product remains independent, but they can share information locally.' },
+  { size: 'wide', icon: <FiShield />, title: 'Local execution when practical.', desc: 'RK AI Desktop is built to run models on your own hardware whenever practical. For tasks that need online services, real-time information, or more computing power, it can use cloud models when you approve it.' },
+  { size: 'narrow', icon: <FiCpu />, title: 'Works with your documents', desc: 'It helps with documents, notes, code, writing, study, research, and everyday tasks on your computer.' },
+  { size: 'half', icon: <FiMic />, title: 'Cloud with a purpose', desc: 'Cloud services extend capability rather than replace local execution. Nothing is sent to a cloud service without your permission.' },
+  { size: 'half', icon: <FiLayout />, title: 'Useful by itself', desc: 'RK AI Desktop is designed to stand on its own. When appropriate, it can share context with other RexyCore products for a more useful experience.' },
 ];
 
 export default function RkAiDesktop() {
@@ -48,7 +48,7 @@ export default function RkAiDesktop() {
             style={{ background: 'rgba(59,130,246,0.12)', border: '1px solid rgba(59,130,246,0.3)', color: '#93c5fd', margin: '0 auto 24px', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 99, fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase' }}
           >
             <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: '#60a5fa', boxShadow: '0 0 10px #60a5fa' }} />
-            Available Now for Mac, Windows & Linux
+            Personal desktop AI
           </motion.div>
 
           <motion.h1 
@@ -72,7 +72,7 @@ export default function RkAiDesktop() {
             variants={fadeUp}
             style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, margin: '0 auto 48px' }}
           >
-            RK AI Desktop helps you work with documents, code, notes, and conversations using AI that runs on your own machine. It is designed to be useful for studying, development, and writing without routing your work through a cloud service.
+            RK AI Desktop helps with conversations, documents, coding, writing, studying, research, and everyday computer tasks. It uses local models whenever practical, and cloud models when a task needs capabilities unavailable locally and you allow it.
           </motion.p>
 
           <motion.div 
@@ -140,9 +140,9 @@ export default function RkAiDesktop() {
           <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
             <motion.div variants={fadeUp}>
               <Card3D style={{ padding: '80px 40px', textAlign: 'center' }} orbColor="rgba(59,130,246,0.15)">
-                <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Download and run it on your hardware.</h2>
+                <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Bring AI closer to your work.</h2>
                 <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 48, fontSize: 18, maxWidth: 600, margin: '0 auto 48px' }}>
-                  RK AI Desktop runs on your local hardware using open AI models. 8GB RAM is the practical minimum. 16GB or more is recommended for larger models.
+                  RK AI Desktop is designed to use your hardware whenever practical, while keeping cloud capability available for tasks that genuinely need it. See the download options for supported platforms.
                 </p>
                 
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 20, flexWrap: 'wrap' }}>

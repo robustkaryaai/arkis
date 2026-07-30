@@ -16,14 +16,14 @@ const PRODUCTS = [
     category: 'AI Desktop Assistant',
     name: 'RK AI Desktop',
     tagline: 'Intelligence, locally run.',
-    desc: 'A local-first AI system built for personal computing. Voice-enabled, automation-ready, and powered by on-device models that never leave your machine.',
-    tags: ['Productivity', 'Local AI', 'System Control'],
+    desc: 'A personal desktop AI assistant for conversations, documents, coding, writing, studying, research, and everyday computer tasks. It uses local models whenever practical, with optional cloud assistance when a task genuinely requires it.',
+    tags: ['Productivity', 'Local-first', 'Desktop AI'],
     color: '#a5b4fc',
     accent: '#6366f1',
-    badge: 'Live',
+    badge: 'Desktop AI',
     badgeDot: '#4ade80',
     href: '/products/rk-ai-desktop',
-    cta: 'Download Free',
+    cta: 'Explore Desktop',
     ctaIcon: <FiDownload />,
     logo: '/RK AI logo.png',
   },
@@ -32,28 +32,27 @@ const PRODUCTS = [
     category: 'Smart Home Device',
     name: 'RK AI Home',
     tagline: 'Your home, thinking with you.',
-    desc: 'An AI system designed for physical environments — enabling voice control, automation, and intelligent coordination across your entire living space.',
-    tags: ['Smart Home', 'Hardware', 'Pre-order'],
+    desc: 'An AI companion for the home that extends AI beyond the desktop through natural voice interaction, with optional cloud assistance when genuinely required and approved by the user.',
+    tags: ['Home AI', 'Voice interaction', 'Local-first'],
     color: '#f9a8d4',
     accent: '#ec4899',
-    badge: 'Pre-order',
+    badge: 'Home AI',
     badgeDot: '#fbcfe8',
     href: '/products/rk-ai-home',
-    cta: 'Pre-order Now',
+    cta: 'Explore Home',
     ctaIcon: <FiShoppingCart />,
     bgImage: '/rk-ai-home-images/feature.jpg',
-    isBuyable: true,
   },
   {
     id: 'malus',
-    category: 'AI Operating Companion',
+    category: 'System Intelligence Layer',
     name: 'MALUS',
     tagline: 'Ambient intelligence for your desktop.',
-    desc: 'A context-aware AI operating companion that understands your computer, adapts to your workflow, and naturally helps you while respecting your privacy.',
-    tags: ['Companion', 'Context-Aware', 'Windows'],
+    desc: 'A local system intelligence layer that observes hardware, applications, workflows, and system behaviour. MALUS is awareness—not a chatbot, automation engine, coding assistant, or computer controller.',
+    tags: ['System awareness', 'Local observation', 'Independent'],
     color: '#6ee7b7',
     accent: '#10b981',
-    badge: 'New',
+    badge: 'System awareness',
     badgeDot: '#34d399',
     href: '/products/malus',
     cta: 'Meet MALUS',
@@ -65,11 +64,11 @@ const PRODUCTS = [
     category: 'Operating System',
     name: 'Lumina OS',
     tagline: 'The OS reimagined from the ground up.',
-    desc: 'Witness the evolution of computing. An AI-native Linux experience built around privacy, performance, and deep system intelligence.',
-    tags: ['Linux', 'AI-Native', 'Privacy First'],
+    desc: 'A long-term operating-system project in development, representing RexyCore’s vision for privacy, transparency, and AI designed in from the beginning.',
+    tags: ['In development', 'Operating system', 'Long-term'],
     color: '#e0f2fe',
     accent: '#7dd3fc',
-    badge: 'Alpha',
+    badge: 'In development',
     badgeDot: '#e2e8f0',
     href: '/products/lumina-os',
     cta: 'Explore More',
@@ -80,31 +79,15 @@ const PRODUCTS = [
     id: 'light-key',
     category: 'Intelligent Input',
     name: 'Light Key',
-    tagline: 'Type smarter. Think faster.',
-    desc: 'An intelligent input system that enhances typing with contextual suggestions, AI-powered auto-complete, and deep workflow integration.',
-    tags: ['Input', 'AI-Keyboard', 'Beta'],
+    tagline: 'Assistance at the point of thought.',
+    desc: 'An intelligent keyboard designed to provide context-aware writing assistance across applications, following the same local-first approach.',
+    tags: ['Input', 'Writing assistance', 'Local-first'],
     color: '#fcd34d',
     accent: '#f59e0b',
-    badge: 'Beta',
+    badge: 'Intelligent keyboard',
     badgeDot: '#fbbf24',
     href: '/products/light-key',
     cta: 'Get Insight',
-    ctaIcon: <FiArrowRight />,
-    comingSoon: true,
-  },
-  {
-    id: 'rexycore-cloud',
-    category: 'Rexycore Ecosystem',
-    name: 'RexyCore Cloud',
-    tagline: 'Your AI, everywhere.',
-    desc: 'Matrix tiers for RK AI. Cloud storage, video generation caps, and advanced AI features accessible across all your devices.',
-    tags: ['Cloud AI', 'Subscription', 'Live'],
-    color: '#7dd3fc',
-    accent: '#0ea5e9',
-    badge: 'Live',
-    badgeDot: '#4ade80',
-    href: '/subscription',
-    cta: 'Explore Cloud',
     ctaIcon: <FiArrowRight />,
   },
 ];
@@ -245,14 +228,14 @@ export default function Products() {
         <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" animate="show" style={{ maxWidth: 720 }}>
           <motion.div variants={fadeUp(0.05)} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 18px', borderRadius: 99, border: '1px solid rgba(165,180,252,0.2)', background: 'rgba(165,180,252,0.05)', backdropFilter: 'blur(20px)', marginBottom: 36 }}>
             <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 6, height: 6, borderRadius: '50%', background: '#a5b4fc', boxShadow: '0 0 8px #a5b4fc' }} />
-            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>Rexycore Ecosystem</span>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>RexyCore Products</span>
           </motion.div>
           <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(44px, 7vw, 88px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 1.05, marginBottom: 24 }}>
-            The Rexycore<br />
-            <FlowText gradient="linear-gradient(90deg, #a5b4fc, #7dd3fc, #6ee7b7, #7dd3fc, #a5b4fc)">Product Suite.</FlowText>
+            Products with<br />
+            <FlowText gradient="linear-gradient(90deg, #a5b4fc, #7dd3fc, #6ee7b7, #7dd3fc, #a5b4fc)">a clear purpose.</FlowText>
           </motion.h1>
           <motion.p variants={fadeUp(0.3)} style={{ fontSize: 18, color: 'rgba(255,255,255,0.4)', lineHeight: 1.7 }}>
-            Privacy-first, AI-powered products built for the way you live, work, and create — with no compromises.
+            Privacy-first AI products built for the way you live, work, and create—designed with clear responsibilities and long-term care.
           </motion.p>
         </motion.div>
       </section>

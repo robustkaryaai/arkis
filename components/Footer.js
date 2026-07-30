@@ -40,7 +40,7 @@ export default function Footer() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                     <h4 style={{ color: '#fff', fontSize: '16px', fontWeight: '700' }}>Ecosystem</h4>
                     <Link href="/products/rk-ai-desktop" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>RK AI Desktop</Link>
-                    <Link href="/subscription" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>RexyCore Cloud</Link>
+                    <Link href="/privacy" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>Privacy</Link>
                     <Link href="/products/lumina-os" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>Lumina OS</Link>
                     <Link href="/products/malus" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>MALUS</Link>
                     <Link href="/products/light-key" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>Light Key</Link>

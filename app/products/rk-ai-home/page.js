@@ -11,10 +11,10 @@ import Link from 'next/link';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
-  { size: 'wide', icon: <FiWifiOff />, title: 'Designed for the home environment.', desc: 'RK AI Home is a dedicated device for voice interaction and smart home tasks. It is designed to handle conversations locally, keeping what you say in your home network rather than routing it through a cloud data center.' },
+  { size: 'wide', icon: <FiWifiOff />, title: 'Designed for the home environment.', desc: 'RK AI Home is a dedicated AI companion for the home, extending AI beyond the desktop through natural voice interaction.' },
   { size: 'narrow', icon: <FiCpu />, title: 'A complement, not a replacement', desc: 'RK AI Home is designed to work alongside RK AI Desktop. The two products cover different environments. RK AI Home follows you around the house. RK AI Desktop is focused on your screen and your work.' },
-  { size: 'half', icon: <FiHome />, title: 'Voice interaction', desc: 'The primary interface is voice. You can ask questions, set reminders, control smart home devices, and get information without reaching for a keyboard.' },
-  { size: 'half', icon: <FiSettings />, title: 'Local processing priority', desc: 'RK AI Home is designed to handle as much as possible on the device itself. Remote processing is used only when local capability is genuinely insufficient for the task.' },
+  { size: 'half', icon: <FiHome />, title: 'Voice interaction', desc: 'Natural voice interaction makes it easier to bring AI into the rooms and routines of everyday life.' },
+  { size: 'half', icon: <FiSettings />, title: 'Local-first by design', desc: 'RK AI Home handles work locally whenever practical. Cloud assistance can extend capability when a request genuinely requires it and the user approves it.' },
 ];
 
 export default function RkAiHome() {
@@ -40,7 +40,7 @@ export default function RkAiHome() {
             style={{ background: 'rgba(236,72,153,0.12)', border: '1px solid rgba(236,72,153,0.3)', color: '#f472b6', margin: '0 auto 24px', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 99, fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase' }}
           >
             <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: '#ec4899', boxShadow: '0 0 10px #ec4899' }} />
-            Hardware Pre-order Phase
+            Home AI companion
           </motion.div>
 
           <motion.h1 
@@ -54,14 +54,14 @@ export default function RkAiHome() {
             variants={textVariant(0.2)}
             style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            <FlowText gradient="linear-gradient(90deg, #ec4899, #a855f7, #ec4899)">Voice AI that stays home.</FlowText>
+            <FlowText gradient="linear-gradient(90deg, #ec4899, #a855f7, #ec4899)">Natural AI for the home.</FlowText>
           </motion.h2>
 
           <motion.p 
             variants={fadeUp}
             style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, margin: '0 auto 48px' }}
           >
-            RK AI Home brings the RexyCore ecosystem into the physical environment. It is a dedicated home device for voice interaction, reminders, and smart home capabilities — designed to prioritize local processing so conversations stay within your home network.
+            RK AI Home extends AI beyond the desktop through natural voice interaction. It follows the same local-first philosophy as the rest of RexyCore, with optional cloud assistance when genuinely required and approved by the user.
           </motion.p>
 
           <motion.div 
@@ -71,7 +71,7 @@ export default function RkAiHome() {
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link href="#preorder" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16, borderRadius: 99, display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 800, textDecoration: 'none' }}>
-                <FiShoppingCart /> Pre-order Now
+                <FiShoppingCart /> Explore RK AI Home
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
@@ -125,22 +125,20 @@ export default function RkAiHome() {
         </div>
       </section>
 
-      {/* ── PREORDER ─────────────────── */}
+      {/* ── LEARN MORE ─────────────────── */}
       <section id="preorder" style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
             <motion.div variants={fadeUp}>
               <Card3D style={{ padding: '80px 40px', textAlign: 'center' }} orbColor="rgba(236,72,153,0.15)">
-                <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Secure Your Node.</h2>
+                <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>AI, beyond the desktop.</h2>
                 <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 24, fontSize: 18, maxWidth: 600, margin: '0 auto 24px' }}>
-                  RK AI Home is currently in the hardware pre-order phase. Shipping begins Q3 2026.
+                  RK AI Home is a dedicated home AI device. Explore its direction and design through the product story.
                 </p>
-                <div style={{ fontSize: 64, fontWeight: 900, marginBottom: 40, letterSpacing: '-2px' }}>₹4,999</div>
-                
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="btn-primary" style={{ background: '#fff', color: '#000', padding: '20px 48px', fontSize: 20, borderRadius: 99, display: 'flex', alignItems: 'center', gap: 12, border: 'none', cursor: 'pointer', fontWeight: 800 }} onClick={() => alert('Pre-order system launching soon! Check back or contact support.')}>
-                    <FiShoppingCart /> Pre-order Hardware
-                  </motion.button>
+                  <Link href="/products/rk-ai-home/learn-more" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '20px 48px', fontSize: 20, borderRadius: 99, display: 'flex', alignItems: 'center', gap: 12, border: 'none', cursor: 'pointer', fontWeight: 800, textDecoration: 'none' }}>
+                    Learn More
+                  </Link>
                 </div>
               </Card3D>
             </motion.div>

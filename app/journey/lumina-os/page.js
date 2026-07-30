@@ -21,7 +21,7 @@ const timeline = [
     },
     {
         title: "Active Development (Now)",
-        desc: "We're in the trenches building Lumina OS. Refining voice-first navigation, autonomous file organization, and the AI shell layer.",
+        desc: "Lumina OS is a long-term project in development, exploring how privacy, transparency, and AI can be considered from the beginning of an operating system.",
         status: "active",
         date: "Q3 2026"
     },

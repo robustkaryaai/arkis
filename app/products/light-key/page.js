@@ -130,7 +130,7 @@ export default function LightKeyPage() {
               <Card3D style={{ padding: '80px 40px', textAlign: 'center' }} orbColor="rgba(245,158,11,0.15)">
                 <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Request Beta Access.</h2>
                 <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 48, fontSize: 18, maxWidth: 600, margin: '0 auto 48px' }}>
-                  Light Key is entering closed beta soon. Join the waitlist to receive your invitation.
+                  Light Key is an intelligent keyboard in development. Join the waitlist for future updates.
                 </p>
                 
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexDirection: 'column', alignItems: 'center' }}>

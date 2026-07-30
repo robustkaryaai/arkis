@@ -157,7 +157,7 @@ export default function LuminaOSLearnMore() {
             <motion.div variants={fadeUp} style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(207,232,255,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Performance</motion.div>
             <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 16 }}>Numbers that matter.</motion.h2>
             <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontSize: 15 }}>
-              Our internal benchmarks against mainstream operating systems and AI-assistive tools show clear advantages in privacy, speed, and intelligent availability.
+              Lumina OS is a long-term project in development. This page describes its direction, not comparisons or unannounced capabilities.
             </motion.p>
           </motion.div>
           <motion.div variants={staggerContainer(0.1, 0.3)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>

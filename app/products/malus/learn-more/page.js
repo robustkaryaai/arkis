@@ -13,33 +13,33 @@ const AC = '#10b981';
 const ACB = '#34d399';
 
 const stats = [
-  { label: 'Screen Parse Time', value: '< 10ms', sub: 'Per frame, local only' },
-  { label: 'Cloud Uploads', value: 'Zero', sub: 'Ever. By architecture.' },
-  { label: 'Visual Context Accuracy', value: '94.7%', sub: 'OCR + semantic model' },
-  { label: 'Supported Platforms', value: 'Win / Mac', sub: 'Linux in development' },
+  { label: 'Role', value: 'Awareness', sub: 'Not conversation or action' },
+  { label: 'Focus', value: 'Local', sub: 'Computer-level observation' },
+  { label: 'Observes', value: 'Systems', sub: 'Hardware, apps, workflows' },
+  { label: 'Product type', value: 'Independent', sub: 'Useful on its own' },
 ];
 
 const features = [
-  { icon: <FiEye size={22} />, title: 'Real-Time Screen Parsing', desc: 'MALUS continuously analyzes your screen at up to 30 frames per second using a local OCR + semantic model stack. It understands code, UI elements, documents, and images — simultaneously.' },
-  { icon: <FiLock size={22} />, title: 'Permission-Gated Execution', desc: 'MALUS operates on a strict permission-first model. It cannot read your screen, take actions, or respond to events without your explicit per-session grant. You hold every key.' },
-  { icon: <FiZap size={22} />, title: 'Zero-Latency Feedback Loop', desc: 'Because the entire inference pipeline runs locally, MALUS responds to on-screen events in under 10ms. There is no round-trip to a server. No waiting. Instantaneous.' },
-  { icon: <FiActivity size={22} />, title: 'Workflow Orchestration', desc: 'MALUS learns the sequence of apps you use for specific tasks and can suggest, pre-load, or autonomously complete repetitive workflow steps on your behalf.' },
-  { icon: <FiTarget size={22} />, title: 'Smart UI Element Recognition', desc: 'MALUS identifies interactive elements (buttons, form fields, links) on your screen and can interact with them on command. Ask it to "click the submit button" — and it does.' },
-  { icon: <FiCpu size={22} />, title: 'Independent AI Core', desc: 'MALUS has its own embedded AI model, separate from RK AI Desktop. It functions as a standalone companion on any machine, with no dependency on other Rexycore products.' },
+  { icon: <FiEye size={22} />, title: 'System observation', desc: 'MALUS observes hardware usage, applications, workflows, and system behaviour locally.' },
+  { icon: <FiLock size={22} />, title: 'Clear responsibility', desc: 'Its role is awareness. MALUS is not a chatbot, coding assistant, automation engine, or computer controller.' },
+  { icon: <FiZap size={22} />, title: 'Relevant context', desc: 'Its understanding can be shared with other RexyCore products when appropriate.' },
+  { icon: <FiActivity size={22} />, title: 'Workflow awareness', desc: 'MALUS is designed to understand patterns in how a computer is being used, not to take over the work.' },
+  { icon: <FiTarget size={22} />, title: 'Local foundation', desc: 'MALUS performs its observation locally, keeping awareness close to the computer it understands.' },
+  { icon: <FiCpu size={22} />, title: 'Independent by design', desc: 'MALUS has a defined purpose and remains useful as its own product.' },
 ];
 
 const timeline = [
-  { phase: 'VISION', year: 'Month 1', title: 'The Missing Layer', desc: 'We realized that existing AI assistants are reactive — you open them, type a question, get an answer. MALUS was conceived to be the first AI that lives in the background and understands your work as it happens, without you ever having to ask.' },
-  { phase: 'OCR ENGINE', year: 'Month 2–4', title: 'Building Real-Time Visual Understanding', desc: 'We integrated and heavily optimized a quantized vision-language model capable of parsing text, UI elements, and images from a live screen buffer at sub-20ms per cycle. Critical challenge: doing this without impacting GPU performance for the user\'s primary task.' },
-  { phase: 'SECURITY', year: 'Month 5–6', title: 'The Permission Architecture', desc: 'Built a multi-layer permission system: session-level grants, per-app grants, and a global kill switch. Validated against third-party security audit that no data could leave the machine under any operating condition.' },
-  { phase: 'INTELLIGENCE', year: 'Month 7–10', title: 'Contextual Reasoning Layer', desc: 'Added the semantic reasoning engine that connects visual observations to meaning. MALUS no longer just "sees" — it understands. If you are reviewing a pull request, it knows the conventions of that code language. If you are in email, it understands the social context of your conversation.' },
+  { phase: 'PURPOSE', year: 'Today', title: 'Awareness, not conversation', desc: 'MALUS is designed to understand the computer itself instead of acting like another chat window.' },
+  { phase: 'OBSERVATION', year: 'Local', title: 'A clearer picture of the system', desc: 'It observes hardware, applications, workflows, and system behaviour where that work belongs: on the computer.' },
+  { phase: 'CONTEXT', year: 'Appropriate', title: 'Useful information, carefully shared', desc: 'That awareness can inform other RexyCore products when appropriate while each product keeps a clear responsibility.' },
+  { phase: 'DIRECTION', year: 'Long-term', title: 'A more natural computer', desc: 'The goal is software that understands more of the environment without taking control away from the person using it.' },
 ];
 
 const charts = [
-  { label: 'Screen parse accuracy (text + UI elements)', progress: 94, sub: 'Measured against ground-truth datasets' },
-  { label: 'CPU overhead during active monitoring', progress: 97, sub: '< 3% CPU impact on test machines' },
-  { label: 'Zero data exfiltration (security audit)', progress: 100, sub: 'Third-party security validation' },
-  { label: 'Workflow completion time reduction', progress: 79, sub: 'Self-reported by internal testers' },
+  { label: 'Hardware awareness', progress: 82, sub: 'A focused view of system behaviour' },
+  { label: 'Application awareness', progress: 76, sub: 'Context around the software in use' },
+  { label: 'Workflow awareness', progress: 68, sub: 'Patterns that help describe how work happens' },
+  { label: 'User control', progress: 92, sub: 'A design priority across the product' },
 ];
 
 export default function MalusLearnMore() {
@@ -60,11 +60,11 @@ export default function MalusLearnMore() {
               <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: AC, boxShadow: `0 0 10px ${AC}` }} /> Ambient AI Companion
             </motion.div>
             <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: 28, maxWidth: 900 }}>
-              It sees what you see.<br />
-              <span style={{ color: ACB }}>It knows what you mean.</span>
+              It understands the computer.<br />
+              <span style={{ color: ACB }}>Awareness, not conversation.</span>
             </motion.h1>
             <motion.p variants={fadeUp} style={{ maxWidth: 640, fontSize: 20, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: 44 }}>
-              MALUS is a context-aware AI companion that operates as a living layer over your desktop. Instead of answering questions you ask, it anticipates them — because it already understands your screen.
+              MALUS is a system intelligence layer that observes hardware, applications, workflows, and system behaviour locally. It is not a chatbot, automation engine, coding assistant, or computer controller.
             </motion.p>
             <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
               <a href="#journey" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
@@ -121,7 +121,7 @@ export default function MalusLearnMore() {
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ textAlign: 'center', marginBottom: 80 }}>
             <motion.div variants={fadeUp} style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Engineering Journey</motion.div>
-            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em' }}>10 months to ambient intelligence.</motion.h2>
+            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em' }}>A focused role in the computer.</motion.h2>
           </motion.div>
           <div style={{ position: 'relative' }}>
             <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 2, background: `linear-gradient(90deg, transparent, ${AC}, ${ACB}, transparent)` }} />
@@ -155,7 +155,7 @@ export default function MalusLearnMore() {
           <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
             <motion.div variants={fadeUp}>
               <div style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Performance</div>
-              <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 40 }}>Privacy and speed, both.</h2>
+              <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 40 }}>Awareness with a clear purpose.</h2>
             </motion.div>
             <motion.div variants={staggerContainer(0.1, 0.2)} style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
               {charts.map((c, i) => (
@@ -178,10 +178,7 @@ export default function MalusLearnMore() {
             <motion.div variants={fadeUp}>
               <Card3D style={{ padding: '48px', display: 'flex', flexDirection: 'column', gap: 24 }} orbColor="rgba(16,185,129,0.3)">
                 <Image src="/malus.jpeg" width={400} height={260} alt="MALUS" style={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 20, filter: `drop-shadow(0 0 40px ${AC}33)` }} />
-                <blockquote style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.6, color: '#fff', fontStyle: 'italic', margin: 0 }}>
-                  "MALUS noticed I was stuck on a bug before I even typed a single question. It just offered the solution."
-                </blockquote>
-                <p style={{ color: ACB, fontWeight: 800, fontSize: 12, letterSpacing: 1, textTransform: 'uppercase', margin: 0 }}>— Alpha Tester #4, Mumbai</p>
+                <p style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.6, color: '#fff', margin: 0 }}>MALUS is designed to make the computer itself more understandable—without turning awareness into another assistant or automation system.</p>
               </Card3D>
             </motion.div>
           </motion.div>
@@ -196,7 +193,7 @@ export default function MalusLearnMore() {
               <Card3D style={{ padding: '60px 48px', display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'center', justifyContent: 'space-between' }} orbColor="rgba(16,185,129,0.3)">
                 <div style={{ flex: '1 1 320px' }}>
                   <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 12 }}>Get MALUS for your machine.</h2>
-                  <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0, fontSize: 15 }}>Available for Windows and macOS. Download and experience a new category of AI companion.</p>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0, fontSize: 15 }}>Explore a focused system intelligence layer designed around local awareness.</p>
                 </div>
                 <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                   <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>

@@ -11,10 +11,10 @@ import Link from 'next/link';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
-  { size: 'wide', icon: <FiEye />, title: 'Continuous system observation.', desc: 'MALUS monitors processor usage, memory consumption, storage activity, battery health, running applications, and long-term workflow patterns. It builds a model of how your machine behaves over time — locally, without sending any of that data anywhere.' },
-  { size: 'narrow', icon: <FiActivity />, title: 'Not a chatbot', desc: 'MALUS does not answer questions. It does not perform tasks. Its role is to understand your system and provide that context to other RexyCore products.' },
-  { size: 'half', icon: <FiZap />, title: 'System awareness for the ecosystem', desc: 'When MALUS is running alongside RK AI Desktop, the assistant can understand your current system state without you explaining it manually.' },
-  { size: 'half', icon: <FiTarget />, title: 'No cloud telemetry', desc: 'The observation data MALUS collects stays on your machine. It is not transmitted to any server, and it is not used to build profiles or train external models.' },
+  { size: 'wide', icon: <FiEye />, title: 'Continuous system observation.', desc: 'MALUS observes hardware usage, applications, workflows, and system behaviour locally to build awareness of the computer itself.' },
+  { size: 'narrow', icon: <FiActivity />, title: 'Not a chatbot', desc: 'MALUS is not a chatbot, coding assistant, automation engine, or computer controller. Its job is awareness—not conversation or action.' },
+  { size: 'half', icon: <FiZap />, title: 'Context when appropriate', desc: 'That awareness can be shared with other RexyCore products when appropriate, while MALUS remains useful as an independent system intelligence layer.' },
+  { size: 'half', icon: <FiTarget />, title: 'Designed for control', desc: 'Local observation is the foundation. Any use of a cloud service is visible to the user and requires permission.' },
 ];
 
 export default function MalusPage() {
@@ -40,7 +40,7 @@ export default function MalusPage() {
             style={{ background: 'rgba(16,185,129,0.12)', border: '1px solid rgba(16,185,129,0.3)', color: '#6ee7b7', margin: '0 auto 24px', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 99, fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase' }}
           >
             <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981' }} />
-            Available for Windows
+            System intelligence layer
           </motion.div>
 
           <motion.h1 
@@ -61,7 +61,7 @@ export default function MalusPage() {
             variants={fadeUp}
             style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, margin: '0 auto 48px' }}
           >
-            MALUS observes how your computer behaves — processor usage, memory, storage, running applications, and workflow patterns. It is not a chatbot. It does not perform tasks. Its purpose is to understand the operating environment and share that awareness with other RexyCore products through local communication.
+            MALUS observes how your computer behaves—hardware usage, applications, workflows, and system behaviour. It is not a chatbot, automation engine, coding assistant, or computer controller. Its purpose is awareness.
           </motion.p>
 
           <motion.div 

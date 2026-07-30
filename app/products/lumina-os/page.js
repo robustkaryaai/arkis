@@ -13,8 +13,8 @@ import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } fr
 const FEATURES = [
   { size: 'wide', icon: <FiLock />, title: 'Privacy as an architectural decision.', desc: 'Lumina OS is being designed so that privacy is built into the operating environment itself, not added as a setting on top of an existing system. The goal is an OS where local AI, transparent system behavior, and minimal data collection are core decisions, not optional configurations.' },
   { size: 'narrow', icon: <FiCpu />, title: 'Currently in development', desc: 'Lumina OS does not exist yet in a form that is available to users. We are building it. This page describes the vision, not a product you can download today.' },
-  { size: 'half', icon: <FiLayers />, title: 'The intended relationship with AI', desc: 'The goal is for local AI to be integrated into the OS itself — not bolted on afterward. AI, applications, and system services are intended to work together without requiring cloud infrastructure.' },
-  { size: 'half', icon: <FiShield />, title: 'No telemetry by design', desc: 'The intent is an operating environment that does not collect usage data, does not require an account, and does not communicate with external servers without a clear reason visible to the user.' },
+  { size: 'half', icon: <FiLayers />, title: 'The intended relationship with AI', desc: 'The goal is for AI to be considered as part of the operating environment from the beginning, alongside applications and system services.' },
+  { size: 'half', icon: <FiShield />, title: 'Transparency by design', desc: 'The intent is an operating environment where privacy, transparency, and user control are clear architectural decisions.' },
 ];
 
 export default function LuminaOSPage() {
@@ -70,7 +70,7 @@ export default function LuminaOSPage() {
             style={{ display: 'flex', gap: 16, justifyContent: 'center' }}
           >
             <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#alpha" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16, borderRadius: 99, display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 800, textDecoration: 'none' }}>
-              Join Alpha Waitlist
+              Follow the project
             </motion.a>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link href="/products/lumina-os/learn-more" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16, borderRadius: 99, border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)', color: '#fff', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
@@ -129,9 +129,9 @@ export default function LuminaOSPage() {
           <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
             <motion.div variants={fadeUp}>
               <Card3D style={{ padding: '80px 40px', textAlign: 'center' }} orbColor="rgba(207,232,255,0.15)">
-                <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Request Alpha Access.</h2>
+                <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Follow the project.</h2>
                 <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 48, fontSize: 18, maxWidth: 600, margin: '0 auto 48px' }}>
-                  Spots for the Lumina OS Alpha are extremely limited. Join the waitlist to receive your unique ISO download link when a spot opens.
+                  Lumina OS is in development. Join the waitlist to hear about future milestones.
                 </p>
                 
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexDirection: 'column', alignItems: 'center' }}>

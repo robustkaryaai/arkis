@@ -9,38 +9,35 @@ import { motion } from 'framer-motion';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant } from '@/components/SpaceUI';
 
 const stats = [
-  { label: 'Local Execution', value: '100%', icon: <FiShield size={22} /> },
-  { label: 'Cloud Telemetry', value: 'Zero', icon: <FiCpu size={22} /> },
-  { label: 'Latency Reduction', value: 'Instant', icon: <FiZap size={22} /> },
-  { label: 'Visual Perception', value: 'Live', icon: <FiEye size={22} /> },
+  { label: 'Default approach', value: 'Local-first', icon: <FiShield size={22} /> },
+  { label: 'Cloud’s role', value: 'When needed', icon: <FiCpu size={22} /> },
+  { label: 'Core work', value: 'Desktop AI', icon: <FiZap size={22} /> },
+  { label: 'Designed for', value: 'Everyday tasks', icon: <FiEye size={22} /> },
 ];
 
 const architectureSteps = [
   { 
-    phase: 'Phase 1: Interception', 
-    title: 'Native Hooking & Event Parsing',
-    desc: 'RK AI Desktop securely hooks into your operating system\'s accessibility APIs. It doesn\'t just read text; it parses the active UI tree, understanding buttons, input fields, and window contexts in real-time, converting them into actionable vectors.',
+    phase: 'Foundation', title: 'Work close to the device',
+    desc: 'RK AI Desktop is designed to use local models on your hardware whenever practical, keeping capable computation close to the work you are doing.',
     icon: <FiActivity size={24} color="#3b82f6" />
   },
   { 
-    phase: 'Phase 2: Inference', 
-    title: 'Dynamic Resource Allocation (DRA)',
-    desc: 'When an intent is detected, DRA instantly spins up the specialized small language model (SLM) required for the task. Need vision? The vision transformer loads into VRAM. Need text generation? The instruct model takes over. All happening in milliseconds.',
+    phase: 'Capability', title: 'Use the right tool for the task',
+    desc: 'For online search, real-time information, cloud-only AI, or tasks beyond available hardware, cloud models can extend capability when you approve their use.',
     icon: <FiCpu size={24} color="#3b82f6" />
   },
   { 
-    phase: 'Phase 3: Execution', 
-    title: 'Autonomous System Interaction',
-    desc: 'The model outputs synthetic mouse movements, keyboard strokes, and API calls. It moves your cursor exactly as a human would, validating its actions through continuous visual feedback loops, ensuring 100% accuracy.',
+    phase: 'Control', title: 'Keep people informed',
+    desc: 'Cloud services are never used silently. The product should make the choice clear and keep the person using it in control.',
     icon: <FiTerminal size={24} color="#3b82f6" />
   },
 ];
 
 const journeyHighlights = [
-  { title: 'The Malus Engine', desc: 'We began by engineering Malus: a highly optimized, local-first runtime capable of running billions of parameters securely without internet access. This formed our core foundation.', phase: 'Genesis' },
-  { title: 'Snapvault Orb', desc: 'We needed a persistent interface. The Orb was born—a sleek, floating widget that acts as your omnipresent assistant, ready to assist visually or interactively at a moment\'s notice.', phase: 'Evolution' },
-  { title: 'Autonomous Overlays', desc: 'By mapping screen coordinates to intent, we enabled the AI to autonomously click, type, and navigate across any software seamlessly, breaking the barrier between chat and action.', phase: 'Revolution' },
-  { title: 'Multi-modal Ecosystem', desc: 'Today, RK AI Desktop combines offline voice commands, text chat, visual screen parsing, and system automation into one continuous, fluid, intelligent workflow.', phase: 'Current' },
+  { title: 'A desktop assistant', desc: 'RK AI Desktop helps with conversations, documents, code, writing, studying, research, and everyday computer tasks.', phase: 'Purpose' },
+  { title: 'Local when practical', desc: 'Local execution is preferred whenever the device can reasonably complete the task.', phase: 'Approach' },
+  { title: 'Cloud when useful', desc: 'Cloud services are available for requests that genuinely need online capability or additional compute, with permission.', phase: 'Choice' },
+  { title: 'Designed to evolve', desc: 'The aim is thoughtful software that remains useful in daily work while adapting carefully over time.', phase: 'Direction' },
 ];
 
 export default function RKDesktopLearnMore() {
@@ -64,7 +61,7 @@ export default function RKDesktopLearnMore() {
               The anatomy of <span style={{ background: 'linear-gradient(90deg, #3b82f6, #8b5cf6, #3b82f6)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', display: 'inline-block' }}>native intelligence.</span>
             </motion.h1>
             <motion.p variants={fadeUp} style={{ maxWidth: '700px', margin: '24px 0 40px', fontSize: '20px', color: 'rgba(255,255,255,0.6)', lineHeight: '1.7' }}>
-              We bypassed traditional cloud constraints to build an ultra-fast, completely localized AI execution engine. Explore the technical decisions that make RK AI Desktop the most powerful tool on your machine.
+              RK AI Desktop is a personal assistant designed for everyday work. Explore the thinking behind a local-first approach that keeps cloud capability available when it is genuinely useful.
             </motion.p>
             <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16 }}>
               <Link href="/products/rk-ai-desktop" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
@@ -101,7 +98,7 @@ export default function RKDesktopLearnMore() {
             <motion.div variants={fadeUp} style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(59,130,246,0.08)', color: '#60a5fa', fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>System Pipeline</motion.div>
             <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '900', letterSpacing: '-1px', marginBottom: '16px' }}>How it actually works.</motion.h2>
             <motion.p variants={fadeUp} style={{ fontSize: '18px', color: 'rgba(255,255,255,0.6)', maxWidth: '600px', lineHeight: '1.7' }}>
-              RK AI doesn't just read your screen like a screenshot. It intercepts UI layout graphs directly from the OS, enabling deterministic interaction.
+              The product is designed around a simple idea: use local computing whenever practical, and use cloud capability intentionally when a task calls for it.
             </motion.p>
           </motion.div>
 
@@ -141,7 +138,7 @@ export default function RKDesktopLearnMore() {
             <motion.div variants={fadeUp} style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(59,130,246,0.08)', color: '#60a5fa', fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Evolution</motion.div>
             <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 5vw, 48px)', fontWeight: '900', letterSpacing: '-1px' }}>The Capability Stack.</motion.h2>
             <motion.p variants={fadeUp} style={{ margin: '16px auto 0', textAlign: 'center', color: 'rgba(255,255,255,0.6)', fontSize: '18px', maxWidth: '600px' }}>
-              How we built the ultimate intelligent layer for your OS, phase by phase.
+              The choices behind an assistant that is designed to work naturally with your computer.
             </motion.p>
           </motion.div>
 
@@ -234,7 +231,7 @@ export default function RKDesktopLearnMore() {
                   <div style={{ flex: '1 1 400px' }}>
                     <h2 style={{ fontSize: 'clamp(32px, 4vw, 40px)', fontWeight: '900', marginBottom: '16px', letterSpacing: '-1px' }}>Ready to upgrade your system?</h2>
                     <p style={{ color: 'rgba(255,255,255,0.6)', lineHeight: '1.7', margin: 0, fontSize: '18px' }}>
-                      Offline intelligence, system automation, and privacy-first design in one seamless experience.
+                      A personal desktop AI assistant for documents, code, writing, research, and everyday work.
                     </p>
                   </div>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px' }}>

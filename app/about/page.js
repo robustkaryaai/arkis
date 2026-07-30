@@ -9,20 +9,20 @@ import { motion } from 'framer-motion';
 import { StarField, Card3D, SectionHeader, staggerContainer, textVariant, fadeUp, fadeRight } from '@/components/SpaceUI';
 
 const PRODUCTS = [
-  { name: 'RK AI Desktop', color: '#a5b4fc', desc: 'The flagship AI layer for Windows & macOS. Local model execution, system-wide automation, and privacy-first intelligence.', href: '/products/rk-ai-desktop' },
-  { name: 'RK AI Home', color: '#f9a8d4', desc: 'Hardware-integrated ambient intelligence. Edge voice processing, offline-first smart home orchestration for families.', href: '/products/rk-ai-home' },
-  { name: 'Lumina OS', color: '#7dd3fc', desc: 'A next-generation, AI-native operating system built from scratch on Linux. Zero telemetry. Wayland native.', href: '/products/lumina-os' },
-  { name: 'Light Key', color: '#fcd34d', desc: 'An intelligent system-level keyboard layer that completes your thoughts locally in every app you use.', href: '/products/light-key' },
-  { name: 'MALUS', color: '#6ee7b7', desc: 'Context-aware ambient companion that sees your screen and understands your work — entirely on-device.', href: '/products/malus' },
+  { name: 'RK AI Desktop', color: '#a5b4fc', desc: 'A personal desktop AI assistant for documents, coding, writing, research, and everyday tasks.', href: '/products/rk-ai-desktop' },
+  { name: 'RK AI Home', color: '#f9a8d4', desc: 'A home AI companion that brings natural voice interaction beyond the desktop.', href: '/products/rk-ai-home' },
+  { name: 'Lumina OS', color: '#7dd3fc', desc: 'A long-term operating-system project in development, designed around privacy, transparency, and AI.', href: '/products/lumina-os' },
+  { name: 'Light Key', color: '#fcd34d', desc: 'An intelligent keyboard for context-aware writing assistance across applications.', href: '/products/light-key' },
+  { name: 'MALUS', color: '#6ee7b7', desc: 'A local system intelligence layer that observes hardware, applications, workflows, and system behaviour.', href: '/products/malus' },
 ];
 
 const VALUES = [
-  { icon: <FiLock size={22} />, title: 'Privacy is the Default', desc: 'Every Rexycore product is engineered so that your data never leaves your hardware without your explicit action. We do not offer a "privacy mode" — privacy is the only mode.', c: '#a5b4fc' },
-  { icon: <FiCpu size={22} />, title: 'Local-First Intelligence', desc: 'We believe that powerful AI should not require handing your data to a corporation. Every model we deploy runs on your hardware, under your control, at your pace.', c: '#7dd3fc' },
-  { icon: <FiShield size={22} />, title: 'Zero Telemetry', desc: 'Our products contain no background analytics, no usage logging, and no crash reporting that reaches our servers without your knowledge. We do not collect what we do not need.', c: '#6ee7b7' },
-  { icon: <FiZap size={22} />, title: 'Uncompromising Performance', desc: 'Privacy-first does not mean slow. Our engineering teams are obsessed with squeezing maximum performance out of on-device models so you never feel the tradeoff.', c: '#fcd34d' },
+  { icon: <FiLock size={22} />, title: 'Privacy with control', desc: 'Cloud services are never used silently. When a request needs them, the user stays informed and in control of what is shared.', c: '#a5b4fc' },
+  { icon: <FiCpu size={22} />, title: 'Local-first intelligence', desc: 'Whenever practical, work happens on your hardware. Cloud services extend capability when online information or more computing power is genuinely needed.', c: '#7dd3fc' },
+  { icon: <FiShield size={22} />, title: 'Clear engineering', desc: 'We explain the decisions behind our products plainly, with a focus on useful software rather than inflated promises.', c: '#6ee7b7' },
+  { icon: <FiZap size={22} />, title: 'Useful by design', desc: 'Performance, usability, and privacy belong together. The goal is software that earns a place in everyday life.', c: '#fcd34d' },
   { icon: <FiGlobe size={22} />, title: 'Built in India, for the World', desc: 'Rexycore is proudly built in India. Our team understands the unique needs of users across different economic and linguistic contexts, and we build for all of them.', c: '#f9a8d4' },
-  { icon: <FiUsers size={22} />, title: 'Ecosystem Thinking', desc: 'Each Rexycore product is more powerful alongside the others. We design every layer of our ecosystem to communicate seamlessly, creating a whole that is greater than its parts.', c: '#a5b4fc' },
+  { icon: <FiUsers size={22} />, title: 'Useful together', desc: 'Every product remains useful independently. When appropriate, products can share context to create a more considered experience.', c: '#a5b4fc' },
 ];
 
 export default function About() {
@@ -45,7 +45,7 @@ export default function About() {
               <span style={{ background: 'linear-gradient(90deg, #a5b4fc, #7dd3fc, #6ee7b7, #7dd3fc, #a5b4fc)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>everyone.</span>
             </motion.h1>
             <motion.p variants={fadeUp(0.3)} style={{ maxWidth: 680, fontSize: 20, color: 'rgba(255,255,255,0.4)', lineHeight: 1.75, marginBottom: 48 }}>
-              Rexycore is a technology company dedicated to building the intelligent systems of the future — from specialized AI assistants to native operating systems. Our mission is to prove that privacy and intelligence are not a tradeoff.
+              RexyCore is a software company building privacy-first AI products. We believe modern AI should adapt to people instead of forcing people to adapt to AI.
             </motion.p>
             <motion.div variants={fadeUp(0.4)} style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
               <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
@@ -75,19 +75,19 @@ export default function About() {
             <motion.p variants={textVariant(0)} style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, color: 'rgba(165,180,252,0.6)', textTransform: 'uppercase', marginBottom: 16 }}>Mission</motion.p>
             <motion.h2 variants={textVariant(0.1)} style={{ fontSize: 'clamp(30px, 4vw, 50px)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, marginBottom: 24 }}>AI that respects you.</motion.h2>
             <motion.p variants={fadeUp(0.2)} style={{ color: 'rgba(255,255,255,0.45)', lineHeight: 1.82, fontSize: 17, marginBottom: 20 }}>
-              At the core of our philosophy is the belief that the future of AI is local. By shifting processing power from the cloud back to the edge, we enable experiences that are fast, private, and entirely under your control.
+              We prefer local execution whenever it makes sense, so the computer in front of you can do more of the work. When a task needs online capabilities or exceeds local hardware, cloud services can extend the product—with your permission.
             </motion.p>
             <motion.p variants={fadeUp(0.3)} style={{ color: 'rgba(255,255,255,0.45)', lineHeight: 1.82, fontSize: 17 }}>
-              We are not just building tools; we are designing an ecosystem. Every product we create is a pillar in a new standard of computing — one where privacy is the default, ownership is real, and innovation is relentless.
+              We build focused tools with clear responsibilities. They should feel natural to use on their own and work together thoughtfully when that improves the experience.
             </motion.p>
           </motion.div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             {[
-              { value: '5+', label: 'Products in the ecosystem', c: '#a5b4fc' },
-              { value: '14 months', label: 'Lumina OS engineering timeline', c: '#7dd3fc' },
-              { value: '0 bytes', label: 'Data sent to our servers by default', c: '#6ee7b7' },
-              { value: '100%', label: 'Bootstrapped & independent', c: '#fcd34d' },
+              { value: '01', label: 'AI should adapt to people', c: '#a5b4fc' },
+              { value: '02', label: 'Local execution when practical', c: '#7dd3fc' },
+              { value: '03', label: 'Clear responsibilities per product', c: '#6ee7b7' },
+              { value: '04', label: 'Users remain in control', c: '#fcd34d' },
             ].map((s, i) => (
               <motion.div key={s.label} initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.15 }} transition={{ duration: 0.5, delay: i * 0.08 }}
                 style={{ display: 'flex', gap: 20, alignItems: 'center', padding: '20px 24px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', borderRadius: 16 }}>
@@ -118,7 +118,7 @@ export default function About() {
       {/* ── ECOSYSTEM ── */}
       <section style={{ padding: '0 5% 100px', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-          <SectionHeader label="The Ecosystem" title="Five pillars. One vision." sub="Each product is powerful alone — together they form a complete, private computing stack." align="center" />
+          <SectionHeader label="The products" title="Focused tools. Shared direction." sub="Each product has a clear role and remains useful on its own. Together, they support a more personal kind of computing." align="center" />
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {PRODUCTS.map((p, i) => (
               <motion.div key={p.name} initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: false, amount: 0.15 }} transition={{ duration: 0.55, delay: i * 0.07 }}>
@@ -143,8 +143,8 @@ export default function About() {
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }}
           style={{ maxWidth: 760, margin: '0 auto', background: 'rgba(255,255,255,0.012)', border: '1px solid rgba(165,180,252,0.15)', borderRadius: 28, padding: '60px 5%', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: -80, left: '50%', transform: 'translateX(-50%)', width: '80%', height: 160, background: 'radial-gradient(ellipse, rgba(165,180,252,0.08) 0%, transparent 70%)', filter: 'blur(40px)' }} />
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.04em', marginBottom: 16, position: 'relative' }}>Join the ecosystem.</h2>
-          <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: 17, lineHeight: 1.7, maxWidth: 500, margin: '0 auto 36px', position: 'relative' }}>Be part of the future of intelligent computing — private, powerful, and entirely yours.</p>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.04em', marginBottom: 16, position: 'relative' }}>A more personal future for AI.</h2>
+          <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: 17, lineHeight: 1.7, maxWidth: 500, margin: '0 auto 36px', position: 'relative' }}>Explore the products and the thinking behind software that works closer to the people who use it.</p>
           <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
             <Link href="/products" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 32px', borderRadius: 99, background: '#fff', color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
               Explore Rexycore Products <FiArrowRight />

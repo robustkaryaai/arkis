@@ -22,16 +22,16 @@ const features = [
   { icon: <FiMic size={22} />, title: 'Edge Voice Processing', desc: 'Voice commands are processed entirely on the RK AI Home hardware node. No audio clip ever leaves your home network — not even a single frame. Wake word detection is local and instantaneous.' },
   { icon: <FiHome size={22} />, title: 'Universal Smart Home Hub', desc: 'RK AI Home integrates natively with Matter, Tuya, Thread, and Zigbee protocols out of the box. Control lights, climate, security cameras, locks, and plugs from a single intelligent layer.' },
   { icon: <FiSpeaker size={22} />, title: 'Family Orchestration', desc: 'Set household-wide announcements, coordinate schedules for multiple family members, manage alarms and reminders for children and adults simultaneously — all from a natural voice interface.' },
-  { icon: <FiWifi size={22} />, title: 'Offline-First Architecture', desc: 'Your smart home must never rely on a corporate server staying online. RK AI Home is engineered to operate 100% of its critical functions when the internet is completely unavailable.' },
-  { icon: <FiShield size={22} />, title: 'Private Local Inference', desc: 'The AI reasoning layer runs on a quantized model stored on-device. Your home conversations, routines, and automation rules are never processed by a third-party cloud AI.' },
-  { icon: <FiCpu size={22} />, title: 'RexyCore Sync', desc: 'When you come home and your RK AI Desktop detects it, it can seamlessly hand off context to RK AI Home — pausing music on your PC and resuming it on your home speakers automatically.' },
+  { icon: <FiWifi size={22} />, title: 'Local-first architecture', desc: 'RK AI Home is designed to handle work locally whenever practical, with cloud assistance available when a task genuinely requires it and the user approves it.' },
+  { icon: <FiShield size={22} />, title: 'Privacy and control', desc: 'Cloud services are an extension of the product, never its default. Their use should be clear and user-approved.' },
+  { icon: <FiCpu size={22} />, title: 'A connected product family', desc: 'RK AI Home is designed to work well on its own and can share appropriate context with other RexyCore products when it improves the experience.' },
 ];
 
 const timeline = [
   { phase: 'CONCEPT', year: 'Month 1–2', title: 'Privacy vs. Convenience: A False Tradeoff', desc: 'Every existing smart home platform routes your voice commands through mega-corp servers. We set out to prove you do not have to choose between a smart home and a private one. The key insight: an RPi Zero W is powerful enough to run quantized voice models with sub-200ms latency.' },
   { phase: 'HARDWARE', year: 'Month 3–5', title: 'Designing the Node', desc: 'Engineered a minimal hardware form factor using a Raspberry Pi compute module, custom antenna configuration, and passive cooling. The goal: a node smaller than a deck of cards that can sit on any shelf, drawing under 5 watts, running 24/7.' },
   { phase: 'VOICE ENGINE', year: 'Month 6–8', title: 'Edge Speech Processing', desc: 'Ported and heavily quantized Whisper-style transcription to run inference on-device in real-time. Implemented a custom wake word model trained specifically on "Hey Rexycore" in Indian English and multiple regional accents.' },
-  { phase: 'INTEGRATIONS', year: 'Month 9–12', title: 'Connecting the Home', desc: 'Built native drivers for Matter, Tuya, and Zigbee. Added the family orchestration layer with multi-user voice profiles, announcement queuing, and calendar integration that syncs locally. Currently in hardware pre-production for Pre-order fulfillment.' },
+  { phase: 'DIRECTION', year: 'In development', title: 'A more natural home interface', desc: 'RK AI Home represents RexyCore’s direction for bringing natural voice interaction beyond the desktop.' },
 ];
 
 const charts = [
@@ -56,14 +56,14 @@ export default function RkAiHomeLearnMore() {
         <div style={{ maxWidth: '1100px', width: '100%', margin: '0 auto' }}>
           <motion.div variants={staggerContainer(0.12, 0.1)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
             <motion.div variants={fadeUp} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 99, background: 'rgba(236,72,153,0.08)', border: '1px solid rgba(236,72,153,0.25)', color: ACB, fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 28 }}>
-              <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: AC, boxShadow: `0 0 10px ${AC}` }} /> Hardware Pre-Order — Shipping 2025
+              <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: AC, boxShadow: `0 0 10px ${AC}` }} /> Home AI companion
             </motion.div>
             <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: 28, maxWidth: 900 }}>
               Your home,<br />
               <span style={{ color: ACB }}>thinking with you.</span>
             </motion.h1>
             <motion.p variants={fadeUp} style={{ maxWidth: 640, fontSize: 20, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: 44 }}>
-              RK AI Home is the first privacy-native smart home system. Voice processing, automation, and family coordination — all on a node smaller than a deck of cards, drawing less than 5 watts.
+              RK AI Home extends AI beyond the desktop through natural voice interaction. It follows RexyCore’s local-first approach, with optional cloud assistance when genuinely required and approved by the user.
             </motion.p>
             <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
               <a href="#journey" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#fff', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
@@ -151,7 +151,7 @@ export default function RkAiHomeLearnMore() {
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ textAlign: 'center', marginBottom: 80 }}>
             <motion.div variants={fadeUp} style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(236,72,153,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Engineering Story</motion.div>
-            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em' }}>12 months from idea to pre-order.</motion.h2>
+            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em' }}>A more natural way to bring AI home.</motion.h2>
           </motion.div>
           <div style={{ position: 'relative' }}>
             <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 2, background: `linear-gradient(90deg, transparent, ${AC}, ${ACB}, transparent)` }} />

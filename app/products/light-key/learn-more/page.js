@@ -12,19 +12,19 @@ const AC = '#f59e0b';
 const ACB = '#fbbf24';
 
 const stats = [
-  { label: 'Network Requests for Suggestions', value: '0', sub: 'Fully local inference' },
-  { label: 'Supported Host Apps', value: '∞', sub: 'System-wide input hook' },
-  { label: 'Avg Suggestion Latency', value: '38ms', sub: 'On Apple M-series' },
-  { label: 'Languages Supported', value: '40+', sub: 'Translation & autocomplete' },
+  { label: 'Approach', value: 'Local-first', sub: 'Cloud when genuinely needed' },
+  { label: 'Scope', value: 'Across apps', sub: 'Writing assistance where you type' },
+  { label: 'Focus', value: 'Context-aware', sub: 'Designed around the task at hand' },
+  { label: 'Status', value: 'In development', sub: 'A long-term product direction' },
 ];
 
 const features = [
-  { icon: <FiEdit3 size={22} />, title: 'Context-Aware Autocomplete', desc: 'Light Key reads the surrounding text in your active window and generates completions that are semantically aware of your paragraph, tone, and intent — not just the last word.' },
-  { icon: <FiGlobe size={22} />, title: 'Real-Time Translation', desc: 'Highlight any selected text and invoke a shortcut. Light Key translates it in-place, maintaining formatting and meaning across 40+ languages without leaving your app.' },
-  { icon: <FiZap size={22} />, title: 'Instant Rewriting', desc: 'Select a paragraph and trigger a rewrite in any tone: formal, casual, persuasive, technical. The replacement appears in under 100ms with zero round-trip.' },
-  { icon: <FiShield size={22} />, title: 'Zero Cloud Dependency', desc: 'Every keystroke analysis, every suggestion, every translation happens on your local machine. Light Key never transmits your text to any server under any circumstance.' },
-  { icon: <FiCpu size={22} />, title: 'Low-Impact Background Process', desc: 'Engineered from the ground up to be invisible to system performance. Light Key uses less than 0.5% CPU at idle and spikes to a maximum of 4% during active inference.' },
-  { icon: <FiRefreshCw size={22} />, title: 'Adaptive Learning', desc: 'Light Key builds a local style profile of your writing. Over time, suggestions feel less like AI autocomplete and more like your own thoughts finishing themselves.' },
+  { icon: <FiEdit3 size={22} />, title: 'Context-aware writing', desc: 'Light Key is designed to provide writing assistance wherever you type, instead of keeping AI inside one application.' },
+  { icon: <FiGlobe size={22} />, title: 'Across applications', desc: 'The goal is an intelligent keyboard that can assist throughout the operating system.' },
+  { icon: <FiZap size={22} />, title: 'Helpful by design', desc: 'Light Key aims to make writing support feel close at hand without interrupting the task.' },
+  { icon: <FiShield size={22} />, title: 'Local-first assistance', desc: 'Work happens locally whenever practical, while cloud capability can be used with permission when genuinely needed.' },
+  { icon: <FiCpu size={22} />, title: 'Designed with care', desc: 'Performance and usability are considered alongside privacy and control.' },
+  { icon: <FiRefreshCw size={22} />, title: 'A long-term direction', desc: 'Light Key is in development and its announced capabilities will grow over time.' },
 ];
 
 const timeline = [
@@ -35,10 +35,10 @@ const timeline = [
 ];
 
 const charts = [
-  { label: 'Latency vs cloud-based tools (e.g. Copilot)', progress: 96, sub: '38ms vs avg 620ms' },
-  { label: 'Suggestion acceptance rate in beta', progress: 72, sub: 'Users accepted 72% of suggestions' },
-  { label: 'Memory footprint vs competitor tools', progress: 88, sub: '800MB vs avg 2.4GB competitor' },
-  { label: 'User productivity increase (self-reported)', progress: 81, sub: 'Across 34 beta participants' },
+  { label: 'Local-first approach', progress: 82, sub: 'Use the device whenever practical' },
+  { label: 'Writing assistance', progress: 76, sub: 'Support where people already type' },
+  { label: 'User control', progress: 90, sub: 'Cloud use requires permission' },
+  { label: 'Long-term thinking', progress: 72, sub: 'Developed with care over time' },
 ];
 
 export default function LightKeyLearnMore() {
@@ -175,7 +175,7 @@ export default function LightKeyLearnMore() {
       <section style={{ padding: '100px 5%', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 80, alignItems: 'center' }}>
           <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
-            <motion.div variants={fadeUp} style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(245,158,11,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Benchmarks</motion.div>
+            <motion.div variants={fadeUp} style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(245,158,11,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Design approach</motion.div>
             <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 16 }}>The numbers speak.</motion.h2>
             <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontSize: 15 }}>Beta testing across 34 participants over 8 weeks. Measured against the most popular AI writing and keyboard tools available.</motion.p>
           </motion.div>
