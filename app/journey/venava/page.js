@@ -8,38 +8,38 @@ import { FiCheckCircle, FiCircle, FiArrowRight } from 'react-icons/fi';
 
 const timeline = [
     {
-        title: "Initial Hardware Prototypes",
-        desc: "First physical prototypes assembled. Testing key travel, switch actuation, and low-latency Bluetooth connectivity.",
+        title: "Expression research",
+        desc: "Exploring the patterns that make each person’s writing recognizably their own: vocabulary, rhythm, tone, and language mixing.",
         status: "completed",
         date: "Q4 2025"
     },
     {
-        title: "AI Input Engine",
-        desc: "Integrated on-device predictive text algorithms and context-aware macro suggestions. Firmware v0.5 flashed.",
+        title: "Style memory foundations",
+        desc: "Defining a private, user-owned way for Venava to remember the communication patterns a person chooses to share.",
         status: "completed",
         date: "Q2 2026"
     },
     {
-        title: "Developer Preview (Current)",
-        desc: "Closed alpha testing with power users. Gathering telemetry on typing patterns and AI suggestion accuracy.",
+        title: "Personalization preview",
+        desc: "Refining how technology can carry an intended message into a person’s own natural expression—without flattening their voice.",
         status: "active",
         date: "Q3 2026"
     },
     {
-        title: "Mass Production Ramp",
-        desc: "Finalizing tooling and injection molds. Component sourcing for first 5,000 units secured.",
+        title: "Ecosystem connection",
+        desc: "Connecting Venava with the future RexyCore ecosystem, where RK AI understands intent and Venava expresses it personally.",
         status: "upcoming",
         date: "Q1 2027"
     },
     {
         title: "Looking ahead",
-        desc: "Light Key is in development. Follow the project for future updates on the intelligent keyboard.",
+        desc: "Venava is in development. Follow the product for future milestones in personal expression technology.",
         status: "upcoming",
         date: "Q2 2027"
     }
 ];
 
-export default function LightKeyJourney() {
+export default function VenavaJourney() {
     useEffect(() => {
         const observerOptions = { threshold: 0.2, rootMargin: '0px 0px -50px 0px' };
         const observer = new IntersectionObserver((entries) => {
@@ -64,16 +64,16 @@ export default function LightKeyJourney() {
                 <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
                     <div className="hero-eyebrow float-anim" style={{ margin: '0 auto 16px', background: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
                         <span className="pulse" style={{ background: '#f59e0b', boxShadow: '0 0 10px #f59e0b' }} />
-                        Light Key Journey
+                        Venava Journey
                     </div>
                     <h1 style={{ fontSize: 'clamp(40px, 8vw, 80px)', lineHeight: '1.1', letterSpacing: '-2px' }}>
-                        Reinventing <br />
+                        Technology that <br />
                         <span style={{ background: 'linear-gradient(90deg, #f59e0b, #d97706, #f59e0b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                            Input.
+                            adapts to you.
                         </span>
                     </h1>
                     <p style={{ fontSize: '1.2rem', opacity: 0.8, marginTop: '24px', maxWidth: '600px', margin: '24px auto 0' }}>
-                        Follow our journey as we build an intelligent keyboard that enhances typing with contextual suggestions and AI-powered assistance.
+                        Follow our journey as we build a personal expression layer that helps technology sound like you.
                     </p>
                 </div>
             </section>
@@ -156,11 +156,11 @@ export default function LightKeyJourney() {
 
             <section style={{ padding: '80px 5%', textAlign: 'center', background: 'linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.05, 11, 158, rgba(245, transparent))', borderTop: '1px solid var(--border)' }}>
                 <div style={{ maxWidth: '600px', margin: '0 auto' }} className="reveal">
-                    <h2 style={{ fontSize: '36px', fontWeight: '900', marginBottom: '20px' }}>Join the Hardware Beta.</h2>
+                    <h2 style={{ fontSize: '36px', fontWeight: '900', marginBottom: '20px' }}>Follow Venava.</h2>
                     <p style={{ fontSize: '16px', color: 'var(--muted)', marginBottom: '40px' }}>
-                        Follow Light Key as it develops and hear about future milestones.
+                        Hear about future milestones in personal expression technology.
                     </p>
-                    <Link href="/notify?product=light-key" style={{
+                    <Link href="/notify?product=venava" style={{
                         display: 'inline-flex', alignItems: 'center', gap: '12px',
                         background: 'linear-gradient(90deg, #f59e0b, #d97706, #f59e0b)',
                         color: '#fff', padding: '18px 40px', borderRadius: '50px',

@@ -13,7 +13,7 @@ const VP = { once: false, amount: 0.1 };
 
 const PRODUCT_META = {
   'lumina-os': { color: '#7dd3fc', glow: 'rgba(14,165,233,0.25)', emoji: '🖥️', desc: 'Privacy-first AI operating system' },
-  'light-key': { color: '#fcd34d', glow: 'rgba(245,158,11,0.25)', emoji: '⌨️', desc: 'AI at the keyboard level — completely local' },
+  venava: { color: '#5eead4', glow: 'rgba(20,184,166,0.25)', emoji: '✦', desc: 'Personal expression, privately remembered' },
   default:     { color: '#a5b4fc', glow: 'rgba(99,102,241,0.25)', emoji: '🚀', desc: 'Get priority access to the Rexycore ecosystem' },
 };
 
@@ -25,7 +25,7 @@ function WaitlistContent() {
   const product = (searchParams.get('product') || '').toLowerCase();
   const productLabel = useMemo(() => {
     if (product === 'lumina-os') return 'Lumina OS';
-    if (product === 'light-key') return 'Light Key';
+    if (product === 'venava') return 'Venava';
     return 'Rexycore';
   }, [product]);
 

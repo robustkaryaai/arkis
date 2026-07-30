@@ -8,7 +8,7 @@ import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'fram
 import {
   FiShield, FiFlag, FiCpu, FiGlobe, FiLock, FiMonitor, FiActivity,
   FiTerminal, FiArrowRight, FiEye, FiWifi, FiCode, FiUsers,
-  FiZap, FiHeart, FiPackage, FiMap, FiGitBranch
+  FiZap, FiHeart, FiPackage, FiMap, FiGitBranch, FiEdit3
 } from 'react-icons/fi';
 
 /* ─────────────────────────────────
@@ -200,7 +200,7 @@ const PRODUCTS = [
   { id: 'rk-home',    color: '#f9a8d4', glow: 'rgba(236,72,153,0.5)',  icon: <FiGlobe size={22} />,    tag: 'Home AI',          name: 'RK AI Home',    who: 'Natural voice interaction at home', tagline: 'AI for the spaces you live in.', desc: 'A dedicated AI device for the home. RK AI Home extends AI beyond the desktop through natural voice interaction while remaining part of the RexyCore product family.', href: '/products/rk-ai-home' },
   { id: 'malus',      color: '#6ee7b7', glow: 'rgba(16,185,129,0.5)',  icon: <FiActivity size={22} />, tag: 'System awareness',   name: 'MALUS',         who: 'A clearer picture of your computer', tagline: 'Awareness, not conversation.', desc: 'MALUS continuously understands the computer itself. It observes hardware usage, applications, workflows, and system behaviour locally. It is not a chatbot, coding assistant, or automation tool—its job is awareness.', href: '/products/malus' },
   { id: 'lumina',     color: '#7dd3fc', glow: 'rgba(14,165,233,0.5)',  icon: <FiTerminal size={22} />, tag: 'In development',    name: 'Lumina OS',     who: 'A long-term operating-system project', tagline: 'A more considered foundation.', desc: 'Lumina OS is a long-term project in development: RexyCore’s vision for an operating system designed around privacy, transparency, and AI from the beginning—not added later.', href: '/products/lumina-os' },
-  { id: 'lightkey',   color: '#fcd34d', glow: 'rgba(245,158,11,0.5)',  icon: <FiCpu size={22} />,     tag: 'Intelligent typing', name: 'Light Key',     who: 'Assistance wherever you type', tagline: 'AI at the point of thought.', desc: 'An intelligent keyboard designed to provide AI assistance wherever you type. Rather than living in one application, Light Key aims to assist across the operating system.', href: '/products/light-key' },
+  { id: 'venava',     color: '#5eead4', glow: 'rgba(20,184,166,0.5)',  icon: <FiEdit3 size={22} />,    tag: 'Personal expression', name: 'Venava',        who: 'Technology that sounds like you', tagline: 'Your typing, amplified.', desc: 'Venava learns your natural expression—your vocabulary, tone, punctuation, and language mixing—so technology can communicate in your voice without replacing it.', href: '/products/venava' },
 ];
 
 /* ─────────────────────────────────
@@ -435,7 +435,7 @@ export default function HomeSpace() {
               { from: 'Desktop', fromC: '#a5b4fc', to: 'Your work', toC: 'rgba(255,255,255,0.4)', desc: 'RK AI Desktop brings AI to conversations, documents, coding, writing, studying, research, and the everyday tasks that happen on a computer.' },
               { from: 'MALUS', fromC: '#6ee7b7', to: 'Your computer', toC: 'rgba(255,255,255,0.4)', desc: 'MALUS observes hardware usage, applications, workflows, and system behaviour locally. It provides awareness, not conversation.' },
               { from: 'RK AI Home', fromC: '#f9a8d4', to: 'Your home', toC: 'rgba(255,255,255,0.4)', desc: 'RK AI Home takes AI beyond the desktop with natural voice interaction in the spaces where life happens.' },
-              { from: 'Light Key', fromC: '#fcd34d', to: 'Where you type', toC: 'rgba(255,255,255,0.4)', desc: 'Light Key is designed to provide AI assistance wherever you type, instead of confining it to a single application.' },
+              { from: 'Venava', fromC: '#5eead4', to: 'Your voice', toC: 'rgba(255,255,255,0.4)', desc: 'Venava is the personal expression layer that helps technology communicate in your own style, wherever it belongs.' },
             ].map((item, i) => (
               <Card3D key={i} delay={i * 0.1} orbColor="rgba(103,232,249,0.14)" style={{ padding: '28px 26px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14, flexWrap: 'wrap' }}>
@@ -504,7 +504,7 @@ export default function HomeSpace() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 18 }}>
             {[
               { icon: <FiCpu size={18} />, t: 'Lumina OS', b: 'A long-term operating-system project in development, designed around privacy, transparency, and AI from the beginning.', c: '#a5b4fc' },
-              { icon: <FiGlobe size={18} />, t: 'Light Key', b: 'An intelligent keyboard designed to provide AI assistance wherever you type, across the operating system.', c: '#7dd3fc' },
+              { icon: <FiEdit3 size={18} />, t: 'Venava', b: 'A personal expression layer that helps technology understand how you naturally communicate.', c: '#5eead4' },
               { icon: <FiCode size={18} />, t: 'Thoughtful connection', b: 'As the product family grows, products can share context where appropriate while preserving their individual purpose.', c: '#6ee7b7' },
               { icon: <FiMap size={18} />, t: 'Human-centered computing', b: 'The direction is simple: technology that fits people better, without making them adapt to a cloud service or closed platform.', c: '#f9a8d4' },
             ].map((item, i) => (
