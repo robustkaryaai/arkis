@@ -11,10 +11,10 @@ import Link from 'next/link';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
-  { size: 'wide', icon: <FiShield />, title: 'Absolute Privacy. Zero Cloud.', desc: 'Your data never leaves your machine. Powered by the Spark Engine, RK AI runs powerful LLMs entirely locally using Ollama. Read, write, and analyze documents completely offline.' },
-  { size: 'narrow', icon: <FiCpu />, title: 'System-wide Automation', desc: 'Control your PC naturally. "Turn on dark mode," "Mute the volume," or "Open my browser." Your AI acts as a native extension of your OS.' },
-  { size: 'half', icon: <FiMic />, title: 'Always Listening (When You Want)', desc: 'Built-in offline Wake Word detection. Just say "Hey Rexycore" and start talking. Real-time STT and TTS keep the conversation fluid and hands-free.' },
-  { size: 'half', icon: <FiLayout />, title: 'Professional Generation', desc: 'Don\'t just generate text. RK AI natively generates fully formatted PowerPoint presentations (.pptx) and Word documents (.docx) straight to your desktop.' },
+  { size: 'wide', icon: <FiShield />, title: 'Local AI execution.', desc: 'RK AI Desktop runs AI models on your own hardware. When you send a query, it is processed by your CPU or GPU. Nothing in that process requires a network connection or sends your input to a remote server.' },
+  { size: 'narrow', icon: <FiCpu />, title: 'Works with your documents', desc: 'It can read and work with documents, notes, code, and images you already have. That context stays on your machine.' },
+  { size: 'half', icon: <FiMic />, title: 'Offline-capable', desc: 'Because AI runs locally, RK AI Desktop can function without an internet connection. You need local model files installed, but no subscription to a cloud service.' },
+  { size: 'half', icon: <FiLayout />, title: 'Part of the ecosystem', desc: 'When MALUS is also installed, RK AI Desktop can use your current system state as context. Each product remains independent, but they can share information locally.' },
 ];
 
 export default function RkAiDesktop() {
@@ -58,13 +58,13 @@ export default function RkAiDesktop() {
             RK AI <FlowText gradient="linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6)">Desktop</FlowText>
           </motion.h1>
           
-          <motion.h2
+            <motion.h2
             variants={textVariant(0.2)}
             className="tagline-fix"
             style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
             <FlowText gradient="linear-gradient(90deg, #3b82f6, #8b5cf6, #3b82f6)">
-              Intelligence, locally run.
+              A local AI assistant for everyday computing.
             </FlowText>
           </motion.h2>
 
@@ -72,7 +72,7 @@ export default function RkAiDesktop() {
             variants={fadeUp}
             style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, margin: '0 auto 48px' }}
           >
-            A local-first AI system built for personal computing. Voice-enabled, automation-ready, and powered by on-device models that never leave your machine. Experience the power of AI without surrendering your privacy.
+            RK AI Desktop helps you work with documents, code, notes, and conversations using AI that runs on your own machine. It is designed to be useful for studying, development, and writing without routing your work through a cloud service.
           </motion.p>
 
           <motion.div 
@@ -108,7 +108,7 @@ export default function RkAiDesktop() {
               variants={textVariant(0)}
               style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 48 }}
             >
-              Uncompromised<br />capability.
+              How it<br />works.
             </motion.h2>
 
             <motion.div variants={staggerContainer(0.05, 0.1)} className="bento" style={{ display: 'grid', gap: 20, gridTemplateColumns: 'repeat(4, 1fr)', gridAutoRows: 'minmax(200px, auto)' }}>
@@ -140,9 +140,9 @@ export default function RkAiDesktop() {
           <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
             <motion.div variants={fadeUp}>
               <Card3D style={{ padding: '80px 40px', textAlign: 'center' }} orbColor="rgba(59,130,246,0.15)">
-                <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Ready to upgrade your OS?</h2>
+                <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Download and run it on your hardware.</h2>
                 <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 48, fontSize: 18, maxWidth: 600, margin: '0 auto 48px' }}>
-                  RK AI Desktop runs strictly on your local hardware. Minimum 8GB RAM required for standard models, 16GB recommended for Pro models.
+                  RK AI Desktop runs on your local hardware using open AI models. 8GB RAM is the practical minimum. 16GB or more is recommended for larger models.
                 </p>
                 
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 20, flexWrap: 'wrap' }}>

@@ -11,10 +11,10 @@ import Link from 'next/link';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
-  { size: 'wide', icon: <FiLock />, title: 'Hardware Level Kill-Switch.', desc: 'The defining feature of Lumina OS is the system-level AI DISABLE SWITCH. With one click, every single AI component, daemon, and process is killed at the kernel level. You have absolute control.' },
-  { size: 'narrow', icon: <FiCpu />, title: 'AI-Native Architecture', desc: 'Built from the ground up on a custom Linux kernel to natively run LLMs and machine learning tasks efficiently without bloatware.' },
-  { size: 'half', icon: <FiLayers />, title: 'Spatial UI', desc: 'A custom desktop environment that renders everything with deep blur, glassmorphism, and responsive physics. It feels alive.' },
-  { size: 'half', icon: <FiShield />, title: 'Telemetry Zero', desc: 'We don\'t track your app usage, we don\'t sell your data, and we don\'t need an account to use the OS. It is entirely yours.' },
+  { size: 'wide', icon: <FiLock />, title: 'Privacy as an architectural decision.', desc: 'Lumina OS is being designed so that privacy is built into the operating environment itself, not added as a setting on top of an existing system. The goal is an OS where local AI, transparent system behavior, and minimal data collection are core decisions, not optional configurations.' },
+  { size: 'narrow', icon: <FiCpu />, title: 'Currently in development', desc: 'Lumina OS does not exist yet in a form that is available to users. We are building it. This page describes the vision, not a product you can download today.' },
+  { size: 'half', icon: <FiLayers />, title: 'The intended relationship with AI', desc: 'The goal is for local AI to be integrated into the OS itself — not bolted on afterward. AI, applications, and system services are intended to work together without requiring cloud infrastructure.' },
+  { size: 'half', icon: <FiShield />, title: 'No telemetry by design', desc: 'The intent is an operating environment that does not collect usage data, does not require an account, and does not communicate with external servers without a clear reason visible to the user.' },
 ];
 
 export default function LuminaOSPage() {
@@ -40,7 +40,7 @@ export default function LuminaOSPage() {
             style={{ background: 'rgba(207,232,255,0.08)', border: '1px solid rgba(207,232,255,0.25)', color: '#cfe8ff', margin: '0 auto 24px', display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 99, fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase' }}
           >
             <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: '#cfe8ff', boxShadow: '0 0 6px #cfe8ff' }} />
-            Limited Alpha Phase
+            In Development — Not Yet Available
           </motion.div>
 
           <motion.h1 
@@ -54,14 +54,14 @@ export default function LuminaOSPage() {
             variants={textVariant(0.2)}
             style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            <FlowText gradient="linear-gradient(90deg, #cfe8ff, #60a5fa, #cfe8ff)">The OS reimagined from the ground up.</FlowText>
+            <FlowText gradient="linear-gradient(90deg, #cfe8ff, #60a5fa, #cfe8ff)">Privacy built into the OS itself.</FlowText>
           </motion.h2>
 
           <motion.p 
             variants={fadeUp}
             style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, margin: '0 auto 48px' }}
           >
-            Witness the evolution of computing. An AI-native Linux experience built around privacy, performance, and deep system intelligence.
+            Lumina OS is RexyCore’s long-term vision for an operating system designed around privacy from the start. Rather than adding privacy features on top of an existing platform, the goal is for privacy to be a core architectural decision. It is currently in development and not available to users.
           </motion.p>
 
           <motion.div 
@@ -97,7 +97,7 @@ export default function LuminaOSPage() {
               variants={textVariant(0)}
               style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 48 }}
             >
-              Redesigning <br />Computing.
+              What we are<br />building toward.
             </motion.h2>
 
             <motion.div variants={staggerContainer(0.05, 0.1)} className="bento" style={{ display: 'grid', gap: 20, gridTemplateColumns: 'repeat(4, 1fr)', gridAutoRows: 'minmax(200px, auto)' }}>

@@ -11,10 +11,10 @@ import Link from 'next/link';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
-  { size: 'wide', icon: <FiWifiOff />, title: '100+ Offline Commands.', desc: 'Your home doesn\'t stop when the internet drops. RK AI Home executes over 100 native voice commands completely offline using Edge processing.' },
-  { size: 'narrow', icon: <FiCpu />, title: 'Pi Zero Optimized', desc: 'Built to run on just 512MB of RAM. The software is infinitely efficient, proving intelligence doesn\'t require a supercomputer.' },
-  { size: 'half', icon: <FiHome />, title: 'Smart Intent Routing', desc: 'Our custom intent_classifier.py ensures that local commands stay local, while complex queries are seamlessly routed to Gemini.' },
-  { size: 'half', icon: <FiSettings />, title: 'Self-Diagnosis Engine', desc: 'RK AI Home constantly monitors its own health. If a peripheral fails, it diagnoses itself and reports the issue vocally.' },
+  { size: 'wide', icon: <FiWifiOff />, title: 'Designed for the home environment.', desc: 'RK AI Home is a dedicated device for voice interaction and smart home tasks. It is designed to handle conversations locally, keeping what you say in your home network rather than routing it through a cloud data center.' },
+  { size: 'narrow', icon: <FiCpu />, title: 'A complement, not a replacement', desc: 'RK AI Home is designed to work alongside RK AI Desktop. The two products cover different environments. RK AI Home follows you around the house. RK AI Desktop is focused on your screen and your work.' },
+  { size: 'half', icon: <FiHome />, title: 'Voice interaction', desc: 'The primary interface is voice. You can ask questions, set reminders, control smart home devices, and get information without reaching for a keyboard.' },
+  { size: 'half', icon: <FiSettings />, title: 'Local processing priority', desc: 'RK AI Home is designed to handle as much as possible on the device itself. Remote processing is used only when local capability is genuinely insufficient for the task.' },
 ];
 
 export default function RkAiHome() {
@@ -54,14 +54,14 @@ export default function RkAiHome() {
             variants={textVariant(0.2)}
             style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            <FlowText gradient="linear-gradient(90deg, #ec4899, #a855f7, #ec4899)">Your home, thinking with you.</FlowText>
+            <FlowText gradient="linear-gradient(90deg, #ec4899, #a855f7, #ec4899)">Voice AI that stays home.</FlowText>
           </motion.h2>
 
           <motion.p 
             variants={fadeUp}
             style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, margin: '0 auto 48px' }}
           >
-            An AI system designed for physical environments — enabling voice control, automation, and intelligent coordination across your entire living space without sacrificing privacy.
+            RK AI Home brings the RexyCore ecosystem into the physical environment. It is a dedicated home device for voice interaction, reminders, and smart home capabilities — designed to prioritize local processing so conversations stay within your home network.
           </motion.p>
 
           <motion.div 
@@ -99,7 +99,7 @@ export default function RkAiHome() {
               variants={textVariant(0)}
               style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 48 }}
             >
-              Built for<br />the physical world.
+              How it<br />works.
             </motion.h2>
 
             <motion.div variants={staggerContainer(0.05, 0.1)} className="bento" style={{ display: 'grid', gap: 20, gridTemplateColumns: 'repeat(4, 1fr)', gridAutoRows: 'minmax(200px, auto)' }}>

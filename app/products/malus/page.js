@@ -11,10 +11,10 @@ import Link from 'next/link';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
-  { size: 'wide', icon: <FiEye />, title: 'Context-Aware Observation', desc: 'MALUS visually processes your screen context securely on-device, understanding exactly what you are looking at to provide relevant, immediate assistance without you needing to explain everything.' },
-  { size: 'narrow', icon: <FiActivity />, title: 'Workflow Integration', desc: 'Adapts to how you work, acting as an intelligent co-pilot for coding, designing, or researching.' },
-  { size: 'half', icon: <FiZap />, title: 'Zero Latency Mode', desc: 'Because it runs locally, MALUS responds instantly to on-screen events without round-tripping to a server.' },
-  { size: 'half', icon: <FiTarget />, title: 'Permission First', desc: 'MALUS cannot run, observe, or execute anything without explicit user consent. You hold the keys.' },
+  { size: 'wide', icon: <FiEye />, title: 'Continuous system observation.', desc: 'MALUS monitors processor usage, memory consumption, storage activity, battery health, running applications, and long-term workflow patterns. It builds a model of how your machine behaves over time — locally, without sending any of that data anywhere.' },
+  { size: 'narrow', icon: <FiActivity />, title: 'Not a chatbot', desc: 'MALUS does not answer questions. It does not perform tasks. Its role is to understand your system and provide that context to other RexyCore products.' },
+  { size: 'half', icon: <FiZap />, title: 'System awareness for the ecosystem', desc: 'When MALUS is running alongside RK AI Desktop, the assistant can understand your current system state without you explaining it manually.' },
+  { size: 'half', icon: <FiTarget />, title: 'No cloud telemetry', desc: 'The observation data MALUS collects stays on your machine. It is not transmitted to any server, and it is not used to build profiles or train external models.' },
 ];
 
 export default function MalusPage() {
@@ -54,14 +54,14 @@ export default function MalusPage() {
             variants={textVariant(0.2)}
             style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            <FlowText gradient="linear-gradient(90deg, #10b981, #059669, #10b981)">Ambient intelligence for your desktop.</FlowText>
+            <FlowText gradient="linear-gradient(90deg, #10b981, #059669, #10b981)">A system intelligence layer.</FlowText>
           </motion.h2>
 
           <motion.p 
             variants={fadeUp}
             style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, margin: '0 auto 48px' }}
           >
-            A context-aware AI operating companion that understands your computer, adapts to your workflow, and naturally helps you while respecting your privacy.
+            MALUS observes how your computer behaves — processor usage, memory, storage, running applications, and workflow patterns. It is not a chatbot. It does not perform tasks. Its purpose is to understand the operating environment and share that awareness with other RexyCore products through local communication.
           </motion.p>
 
           <motion.div 
@@ -97,7 +97,7 @@ export default function MalusPage() {
               variants={textVariant(0)}
               style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 48 }}
             >
-              Companion <br />Intelligence.
+              What it<br />observes.
             </motion.h2>
 
             <motion.div variants={staggerContainer(0.05, 0.1)} className="bento" style={{ display: 'grid', gap: 20, gridTemplateColumns: 'repeat(4, 1fr)', gridAutoRows: 'minmax(200px, auto)' }}>

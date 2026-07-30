@@ -10,10 +10,10 @@ import Link from 'next/link';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
-  { size: 'wide', icon: <FiCpu />, title: 'Contextual AI Autocomplete.', desc: 'Light Key doesn\'t just guess the next word — it understands the context of your entire document, email, or code block, offering full sentence and paragraph completions natively across your OS.' },
-  { size: 'narrow', icon: <FiEdit3 />, title: 'Grammar & Tone', desc: 'Highlight any text in any app, and Light Key will instantly rewrite it to match your desired tone (Professional, Casual, Direct).' },
-  { size: 'half', icon: <FiMessageSquare />, title: 'Smart Replies', desc: 'When reading an email, Light Key drafts 3 contextual responses before you even start typing.' },
-  { size: 'half', icon: <FiSettings />, title: 'Local Privacy', desc: 'Like all Rexycore products, Light Key processes your keystrokes locally. Your typing data is never uploaded.' },
+  { size: 'wide', icon: <FiCpu />, title: 'AI assistance wherever you type.', desc: 'Most AI tools only work inside their own application. Light Key is designed to work at the keyboard level, which means it can offer suggestions in documents, browsers, development environments, and messaging applications without each application needing to implement its own AI system.' },
+  { size: 'narrow', icon: <FiEdit3 />, title: 'Local inference', desc: 'Suggestions are generated locally. Your keystrokes are not sent to a cloud service. The goal is AI that helps you type without turning your keyboard into a data source.' },
+  { size: 'half', icon: <FiMessageSquare />, title: 'Context-aware suggestions', desc: 'Light Key is intended to understand context from what you are writing, not just predict the next word. The implementation details will depend on what the hardware is capable of running.' },
+  { size: 'half', icon: <FiSettings />, title: 'Not yet available', desc: 'Light Key is in development. It is not available to download. This page describes what it is designed to do, not what you can use today. Beta testing is planned but not scheduled.' },
 ];
 
 export default function LightKeyPage() {
@@ -53,14 +53,14 @@ export default function LightKeyPage() {
             variants={textVariant(0.2)}
             style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            <FlowText gradient="linear-gradient(90deg, #f59e0b, #d97706, #f59e0b)">Type smarter. Think faster.</FlowText>
+            <FlowText gradient="linear-gradient(90deg, #f59e0b, #d97706, #f59e0b)">AI assistance at the keyboard layer.</FlowText>
           </motion.h2>
 
           <motion.p 
             variants={fadeUp}
             style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, margin: '0 auto 48px' }}
           >
-            An intelligent input system that enhances typing with contextual suggestions, AI-powered auto-complete, and deep workflow integration across your entire OS.
+            Light Key is designed to bring local AI assistance to every application you use. Instead of limiting AI features to one program, it works wherever you type — keeping processing on your device and your keystrokes off the cloud. It is currently in development and not yet available.
           </motion.p>
 
           <motion.div 
@@ -96,7 +96,7 @@ export default function LightKeyPage() {
               variants={textVariant(0)}
               style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 48 }}
             >
-              Write better.<br />Faster.
+              What it is<br />designed to do.
             </motion.h2>
 
             <motion.div variants={staggerContainer(0.05, 0.1)} className="bento" style={{ display: 'grid', gap: 20, gridTemplateColumns: 'repeat(4, 1fr)', gridAutoRows: 'minmax(200px, auto)' }}>
