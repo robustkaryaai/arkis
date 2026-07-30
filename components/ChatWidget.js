@@ -381,7 +381,7 @@ export default function ChatWidget() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                         <div style={{
                             width: '32px', height: '32px', borderRadius: '10px',
-                            background: 'linear-gradient(135deg, #7c3aed, #6366f1)',
+                            background: 'linear-gradient(90deg, #7c3aed, #6366f1, #7c3aed)',
                             display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
                         }}>
                             <FiZap size={16} color="#fff" />

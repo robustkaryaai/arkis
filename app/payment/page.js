@@ -233,7 +233,7 @@ function PaymentPageContent() {
     };
 
     /* Gradient string for static plan-tinted text */
-    const textGrad = `linear-gradient(135deg, ${pal.c1} 0%, ${pal.c2} 40%, ${pal.c3} 70%, ${pal.c4} 100%)`;
+    const textGrad = `linear-gradient(90deg, ${pal.c1}, ${pal.c2}, ${pal.c3}, ${pal.c4}, ${pal.c3}, ${pal.c2}, ${pal.c1})`;
 
     return (
         <>
@@ -329,8 +329,8 @@ function PaymentPageContent() {
                     content: '';
                     position: fixed; inset: 0; z-index: 0; pointer-events: none;
                     background-image:
-                        linear-gradient(${pal.c3}08 1px, transparent 1px),
-                        linear-gradient(90deg, ${pal.c3}08 1px, transparent 1px);
+                        linear-gradient(90deg, ${pal.c3}08 1px, transparent 1px, ${pal.c3}08),
+                        linear-gradient(90deg, ${pal.c3}08 1px, transparent 1px, ${pal.c3}08);
                     background-size: 60px 60px;
                     mask-image: radial-gradient(ellipse at 50% 50%, black 30%, transparent 80%);
                 }
@@ -486,7 +486,7 @@ function PaymentPageContent() {
                 .pay-btn::after {
                     content: '';
                     position: absolute; top: 0; left: 0; width: 40%; height: 100%;
-                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25, 255, 255, rgba(255, transparent), transparent);
                     animation: shimmerSweep 2.5s ease-in-out infinite;
                 }
                 .pay-btn:hover:not(:disabled) { transform: translateY(-3px); }
@@ -717,8 +717,8 @@ function PaymentPageContent() {
                                         className="pay-btn"
                                         style={{
                                             background: isSuccess
-                                                ? `linear-gradient(135deg, ${pal.c1}, ${pal.c2})` 
-                                                : `linear-gradient(135deg, ${pal.c1}, ${pal.c3}, ${pal.c4})`,
+                                                ? `linear-gradient(90deg, ${pal.c1}, ${pal.c2}, ${pal.c1})` 
+                                                : `linear-gradient(90deg, ${pal.c1}, ${pal.c3}, ${pal.c4}, ${pal.c3}, ${pal.c1})`,
                                             boxShadow: isProcessing ? 'none' : `0 14px 40px ${pal.c3}40`,
                                         }}
                                     >
@@ -778,8 +778,8 @@ function PaymentPageContent() {
                                     className="pay-btn"
                                     style={{
                                         background: isSuccess
-                                            ? `linear-gradient(135deg, ${pal.c1}, ${pal.c2})`
-                                            : `linear-gradient(135deg, ${pal.c1}, ${pal.c3}, ${pal.c4})`,
+                                            ? `linear-gradient(90deg, ${pal.c1}, ${pal.c2}, ${pal.c1})`
+                                            : `linear-gradient(90deg, ${pal.c1}, ${pal.c3}, ${pal.c4}, ${pal.c3}, ${pal.c1})`,
                                         boxShadow: isProcessing ? 'none' : `0 14px 40px ${pal.c3}55, 0 0 60px ${pal.c3}20`,
                                     }}
                                 >

@@ -60,7 +60,7 @@ export default function Contact() {
             </motion.div>
             <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(52px, 7vw, 88px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: 24 }}>
               Get in<br />
-              <span style={{ background: 'linear-gradient(135deg, #f472b6 0%, #fb7185 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              <span style={{ background: 'linear-gradient(90deg, #f472b6, #fb7185, #f472b6)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                 touch.
               </span>
             </motion.h1>
@@ -121,7 +121,7 @@ export default function Contact() {
                         onFocus={() => setFocused('message')} onBlur={() => setFocused(null)}
                         style={{ ...inputStyle('message'), resize: 'vertical', fontFamily: 'inherit' }} />
                     </div>
-                    <motion.button type="submit" disabled={isSubmitting} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '16px 32px', borderRadius: 99, background: 'linear-gradient(135deg, #ec4899, #f472b6)', color: '#fff', fontWeight: 800, fontSize: 15, border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px rgba(236,72,153,0.3)', opacity: isSubmitting ? 0.7 : 1 }}>
+                    <motion.button type="submit" disabled={isSubmitting} whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, padding: '16px 32px', borderRadius: 99, background: 'linear-gradient(90deg, #ec4899, #f472b6, #ec4899)', color: '#fff', fontWeight: 800, fontSize: 15, border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px rgba(236,72,153,0.3)', opacity: isSubmitting ? 0.7 : 1 }}>
                       <FiSend /> {isSubmitting ? 'Sending...' : 'Send Message'}
                     </motion.button>
                   </form>

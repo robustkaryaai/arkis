@@ -79,10 +79,10 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
 
     // Each plan's gradient direction
     const gradients = {
-        free:    'linear-gradient(135deg, #94a3b8, #64748b)',
-        pro:     'linear-gradient(135deg, #10b981, #059669, #34d399)',
-        elite:   'linear-gradient(135deg, #8b5cf6, #6d28d9, #a78bfa)',
-        quantum: 'linear-gradient(135deg, #f43f5e, #be123c, #fb7185)',
+        free:    'linear-gradient(90deg, #94a3b8, #64748b, #94a3b8)',
+        pro:     'linear-gradient(90deg, #10b981, #059669, #34d399, #059669, #10b981)',
+        elite:   'linear-gradient(90deg, #8b5cf6, #6d28d9, #a78bfa, #6d28d9, #8b5cf6)',
+        quantum: 'linear-gradient(90deg, #f43f5e, #be123c, #fb7185, #be123c, #f43f5e)',
     };
     const glow = plan.glowColor;
 
@@ -114,7 +114,7 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
                 style={{
                     height: '100%',
                     background: isActive
-                        ? `linear-gradient(160deg, rgba(30,30,40,0.95), rgba(15,15,25,0.98))`
+                        ? `linear-gradient(90deg, rgba(30, 30, 40, 0.95, 40, 30, rgba(30), rgba(15,15,25,0.98))`
                         : 'rgba(10,10,18,0.7)',
                     backdropFilter: 'blur(24px)',
                     WebkitBackdropFilter: 'blur(24px)',
@@ -480,7 +480,7 @@ export default function Subscription() {
 
                     <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(40px, 7vw, 88px)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, marginBottom: 20 }}>
                         Choose Your{' '}
-                        <span className="flowing-gradient" style={{ background: 'linear-gradient(135deg, #8b5cf6, #10b981, #f43f5e)' }}>
+                        <span className="flowing-gradient" style={{ background: 'linear-gradient(90deg, #8b5cf6, #10b981, #f43f5e, #10b981, #8b5cf6)' }}>
                             Intelligence
                         </span>
                     </motion.h1>
@@ -610,7 +610,7 @@ export default function Subscription() {
                         transition={{ duration: 0.5 }}
                         style={{
                             marginTop: 48, borderRadius: 24,
-                            background: 'linear-gradient(135deg, rgba(16,185,129,0.05), rgba(139,92,246,0.05))',
+                            background: 'linear-gradient(90deg, rgba(16, 185, 129, 0.05, 129, 185, rgba(16), rgba(139,92,246,0.05))',
                             border: '1px solid rgba(255,255,255,0.07)',
                             padding: '40px 36px', display: 'flex', flexWrap: 'wrap',
                             gap: 32, alignItems: 'center',
@@ -620,7 +620,7 @@ export default function Subscription() {
                             <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: '#10b981', textTransform: 'uppercase', marginBottom: 10 }}>One Subscription. Entire Ecosystem.</div>
                             <h3 style={{ fontSize: 'clamp(20px, 3vw, 28px)', fontWeight: 900, marginBottom: 12, letterSpacing: '-0.02em' }}>
                                 Works Across All{' '}
-                                <span className="flowing-gradient" style={{ background: 'linear-gradient(135deg, #10b981, #8b5cf6)' }}>
+                                <span className="flowing-gradient" style={{ background: 'linear-gradient(90deg, #10b981, #8b5cf6, #10b981)' }}>
                                     RexyCore Products
                                 </span>
                             </h3>
@@ -693,7 +693,7 @@ export default function Subscription() {
                                 </div>
                                 <label style={{ display: 'block', fontSize: 10, fontWeight: 800, color: '#555', marginBottom: 10, letterSpacing: 1 }}>WHAT FEATURE DO YOU NEED MOST?</label>
                                 <textarea placeholder="e.g. PPT generation, unlimited storage..." value={surveyData.notes} onChange={e => setSurveyData({ ...surveyData, notes: e.target.value })} style={{ width: '100%', height: 90, resize: 'none', background: 'rgba(255,255,255,0.03)', border: `1px solid ${selectedPlan.glowColor}22`, borderRadius: 10, padding: 14, color: '#ccc', fontSize: 13, outline: 'none', marginBottom: 28 }} />
-                                <button onClick={submitSurvey} disabled={isSaving} style={{ width: '100%', height: 52, borderRadius: 12, background: `linear-gradient(135deg, ${selectedPlan.glowColor}44, ${selectedPlan.glowColor}11)`, border: `1px solid ${selectedPlan.glowColor}55`, color: selectedPlan.glowColor, fontSize: 13, fontWeight: 900, letterSpacing: 2, cursor: 'pointer' }}>
+                                <button onClick={submitSurvey} disabled={isSaving} style={{ width: '100%', height: 52, borderRadius: 12, background: `linear-gradient(90deg, ${selectedPlan.glowColor}44, ${selectedPlan.glowColor}11, ${selectedPlan.glowColor}44)`, border: `1px solid ${selectedPlan.glowColor}55`, color: selectedPlan.glowColor, fontSize: 13, fontWeight: 900, letterSpacing: 2, cursor: 'pointer' }}>
                                     {isSaving ? 'JOINING...' : 'CONFIRM WAITLIST →'}
                                 </button>
                             </div>

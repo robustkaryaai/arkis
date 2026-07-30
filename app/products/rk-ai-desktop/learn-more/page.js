@@ -61,7 +61,7 @@ export default function RKDesktopLearnMore() {
               <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: '#3b82f6', boxShadow: '0 0 10px #3b82f6' }} /> Deep Dive: Architecture
             </motion.div>
             <motion.h1 variants={textVariant(0.1)} style={{ maxWidth: '900px', fontSize: 'clamp(48px, 8vw, 80px)', lineHeight: '1.05', letterSpacing: '-2px', fontWeight: '900' }}>
-              The anatomy of <span style={{ background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', display: 'inline-block' }}>native intelligence.</span>
+              The anatomy of <span style={{ background: 'linear-gradient(90deg, #3b82f6, #8b5cf6, #3b82f6)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent', display: 'inline-block' }}>native intelligence.</span>
             </motion.h1>
             <motion.p variants={fadeUp} style={{ maxWidth: '700px', margin: '24px 0 40px', fontSize: '20px', color: 'rgba(255,255,255,0.6)', lineHeight: '1.7' }}>
               We bypassed traditional cloud constraints to build an ultra-fast, completely localized AI execution engine. Explore the technical decisions that make RK AI Desktop the most powerful tool on your machine.
@@ -149,7 +149,7 @@ export default function RKDesktopLearnMore() {
             {/* Center line */}
             <div style={{
               position: 'absolute', top: 0, bottom: 0, left: '32px',
-              width: '2px', background: 'linear-gradient(to bottom, transparent, #3b82f6, transparent)',
+              width: '2px', background: 'linear-gradient(90deg, transparent, #3b82f6, transparent)',
               borderRadius: '2px', zIndex: 0
             }} />
 

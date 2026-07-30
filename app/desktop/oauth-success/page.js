@@ -59,7 +59,7 @@ const styles = {
   },
   link: {
     color: "#ffffff",
-    background: "linear-gradient(135deg, #6366f1, #9333ea)",
+    background: "linear-gradient(90deg, #6366f1, #9333ea, #6366f1)",
     padding: "12px 18px",
     borderRadius: 10,
     fontWeight: 700,

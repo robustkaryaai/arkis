@@ -67,7 +67,7 @@ export default function LuminaOSLearnMore() {
               Lumina OS is not Linux with an AI plugin installed. It is a ground-up reimagination of what an operating system should be when intelligence is a first-class citizen of the kernel itself.
             </motion.p>
             <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-              <Link href="/products/lumina-os" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: `linear-gradient(135deg, #fff, ${ACB})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
+              <Link href="/products/lumina-os" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: `linear-gradient(90deg, #fff, ${ACB}, #fff)`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
                 Explore Lumina OS <FiArrowRight />
               </Link>
               <a href="#journey" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
@@ -125,7 +125,7 @@ export default function LuminaOSLearnMore() {
             <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.5)', marginTop: 12, fontSize: 17 }}>How we went from a blank kernel to a living, breathing AI OS.</motion.p>
           </motion.div>
           <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 2, background: `linear-gradient(to bottom, transparent, ${ACB}, ${AC}, transparent)` }} />
+            <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 2, background: `linear-gradient(90deg, transparent, ${ACB}, ${AC}, transparent)` }} />
             <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
               {timeline.map((item, i) => {
                 const isLeft = i % 2 === 0;
@@ -169,7 +169,7 @@ export default function LuminaOSLearnMore() {
                 </div>
                 <div style={{ height: 8, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden' }}>
                   <motion.div initial={{ width: 0 }} whileInView={{ width: `${c.progress}%` }} viewport={{ once: false, amount: 0.15 }} transition={{ duration: 1.4, delay: i * 0.1, ease: 'easeOut' }}
-                    style={{ height: '100%', background: `linear-gradient(90deg, ${c.color}99, ${c.color})`, borderRadius: 99 }} />
+                    style={{ height: '100%', background: `linear-gradient(90deg, ${c.color}99, ${c.color}, ${c.color}99)`, borderRadius: 99 }} />
                 </div>
               </motion.div>
             ))}
@@ -212,7 +212,7 @@ export default function LuminaOSLearnMore() {
                   <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0, fontSize: 15 }}>Lumina OS is currently in a highly controlled Alpha. Express interest to be considered for early access.</p>
                 </div>
                 <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                  <Link href="/waitlist" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(135deg, ${AC}, ${ACB})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
+                  <Link href="/waitlist" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
                     Join Waitlist <FiArrowRight />
                   </Link>
                   <Link href="/products/lumina-os" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>

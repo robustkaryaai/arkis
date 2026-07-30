@@ -47,14 +47,14 @@ export default function MalusPage() {
             variants={textVariant(0.1)}
             style={{ fontSize: 'clamp(52px, 8.5vw, 130px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.95, marginBottom: 20 }}
           >
-            Meet <FlowText gradient="linear-gradient(135deg, #10b981, #059669, #10b981)">MALUS</FlowText>
+            Meet <FlowText gradient="linear-gradient(90deg, #10b981, #059669, #10b981)">MALUS</FlowText>
           </motion.h1>
           
           <motion.h2
             variants={textVariant(0.2)}
             style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            <FlowText gradient="linear-gradient(135deg, #10b981, #059669, #10b981)">Ambient intelligence for your desktop.</FlowText>
+            <FlowText gradient="linear-gradient(90deg, #10b981, #059669, #10b981)">Ambient intelligence for your desktop.</FlowText>
           </motion.h2>
 
           <motion.p 

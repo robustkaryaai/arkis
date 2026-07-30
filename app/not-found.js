@@ -27,7 +27,7 @@ export default function NotFound() {
 
           <motion.h1 variants={textVariant(0)} style={{ fontSize: 'clamp(64px, 10vw, 120px)', fontWeight: 900, letterSpacing: '-4px', lineHeight: 1.0, marginBottom: 16 }}>
             Lost in{' '}
-            <span style={{ display: 'inline-block' }}><FlowText gradient="linear-gradient(135deg, #f87171, #fca5a5, #fecaca)" speed={3}>Space.</FlowText></span>
+            <span style={{ display: 'inline-block' }}><FlowText gradient="linear-gradient(90deg, #f87171, #fca5a5, #fecaca, #fca5a5, #f87171)" speed={3}>Space.</FlowText></span>
           </motion.h1>
 
           <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.45)', fontSize: 18, lineHeight: 1.7, margin: '0 auto 40px' }}>

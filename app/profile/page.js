@@ -61,7 +61,7 @@ export default function Profile() {
                         <Card3D orbColor="rgba(124,58,237,0.3)" style={{ padding: '48px 40px', textAlign: 'center', marginBottom: 24 }}>
                             <div style={{
                                 width: '100px', height: '100px', borderRadius: '50%',
-                                background: 'linear-gradient(135deg, rgba(124,58,237,0.5), rgba(37,99,235,0.5))',
+                                background: 'linear-gradient(90deg, rgba(124, 58, 237, 0.5, 237, 58, rgba(124), rgba(37,99,235,0.5))',
                                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                                 fontSize: '40px', fontWeight: '900', color: '#fff',
                                 margin: '0 auto 20px', boxShadow: '0 10px 30px rgba(0,0,0,0.3)',

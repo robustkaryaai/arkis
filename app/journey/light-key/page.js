@@ -68,7 +68,7 @@ export default function LightKeyJourney() {
                     </div>
                     <h1 style={{ fontSize: 'clamp(40px, 8vw, 80px)', lineHeight: '1.1', letterSpacing: '-2px' }}>
                         Reinventing <br />
-                        <span style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                        <span style={{ background: 'linear-gradient(90deg, #f59e0b, #d97706, #f59e0b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
                             Input.
                         </span>
                     </h1>
@@ -80,7 +80,7 @@ export default function LightKeyJourney() {
 
             <section style={{ maxWidth: '1000px', margin: '0 auto', padding: '60px 5% 100px', position: 'relative' }}>
                 {/* Vertical Line */}
-                <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '60px', bottom: '100px', width: '2px', background: 'linear-gradient(to bottom, rgba(245, 158, 11, 0.5), rgba(217, 119, 6, 0.1))', zIndex: 0 }} className="timeline-line" />
+                <div style={{ position: 'absolute', left: '50%', transform: 'translateX(-50%)', top: '60px', bottom: '100px', width: '2px', background: 'linear-gradient(90deg, rgba(245, 158, 11, 0.5, 11, 158, rgba(245), rgba(217, 119, 6, 0.1))', zIndex: 0 }} className="timeline-line" />
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '60px', position: 'relative', zIndex: 1 }}>
                     {timeline.map((item, i) => {
@@ -154,7 +154,7 @@ export default function LightKeyJourney() {
                 </div>
             </section>
 
-            <section style={{ padding: '80px 5%', textAlign: 'center', background: 'linear-gradient(to bottom, transparent, rgba(245, 158, 11, 0.05))', borderTop: '1px solid var(--border)' }}>
+            <section style={{ padding: '80px 5%', textAlign: 'center', background: 'linear-gradient(90deg, transparent, rgba(245, 158, 11, 0.05, 11, 158, rgba(245, transparent))', borderTop: '1px solid var(--border)' }}>
                 <div style={{ maxWidth: '600px', margin: '0 auto' }} className="reveal">
                     <h2 style={{ fontSize: '36px', fontWeight: '900', marginBottom: '20px' }}>Join the Hardware Beta.</h2>
                     <p style={{ fontSize: '16px', color: 'var(--muted)', marginBottom: '40px' }}>
@@ -162,7 +162,7 @@ export default function LightKeyJourney() {
                     </p>
                     <Link href="/notify?product=light-key" style={{
                         display: 'inline-flex', alignItems: 'center', gap: '12px',
-                        background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                        background: 'linear-gradient(90deg, #f59e0b, #d97706, #f59e0b)',
                         color: '#fff', padding: '18px 40px', borderRadius: '50px',
                         fontWeight: '800', fontSize: '16px', textDecoration: 'none',
                         boxShadow: '0 10px 30px rgba(245, 158, 11, 0.3)',

@@ -43,7 +43,7 @@ export default function EnterprisePage() {
             </motion.div>
             <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(52px, 8vw, 88px)', fontWeight: 900, lineHeight: 1.0, letterSpacing: '-0.04em', marginBottom: 24 }}>
               Built for{' '}
-              <span style={{ background: 'linear-gradient(135deg, #a855f7, #6366f1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Scale.</span>
+              <span style={{ background: 'linear-gradient(90deg, #a855f7, #6366f1, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Scale.</span>
             </motion.h1>
             <motion.p variants={fadeUp} style={{ fontSize: 18, color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, maxWidth: 560, marginBottom: 40 }}>
               Empower your organization with total privacy, custom integrations, and unlimited local compute — the ultimate AI for high-security teams.
@@ -51,7 +51,7 @@ export default function EnterprisePage() {
             <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
               <button
                 onClick={() => document.getElementById('contact-form').scrollIntoView({ behavior: 'smooth' })}
-                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 32px', borderRadius: 99, background: 'linear-gradient(135deg, #8b5cf6, #6366f1)', color: '#fff', fontWeight: 800, fontSize: 15, border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px rgba(139,92,246,0.35)', fontFamily: 'inherit' }}
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 32px', borderRadius: 99, background: 'linear-gradient(90deg, #8b5cf6, #6366f1, #8b5cf6)', color: '#fff', fontWeight: 800, fontSize: 15, border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px rgba(139,92,246,0.35)', fontFamily: 'inherit' }}
               >
                 Request a Proposal <FiArrowRight size={16} />
               </button>
@@ -89,7 +89,7 @@ export default function EnterprisePage() {
               </Card3D>
             </motion.div>
             <motion.div variants={fadeUp}>
-              <Card3D orbColor="rgba(139,92,246,0.25)" style={{ border: '1px solid rgba(139, 92, 246, 0.4)', background: 'linear-gradient(180deg, rgba(139,92,246,0.06), transparent)' }}>
+              <Card3D orbColor="rgba(139,92,246,0.25)" style={{ border: '1px solid rgba(139, 92, 246, 0.4)', background: 'linear-gradient(90deg, rgba(139, 92, 246, 0.06, 246, 92, rgba(139), transparent)' }}>
                 <div style={{ padding: '36px', position: 'relative', overflow: 'hidden' }}>
                   <div style={{ position: 'absolute', top: 0, left: '20%', right: '20%', height: '2px', background: 'linear-gradient(90deg, transparent, #8b5cf6, transparent)' }} />
                   <h3 style={{ fontSize: '20px', fontWeight: '900', marginBottom: '28px', color: '#a78bfa' }}>Enterprise Matrix</h3>
@@ -174,7 +174,7 @@ export default function EnterprisePage() {
                         onFocus={e => e.target.style.borderColor = '#8b5cf6'} onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.08)'} />
                     </div>
                     <button type="submit"
-                      style={{ marginTop: '8px', background: 'linear-gradient(135deg, #8b5cf6, #6366f1)', boxShadow: '0 8px 32px rgba(139,92,246,0.3)', width: '100%', justifyContent: 'center', display: 'flex', alignItems: 'center', gap: 8, padding: '15px', borderRadius: 99, color: '#fff', fontWeight: 800, fontSize: 15, border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
+                      style={{ marginTop: '8px', background: 'linear-gradient(90deg, #8b5cf6, #6366f1, #8b5cf6)', boxShadow: '0 8px 32px rgba(139,92,246,0.3)', width: '100%', justifyContent: 'center', display: 'flex', alignItems: 'center', gap: 8, padding: '15px', borderRadius: 99, color: '#fff', fontWeight: 800, fontSize: 15, border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}>
                       Send Inquiry
                     </button>
                   </form>

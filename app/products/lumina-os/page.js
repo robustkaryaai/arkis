@@ -47,14 +47,14 @@ export default function LuminaOSPage() {
             variants={textVariant(0.1)}
             style={{ fontSize: 'clamp(52px, 8.5vw, 130px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.95, marginBottom: 20 }}
           >
-            Lumina <FlowText gradient="linear-gradient(135deg, #cfe8ff, #60a5fa, #cfe8ff)">OS</FlowText>
+            Lumina <FlowText gradient="linear-gradient(90deg, #cfe8ff, #60a5fa, #cfe8ff)">OS</FlowText>
           </motion.h1>
           
           <motion.h2
             variants={textVariant(0.2)}
             style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            <FlowText gradient="linear-gradient(135deg, #cfe8ff, #60a5fa, #cfe8ff)">The OS reimagined from the ground up.</FlowText>
+            <FlowText gradient="linear-gradient(90deg, #cfe8ff, #60a5fa, #cfe8ff)">The OS reimagined from the ground up.</FlowText>
           </motion.h2>
 
           <motion.p 

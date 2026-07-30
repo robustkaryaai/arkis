@@ -166,7 +166,7 @@ function ProductCard({ product, isHovered, onEnter, onLeave }) {
         {/* Shine */}
         <div className="card-shine" style={{ position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 3, borderRadius: 24 }} />
         {/* Top edge */}
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)', zIndex: 4 }} />
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15, 255, 255, rgba(255, transparent), transparent)', zIndex: 4 }} />
 
         {/* Color explosion when hovered — inside card top */}
         <AnimatePresence>
@@ -180,11 +180,11 @@ function ProductCard({ product, isHovered, onEnter, onLeave }) {
         </AnimatePresence>
 
         {/* Banner */}
-        <div style={{ height: 200, position: 'relative', overflow: 'hidden', background: product.bgImage ? undefined : `linear-gradient(135deg, ${product.color}18 0%, ${product.accent}0f 100%)`, flexShrink: 0 }}>
+        <div style={{ height: 200, position: 'relative', overflow: 'hidden', background: product.bgImage ? undefined : `linear-gradient(90deg, ${product.color}18, ${product.accent}0f, ${product.color}18)`, flexShrink: 0 }}>
           {product.bgImage && (
             <>
               <Image src={product.bgImage} alt={product.name} fill style={{ objectFit: 'cover', opacity: 0.65 }} />
-              <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(to bottom, ${product.color}25, rgba(0,0,0,0.7))` }} />
+              <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(90deg, ${product.color}25, rgba(0, 0, 0, 0.7, 0, 0, rgba(0, ${product.color}25))` }} />
             </>
           )}
           {product.logo && !product.bgImage && (
@@ -216,7 +216,7 @@ function ProductCard({ product, isHovered, onEnter, onLeave }) {
           </div>
           <div style={{ marginTop: 'auto', paddingTop: 8 }}>
             <Link href={product.href}
-              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: '13px 20px', borderRadius: 99, background: `linear-gradient(135deg, ${product.color}, ${product.accent})`, color: product.id === 'lumina-os' ? '#000' : '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none', boxShadow: `0 4px 20px ${product.color}33` }}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, width: '100%', padding: '13px 20px', borderRadius: 99, background: `linear-gradient(90deg, ${product.color}, ${product.accent}, ${product.color})`, color: product.id === 'lumina-os' ? '#000' : '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none', boxShadow: `0 4px 20px ${product.color}33` }}
               onClick={e => e.stopPropagation()}
             >
               {product.ctaIcon} {product.cta}
@@ -249,7 +249,7 @@ export default function Products() {
           </motion.div>
           <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(44px, 7vw, 88px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 1.05, marginBottom: 24 }}>
             The Rexycore<br />
-            <FlowText gradient="linear-gradient(135deg, #a5b4fc, #7dd3fc, #6ee7b7, #7dd3fc, #a5b4fc)">Product Suite.</FlowText>
+            <FlowText gradient="linear-gradient(90deg, #a5b4fc, #7dd3fc, #6ee7b7, #7dd3fc, #a5b4fc)">Product Suite.</FlowText>
           </motion.h1>
           <motion.p variants={fadeUp(0.3)} style={{ fontSize: 18, color: 'rgba(255,255,255,0.4)', lineHeight: 1.7 }}>
             Privacy-first, AI-powered products built for the way you live, work, and create — with no compromises.
@@ -259,7 +259,7 @@ export default function Products() {
 
       {/* Gradient rule */}
       <div style={{ padding: '0 5%', marginBottom: 72, position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', height: 1, background: 'linear-gradient(90deg, transparent 0%, rgba(165,180,252,0.2) 50%, transparent 100%)' }} />
+        <div style={{ maxWidth: 1200, margin: '0 auto', height: 1, background: 'linear-gradient(90deg, transparent, rgba(165, 180, 252, 0.2, 252, 180, rgba(165, transparent) 50%, transparent 100%)' }} />
       </div>
 
       {/* ── PRODUCT GRID ── */}

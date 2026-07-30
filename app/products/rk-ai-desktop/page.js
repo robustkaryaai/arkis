@@ -55,7 +55,7 @@ export default function RkAiDesktop() {
             variants={textVariant(0.1)}
             style={{ fontSize: 'clamp(52px, 8.5vw, 130px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.95, marginBottom: 20 }}
           >
-            RK AI <FlowText gradient="linear-gradient(135deg, #3b82f6, #60a5fa, #3b82f6)">Desktop</FlowText>
+            RK AI <FlowText gradient="linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6)">Desktop</FlowText>
           </motion.h1>
           
           <motion.h2
@@ -63,7 +63,7 @@ export default function RkAiDesktop() {
             className="tagline-fix"
             style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            <FlowText gradient="linear-gradient(135deg, #3b82f6, #8b5cf6, #3b82f6)">
+            <FlowText gradient="linear-gradient(90deg, #3b82f6, #8b5cf6, #3b82f6)">
               Intelligence, locally run.
             </FlowText>
           </motion.h2>

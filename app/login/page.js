@@ -59,7 +59,7 @@ function LoginContent() {
                         <Card3D style={{ padding: '48px 40px', width: '100%' }} orbColor="rgba(59,130,246,0.2)">
                             <div style={{ textAlign: 'center', marginBottom: '32px' }}>
                                 <h1 style={{ fontSize: '32px', fontWeight: '900', letterSpacing: '-0.5px' }}>
-                                    <span style={{ background: 'linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Welcome Back</span>
+                                    <span style={{ background: 'linear-gradient(90deg, #60a5fa, #3b82f6, #60a5fa)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Welcome Back</span>
                                 </h1>
                                 <p style={{ color: 'rgba(255,255,255,0.4)', marginTop: '8px', fontSize: '15px' }}>Sign in to your Rexycore ecosystem account.</p>
                             </div>
@@ -104,7 +104,7 @@ function LoginContent() {
                                 <motion.button type="submit" disabled={localLoading} whileHover={!localLoading ? { scale: 1.02 } : {}} whileTap={!localLoading ? { scale: 0.98 } : {}} style={{
                                     width: '100%', padding: '16px', borderRadius: '12px', fontSize: '16px',
                                     fontWeight: '800', cursor: localLoading ? 'not-allowed' : 'pointer', opacity: localLoading ? 0.7 : 1,
-                                    marginTop: '8px', background: 'linear-gradient(135deg, #60a5fa, #3b82f6)', color: '#fff', border: 'none',
+                                    marginTop: '8px', background: 'linear-gradient(90deg, #60a5fa, #3b82f6, #60a5fa)', color: '#fff', border: 'none',
                                     boxShadow: '0 8px 30px rgba(59,130,246,0.3)'
                                 }}>
                                     {localLoading ? 'Signing in...' : 'Sign In'}

@@ -111,7 +111,7 @@ export default function Navbar() {
             height: user ? (scrolled ? '32px' : '36px') : 'auto',
             padding: user ? '0' : (scrolled ? '8px 16px' : '10px 20px'),
             borderRadius: 99,
-            background: user ? 'linear-gradient(135deg, #10b981, #059669)' : 'rgba(255, 255, 255, 0.1)',
+            background: user ? 'linear-gradient(90deg, #10b981, #059669, #10b981)' : 'rgba(255, 255, 255, 0.1)',
             color: '#fff',
             textDecoration: 'none',
             fontWeight: 700,

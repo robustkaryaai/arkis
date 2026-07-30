@@ -67,7 +67,7 @@ export default function RexyCoreCloudPage() {
             </motion.div>
             <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: 28, maxWidth: 900 }}>
               Your AI,<br />
-              <FlowText gradient={`linear-gradient(135deg, ${AC} 0%, ${ACB} 100%, ${AC})`}>
+              <FlowText gradient={`linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`}>
                 everywhere.
               </FlowText>
             </motion.h1>
@@ -76,7 +76,7 @@ export default function RexyCoreCloudPage() {
             </motion.p>
             <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <Link href="/subscription" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(135deg, ${AC}, ${ACB})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none', boxShadow: `0 8px 32px ${AC}44` }}>
+                <Link href="/subscription" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none', boxShadow: `0 8px 32px ${AC}44` }}>
                   View Matrix Tiers <FiArrowRight />
                 </Link>
               </motion.div>
@@ -115,7 +115,7 @@ export default function RexyCoreCloudPage() {
             {tiers.map((t, i) => (
               <motion.div key={t.name} variants={fadeUp}>
                 <Card3D style={{ padding: '32px 28px', display: 'flex', flexDirection: 'column', gap: 16, height: '100%', boxSizing: 'border-box' }} orbColor={t.popular ? 'rgba(167,139,250,0.3)' : `${t.color}33`}>
-                  {t.popular && <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)', padding: '4px 16px', borderRadius: 99, background: 'linear-gradient(135deg, #a78bfa, #7c3aed)', color: '#fff', fontSize: 11, fontWeight: 900, letterSpacing: 1.5, whiteSpace: 'nowrap', zIndex: 10 }}>MOST POPULAR</div>}
+                  {t.popular && <div style={{ position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)', padding: '4px 16px', borderRadius: 99, background: 'linear-gradient(90deg, #a78bfa, #7c3aed, #a78bfa)', color: '#fff', fontSize: 11, fontWeight: 900, letterSpacing: 1.5, whiteSpace: 'nowrap', zIndex: 10 }}>MOST POPULAR</div>}
                   <div>
                     <div style={{ fontSize: 13, fontWeight: 700, color: t.color, letterSpacing: 1, textTransform: 'uppercase', marginBottom: 6 }}>{t.name}</div>
                     <div style={{ fontSize: 32, fontWeight: 900, color: '#fff', letterSpacing: '-1px' }}>{t.price}</div>
@@ -127,7 +127,7 @@ export default function RexyCoreCloudPage() {
                       </li>
                     ))}
                   </ul>
-                  <Link href="/subscription" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '12px', borderRadius: 14, background: t.popular ? 'linear-gradient(135deg, #a78bfa, #7c3aed)' : `${t.color}18`, border: `1px solid ${t.color}44`, color: t.popular ? '#fff' : t.color, fontWeight: 800, fontSize: 14, textDecoration: 'none', transition: 'opacity 0.2s' }}
+                  <Link href="/subscription" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6, padding: '12px', borderRadius: 14, background: t.popular ? 'linear-gradient(90deg, #a78bfa, #7c3aed, #a78bfa)' : `${t.color}18`, border: `1px solid ${t.color}44`, color: t.popular ? '#fff' : t.color, fontWeight: 800, fontSize: 14, textDecoration: 'none', transition: 'opacity 0.2s' }}
                     onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
                     onMouseLeave={e => e.currentTarget.style.opacity = '1'}>
                     {t.price === '₹0' ? 'Get Started Free' : t.price === 'Custom' ? 'Contact Us' : 'Subscribe'} <FiArrowRight size={14} />
@@ -168,7 +168,7 @@ export default function RexyCoreCloudPage() {
             <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em' }}>From zero to live in 12 months.</motion.h2>
           </motion.div>
           <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 2, background: `linear-gradient(to bottom, transparent, ${AC}, ${ACB}, transparent)` }} />
+            <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 2, background: `linear-gradient(90deg, transparent, ${AC}, ${ACB}, transparent)` }} />
             <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
               {timeline.map((item, i) => {
                 const isLeft = i % 2 === 0;
@@ -210,7 +210,7 @@ export default function RexyCoreCloudPage() {
                 </div>
                 <div style={{ height: 8, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden', marginBottom: 6 }}>
                   <motion.div initial={{ width: 0 }} whileInView={{ width: `${c.progress}%` }} viewport={{ once: false, amount: 0.15 }} transition={{ duration: 1.4, delay: i * 0.1 }}
-                    style={{ height: '100%', background: `linear-gradient(90deg, ${AC}99, ${ACB})`, borderRadius: 99 }} />
+                    style={{ height: '100%', background: `linear-gradient(90deg, ${AC}99, ${ACB}, ${AC}99)`, borderRadius: 99 }} />
                 </div>
                 <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', fontWeight: 600 }}>{c.sub}</div>
               </motion.div>
@@ -240,7 +240,7 @@ export default function RexyCoreCloudPage() {
               <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, fontSize: 15 }}>Custom storage, unlimited autonomous agents, dedicated compute nodes, and a direct SLA. Our Quantum tier is built for teams and enterprises with serious workloads.</p>
               <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                 <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                  <Link href="/enterprise" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 99, background: 'linear-gradient(135deg, #7c3aed, #a78bfa)', color: '#fff', fontWeight: 800, fontSize: 14, textDecoration: 'none' }}>
+                  <Link href="/enterprise" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '13px 26px', borderRadius: 99, background: 'linear-gradient(90deg, #7c3aed, #a78bfa, #7c3aed)', color: '#fff', fontWeight: 800, fontSize: 14, textDecoration: 'none' }}>
                     Enterprise Inquiry <FiArrowRight />
                   </Link>
                 </motion.div>
@@ -267,7 +267,7 @@ export default function RexyCoreCloudPage() {
                 </div>
                 <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                   <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                    <Link href="/subscription" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(135deg, ${AC}, ${ACB})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
+                    <Link href="/subscription" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
                       View Matrix Tiers <FiArrowRight />
                     </Link>
                   </motion.div>

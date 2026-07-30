@@ -77,7 +77,7 @@ export default function TermsAndConditions() {
           </motion.div>
           <motion.h1 variants={textVariant(0)} style={{ fontSize: 'clamp(40px, 7vw, 72px)', fontWeight: 900, letterSpacing: '-2px', lineHeight: 1.0, marginBottom: 20 }}>
             Terms &amp;{' '}
-            <span style={{ background: 'linear-gradient(135deg, #a5b4fc, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Conditions</span>
+            <span style={{ background: 'linear-gradient(90deg, #a5b4fc, #818cf8, #a5b4fc)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Conditions</span>
           </motion.h1>
           <motion.p variants={fadeUp} style={{ fontSize: 17, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7 }}>
             Last Updated: July 2026. Please read these terms carefully before using any product within the Rexycore ecosystem.

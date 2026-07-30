@@ -16,12 +16,12 @@ function NotifyContent() {
     const product = (searchParams.get('product') || '').toLowerCase();
     
     const theme = useMemo(() => {
-        if (product === 'rk-ai-home') return { primary: '#ec4899', gradient: 'linear-gradient(135deg, #ec4899, #be185d)', glow: 'rgba(236,72,153,0.3)', bgGlow: 'rgba(236,72,153,0.1)' };
-        if (product === 'lumina-os') return { primary: '#8b5cf6', gradient: 'linear-gradient(135deg, #8b5cf6, #6d28d9)', glow: 'rgba(139,92,246,0.3)', bgGlow: 'rgba(139,92,246,0.1)' };
-        if (product === 'malus') return { primary: '#10B981', gradient: 'linear-gradient(135deg, #10B981, #059669)', glow: 'rgba(16,185,129,0.3)', bgGlow: 'rgba(16,185,129,0.1)' };
-        if (product === 'rk-ai-desktop') return { primary: '#4f9cf9', gradient: 'linear-gradient(135deg, #4f9cf9, #3b82f6)', glow: 'rgba(79,156,249,0.3)', bgGlow: 'rgba(79,156,249,0.1)' };
-        if (product === 'light-key') return { primary: '#eab308', gradient: 'linear-gradient(135deg, #eab308, #ca8a04)', glow: 'rgba(234,179,8,0.3)', bgGlow: 'rgba(234,179,8,0.1)' };
-        return { primary: '#9b59f5', gradient: 'linear-gradient(135deg, #9b59f5, #7c3aed)', glow: 'rgba(155,89,245,0.3)', bgGlow: 'rgba(155,89,245,0.1)' };
+        if (product === 'rk-ai-home') return { primary: '#ec4899', gradient: 'linear-gradient(90deg, #ec4899, #be185d, #ec4899)', glow: 'rgba(236,72,153,0.3)', bgGlow: 'rgba(236,72,153,0.1)' };
+        if (product === 'lumina-os') return { primary: '#8b5cf6', gradient: 'linear-gradient(90deg, #8b5cf6, #6d28d9, #8b5cf6)', glow: 'rgba(139,92,246,0.3)', bgGlow: 'rgba(139,92,246,0.1)' };
+        if (product === 'malus') return { primary: '#10B981', gradient: 'linear-gradient(90deg, #10B981, #059669, #10B981)', glow: 'rgba(16,185,129,0.3)', bgGlow: 'rgba(16,185,129,0.1)' };
+        if (product === 'rk-ai-desktop') return { primary: '#4f9cf9', gradient: 'linear-gradient(90deg, #4f9cf9, #3b82f6, #4f9cf9)', glow: 'rgba(79,156,249,0.3)', bgGlow: 'rgba(79,156,249,0.1)' };
+        if (product === 'light-key') return { primary: '#eab308', gradient: 'linear-gradient(90deg, #eab308, #ca8a04, #eab308)', glow: 'rgba(234,179,8,0.3)', bgGlow: 'rgba(234,179,8,0.1)' };
+        return { primary: '#9b59f5', gradient: 'linear-gradient(90deg, #9b59f5, #7c3aed, #9b59f5)', glow: 'rgba(155,89,245,0.3)', bgGlow: 'rgba(155,89,245,0.1)' };
     }, [product]);
 
     const productLabel = useMemo(() => {

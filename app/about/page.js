@@ -42,7 +42,7 @@ export default function About() {
             </motion.div>
             <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(52px, 8vw, 96px)', fontWeight: 900, lineHeight: 1.0, letterSpacing: '-0.055em', marginBottom: 32 }}>
               Built for<br />
-              <span style={{ background: 'linear-gradient(135deg, #a5b4fc 0%, #7dd3fc 55%, #6ee7b7 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>everyone.</span>
+              <span style={{ background: 'linear-gradient(90deg, #a5b4fc, #7dd3fc, #6ee7b7, #7dd3fc, #a5b4fc)', WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>everyone.</span>
             </motion.h1>
             <motion.p variants={fadeUp(0.3)} style={{ maxWidth: 680, fontSize: 20, color: 'rgba(255,255,255,0.4)', lineHeight: 1.75, marginBottom: 48 }}>
               Rexycore is a technology company dedicated to building the intelligent systems of the future — from specialized AI assistants to native operating systems. Our mission is to prove that privacy and intelligence are not a tradeoff.
@@ -65,7 +65,7 @@ export default function About() {
 
       {/* Divider */}
       <div style={{ padding: '0 5%', marginBottom: 80, position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', height: 1, background: 'linear-gradient(90deg, transparent 0%, rgba(165,180,252,0.2) 50%, transparent 100%)' }} />
+        <div style={{ maxWidth: 1100, margin: '0 auto', height: 1, background: 'linear-gradient(90deg, transparent, rgba(165, 180, 252, 0.2, 252, 180, rgba(165, transparent) 50%, transparent 100%)' }} />
       </div>
 
       {/* ── MISSION ── */}

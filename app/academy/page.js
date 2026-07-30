@@ -59,7 +59,7 @@ export default function AcademyPage() {
               Learn the technologies shaping tomorrow — from programming and AI to privacy-first computing — with carefully curated paths, partner products, and exclusive student benefits.
             </p>
             <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <button onClick={() => document.getElementById('featured').scrollIntoView({ behavior: 'smooth' })} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(135deg, ${AC}, #3b82f6)`, color: '#fff', fontWeight: 800, fontSize: 15, border: 'none', cursor: 'pointer', boxShadow: `0 8px 32px ${AC}44` }}>
+              <button onClick={() => document.getElementById('featured').scrollIntoView({ behavior: 'smooth' })} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, #3b82f6, ${AC})`, color: '#fff', fontWeight: 800, fontSize: 15, border: 'none', cursor: 'pointer', boxShadow: `0 8px 32px ${AC}44` }}>
                 Explore Learning <FiArrowRight />
               </button>
               <button onClick={() => document.getElementById('bundles').scrollIntoView({ behavior: 'smooth' })} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, cursor: 'pointer' }}>
@@ -120,7 +120,7 @@ export default function AcademyPage() {
                   </li>
                 ))}
               </ul>
-              <Link href="/academy/dinox" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: 'linear-gradient(135deg, #10b981, #059669)', color: '#fff', fontWeight: 800, fontSize: 15, textDecoration: 'none', alignSelf: 'flex-start', boxShadow: '0 8px 32px rgba(16,185,129,0.35)' }}>
+              <Link href="/academy/dinox" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: 'linear-gradient(90deg, #10b981, #059669, #10b981)', color: '#fff', fontWeight: 800, fontSize: 15, textDecoration: 'none', alignSelf: 'flex-start', boxShadow: '0 8px 32px rgba(16,185,129,0.35)' }}>
                 Learn More About DinoX <FiArrowRight />
               </Link>
             </div>
@@ -143,7 +143,7 @@ export default function AcademyPage() {
                         </li>
                       ))}
                     </ul>
-                    <Link href={b.link} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '100%', padding: '10px', borderRadius: 12, background: b.featured ? 'linear-gradient(135deg, #34d399, #3b82f6)' : 'rgba(255,255,255,0.06)', color: '#fff', fontWeight: 700, fontSize: 14, textDecoration: 'none', boxSizing: 'border-box' }}>
+                    <Link href={b.link} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '100%', padding: '10px', borderRadius: 12, background: b.featured ? 'linear-gradient(90deg, #34d399, #3b82f6, #34d399)' : 'rgba(255,255,255,0.06)', color: '#fff', fontWeight: 700, fontSize: 14, textDecoration: 'none', boxSizing: 'border-box' }}>
                       Claim Bundle
                     </Link>
                   </motion.div>
@@ -195,7 +195,7 @@ export default function AcademyPage() {
       <section style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }}
-            style={{ background: 'linear-gradient(135deg, rgba(59,130,246,0.05), rgba(16,185,129,0.05))', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 32, padding: '60px', textAlign: 'center' }}>
+            style={{ background: 'linear-gradient(90deg, rgba(59, 130, 246, 0.05, 246, 130, rgba(59), rgba(16,185,129,0.05))', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 32, padding: '60px', textAlign: 'center' }}>
             <FiUsers size={40} color={AC} style={{ marginBottom: 24 }} />
             <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 16 }}>Join the Academy Community</h2>
             <p style={{ color: 'rgba(255,255,255,0.5)', maxWidth: 600, margin: '0 auto 40px', fontSize: 16, lineHeight: 1.7 }}>

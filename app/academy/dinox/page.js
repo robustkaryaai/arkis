@@ -31,7 +31,7 @@ export default function DinoXPage() {
                     <motion.img variants={fadeUp} src="/dinox.png" alt="DinoX Logo" style={{ width: '140px', height: '140px', objectFit: 'contain', marginBottom: '24px', filter: `drop-shadow(0 10px 40px rgba(16,185,129,0.5))` }} />
                     
                     <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(40px, 8vw, 82px)', lineHeight: '1.05', marginBottom: '24px', fontWeight: '900', letterSpacing: '-2px' }}>
-                        Project <span style={{ background: 'linear-gradient(135deg, #10b981, #059669)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', display: 'inline-block' }}>DinoX</span>
+                        Project <span style={{ background: 'linear-gradient(90deg, #10b981, #059669, #10b981)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', display: 'inline-block' }}>DinoX</span>
                     </motion.h1>
                     
                     <motion.p variants={fadeUp} style={{ fontSize: '20px', fontWeight: '600', color: 'rgba(255,255,255,0.9)', marginBottom: '16px' }}>
@@ -42,7 +42,7 @@ export default function DinoXPage() {
                     </motion.p>
                     
                     <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
-                        <Link href="/academy#bundles" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', borderRadius: '99px', background: `linear-gradient(135deg, ${G}, #059669)`, color: '#fff', fontWeight: 800, fontSize: 15, textDecoration: 'none', boxShadow: `0 8px 32px rgba(16,185,129,0.4)` }}>
+                        <Link href="/academy#bundles" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', borderRadius: '99px', background: `linear-gradient(90deg, ${G}, #059669, ${G})`, color: '#fff', fontWeight: 800, fontSize: 15, textDecoration: 'none', boxShadow: `0 8px 32px rgba(16,185,129,0.4)` }}>
                             View Bundles <FiArrowRight size={18} />
                         </Link>
                         <a href="https://antverse.vercel.app/products/dinox" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '15px 32px', borderRadius: '99px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(52,211,153,0.2)', color: GL, fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
@@ -147,7 +147,7 @@ export default function DinoXPage() {
 
                         {/* CTA */}
                         <motion.div variants={fadeUp} style={{ marginTop: '64px', textAlign: 'center' }}>
-                            <a href="https://antverse.vercel.app/products/dinox" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '18px 40px', borderRadius: '99px', background: `linear-gradient(135deg, ${G}, #059669)`, color: '#fff', fontWeight: 900, fontSize: 16, textDecoration: 'none', boxShadow: `0 10px 40px rgba(16,185,129,0.4)` }}>
+                            <a href="https://antverse.vercel.app/products/dinox" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '18px 40px', borderRadius: '99px', background: `linear-gradient(90deg, ${G}, #059669, ${G})`, color: '#fff', fontWeight: 900, fontSize: 16, textDecoration: 'none', boxShadow: `0 10px 40px rgba(16,185,129,0.4)` }}>
                                 Play DinoX Now <FiArrowRight size={18} />
                             </a>
                         </motion.div>

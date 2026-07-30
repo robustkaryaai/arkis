@@ -46,14 +46,14 @@ export default function LightKeyPage() {
             variants={textVariant(0.1)}
             style={{ fontSize: 'clamp(52px, 8.5vw, 130px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.95, marginBottom: 20 }}
           >
-            Light <FlowText gradient="linear-gradient(135deg, #f59e0b, #d97706, #f59e0b)">Key</FlowText>
+            Light <FlowText gradient="linear-gradient(90deg, #f59e0b, #d97706, #f59e0b)">Key</FlowText>
           </motion.h1>
           
           <motion.h2
             variants={textVariant(0.2)}
             style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 800, letterSpacing: '-0.02em', marginBottom: 28 }}
           >
-            <FlowText gradient="linear-gradient(135deg, #f59e0b, #d97706, #f59e0b)">Type smarter. Think faster.</FlowText>
+            <FlowText gradient="linear-gradient(90deg, #f59e0b, #d97706, #f59e0b)">Type smarter. Think faster.</FlowText>
           </motion.h2>
 
           <motion.p 

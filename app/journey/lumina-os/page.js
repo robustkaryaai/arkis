@@ -74,7 +74,7 @@ export default function LuminaJourney() {
                     </div>
                     <h1 style={{ fontSize: 'clamp(36px, 8vw, 80px)', lineHeight: '1.1', letterSpacing: '-2px', fontWeight: '900' }}>
                         We&apos;re building<br />
-                        <span style={{ background: 'linear-gradient(135deg, #a855f7, #6366f1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+                        <span style={{ background: 'linear-gradient(90deg, #a855f7, #6366f1, #a855f7)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
                             Lumina OS.
                         </span>
                     </h1>
@@ -92,14 +92,14 @@ export default function LuminaJourney() {
                     <div style={{
                         position: 'absolute', left: '50%', transform: 'translateX(-50%)',
                         top: '60px', bottom: '100px', width: '2px',
-                        background: 'linear-gradient(to bottom, rgba(168,85,247,0.6), rgba(99,102,241,0.1))',
+                        background: 'linear-gradient(90deg, rgba(168, 85, 247, 0.6, 247, 85, rgba(168), rgba(99,102,241,0.1))',
                         zIndex: 0
                     }} />
                 )}
                 {isMobile && (
                     <div style={{
                         position: 'absolute', left: '28px', top: '40px', bottom: '40px', width: '2px',
-                        background: 'linear-gradient(to bottom, rgba(168,85,247,0.6), rgba(99,102,241,0.1))',
+                        background: 'linear-gradient(90deg, rgba(168, 85, 247, 0.6, 247, 85, rgba(168), rgba(99,102,241,0.1))',
                         zIndex: 0
                     }} />
                 )}
@@ -187,7 +187,7 @@ export default function LuminaJourney() {
             </section>
 
             {/* CTA */}
-            <section style={{ padding: 'clamp(50px, 8vw, 80px) 5%', textAlign: 'center', background: 'linear-gradient(to bottom, transparent, rgba(168,85,247,0.05))', borderTop: '1px solid var(--border)' }}>
+            <section style={{ padding: 'clamp(50px, 8vw, 80px) 5%', textAlign: 'center', background: 'linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.05, 247, 85, rgba(168, transparent))', borderTop: '1px solid var(--border)' }}>
                 <div style={{ maxWidth: '600px', margin: '0 auto' }} className="reveal">
                     <div style={{ fontSize: '12px', fontWeight: '800', letterSpacing: '3px', color: '#a855f7', textTransform: 'uppercase', marginBottom: '16px' }}>
                         In Active Development
@@ -200,7 +200,7 @@ export default function LuminaJourney() {
                     </p>
                     <Link href="/notify?product=lumina-os" style={{
                         display: 'inline-flex', alignItems: 'center', gap: '12px',
-                        background: 'linear-gradient(135deg, #a855f7, #6366f1)',
+                        background: 'linear-gradient(90deg, #a855f7, #6366f1, #a855f7)',
                         color: '#fff', padding: 'clamp(14px, 2vw, 18px) clamp(28px, 5vw, 44px)',
                         borderRadius: '50px', fontWeight: '800',
                         fontSize: 'clamp(14px, 2vw, 16px)',

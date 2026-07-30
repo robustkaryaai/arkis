@@ -200,13 +200,13 @@ export function Card3D({ children, style, delay = 0, orbColor = 'rgba(165,180,25
 export function GradientDivider({ color = 'rgba(165,180,252,0.2)' }) {
   return (
     <div style={{ padding: '0 5%', marginBottom: 80 }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', height: 1, background: `linear-gradient(90deg, transparent 0%, ${color} 50%, transparent 100%)` }} />
+      <div style={{ maxWidth: 1200, margin: '0 auto', height: 1, background: `linear-gradient(90deg, transparent, ${color}, transparent)` }} />
     </div>
   );
 }
 
 /* ─── FLOW TEXT ─────────────────────────────────────────────────── */
-/* Usage: <FlowText gradient="linear-gradient(135deg,#8b5cf6,#10b981)">Word</FlowText>
+/* Usage: <FlowText gradient="linear-gradient(90deg, #8b5cf6, #10b981, #8b5cf6)">Word</FlowText>
    Pass speed="fast|slow" or a number in seconds (default 4s). */
 export function FlowText({ children, gradient, speed = 12, as: Tag = 'span', style = {}, className = '' }) {
   const seconds = typeof speed === 'number' ? speed : speed === 'fast' ? 6 : speed === 'slow' ? 18 : 12;
@@ -341,7 +341,7 @@ export function NebulaBurst() {
                     top: '50%', left: '50%',
                     width: len, height: 2,
                     borderRadius: 99,
-                    background: `linear-gradient(90deg, ${col}CC, transparent)`,
+                    background: `linear-gradient(90deg, ${col}CC, transparent, ${col}CC)`,
                     transformOrigin: '0 50%',
                     transform: `rotate(${angle}deg) translateY(-50%)`,
                     boxShadow: `0 0 8px ${col}88`,
@@ -370,7 +370,7 @@ export function NebulaBurst() {
               }}
             >
               <span style={{
-                background: `linear-gradient(135deg, ${c1}, ${c2})`,
+                background: `linear-gradient(90deg, ${c1}, ${c2}, ${c1})`,
                 WebkitBackgroundClip: 'text', backgroundClip: 'text', WebkitTextFillColor: 'transparent',
               }}>
                 {burst.label}

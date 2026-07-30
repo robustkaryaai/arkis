@@ -159,7 +159,7 @@ function SecondaryBtn({ href, children }) {
 function CosmicBtn({ href, children }) {
   return (
     <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }} style={{ display: 'inline-block' }}>
-      <Link href={href} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 36px', borderRadius: 999, background: 'linear-gradient(135deg, #4338ca 0%, #0e7490 100%)', color: '#fff', fontWeight: 800, fontSize: 15, textDecoration: 'none', boxShadow: '0 0 40px rgba(67,56,202,0.25)' }}>
+      <Link href={href} style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 36px', borderRadius: 999, background: 'linear-gradient(90deg, #4338ca, #0e7490, #4338ca)', color: '#fff', fontWeight: 800, fontSize: 15, textDecoration: 'none', boxShadow: '0 0 40px rgba(67,56,202,0.25)' }}>
         {children}
       </Link>
     </motion.div>
@@ -349,7 +349,7 @@ export default function HomeSpace() {
 
           <motion.h1 variants={textVariant(0.2)} style={{ fontSize: 'clamp(50px, 9vw, 118px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 1, marginBottom: 32 }}>
             AI that works<br />
-            <span className="flowing-gradient" style={{ background: 'linear-gradient(135deg, #a5b4fc 0%, #7dd3fc 55%, #6ee7b7 100%)' }}>for you.</span>
+            <span className="flowing-gradient" style={{ background: 'linear-gradient(90deg, #a5b4fc, #7dd3fc, #6ee7b7, #7dd3fc, #a5b4fc)' }}>for you.</span>
           </motion.h1>
 
           <motion.p variants={fadeIn('up', 'tween', 0.4, 0.9)} style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: 'rgba(255,255,255,0.4)', maxWidth: 680, margin: '0 auto', lineHeight: 1.75, marginBottom: 52 }}>
@@ -365,7 +365,7 @@ export default function HomeSpace() {
 
       {/* gradient rule */}
       <div style={{ padding: P, marginBottom: 100, position: 'relative', zIndex: 10 }}>
-        <div style={{ ...W, height: 1, background: 'linear-gradient(90deg, transparent 0%, rgba(165,180,252,0.25) 50%, transparent 100%)' }} />
+        <div style={{ ...W, height: 1, background: 'linear-gradient(90deg, transparent, rgba(165, 180, 252, 0.25, 252, 180, rgba(165, transparent) 50%, transparent 100%)' }} />
       </div>
 
       {/* ════════ 2. THE PROBLEM ════════ */}

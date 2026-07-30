@@ -10,11 +10,11 @@ function SuggestContent() {
     const product = (searchParams.get('product') || '').toLowerCase();
     
     const theme = useMemo(() => {
-        if (product === 'rk-ai-home') return { primary: '#ec4899', gradient: 'linear-gradient(135deg, #ec4899, #be185d)', glow: 'rgba(236,72,153,0.4)', bgGlow: 'rgba(236,72,153,0.05)' };
-        if (product === 'lumina-os') return { primary: '#22c55e', gradient: 'linear-gradient(135deg, #22c55e, #16a34a)', glow: 'rgba(34,197,94,0.4)', bgGlow: 'rgba(34,197,94,0.05)' };
-        if (product === 'rk-ai-desktop') return { primary: '#4f9cf9', gradient: 'linear-gradient(135deg, #4f9cf9, #3b82f6)', glow: 'rgba(79,156,249,0.4)', bgGlow: 'rgba(79,156,249,0.05)' };
-        if (product === 'light-key') return { primary: '#eab308', gradient: 'linear-gradient(135deg, #eab308, #ca8a04)', glow: 'rgba(234,179,8,0.4)', bgGlow: 'rgba(234,179,8,0.05)' };
-        return { primary: '#9b59f5', gradient: 'linear-gradient(135deg, #9b59f5, #7c3aed)', glow: 'rgba(155,89,245,0.4)', bgGlow: 'rgba(155,89,245,0.05)' };
+        if (product === 'rk-ai-home') return { primary: '#ec4899', gradient: 'linear-gradient(90deg, #ec4899, #be185d, #ec4899)', glow: 'rgba(236,72,153,0.4)', bgGlow: 'rgba(236,72,153,0.05)' };
+        if (product === 'lumina-os') return { primary: '#22c55e', gradient: 'linear-gradient(90deg, #22c55e, #16a34a, #22c55e)', glow: 'rgba(34,197,94,0.4)', bgGlow: 'rgba(34,197,94,0.05)' };
+        if (product === 'rk-ai-desktop') return { primary: '#4f9cf9', gradient: 'linear-gradient(90deg, #4f9cf9, #3b82f6, #4f9cf9)', glow: 'rgba(79,156,249,0.4)', bgGlow: 'rgba(79,156,249,0.05)' };
+        if (product === 'light-key') return { primary: '#eab308', gradient: 'linear-gradient(90deg, #eab308, #ca8a04, #eab308)', glow: 'rgba(234,179,8,0.4)', bgGlow: 'rgba(234,179,8,0.05)' };
+        return { primary: '#9b59f5', gradient: 'linear-gradient(90deg, #9b59f5, #7c3aed, #9b59f5)', glow: 'rgba(155,89,245,0.4)', bgGlow: 'rgba(155,89,245,0.05)' };
     }, [product]);
 
     const productName = useMemo(() => {

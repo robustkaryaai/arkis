@@ -112,7 +112,7 @@ export default function Orders() {
           </motion.div>
           <motion.h1 variants={textVariant(0)} style={{ fontSize: 'clamp(36px, 6vw, 56px)', fontWeight: 900, letterSpacing: '-2px', lineHeight: 1.05, marginBottom: 12 }}>
             Order{' '}
-            <span style={{ background: 'linear-gradient(135deg, #818cf8, #a5b4fc)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>History</span>
+            <span style={{ background: 'linear-gradient(90deg, #818cf8, #a5b4fc, #818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>History</span>
           </motion.h1>
           <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.4)', fontSize: 17 }}>
             Manage your purchases and hardware orders.

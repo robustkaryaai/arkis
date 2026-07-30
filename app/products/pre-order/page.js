@@ -128,7 +128,7 @@ function PreOrderContent() {
                     </motion.div>
                     <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(36px, 6vw, 72px)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, marginBottom: 16 }}>
                         Reserve Your{' '}
-                        <FlowText gradient={`linear-gradient(135deg, ${AMBER}, #fbbf24, #d97706)`}>
+                        <FlowText gradient={`linear-gradient(90deg, ${AMBER}, #fbbf24, #d97706, #fbbf24, ${AMBER})`}>
                             RK AI Home
                         </FlowText>
                     </motion.h1>
@@ -182,7 +182,7 @@ function PreOrderContent() {
                                         whileTap={{ scale: 0.97 }}
                                         style={{
                                             marginTop: 8, padding: '17px', borderRadius: 14, fontWeight: 900, fontSize: 15,
-                                            background: `linear-gradient(135deg, ${AMBER}, #d97706, #fbbf24)`,
+                                            background: `linear-gradient(90deg, ${AMBER}, #d97706, #fbbf24, #d97706, ${AMBER})`,
                                             backgroundSize: '200% auto',
                                             animation: 'shine-flow 2.5s linear infinite',
                                             boxShadow: `0 6px 24px rgba(245,158,11,0.4)`,
@@ -235,7 +235,7 @@ function PreOrderContent() {
                                 ))}
                                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 20, fontWeight: 900, borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 14, marginTop: 2 }}>
                                     <span>Total</span>
-                                    <FlowText gradient={`linear-gradient(135deg, ${AMBER}, #fbbf24)`}>₹4,999</FlowText>
+                                    <FlowText gradient={`linear-gradient(90deg, ${AMBER}, #fbbf24, ${AMBER})`}>₹4,999</FlowText>
                                 </div>
                             </div>
                         </div>

@@ -88,7 +88,7 @@ export default function PrivacyPolicy() {
           </motion.div>
           <motion.h1 variants={textVariant(0)} style={{ fontSize: 'clamp(40px, 7vw, 72px)', fontWeight: 900, letterSpacing: '-2px', lineHeight: 1.0, marginBottom: 20 }}>
             Privacy{' '}
-            <span style={{ background: 'linear-gradient(135deg, #38bdf8, #7dd3fc)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Policy</span>
+            <span style={{ background: 'linear-gradient(90deg, #38bdf8, #7dd3fc, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>Policy</span>
           </motion.h1>
           <motion.p variants={fadeUp} style={{ fontSize: 17, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7 }}>
             Last Updated: July 2026. We believe your data belongs to you. This policy explains exactly what we collect, why, and how we protect it.

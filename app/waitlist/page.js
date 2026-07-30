@@ -100,7 +100,7 @@ function WaitlistContent() {
           <motion.div variants={fadeUp} style={{ fontSize: 56, marginBottom: 16 }}>{meta.emoji}</motion.div>
           <motion.h1 variants={textVariant(0)} style={{ fontSize: 'clamp(36px, 6vw, 64px)', fontWeight: 900, letterSpacing: '-2px', lineHeight: 1.05, marginBottom: 16 }}>
             Join the{' '}
-            <span style={{ background: `linear-gradient(135deg, ${meta.color}, #fff)`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{productLabel}</span>{' '}
+            <span style={{ background: `linear-gradient(90deg, ${meta.color}, #fff, ${meta.color})`, WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{productLabel}</span>{' '}
             Waitlist
           </motion.h1>
           <motion.p variants={fadeUp} style={{ color: 'rgba(255,255,255,0.45)', fontSize: 18, lineHeight: 1.7, maxWidth: 560, margin: '0 auto 16px' }}>
