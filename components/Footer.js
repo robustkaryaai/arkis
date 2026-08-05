@@ -42,7 +42,7 @@ export default function Footer() {
                     <Link href="/products/rk-ai-desktop" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>RK AI Desktop</Link>
                     <Link href="/privacy" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>Privacy</Link>
                     <Link href="/products/lumina-os" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>Lumina OS</Link>
-                    <Link href="/products/malus" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>MALUS</Link>
+                    <Link href="/products/neytreya" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>Neytreya</Link>
                     <Link href="/products/venava" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>Venava</Link>
                     <Link href="/products/rk-ai-home" style={{ color: 'var(--subtext)', textDecoration: 'none', fontSize: '14px', transition: 'color 0.2s' }}>RK AI Home</Link>
                 </div>

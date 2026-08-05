@@ -13,7 +13,7 @@ const PRODUCTS = [
   { name: 'RK AI Home', color: '#f9a8d4', desc: 'A home AI companion that brings natural voice interaction beyond the desktop.', href: '/products/rk-ai-home' },
   { name: 'Lumina OS', color: '#7dd3fc', desc: 'A long-term operating-system project in development, designed around privacy, transparency, and AI.', href: '/products/lumina-os' },
   { name: 'Venava', color: '#6ee7d0', desc: 'A personal expression layer that helps technology communicate in your natural style.', href: '/products/venava' },
-  { name: 'MALUS', color: '#6ee7b7', desc: 'A local system intelligence layer that observes hardware, applications, workflows, and system behaviour.', href: '/products/malus' },
+  { name: 'Neytreya', color: '#6ee7b7', desc: 'A local system intelligence layer that observes hardware, applications, workflows, and system behaviour.', href: '/products/neytreya' },
 ];
 
 const VALUES = [

@@ -71,15 +71,15 @@ const rkPlans = [
   },
 ];
 
-/* ─── MALUS Plans ─────────────────────────────────── */
-const malusPlans = [
+/* ─── Neytreya Plans ─────────────────────────────────── */
+const neytreyaPlans = [
   {
     name: 'Free',
     emoji: '🟢',
     color: '#10b981',
     price: '₹0',
     period: '/month',
-    tagline: 'Everything needed to experience MALUS.',
+    tagline: 'Everything needed to experience Neytreya.',
     features: [
       'OS monitoring',
       'Active app detection',
@@ -97,12 +97,12 @@ const malusPlans = [
       '7-day history',
       'Automatic updates',
     ],
-    cta: 'Download MALUS',
-    href: '/products/malus',
+    cta: 'Download Neytreya',
+    href: '/products/neytreya',
     ghost: true,
   },
   {
-    name: 'MALUS Plus',
+    name: 'Neytreya Plus',
     emoji: '🔵',
     color: '#3b82f6',
     price: '₹149',
@@ -129,7 +129,7 @@ const malusPlans = [
     ghost: false,
   },
   {
-    name: 'MALUS Pro',
+    name: 'Neytreya Pro',
     emoji: '🟣',
     color: '#a855f7',
     price: '₹299',
@@ -155,7 +155,7 @@ const malusPlans = [
     ghost: false,
   },
   {
-    name: 'MALUS Teams',
+    name: 'Neytreya Teams',
     emoji: '🏢',
     color: '#f59e0b',
     price: '₹799',
@@ -311,7 +311,7 @@ export default function Tiers() {
             <span className="flow-text flow-text--purple" style={{ display: 'inline-block' }}>use case.</span>
           </h1>
           <p style={{ fontSize: '19px', color: 'rgba(255,255,255,0.5)', maxWidth: '620px', margin: '0 auto', lineHeight: 1.7 }}>
-            We have two product ecosystems — <strong style={{ color: '#818cf8' }}>RK AI</strong> for your desktop & home assistant, and <strong style={{ color: '#10b981' }}>MALUS</strong> for intelligent system observation. Each has its own independent subscription.
+            We have two product ecosystems — <strong style={{ color: '#818cf8' }}>RK AI</strong> for your desktop & home assistant, and <strong style={{ color: '#10b981' }}>Neytreya</strong> for intelligent system observation. Each has its own independent subscription.
           </p>
         </motion.div>
       </section>
@@ -346,7 +346,7 @@ export default function Tiers() {
         <div style={{ height: '1px', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)' }} />
       </div>
 
-      {/* ── MALUS SECTION ────────────────────────────── */}
+      {/* ── Neytreya SECTION ────────────────────────────── */}
       <section style={{ padding: '0 5% 120px', maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }} style={{ marginBottom: '48px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '16px' }}>
@@ -354,8 +354,8 @@ export default function Tiers() {
               <FiCpu size={20} color="#10b981" />
             </div>
             <div>
-              <h2 style={{ fontSize: 'clamp(26px, 3vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', margin: 0 }}>MALUS Subscription</h2>
-              <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '14px', margin: '4px 0 0' }}>Standalone plans for MALUS — the AI system observer</p>
+              <h2 style={{ fontSize: 'clamp(26px, 3vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', margin: 0 }}>Neytreya Subscription</h2>
+              <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '14px', margin: '4px 0 0' }}>Standalone plans for Neytreya — the AI system observer</p>
             </div>
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
@@ -365,13 +365,13 @@ export default function Tiers() {
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '12px 18px', background: 'rgba(16,185,129,0.05)', border: '1px solid rgba(16,185,129,0.15)', borderRadius: '12px' }}>
               <FiClock size={15} color="#10b981" />
-              <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', fontWeight: 600 }}>MALUS is independent of RK AI — purchase separately</span>
+              <span style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', fontWeight: 600 }}>Neytreya is independent of RK AI — purchase separately</span>
             </div>
           </div>
         </motion.div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', alignItems: 'start' }}>
-          {malusPlans.map((plan, i) => (
+          {neytreyaPlans.map((plan, i) => (
             <PlanCard key={plan.name + i} plan={plan} accentPrimary="#10b981" />
           ))}
         </div>

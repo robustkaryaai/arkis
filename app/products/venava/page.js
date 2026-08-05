@@ -20,7 +20,7 @@ const ECOSYSTEM = [
   { icon: <FiCpu />, name: 'RK AI', detail: 'The intelligence layer.' },
   { icon: <FiEdit3 />, name: 'Venava', detail: 'The expression layer.', active: true },
   { icon: <FiMonitor />, name: 'Lumina OS', detail: 'The computing environment.' },
-  { icon: <FiActivity />, name: 'MALUS', detail: 'The awareness layer.' },
+  { icon: <FiActivity />, name: 'Neytreya', detail: 'The awareness layer.' },
 ];
 
 export default function VenavaPage() {

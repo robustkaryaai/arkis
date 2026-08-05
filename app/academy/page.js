@@ -22,15 +22,15 @@ const featuredLearning = [
 
 const bundles = [
   { name: 'RK AI Student Pack', price: '₹399/mo', oldPrice: '₹599', badge: 'AI + Coding', color: AC, features: ['RK AI PRO Subscription', 'DinoX Unlocked', 'Exclusive Coding Missions', 'Student Community Access'], link: '/payment?plan=pro' },
-  { name: 'MALUS Student Pack', price: '₹299/mo', oldPrice: '₹499', badge: 'Security & Learning', color: '#10b981', features: ['MALUS Pro', 'DinoX Unlocked', 'Privacy Engineering Path', 'Beta Developer Programs'], link: '/products/malus' },
-  { name: 'Ultimate Ecosystem Pack', price: '₹999/mo', oldPrice: '₹1499', badge: 'Best Value', color: '#3b82f6', featured: true, features: ['RK AI ELITE Subscription', 'MALUS Pro', 'DinoX Unlocked', 'Future Certifications', 'Priority Support'], link: '/payment?plan=elite' },
+  { name: 'Neytreya Student Pack', price: '₹299/mo', oldPrice: '₹499', badge: 'Security & Learning', color: '#10b981', features: ['Neytreya Pro', 'DinoX Unlocked', 'Privacy Engineering Path', 'Beta Developer Programs'], link: '/products/neytreya' },
+  { name: 'Ultimate Ecosystem Pack', price: '₹999/mo', oldPrice: '₹1499', badge: 'Best Value', color: '#3b82f6', featured: true, features: ['RK AI ELITE Subscription', 'Neytreya Pro', 'DinoX Unlocked', 'Future Certifications', 'Priority Support'], link: '/payment?plan=elite' },
 ];
 
 const faqs = [
   { q: 'Is DinoX a RexyCore product?', a: 'No, DinoX is an independent partner product. It is our recommended platform for learning Python through an engaging RPG adventure, and we feature it in our Academy bundles.' },
   { q: 'How do Student Bundles work?', a: 'Student bundles combine premium partner experiences (like DinoX) with RexyCore products (like RK AI) at massive educational discounts to give you the ultimate learning ecosystem.' },
   { q: 'Can I use RK AI without DinoX?', a: 'Absolutely. RK AI is a standalone desktop AI assistant. DinoX is simply the learning platform we recommend to help you master programming.' },
-  { q: 'Can I buy DinoX separately?', a: 'Yes, you can purchase DinoX directly. However, our Academy bundles offer the highest value by packaging it alongside RK AI and MALUS.' },
+  { q: 'Can I buy DinoX separately?', a: 'Yes, you can purchase DinoX directly. However, our Academy bundles offer the highest value by packaging it alongside RK AI and Neytreya.' },
 ];
 
 export default function AcademyPage() {

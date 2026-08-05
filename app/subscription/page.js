@@ -632,7 +632,7 @@ export default function Subscription() {
                                 [<FiMonitor />, 'RK AI Desktop', 'Included'],
                                 [<FiHome />, 'RK AI Home', 'Included'],
                                 [<FiCloud />, 'RexyCore Cloud', 'Included'],
-                                [<FiAperture />, 'MALUS', 'Standalone — separate license'],
+                                [<FiAperture />, 'Neytreya', 'Standalone — separate license'],
                             ].map(([icon, name, note]) => (
                                 <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 12, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
                                     <span style={{ fontSize: 18, color: '#10b981', display: 'flex' }}>{icon}</span>

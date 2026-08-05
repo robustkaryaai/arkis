@@ -18,7 +18,7 @@ function NotifyContent() {
     const theme = useMemo(() => {
         if (product === 'rk-ai-home') return { primary: '#ec4899', gradient: 'linear-gradient(90deg, #ec4899, #be185d, #ec4899)', glow: 'rgba(236,72,153,0.3)', bgGlow: 'rgba(236,72,153,0.1)' };
         if (product === 'lumina-os') return { primary: '#8b5cf6', gradient: 'linear-gradient(90deg, #8b5cf6, #6d28d9, #8b5cf6)', glow: 'rgba(139,92,246,0.3)', bgGlow: 'rgba(139,92,246,0.1)' };
-        if (product === 'malus') return { primary: '#10B981', gradient: 'linear-gradient(90deg, #10B981, #059669, #10B981)', glow: 'rgba(16,185,129,0.3)', bgGlow: 'rgba(16,185,129,0.1)' };
+        if (product === 'neytreya') return { primary: '#10B981', gradient: 'linear-gradient(90deg, #10B981, #059669, #10B981)', glow: 'rgba(16,185,129,0.3)', bgGlow: 'rgba(16,185,129,0.1)' };
         if (product === 'rk-ai-desktop') return { primary: '#4f9cf9', gradient: 'linear-gradient(90deg, #4f9cf9, #3b82f6, #4f9cf9)', glow: 'rgba(79,156,249,0.3)', bgGlow: 'rgba(79,156,249,0.1)' };
         if (product === 'venava') return { primary: '#14b8a6', gradient: 'linear-gradient(90deg, #14b8a6, #0f766e, #14b8a6)', glow: 'rgba(20,184,166,0.3)', bgGlow: 'rgba(20,184,166,0.1)' };
         return { primary: '#9b59f5', gradient: 'linear-gradient(90deg, #9b59f5, #7c3aed, #9b59f5)', glow: 'rgba(155,89,245,0.3)', bgGlow: 'rgba(155,89,245,0.1)' };
@@ -29,7 +29,7 @@ function NotifyContent() {
         if (product === 'venava') return 'Venava';
         if (product === 'lumina-os') return 'Lumina OS';
         if (product === 'rk-ai-desktop') return 'RK AI Desktop';
-        if (product === 'malus') return 'Malus';
+        if (product === 'neytreya') return 'Neytreya';
         return 'Rexycore';
     }, [product]);
 

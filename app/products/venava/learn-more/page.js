@@ -23,7 +23,7 @@ const layers = [
   { label: 'RK AI', value: 'Understands intent', sub: 'The intelligence layer' },
   { label: 'Venava', value: 'Expresses it like you', sub: 'The expression layer', active: true },
   { label: 'Lumina OS', value: 'Creates the environment', sub: 'The computing environment' },
-  { label: 'MALUS', value: 'Builds awareness', sub: 'The awareness layer' },
+  { label: 'Neytreya', value: 'Builds awareness', sub: 'The awareness layer' },
 ];
 
 export default function VenavaLearnMore() {

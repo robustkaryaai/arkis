@@ -20,16 +20,16 @@ const stats = [
 ];
 
 const features = [
-  { icon: <FiEye size={22} />, title: 'System observation', desc: 'MALUS observes hardware usage, applications, workflows, and system behaviour locally.' },
-  { icon: <FiLock size={22} />, title: 'Clear responsibility', desc: 'Its role is awareness. MALUS is not a chatbot, coding assistant, automation engine, or computer controller.' },
+  { icon: <FiEye size={22} />, title: 'System observation', desc: 'Neytreya observes hardware usage, applications, workflows, and system behaviour locally.' },
+  { icon: <FiLock size={22} />, title: 'Clear responsibility', desc: 'Its role is awareness. Neytreya is not a chatbot, coding assistant, automation engine, or computer controller.' },
   { icon: <FiZap size={22} />, title: 'Relevant context', desc: 'Its understanding can be shared with other RexyCore products when appropriate.' },
-  { icon: <FiActivity size={22} />, title: 'Workflow awareness', desc: 'MALUS is designed to understand patterns in how a computer is being used, not to take over the work.' },
-  { icon: <FiTarget size={22} />, title: 'Local foundation', desc: 'MALUS performs its observation locally, keeping awareness close to the computer it understands.' },
-  { icon: <FiCpu size={22} />, title: 'Independent by design', desc: 'MALUS has a defined purpose and remains useful as its own product.' },
+  { icon: <FiActivity size={22} />, title: 'Workflow awareness', desc: 'Neytreya is designed to understand patterns in how a computer is being used, not to take over the work.' },
+  { icon: <FiTarget size={22} />, title: 'Local foundation', desc: 'Neytreya performs its observation locally, keeping awareness close to the computer it understands.' },
+  { icon: <FiCpu size={22} />, title: 'Independent by design', desc: 'Neytreya has a defined purpose and remains useful as its own product.' },
 ];
 
 const timeline = [
-  { phase: 'PURPOSE', year: 'Today', title: 'Awareness, not conversation', desc: 'MALUS is designed to understand the computer itself instead of acting like another chat window.' },
+  { phase: 'PURPOSE', year: 'Today', title: 'Awareness, not conversation', desc: 'Neytreya is designed to understand the computer itself instead of acting like another chat window.' },
   { phase: 'OBSERVATION', year: 'Local', title: 'A clearer picture of the system', desc: 'It observes hardware, applications, workflows, and system behaviour where that work belongs: on the computer.' },
   { phase: 'CONTEXT', year: 'Appropriate', title: 'Useful information, carefully shared', desc: 'That awareness can inform other RexyCore products when appropriate while each product keeps a clear responsibility.' },
   { phase: 'DIRECTION', year: 'Long-term', title: 'A more natural computer', desc: 'The goal is software that understands more of the environment without taking control away from the person using it.' },
@@ -42,14 +42,14 @@ const charts = [
   { label: 'User control', progress: 92, sub: 'A design priority across the product' },
 ];
 
-export default function MalusLearnMore() {
+export default function NeytreyaLearnMore() {
   return (
     <div style={{ background: '#010104', color: '#fff', minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
       
       <StarField />
       <div className="noise" aria-hidden />
 
-      <BackButton href="/products/malus" label="MALUS" />
+      <BackButton href="/products/neytreya" label="Neytreya" />
       <Navbar />
 
       {/* HERO */}
@@ -64,14 +64,14 @@ export default function MalusLearnMore() {
               <span style={{ color: ACB }}>Awareness, not conversation.</span>
             </motion.h1>
             <motion.p variants={fadeUp} style={{ maxWidth: 640, fontSize: 20, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: 44 }}>
-              MALUS is a system intelligence layer that observes hardware, applications, workflows, and system behaviour locally. It is not a chatbot, automation engine, coding assistant, or computer controller.
+              Neytreya is a system intelligence layer that observes hardware, applications, workflows, and system behaviour locally. It is not a chatbot, automation engine, coding assistant, or computer controller.
             </motion.p>
             <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
               <a href="#journey" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
                 How We Built It <FiArrowRight />
               </a>
-              <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
-                Back to MALUS
+              <Link href="/products/neytreya" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
+                Back to Neytreya
               </Link>
             </motion.div>
           </motion.div>
@@ -177,8 +177,8 @@ export default function MalusLearnMore() {
           <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
             <motion.div variants={fadeUp}>
               <Card3D style={{ padding: '48px', display: 'flex', flexDirection: 'column', gap: 24 }} orbColor="rgba(16,185,129,0.3)">
-                <Image src="/malus.jpeg" width={400} height={260} alt="MALUS" style={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 20, filter: `drop-shadow(0 0 40px ${AC}33)` }} />
-                <p style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.6, color: '#fff', margin: 0 }}>MALUS is designed to make the computer itself more understandable—without turning awareness into another assistant or automation system.</p>
+                <Image src="/neytreya.jpeg" width={400} height={260} alt="Neytreya" style={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 20, filter: `drop-shadow(0 0 40px ${AC}33)` }} />
+                <p style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.6, color: '#fff', margin: 0 }}>Neytreya is designed to make the computer itself more understandable—without turning awareness into another assistant or automation system.</p>
               </Card3D>
             </motion.div>
           </motion.div>
@@ -192,15 +192,15 @@ export default function MalusLearnMore() {
             <motion.div variants={fadeUp}>
               <Card3D style={{ padding: '60px 48px', display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'center', justifyContent: 'space-between' }} orbColor="rgba(16,185,129,0.3)">
                 <div style={{ flex: '1 1 320px' }}>
-                  <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 12 }}>Get MALUS for your machine.</h2>
+                  <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 12 }}>Get Neytreya for your machine.</h2>
                   <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0, fontSize: 15 }}>Explore a focused system intelligence layer designed around local awareness.</p>
                 </div>
                 <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                  <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
-                    Get MALUS <FiArrowRight />
+                  <Link href="/products/neytreya" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
+                    Get Neytreya <FiArrowRight />
                   </Link>
-                  <Link href="/products/malus" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
-                    Back to MALUS
+                  <Link href="/products/neytreya" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
+                    Back to Neytreya
                   </Link>
                 </div>
               </Card3D>

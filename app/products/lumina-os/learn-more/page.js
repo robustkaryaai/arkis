@@ -25,7 +25,7 @@ const features = [
   { icon: <FiBox size={22} />, title: 'Custom Wayland Compositor', desc: 'We built our own display server from scratch on top of Wayland. This gives us direct frame-level control for buttery-smooth animations and ultra-low input latency.' },
   { icon: <FiEye size={22} />, title: 'Ambient AI Intelligence', desc: 'The AI layer observes your open apps, active tasks, and screen context to offer help proactively — without you ever needing to open a chat window.' },
   { icon: <FiTerminal size={22} />, title: 'CLI-First Compatibility', desc: 'For power users, Lumina exposes a rich local API and POSIX-compatible shell. You can automate anything about your environment using native scripting.' },
-  { icon: <FiLayers size={22} />, title: 'RexyCore Ecosystem Sync', desc: 'First-party integration with RK AI Desktop, MALUS, and RK AI Home. Your Lumina OS device is a hub for your entire intelligent ecosystem.' },
+  { icon: <FiLayers size={22} />, title: 'RexyCore Ecosystem Sync', desc: 'First-party integration with RK AI Desktop, Neytreya, and RK AI Home. Your Lumina OS device is a hub for your entire intelligent ecosystem.' },
 ];
 
 const timeline = [

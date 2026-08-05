@@ -57,7 +57,7 @@ const sections = [
     icon: <FiShield size={20} />,
     title: '6. Local Data & On-Device AI',
     content: [
-      'All AI inference performed by RK AI Desktop, Malus, and Snapvault Orb occurs entirely on your device. Your prompts, documents, screen captures, and voice recordings are processed exclusively in your local memory and are never transmitted to Rexycore servers.',
+      'All AI inference performed by RK AI Desktop, Neytreya, and Snapvault Orb occurs entirely on your device. Your prompts, documents, screen captures, and voice recordings are processed exclusively in your local memory and are never transmitted to Rexycore servers.',
       'This architecture is a core design principle, not a policy — it is technically impossible for us to access your local AI data because it is never sent to us.',
     ],
   },

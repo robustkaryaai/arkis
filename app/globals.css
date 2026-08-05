@@ -630,7 +630,7 @@ footer nav a:hover { color: var(--text); }
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.grad-malus {
+.grad-neytreya {
   background: linear-gradient(90deg, #34D399, #059669, #34D399);
   background-size: 200% 200%;
   animation: grad-shift 12s linear infinite;

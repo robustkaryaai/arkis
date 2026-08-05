@@ -11,13 +11,13 @@ import Link from 'next/link';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
 
 const FEATURES = [
-  { size: 'wide', icon: <FiEye />, title: 'Continuous system observation.', desc: 'MALUS observes hardware usage, applications, workflows, and system behaviour locally to build awareness of the computer itself.' },
-  { size: 'narrow', icon: <FiActivity />, title: 'Not a chatbot', desc: 'MALUS is not a chatbot, coding assistant, automation engine, or computer controller. Its job is awareness—not conversation or action.' },
-  { size: 'half', icon: <FiZap />, title: 'Context when appropriate', desc: 'That awareness can be shared with other RexyCore products when appropriate, while MALUS remains useful as an independent system intelligence layer.' },
+  { size: 'wide', icon: <FiEye />, title: 'Continuous system observation.', desc: 'Neytreya observes hardware usage, applications, workflows, and system behaviour locally to build awareness of the computer itself.' },
+  { size: 'narrow', icon: <FiActivity />, title: 'Not a chatbot', desc: 'Neytreya is not a chatbot, coding assistant, automation engine, or computer controller. Its job is awareness—not conversation or action.' },
+  { size: 'half', icon: <FiZap />, title: 'Context when appropriate', desc: 'That awareness can be shared with other RexyCore products when appropriate, while Neytreya remains useful as an independent system intelligence layer.' },
   { size: 'half', icon: <FiTarget />, title: 'Designed for control', desc: 'Local observation is the foundation. Any use of a cloud service is visible to the user and requires permission.' },
 ];
 
-export default function MalusPage() {
+export default function NeytreyaPage() {
   return (
     <div style={{ minHeight: '100vh', background: '#010104', color: '#fff', position: 'relative' }}>
       
@@ -47,7 +47,7 @@ export default function MalusPage() {
             variants={textVariant(0.1)}
             style={{ fontSize: 'clamp(52px, 8.5vw, 130px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 0.95, marginBottom: 20 }}
           >
-            Meet <FlowText gradient="linear-gradient(90deg, #10b981, #059669, #10b981)">MALUS</FlowText>
+            Meet <FlowText gradient="linear-gradient(90deg, #10b981, #059669, #10b981)">Neytreya</FlowText>
           </motion.h1>
           
           <motion.h2
@@ -61,7 +61,7 @@ export default function MalusPage() {
             variants={fadeUp}
             style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.55)', maxWidth: 640, lineHeight: 1.65, margin: '0 auto 48px' }}
           >
-            MALUS observes how your computer behaves—hardware usage, applications, workflows, and system behaviour. It is not a chatbot, automation engine, coding assistant, or computer controller. Its purpose is awareness.
+            Neytreya observes how your computer behaves—hardware usage, applications, workflows, and system behaviour. It is not a chatbot, automation engine, coding assistant, or computer controller. Its purpose is awareness.
           </motion.p>
 
           <motion.div 
@@ -70,10 +70,10 @@ export default function MalusPage() {
             style={{ display: 'flex', gap: 16, justifyContent: 'center' }}
           >
             <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#download" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '16px 32px', fontSize: 16, borderRadius: 99, display: 'inline-flex', alignItems: 'center', gap: 8, fontWeight: 800, textDecoration: 'none' }}>
-              Download MALUS
+              Download Neytreya
             </motion.a>
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Link href="/products/malus/learn-more" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16, borderRadius: 99, border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)', color: '#fff', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+              <Link href="/products/neytreya/learn-more" className="btn-secondary" style={{ padding: '16px 32px', fontSize: 16, borderRadius: 99, border: '1px solid rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.04)', color: '#fff', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                 Learn More
               </Link>
             </motion.div>
@@ -131,11 +131,11 @@ export default function MalusPage() {
               <Card3D style={{ padding: '80px 40px', textAlign: 'center' }} orbColor="rgba(16,185,129,0.15)">
                 <h2 style={{ fontSize: 44, fontWeight: 800, letterSpacing: '-0.04em', marginBottom: 16 }}>Start Your Companion.</h2>
                 <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 48, fontSize: 18, maxWidth: 600, margin: '0 auto 48px' }}>
-                  MALUS is currently available exclusively for Windows 10/11. macOS and Linux support coming later this year.
+                  Neytreya is currently available exclusively for Windows 10/11. macOS and Linux support coming later this year.
                 </p>
                 
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/downloads/malus-windows.exe" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '24px 48px', fontSize: 20, borderRadius: 99, display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', fontWeight: 800 }}>
+                  <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/downloads/neytreya-windows.exe" className="btn-primary" style={{ background: '#fff', color: '#000', padding: '24px 48px', fontSize: 20, borderRadius: 99, display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', fontWeight: 800 }}>
                     <FiDownload size={24} /> Download for Windows
                   </motion.a>
                 </div>
