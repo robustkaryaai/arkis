@@ -3,8 +3,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
+import Image from 'next/image';
 import BackButton from '@/components/BackButton';
-import { FiArrowRight, FiShield, FiCpu, FiEye, FiZap, FiTerminal, FiBox, FiDatabase, FiLock, FiCodesandbox, FiActivity } from 'react-icons/fi';
+import { FiArrowRight, FiShield, FiCpu, FiEye, FiZap, FiTerminal, FiBox, FiDatabase, FiLock, FiCodesandbox, FiActivity, FiMessageSquare } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant } from '@/components/SpaceUI';
 
@@ -68,6 +69,54 @@ export default function RKDesktopLearnMore() {
                 <FiArrowRight style={{ transform: 'rotate(180deg)' }} /> Back to Product
               </Link>
             </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* SEE IT IN ACTION */}
+      <section style={{ padding: '40px 5% 120px', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} style={{ marginBottom: 48, textAlign: 'center' }}>
+            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, color: 'rgba(59,130,246,0.5)', textTransform: 'uppercase', marginBottom: 12 }}>See it in action</p>
+            <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 42px)', fontWeight: 900, letterSpacing: '-0.04em', marginBottom: 10 }}>A quiet interface for focus.</h2>
+          </motion.div>
+
+          {/* Feature 1 */}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '48px', alignItems: 'center', marginBottom: '80px' }}>
+            <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#60a5fa', fontWeight: '800', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '16px' }}>
+                <FiZap size={16} /> Omnipresent Bar
+              </div>
+              <h3 style={{ fontSize: '28px', fontWeight: '900', marginBottom: '16px', letterSpacing: '-1px' }}>Always ready, never in the way.</h3>
+              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '17px', lineHeight: '1.7', marginBottom: '24px' }}>
+                The compact bar floats over your workflow smoothly. It displays real-time CPU and RAM stats so you know how your machine is handling the load. Just hit the shortcut to bring it up.
+              </p>
+            </div>
+            <div style={{ position: 'relative', height: '300px', width: '100%', borderRadius: '24px', overflow: 'hidden', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(59,130,246,0.1) 0%, transparent 70%)' }} />
+              <div style={{ position: 'relative', width: '260px', height: '110px', boxShadow: '0 10px 40px rgba(0,0,0,0.5)', borderRadius: '16px' }}>
+                <Image src="/download-1.jpg" alt="Compact bar" fill style={{ objectFit: 'cover', borderRadius: '16px' }} unoptimized />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Feature 2 */}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '48px', alignItems: 'center', marginBottom: '80px', direction: 'rtl' }}>
+            <div style={{ direction: 'ltr' }}>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#60a5fa', fontWeight: '800', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '16px' }}>
+                <FiMessageSquare size={16} /> Native Chat
+              </div>
+              <h3 style={{ fontSize: '28px', fontWeight: '900', marginBottom: '16px', letterSpacing: '-1px' }}>Clean, focused conversation.</h3>
+              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '17px', lineHeight: '1.7', marginBottom: '24px' }}>
+                RK AI seamlessly integrates into your environment with both dark and light modes. It processes your requests locally when possible, keeping interactions entirely private.
+              </p>
+            </div>
+            <div style={{ direction: 'ltr', position: 'relative', height: '300px', width: '100%', borderRadius: '24px', overflow: 'hidden', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(139,92,246,0.1) 0%, transparent 70%)' }} />
+              <div style={{ position: 'relative', width: '310px', height: '155px', boxShadow: '0 10px 40px rgba(0,0,0,0.5)', borderRadius: '16px' }}>
+                <Image src="/download-4.jpg" alt="Chat dark mode" fill style={{ objectFit: 'cover', borderRadius: '16px' }} unoptimized />
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
