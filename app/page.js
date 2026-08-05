@@ -1,11 +1,10 @@
 'use client';
 import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
-import { motion, useMotionValue, useSpring, useTransform, useScroll, animate } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion';
 import {
   FiShield, FiFlag, FiCpu, FiGlobe, FiLock, FiMonitor, FiActivity,
   FiTerminal, FiArrowRight, FiEye, FiWifi, FiCode, FiUsers,
@@ -194,101 +193,6 @@ function Card3D({ children, style, delay = 0, orbColor = 'rgba(129,140,248,0.22)
 }
 
 /* ─────────────────────────────────
-   BUBBLE PHYSICS SHOWCASE
-───────────────────────────────── */
-const SCREENSHOTS = [
-  { src: '/download-1.jpg', label: 'Compact bar', caption: 'Always available, never in the way', w: 260, h: 110, initX: 60,  initY: 80  },
-  { src: '/download.jpg',   label: 'RK greets you', caption: 'Online and ready to help',          w: 300, h: 130, initX: 400, initY: 60  },
-  { src: '/download-2.jpg', label: 'Thinking...',   caption: 'Processing locally on your device', w: 200, h: 130, initX: 200, initY: 260 },
-  { src: '/download-3.jpg', label: 'Chat light',    caption: 'Clean, focused conversation',       w: 310, h: 150, initX: 500, initY: 240 },
-  { src: '/download-4.jpg', label: 'Chat dark',     caption: 'Adaptive, personal, private',       w: 310, h: 155, initX: 130, initY: 400 },
-];
-
-function BubbleCard({ ss, containerW, containerH }) {
-  const x = useMotionValue(ss.initX);
-  const y = useMotionValue(ss.initY);
-  const sx = useSpring(x, { stiffness: 60, damping: 14, mass: 1.2 });
-  const sy = useSpring(y, { stiffness: 60, damping: 14, mass: 1.2 });
-  const [dragging, setDragging] = useState(false);
-
-  // Gentle autonomous drift
-  useEffect(() => {
-    let stopped = false;
-    const drift = () => {
-      if (stopped || dragging) return;
-      const nx = ss.initX + (Math.random() - 0.5) * 120;
-      const ny = ss.initY + (Math.random() - 0.5) * 80;
-      const cx = Math.max(0, Math.min(containerW - ss.w, nx));
-      const cy = Math.max(0, Math.min(containerH - ss.h, ny));
-      animate(x, cx, { duration: 3.5 + Math.random() * 2, ease: 'easeInOut' });
-      animate(y, cy, { duration: 3.5 + Math.random() * 2, ease: 'easeInOut' });
-      setTimeout(drift, 4000 + Math.random() * 2000);
-    };
-    const t = setTimeout(drift, Math.random() * 1500);
-    return () => { stopped = true; clearTimeout(t); };
-  }, [dragging, containerW, containerH, ss.initX, ss.initY, ss.w, ss.h, x, y]);
-
-  return (
-    <motion.div
-      drag
-      dragMomentum={true}
-      dragElastic={0.18}
-      dragConstraints={{ left: 0, top: 0, right: containerW - ss.w, bottom: containerH - ss.h }}
-      onDragStart={() => setDragging(true)}
-      onDragEnd={() => setDragging(false)}
-      style={{ x: sx, y: sy, position: 'absolute', cursor: 'grab', zIndex: dragging ? 10 : 1, touchAction: 'none' }}
-      whileHover={{ scale: 1.04, zIndex: 8 }}
-      whileTap={{ cursor: 'grabbing', scale: 0.98 }}
-      whileDrag={{ scale: 1.06, zIndex: 10 }}
-    >
-      <div style={{
-        borderRadius: 16, overflow: 'hidden',
-        boxShadow: '0 8px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.06)',
-        backdropFilter: 'blur(20px)',
-        width: ss.w, height: ss.h,
-        position: 'relative',
-        userSelect: 'none',
-      }}>
-        <Image src={ss.src} alt={ss.label} fill style={{ objectFit: 'cover', borderRadius: 16 }} unoptimized />
-      </div>
-      <div style={{
-        marginTop: 8, textAlign: 'center',
-        fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.35)',
-        letterSpacing: 0.5, pointerEvents: 'none',
-      }}>{ss.caption}</div>
-    </motion.div>
-  );
-}
-
-function BubbleShowcase() {
-  const containerRef = useRef(null);
-  const [size, setSize] = useState({ w: 800, h: 520 });
-  useEffect(() => {
-    const obs = new ResizeObserver(([e]) => {
-      setSize({ w: e.contentRect.width, h: e.contentRect.height });
-    });
-    if (containerRef.current) obs.observe(containerRef.current);
-    return () => obs.disconnect();
-  }, []);
-  return (
-    <div ref={containerRef} style={{
-      position: 'relative', width: '100%', height: 520,
-      overflow: 'hidden', borderRadius: 24,
-      background: 'rgba(255,255,255,0.012)',
-      border: '1px solid rgba(255,255,255,0.07)',
-      backdropFilter: 'blur(12px)',
-    }}>
-      {/* Ambient glow */}
-      <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 30% 50%, rgba(165,180,252,0.06) 0%, transparent 60%), radial-gradient(ellipse at 70% 50%, rgba(110,231,183,0.04) 0%, transparent 60%)', pointerEvents: 'none' }} />
-      <div style={{ position: 'absolute', top: 16, left: 20, fontSize: 11, fontWeight: 700, letterSpacing: 2, color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase', zIndex: 20, pointerEvents: 'none' }}>drag to explore · running locally</div>
-      {SCREENSHOTS.map((ss, i) => (
-        <BubbleCard key={i} ss={ss} containerW={size.w} containerH={size.h} />
-      ))}
-    </div>
-  );
-}
-
-/* ─────────────────────────────────
    PRODUCT DATA
 ───────────────────────────────── */
 const PRODUCTS = [
@@ -444,34 +348,25 @@ export default function HomeSpace() {
           </motion.div>
 
           <motion.h1 variants={textVariant(0.2)} style={{ fontSize: 'clamp(50px, 9vw, 118px)', fontWeight: 900, letterSpacing: '-0.055em', lineHeight: 1, marginBottom: 32 }}>
-            AI that runs<br />
-            <span className="flowing-gradient" style={{ background: 'linear-gradient(90deg, #a5b4fc, #7dd3fc, #6ee7b7, #7dd3fc, #a5b4fc)' }}>on your machine.</span>
+            AI that adapts<br />
+            <span className="flowing-gradient" style={{ background: 'linear-gradient(90deg, #a5b4fc, #7dd3fc, #6ee7b7, #7dd3fc, #a5b4fc)' }}>built to last.</span>
           </motion.h1>
 
-          <motion.p variants={fadeIn('up', 'tween', 0.4, 0.9)} style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: 'rgba(255,255,255,0.4)', maxWidth: 660, margin: '0 auto', lineHeight: 1.75, marginBottom: 52 }}>
-            RK AI Desktop is a local AI assistant for your documents, code, writing, and everyday tasks. It runs on your hardware. Your conversations stay on your machine.
+          <motion.p variants={fadeIn('up', 'tween', 0.4, 0.9)} style={{ fontSize: 'clamp(17px, 2vw, 22px)', color: 'rgba(255,255,255,0.4)', maxWidth: 680, margin: '0 auto', lineHeight: 1.75, marginBottom: 52 }}>
+            RexyCore builds privacy-first AI products that feel like a natural part of your computer. They are designed to be useful on their own—and more connected when it makes sense.
           </motion.p>
 
           <motion.div variants={fadeIn('up', 'tween', 0.55, 0.8)} style={{ display: 'flex', gap: 16, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <PrimaryBtn href="/products/rk-ai-desktop">Download RK AI <FiArrowRight size={14} /></PrimaryBtn>
-            <SecondaryBtn href="/products">All Products</SecondaryBtn>
+            <PrimaryBtn href="/products">See the Products <FiArrowRight size={14} /></PrimaryBtn>
+            <SecondaryBtn href="/about">Why RexyCore</SecondaryBtn>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* ════════ 1b. SEE IT IN ACTION ════════ */}
-      <section className="layer" style={{ position: 'relative', zIndex: 10, padding: '0 5% 140px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} style={{ marginBottom: 36, textAlign: 'center' }}>
-            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, color: 'rgba(165,180,252,0.5)', textTransform: 'uppercase', marginBottom: 12 }}>See it in action</p>
-            <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 42px)', fontWeight: 900, letterSpacing: '-0.04em', marginBottom: 10 }}>Drag these around. This is the real UI.</h2>
-            <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)', maxWidth: 480, margin: '0 auto' }}>These are actual screenshots from RK AI Desktop. It floats above your workflow, out of the way until you need it.</p>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: false, amount: 0.1 }} transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}>
-            <BubbleShowcase />
-          </motion.div>
-        </div>
-      </section>
+      {/* gradient rule */}
+      <div style={{ padding: P, marginBottom: 100, position: 'relative', zIndex: 10 }}>
+        <div style={{ ...W, height: 1, background: 'linear-gradient(90deg, transparent, rgba(165, 180, 252, 0.25, 252, 180, rgba(165, transparent) 50%, transparent 100%)' }} />
+      </div>
 
       {/* ════════ 2. THE PROBLEM ════════ */}
       <section className="layer" style={{ position: 'relative', zIndex: 10, padding: `0 ${P} 120px`, paddingLeft: '5%', paddingRight: '5%', paddingBottom: 120 }}>
@@ -677,27 +572,23 @@ export default function HomeSpace() {
         </div>
       </section>
 
-      {/* ════════ 11. QUICK LINKS ════════ */}
+      {/* ════════ 11. COMMUNITY ════════ */}
       <section className="layer" style={{ position: 'relative', zIndex: 10, padding: '0 5% 130px' }}>
         <div style={W}>
-          <SH label="Get started" title="Pick where you want to begin." align="center" />
+          <SH label="Explore RexyCore" title="Meet the products." sub="Each product is designed around a distinct responsibility. Together, they point toward a more personal kind of computing." align="center" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
             {[
-              { icon: <FiMonitor size={22} />, t: 'RK AI Desktop', b: 'Download and run it. Works on macOS, Windows, and Linux. No account required to get started.', href: '/products/rk-ai-desktop', c: '#a5b4fc', cta: 'Download →' },
-              { icon: <FiActivity size={22} />, t: 'Neytreya', b: 'System observation layer — shows what your machine is actually doing and shares that context with RK AI.', href: '/products/neytreya', c: '#6ee7b7', cta: 'Learn more →' },
-              { icon: <FiGlobe size={22} />, t: 'RK AI Home', b: 'A dedicated home AI device for voice interaction. Pre-orders are open now.', href: '/products/rk-ai-home', c: '#f9a8d4', cta: 'Pre-order →' },
-              { icon: <FiCode size={22} />, t: 'Subscriptions', b: 'See what plans are available for individuals and families across the RexyCore product line.', href: '/subscription', c: '#fcd34d', cta: 'View plans →' },
+              { icon: <FiMonitor size={18} />, t: 'RK AI Desktop', b: 'A desktop AI assistant for your documents, code, writing, research, and everyday computer tasks.', href: '/products/rk-ai-desktop', c: '#a5b4fc' },
+              { icon: <FiActivity size={18} />, t: 'Neytreya', b: 'Local awareness of the computer itself: hardware, applications, workflows, and system behaviour.', href: '/products/neytreya', c: '#6ee7b7' },
+              { icon: <FiGlobe size={18} />, t: 'RK AI Home', b: 'A dedicated home AI device that brings natural voice interaction beyond the desktop.', href: '/products/rk-ai-home', c: '#f9a8d4' },
+              { icon: <FiMap size={18} />, t: 'The vision', b: 'The thinking behind RexyCore and its long-term direction for more human-centered computing.', href: '/about', c: '#7dd3fc' },
             ].map((item, i) => (
-              <motion.div key={item.t} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.1 }} transition={{ duration: 0.5, delay: i * 0.08 }}>
-                <Link href={item.href} style={{ textDecoration: 'none', display: 'block' }}>
-                  <motion.div whileHover={{ y: -4, scale: 1.02 }} whileTap={{ scale: 0.98 }} style={{ padding: '28px 24px', borderRadius: 20, background: 'rgba(255,255,255,0.025)', border: `1px solid ${item.c}20`, backdropFilter: 'blur(24px)', cursor: 'pointer', height: '100%' }}>
-                    <div style={{ fontSize: 24, color: item.c, marginBottom: 16 }}>{item.icon}</div>
-                    <h3 style={{ fontSize: 17, fontWeight: 800, marginBottom: 8, color: '#fff' }}>{item.t}</h3>
-                    <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.38)', lineHeight: 1.7, marginBottom: 18 }}>{item.b}</p>
-                    <span style={{ fontSize: 13, fontWeight: 700, color: item.c }}>{item.cta}</span>
-                  </motion.div>
-                </Link>
-              </motion.div>
+              <Card3D key={item.t} delay={i * 0.08} orbColor={`${item.c}18`} style={{ padding: '26px 22px' }}>
+                <div style={{ fontSize: 20, color: item.c, marginBottom: 14 }}>{item.icon}</div>
+                <h3 style={{ fontSize: 16, fontWeight: 800, marginBottom: 8 }}>{item.t}</h3>
+                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.33)', lineHeight: 1.7, marginBottom: 14 }}>{item.b}</p>
+                <Link href={item.href} style={{ fontSize: 12, fontWeight: 700, color: item.c, textDecoration: 'none' }}>Get involved →</Link>
+              </Card3D>
             ))}
           </div>
         </div>
