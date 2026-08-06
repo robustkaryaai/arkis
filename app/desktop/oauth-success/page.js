@@ -83,6 +83,17 @@ export default function DesktopOAuthSuccessPage() {
   );
 }
 
+// Inject pulse keyframes once
+if (typeof document !== "undefined") {
+  const id = "__neytreya_pulse__";
+  if (!document.getElementById(id)) {
+    const s = document.createElement("style");
+    s.id = id;
+    s.textContent = `@keyframes pulse{0%,100%{opacity:.85;transform:scale(1)}50%{opacity:.5;transform:scale(1.12)}}`;
+    document.head.appendChild(s);
+  }
+}
+
 const styles = {
   main: {
     minHeight: "100vh",

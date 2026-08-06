@@ -5,8 +5,8 @@ import ChatWidget from '@/components/ChatWidget';
 import Link from 'next/link';
 import Image from 'next/image';
 import BackButton from '@/components/BackButton';
-import { FiArrowRight, FiShield, FiCpu, FiEye, FiZap, FiTerminal, FiBox, FiDatabase, FiLock, FiCodesandbox, FiActivity, FiMessageSquare } from 'react-icons/fi';
-import { motion } from 'framer-motion';
+import { FiArrowRight, FiShield, FiCpu, FiEye, FiZap, FiTerminal, FiBox, FiDatabase, FiLock, FiCodesandbox, FiActivity, FiMessageSquare, FiMic, FiSettings } from 'react-icons/fi';
+import { motion, AnimatePresence } from 'framer-motion';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant } from '@/components/SpaceUI';
 
 const stats = [
@@ -41,6 +41,140 @@ const journeyHighlights = [
   { title: 'Designed to evolve', desc: 'The aim is thoughtful software that remains useful in daily work while adapting carefully over time.', phase: 'Direction' },
 ];
 
+function RKInteractiveShowcase() {
+  return (
+    <section style={{ padding: '40px 5% 120px', position: 'relative', zIndex: 10 }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        
+        <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} transition={{ duration: 0.7 }} style={{ marginBottom: 48, textAlign: 'center' }}>
+          <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, color: 'rgba(59,130,246,0.5)', textTransform: 'uppercase', marginBottom: 12 }}>Interactive Experience</p>
+          <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 42px)', fontWeight: 900, letterSpacing: '-0.04em', marginBottom: 10 }}>Native integration. Pure focus.</h2>
+          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.35)', maxWidth: 600, margin: '0 auto' }}>RK AI runs as a native overlay on your desktop. No clunky windows, just beautiful, non-intrusive elements precisely when you need them.</p>
+        </motion.div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '40px' }}>
+          {/* THE MOCKUP CANVAS */}
+          <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: false, amount: 0.2 }} transition={{ duration: 0.8 }} 
+            style={{ 
+              position: 'relative', width: '100%', height: '600px', borderRadius: '24px', overflow: 'hidden', 
+              boxShadow: '0 20px 80px rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)' 
+            }}>
+            {/* Background Wallpaper */}
+            <Image src="/bg.webp" alt="Desktop Background" fill style={{ objectFit: 'cover' }} unoptimized />
+            
+            {/* Dark overlay for contrast */}
+            <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(1,1,4,0.4), transparent)' }} />
+
+            {/* --- COMPONENT 1: Proactive System Status --- */}
+            <motion.div 
+              initial={{ opacity: 0, y: -20, scale: 0.9 }} whileInView={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: 0.5, duration: 0.6 }}
+              style={{ position: 'absolute', top: 40, right: 40, zIndex: 10 }}
+            >
+              <div style={{ 
+                background: 'rgba(15,15,20,0.6)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+                borderRadius: '16px', padding: '16px 20px', border: '1px solid rgba(255,255,255,0.08)',
+                boxShadow: '0 10px 40px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.1)',
+                display: 'flex', alignItems: 'center', gap: 14, maxWidth: 300
+              }}>
+                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 15px rgba(59,130,246,0.4)' }}>
+                  <FiActivity color="#fff" size={18} />
+                </div>
+                <div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 2 }}>System Online</div>
+                  <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>Welcome back. I am online and ready to assist you.</div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* --- COMPONENT 2: Seamless AI Chat Bubbles --- */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: 1, duration: 0.6 }}
+              style={{ position: 'absolute', top: '35%', left: 60, zIndex: 10, display: 'flex', flexDirection: 'column', gap: 12 }}
+            >
+              <div style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.5)', marginLeft: 16 }}>RK AI</div>
+              <div style={{ 
+                background: 'rgba(139,92,246,0.15)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)',
+                borderRadius: '20px 20px 20px 4px', padding: '16px 24px', border: '1px solid rgba(139,92,246,0.3)',
+                boxShadow: '0 10px 30px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1), 0 0 20px rgba(139,92,246,0.1)',
+                maxWidth: 340, color: '#fff', fontSize: 14, lineHeight: 1.6
+              }}>
+                Hey! Not much on my end, just making sure your systems are running smoothly. What's on your agenda today?
+              </div>
+            </motion.div>
+
+            {/* --- COMPONENT 3: Floating Command Center (Omnibar) --- */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 1.5, duration: 0.6, type: 'spring', damping: 20 }}
+              style={{ position: 'absolute', bottom: 60, left: '50%', x: '-50%', zIndex: 10 }}
+            >
+              <div style={{ 
+                background: 'rgba(10,10,12,0.7)', backdropFilter: 'blur(30px)', WebkitBackdropFilter: 'blur(30px)',
+                borderRadius: '99px', padding: '8px 12px', border: '1px solid rgba(255,255,255,0.1)',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)',
+                display: 'flex', alignItems: 'center', gap: 16, width: 600
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 12px', background: 'rgba(255,255,255,0.05)', borderRadius: 99 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 10px #10b981' }} />
+                  <span style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.7)', letterSpacing: 1 }}>CPU 12%</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 12px', background: 'rgba(255,255,255,0.05)', borderRadius: 99 }}>
+                  <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#3b82f6', boxShadow: '0 0 10px #3b82f6' }} />
+                  <span style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.7)', letterSpacing: 1 }}>RAM 4.2GB</span>
+                </div>
+                
+                <div style={{ flex: 1, borderLeft: '1px solid rgba(255,255,255,0.1)', paddingLeft: 16, display: 'flex', alignItems: 'center' }}>
+                  <span style={{ fontSize: 15, color: 'rgba(255,255,255,0.4)', fontWeight: 500 }}>Ask RK...</span>
+                  <motion.span animate={{ opacity: [1, 0, 1] }} transition={{ repeat: Infinity, duration: 1 }} style={{ width: 2, height: 18, background: '#3b82f6', marginLeft: 4 }} />
+                </div>
+                
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <motion.div whileHover={{ scale: 1.1, background: 'rgba(255,255,255,0.1)' }} style={{ width: 36, height: 36, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff' }}>
+                    <FiMic size={18} />
+                  </motion.div>
+                  <motion.div whileHover={{ scale: 1.1, background: 'rgba(255,255,255,0.1)' }} style={{ width: 36, height: 36, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: '#fff' }}>
+                    <FiSettings size={18} />
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* EXPLANATION CARDS */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 24, marginTop: 24 }}>
+            <Card3D orbColor="rgba(59,130,246,0.15)">
+              <div style={{ padding: '32px' }}>
+                <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: 10 }}><FiActivity color="#60a5fa" /> Proactive System Status</h3>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '15px', lineHeight: '1.7', margin: 0 }}>
+                  RK AI isn't just a chatbot waiting for you; it's a proactive assistant that monitors its own systems, wakes up with your computer, and lets you know when it's ready to handle tasks.
+                </p>
+              </div>
+            </Card3D>
+            
+            <Card3D orbColor="rgba(139,92,246,0.15)">
+              <div style={{ padding: '32px' }}>
+                <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: 10 }}><FiMessageSquare color="#a78bfa" /> Seamless AI Chat Bubbles</h3>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '15px', lineHeight: '1.7', margin: 0 }}>
+                  Instead of a clunky, full-screen chat window, RK AI uses beautiful, translucent floating chat bubbles that hover over your desktop. A premium UI that stays out of the way of your actual work.
+                </p>
+              </div>
+            </Card3D>
+            
+            <Card3D orbColor="rgba(16,185,129,0.15)">
+              <div style={{ padding: '32px' }}>
+                <h3 style={{ fontSize: '20px', fontWeight: '800', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: 10 }}><FiTerminal color="#34d399" /> Floating Command Center</h3>
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '15px', lineHeight: '1.7', margin: 0 }}>
+                  The "Omnibar" is your non-intrusive, always-ready command center. Type or use voice commands from anywhere. Live system vitals prove RK AI is deeply integrated with your OS.
+                </p>
+              </div>
+            </Card3D>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function RKDesktopLearnMore() {
   return (
     <div style={{ background: '#010104', color: '#fff', minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
@@ -73,53 +207,8 @@ export default function RKDesktopLearnMore() {
         </div>
       </section>
 
-      {/* SEE IT IN ACTION */}
-      <section style={{ padding: '40px 5% 120px', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }} style={{ marginBottom: 48, textAlign: 'center' }}>
-            <p style={{ fontSize: 11, fontWeight: 800, letterSpacing: 3, color: 'rgba(59,130,246,0.5)', textTransform: 'uppercase', marginBottom: 12 }}>See it in action</p>
-            <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 42px)', fontWeight: 900, letterSpacing: '-0.04em', marginBottom: 10 }}>A quiet interface for focus.</h2>
-          </motion.div>
-
-          {/* Feature 1 */}
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '48px', alignItems: 'center', marginBottom: '80px' }}>
-            <div>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#60a5fa', fontWeight: '800', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '16px' }}>
-                <FiZap size={16} /> Omnipresent Bar
-              </div>
-              <h3 style={{ fontSize: '28px', fontWeight: '900', marginBottom: '16px', letterSpacing: '-1px' }}>Always ready, never in the way.</h3>
-              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '17px', lineHeight: '1.7', marginBottom: '24px' }}>
-                The compact bar floats over your workflow smoothly. It displays real-time CPU and RAM stats so you know how your machine is handling the load. Just hit the shortcut to bring it up.
-              </p>
-            </div>
-            <div style={{ position: 'relative', height: '300px', width: '100%', borderRadius: '24px', overflow: 'hidden', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(59,130,246,0.1) 0%, transparent 70%)' }} />
-              <div style={{ position: 'relative', width: '260px', height: '110px', boxShadow: '0 10px 40px rgba(0,0,0,0.5)', borderRadius: '16px' }}>
-                <Image src="/download-1.jpg" alt="Compact bar" fill style={{ objectFit: 'cover', borderRadius: '16px' }} unoptimized />
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Feature 2 */}
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '48px', alignItems: 'center', marginBottom: '80px', direction: 'rtl' }}>
-            <div style={{ direction: 'ltr' }}>
-              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#60a5fa', fontWeight: '800', fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '16px' }}>
-                <FiMessageSquare size={16} /> Native Chat
-              </div>
-              <h3 style={{ fontSize: '28px', fontWeight: '900', marginBottom: '16px', letterSpacing: '-1px' }}>Clean, focused conversation.</h3>
-              <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '17px', lineHeight: '1.7', marginBottom: '24px' }}>
-                RK AI seamlessly integrates into your environment with both dark and light modes. It processes your requests locally when possible, keeping interactions entirely private.
-              </p>
-            </div>
-            <div style={{ direction: 'ltr', position: 'relative', height: '300px', width: '100%', borderRadius: '24px', overflow: 'hidden', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at center, rgba(139,92,246,0.1) 0%, transparent 70%)' }} />
-              <div style={{ position: 'relative', width: '310px', height: '155px', boxShadow: '0 10px 40px rgba(0,0,0,0.5)', borderRadius: '16px' }}>
-                <Image src="/download-4.jpg" alt="Chat dark mode" fill style={{ objectFit: 'cover', borderRadius: '16px' }} unoptimized />
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* INTERACTIVE CSS SHOWCASE */}
+      <RKInteractiveShowcase />
 
       {/* STATS */}
       <section style={{ padding: '40px 5%', position: 'relative', zIndex: 10 }}>
