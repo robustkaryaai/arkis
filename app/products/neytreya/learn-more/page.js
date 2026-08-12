@@ -4,71 +4,100 @@ import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
 import BackButton from '@/components/BackButton';
 import Link from 'next/link';
-import Image from 'next/image';
-import { FiArrowRight, FiShield, FiEye, FiZap, FiTarget, FiActivity, FiCpu, FiLock } from 'react-icons/fi';
+import {
+  FiArrowRight, FiShield, FiEye, FiZap, FiActivity, FiCpu,
+  FiSearch, FiSliders, FiMic, FiLogIn, FiMonitor, FiDownload,
+  FiCheck, FiClock, FiPackage, FiGitBranch, FiMessageSquare
+} from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant } from '@/components/SpaceUI';
 
 const AC = '#10b981';
 const ACB = '#34d399';
+const s = (c) => ({ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 });
 
-const stats = [
-  { label: 'Role', value: 'Awareness', sub: 'Not conversation or action' },
-  { label: 'Focus', value: 'Local', sub: 'Computer-level observation' },
-  { label: 'Observes', value: 'Systems', sub: 'Hardware, apps, workflows' },
-  { label: 'Product type', value: 'Independent', sub: 'Useful on its own' },
+// ─── DATA ──────────────────────────────────────────────────────────────
+const PERCEPTION_FEATURES = [
+  'Continuous screen watching every 10 seconds via screenshots + OCR',
+  'Active app detection — knows which app is in focus at all times',
+  'Window title tracking for deep context',
+  'Time-in-app tracking — measures how long you spend in each application',
+  'Stuck detection — alerts when you\'ve been in an app without progress too long',
+  'Clipboard monitoring — captures clipboard text as context',
+  'Self-filtering — never logs or watches itself (Neytreya/Electron windows excluded)',
 ];
 
-const features = [
-  { icon: <FiEye size={22} />, title: 'System observation', desc: 'Neytreya observes hardware usage, applications, workflows, and system behaviour locally.' },
-  { icon: <FiLock size={22} />, title: 'Clear responsibility', desc: 'Its role is awareness. Neytreya is not a chatbot, coding assistant, automation engine, or computer controller.' },
-  { icon: <FiZap size={22} />, title: 'Relevant context', desc: 'Its understanding can be shared with other RexyCore products when appropriate.' },
-  { icon: <FiActivity size={22} />, title: 'Workflow awareness', desc: 'Neytreya is designed to understand patterns in how a computer is being used, not to take over the work.' },
-  { icon: <FiTarget size={22} />, title: 'Local foundation', desc: 'Neytreya performs its observation locally, keeping awareness close to the computer it understands.' },
-  { icon: <FiCpu size={22} />, title: 'Independent by design', desc: 'Neytreya has a defined purpose and remains useful as its own product.' },
+const VISION_FEATURES = [
+  'Full screen capture sent to local Qwen3-VL model (never to the cloud)',
+  'Context-aware observations generated from what it sees',
+  'Error detection — spots error messages, crashes, and warnings in your apps',
+  'Auto model selection — picks the best Qwen3-VL tier based on your available RAM',
+  'Triggers vision analysis every time you switch to a new app',
 ];
 
-const timeline = [
-  { phase: 'PURPOSE', year: 'Today', title: 'Awareness, not conversation', desc: 'Neytreya is designed to understand the computer itself instead of acting like another chat window.' },
-  { phase: 'OBSERVATION', year: 'Local', title: 'A clearer picture of the system', desc: 'It observes hardware, applications, workflows, and system behaviour where that work belongs: on the computer.' },
-  { phase: 'CONTEXT', year: 'Appropriate', title: 'Useful information, carefully shared', desc: 'That awareness can inform other RexyCore products when appropriate while each product keeps a clear responsibility.' },
-  { phase: 'DIRECTION', year: 'Long-term', title: 'A more natural computer', desc: 'The goal is software that understands more of the environment without taking control away from the person using it.' },
+const RECALL_FEATURES = [
+  'Recent Activity tab — last N apps/contexts with timestamps',
+  'Yesterday tab — summarizes what you worked on the day before',
+  'Projects tab — groups activity by detected project/context',
+  'Errors Seen tab — every error and warning Neytreya has detected',
+  'Full-text search across all saved observations and memories',
+  'Visual Timeline Strip — scrollable row of screenshot thumbnails every minute',
+  'Quick Recall Overlay — Option+M (macOS) opens a floating mini-recall instantly',
+  'AI Chat — ask Neytreya questions about your past activity in the Recall tab',
 ];
 
-const charts = [
-  { label: 'Hardware awareness', progress: 82, sub: 'A focused view of system behaviour' },
-  { label: 'Application awareness', progress: 76, sub: 'Context around the software in use' },
-  { label: 'Workflow awareness', progress: 68, sub: 'Patterns that help describe how work happens' },
-  { label: 'User control', progress: 92, sub: 'A design priority across the product' },
+const SETTINGS_FEATURES = [
+  'Watching Toggle — pause/resume all perception with one click',
+  'Vision Toggle — enable or disable the vision engine separately',
+  'Indexing Toggle — control whether activity is saved to memory',
+  'Blocked Apps — comma-separated list of apps to never monitor (e.g. 1Password, Signal)',
+  'Launch at Login — set Neytreya to start automatically on system boot',
+  'TTS Voice Selection — choose from available Kokoro text-to-speech voices',
+  'Audio Recall — transcribe speaker audio in Hindi+English (x64 macOS/Windows only)',
+  'Monthly Report — generate a PDF report of recent activity and productivity trends',
+];
+
+const ROADMAP_NEAR = [
+  { title: 'Continuous Video Mode', desc: 'Stream a compressed screen video buffer to the VL model for richer temporal context instead of per-10s screenshots.' },
+  { title: 'Multi-Monitor Support', desc: 'Track and analyze all connected displays, not just the primary screen.' },
+  { title: 'Code Error Auto-Fix Suggestions', desc: 'When Neytreya detects a code error on-screen, suggest a fix directly in the bubble.' },
+  { title: 'Focus Score', desc: 'A daily score (0–100) measuring how focused you were, based on app usage patterns.' },
+  { title: 'Smart End-of-Day Summaries', desc: 'Auto-generated bullet-point summary from the day\'s observations.' },
+  { title: 'Semantic Recall', desc: 'Natural language queries like "What was I working on last Thursday around 3pm?".' },
+];
+
+const ROADMAP_MID = [
+  { title: 'Cloud Sync via RexyCore', desc: 'Sync recall memories and settings across multiple Macs/PCs.' },
+  { title: 'Voice Conversations', desc: 'Ask "What was that error I saw earlier?" and get a spoken answer.' },
+  { title: 'Notion & GitHub Integration', desc: 'Push daily summaries to Notion, track which repos you\'re working on.' },
+  { title: 'Linux Support', desc: 'Extend to Ubuntu/Debian for developers on Linux.' },
 ];
 
 export default function NeytreyaLearnMore() {
   return (
     <div style={{ background: '#010104', color: '#fff', minHeight: '100vh', overflowX: 'hidden', position: 'relative' }}>
-      
       <StarField />
       <div className="noise" aria-hidden />
-
       <BackButton href="/products/neytreya" label="Neytreya" />
       <Navbar />
 
-      {/* HERO */}
-      <section style={{ minHeight: '90vh', display: 'flex', alignItems: 'center', padding: '160px 5% 80px', position: 'relative', zIndex: 10 }}>
+      {/* ── HERO ──────────────────────────────────────── */}
+      <section style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', padding: '160px 5% 80px', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', width: '100%', margin: '0 auto' }}>
           <motion.div variants={staggerContainer(0.12, 0.1)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
             <motion.div variants={fadeUp} style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '6px 16px', borderRadius: 99, background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.25)', color: ACB, fontSize: 12, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 28 }}>
-              <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: AC, boxShadow: `0 0 10px ${AC}` }} /> Ambient AI Companion
+              <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ repeat: Infinity, duration: 2 }} style={{ width: 8, height: 8, borderRadius: '50%', background: AC, boxShadow: `0 0 10px ${AC}` }} /> Deep Dive · Beta v1.0
             </motion.div>
-            <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(48px, 7vw, 88px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: 28, maxWidth: 900 }}>
-              It understands the computer.<br />
-              <span style={{ color: ACB }}>Awareness, not conversation.</span>
+            <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(44px, 7vw, 84px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-0.04em', marginBottom: 28, maxWidth: 900 }}>
+              How Neytreya works.<br />
+              <span style={{ color: ACB }}>Every system. Explained.</span>
             </motion.h1>
-            <motion.p variants={fadeUp} style={{ maxWidth: 640, fontSize: 20, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7, marginBottom: 44 }}>
-              Neytreya is a system intelligence layer that observes hardware, applications, workflows, and system behaviour locally. It is not a chatbot, automation engine, coding assistant, or computer controller.
+            <motion.p variants={fadeUp} style={{ maxWidth: 620, fontSize: 19, color: 'rgba(255,255,255,0.55)', lineHeight: 1.75, marginBottom: 44 }}>
+              A local-first perceptual intelligence desktop watcher. This page explains every engine, every feature, system requirements, and what's coming next.
             </motion.p>
             <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
-              <a href="#journey" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
-                How We Built It <FiArrowRight />
+              <a href="#perception" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
+                Explore Features <FiArrowRight />
               </a>
               <Link href="/products/neytreya" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '14px 28px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
                 Back to Neytreya
@@ -78,133 +107,318 @@ export default function NeytreyaLearnMore() {
         </div>
       </section>
 
-      {/* STATS */}
-      <section style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
+      {/* ── SCREENSHOT PLACEHOLDER ──────────────── */}
+      <section style={{ padding: '0 5% 100px', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 24 }}>
-            {stats.map((s, i) => (
-              <motion.div key={s.label} variants={fadeUp}>
-                <Card3D style={{ padding: '32px 28px', height: '100%' }} orbColor="rgba(16,185,129,0.3)">
-                  <div style={{ fontSize: 44, fontWeight: 900, letterSpacing: '-2px', color: ACB, marginBottom: 8 }}>{s.value}</div>
-                  <div style={{ fontWeight: 700, fontSize: 14, color: '#fff', marginBottom: 4 }}>{s.label}</div>
-                  <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>{s.sub}</div>
-                </Card3D>
-              </motion.div>
-            ))}
+          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} transition={{ duration: 0.7 }}>
+            <Card3D style={{ height: 480, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 20 }} orbColor="rgba(16,185,129,0.2)">
+              <div style={{ width: 64, height: 64, borderRadius: 20, background: 'rgba(16,185,129,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: ACB }}>
+                <FiEye size={32} />
+              </div>
+              <p style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: 2 }}>Screenshots coming soon</p>
+              <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.3)', maxWidth: 360, textAlign: 'center', lineHeight: 1.6 }}>The Neytreya interface will be showcased here once screenshots are ready.</p>
+            </Card3D>
           </motion.div>
         </div>
       </section>
 
-      {/* CORE FEATURES */}
-      <section style={{ padding: '80px 5%', position: 'relative', zIndex: 10 }}>
+      {/* ── 1. CORE PERCEPTION ENGINE ──────────────── */}
+      <section id="perception" style={{ padding: '60px 5% 80px', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ marginBottom: 56 }}>
-            <motion.div variants={fadeUp} style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Capabilities</motion.div>
-            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', lineHeight: 1.1 }}>Ambient intelligence, redefined.</motion.h2>
-          </motion.div>
-          <motion.div variants={staggerContainer(0.05, 0.1)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20 }}>
-            {features.map((f, i) => (
-              <motion.div key={f.title} variants={fadeUp}>
-                <Card3D style={{ padding: '32px 28px', height: '100%' }} orbColor="rgba(16,185,129,0.3)">
-                  <div style={{ width: 48, height: 48, borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(16,185,129,0.1)', color: ACB, marginBottom: 20 }}>{f.icon}</div>
-                  <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 10, color: '#fff' }}>{f.title}</h3>
-                  <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.7, margin: 0 }}>{f.desc}</p>
-                </Card3D>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-      {/* TIMELINE */}
-      <section id="journey" style={{ padding: '100px 5%', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ textAlign: 'center', marginBottom: 80 }}>
-            <motion.div variants={fadeUp} style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Engineering Journey</motion.div>
-            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em' }}>A focused role in the computer.</motion.h2>
-          </motion.div>
-          <div style={{ position: 'relative' }}>
-            <div style={{ position: 'absolute', top: 0, bottom: 0, left: '50%', transform: 'translateX(-50%)', width: 2, background: `linear-gradient(90deg, transparent, ${AC}, ${ACB}, transparent)` }} />
-            <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'flex', flexDirection: 'column', gap: 56 }}>
-              {timeline.map((item, i) => {
-                const isLeft = i % 2 === 0;
-                return (
-                  <motion.div key={item.title} variants={fadeUp} style={{ display: 'flex', justifyContent: isLeft ? 'flex-start' : 'flex-end', position: 'relative' }}>
-                    <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 18, height: 18, borderRadius: '50%', background: '#000', border: `4px solid ${AC}`, boxShadow: `0 0 20px ${AC}66`, zIndex: 2 }} />
-                    <div style={{ width: 'calc(50% - 52px)' }}>
-                      <Card3D style={{ padding: '28px 28px', borderLeft: isLeft ? `3px solid ${AC}` : undefined, borderRight: !isLeft ? `3px solid ${ACB}` : undefined }} orbColor="rgba(16,185,129,0.2)">
-                        <div style={{ display: 'flex', gap: 10, marginBottom: 14, alignItems: 'center' }}>
-                          <span style={{ padding: '3px 10px', borderRadius: 6, background: 'rgba(16,185,129,0.1)', color: ACB, fontSize: 10, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase' }}>{item.phase}</span>
-                          <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)', fontWeight: 600 }}>{item.year}</span>
-                        </div>
-                        <h3 style={{ fontSize: 18, fontWeight: 800, marginBottom: 10, color: '#fff' }}>{item.title}</h3>
-                        <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0 }}>{item.desc}</p>
-                      </Card3D>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* CHARTS + IMAGE */}
-      <section style={{ padding: '100px 5%', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 64, alignItems: 'center' }}>
-          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
-            <motion.div variants={fadeUp}>
-              <div style={{ display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)', color: ACB, fontSize: 11, fontWeight: 800, letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Performance</div>
-              <h2 style={{ fontSize: 'clamp(28px, 3.5vw, 44px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 40 }}>Awareness with a clear purpose.</h2>
-            </motion.div>
-            <motion.div variants={staggerContainer(0.1, 0.2)} style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-              {charts.map((c, i) => (
-                <motion.div key={c.label} variants={fadeUp}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                    <span style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.8)' }}>{c.label}</span>
-                    <span style={{ fontSize: 13, fontWeight: 900, color: ACB }}>{c.progress}%</span>
-                  </div>
-                  <div style={{ height: 8, background: 'rgba(255,255,255,0.06)', borderRadius: 99, overflow: 'hidden', marginBottom: 6 }}>
-                    <motion.div initial={{ width: 0 }} whileInView={{ width: `${c.progress}%` }} viewport={{ once: false, amount: 0.15 }} transition={{ duration: 1.4, delay: i * 0.1 }}
-                      style={{ height: '100%', background: `linear-gradient(90deg, ${AC}99, ${ACB}, ${AC}99)`, borderRadius: 99 }} />
-                  </div>
-                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', fontWeight: 600 }}>{c.sub}</div>
+          <motion.div variants={staggerContainer(0.1, 0.15)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+            <motion.div variants={fadeUp} style={s()}>Core Perception Engine</motion.div>
+            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 16 }}>
+              It watches so you don't have to.
+            </motion.h2>
+            <motion.p variants={fadeUp} style={{ fontSize: 17, color: 'rgba(255,255,255,0.5)', maxWidth: 640, lineHeight: 1.75, marginBottom: 40 }}>
+              Every 10 seconds, Neytreya captures your screen, extracts text via OCR, identifies your active application and window title, and logs how long you have been there. This forms the foundation for every other feature.
+            </motion.p>
+            <motion.div variants={staggerContainer(0.05, 0.08)} style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 12 }}>
+              {PERCEPTION_FEATURES.map((f) => (
+                <motion.div key={f} variants={fadeUp} style={{ display: 'flex', alignItems: 'flex-start', gap: 14, padding: '16px 20px', borderRadius: 14, background: 'rgba(16,185,129,0.04)', border: '1px solid rgba(16,185,129,0.1)' }}>
+                  <FiCheck size={16} color={ACB} style={{ marginTop: 2, flexShrink: 0 }} />
+                  <span style={{ fontSize: 15, color: 'rgba(255,255,255,0.7)', lineHeight: 1.6 }}>{f}</span>
                 </motion.div>
               ))}
             </motion.div>
           </motion.div>
-          
-          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
-            <motion.div variants={fadeUp}>
-              <Card3D style={{ padding: '48px', display: 'flex', flexDirection: 'column', gap: 24 }} orbColor="rgba(16,185,129,0.3)">
-                <Image src="/neytreya.jpeg" width={400} height={260} alt="Neytreya" style={{ width: '100%', height: 200, objectFit: 'cover', borderRadius: 20, filter: `drop-shadow(0 0 40px ${AC}33)` }} />
-                <p style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.6, color: '#fff', margin: 0 }}>Neytreya is designed to make the computer itself more understandable—without turning awareness into another assistant or automation system.</p>
+        </div>
+      </section>
+
+      {/* ── 2. VISION ENGINE ──────────────────────── */}
+      <section style={{ padding: '60px 5% 80px', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <motion.div variants={staggerContainer(0.1, 0.15)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+            <motion.div variants={fadeUp} style={s()}>Vision Engine · Qwen3-VL</motion.div>
+            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 16 }}>
+              It understands what's on your screen.
+            </motion.h2>
+            <motion.p variants={fadeUp} style={{ fontSize: 17, color: 'rgba(255,255,255,0.5)', maxWidth: 640, lineHeight: 1.75, marginBottom: 40 }}>
+              Screenshots are sent to a local Qwen3-VL model — never to a remote server. The model reads your screen, understands the context, generates observations, and detects errors. The model tier is automatically chosen based on your available RAM.
+            </motion.p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 20, marginBottom: 32 }}>
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }}>
+                <Card3D style={{ padding: '28px 24px', height: '100%' }} orbColor="rgba(16,185,129,0.2)">
+                  <div style={{ fontSize: 12, fontWeight: 800, letterSpacing: 2, color: ACB, textTransform: 'uppercase', marginBottom: 16 }}>Vision Model RAM Requirements</div>
+                  {[
+                    { model: 'qwen3-vl:2b', ram: '1 GB+', size: '~1.6 GB', note: 'Low-end / 4 GB RAM machines' },
+                    { model: 'qwen3-vl:4b', ram: '4 GB+', size: '~3.2 GB', note: 'Mid-range machines' },
+                    { model: 'qwen3-vl:8b', ram: '8 GB+', size: '~6.1 GB', note: '✅ Recommended (16 GB RAM)' },
+                    { model: 'qwen3-vl:30b', ram: '22 GB+', size: '~20 GB', note: 'High-end / M3 Max' },
+                  ].map((m) => (
+                    <div key={m.model} style={{ display: 'grid', gridTemplateColumns: '1fr 60px 72px', gap: 8, padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', alignItems: 'center' }}>
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 700, fontFamily: 'monospace', color: '#fff', marginBottom: 2 }}>{m.model}</div>
+                        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>{m.note}</div>
+                      </div>
+                      <div style={{ fontSize: 12, color: ACB, fontWeight: 700 }}>{m.ram}</div>
+                      <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>{m.size}</div>
+                    </div>
+                  ))}
+                </Card3D>
+              </motion.div>
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} transition={{ delay: 0.1 }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  {VISION_FEATURES.map((f) => (
+                    <div key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 14, padding: '14px 18px', borderRadius: 14, background: 'rgba(16,185,129,0.04)', border: '1px solid rgba(16,185,129,0.1)' }}>
+                      <FiCheck size={15} color={ACB} style={{ marginTop: 2, flexShrink: 0 }} />
+                      <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }}>{f}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── 3. RECALL ENGINE ──────────────────────── */}
+      <section style={{ padding: '60px 5% 80px', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <motion.div variants={staggerContainer(0.1, 0.15)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+            <motion.div variants={fadeUp} style={s()}>Recall · Memory Engine</motion.div>
+            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 16 }}>
+              Your entire work history. On your machine.
+            </motion.h2>
+            <motion.p variants={fadeUp} style={{ fontSize: 17, color: 'rgba(255,255,255,0.5)', maxWidth: 640, lineHeight: 1.75, marginBottom: 40 }}>
+              Recall is a dedicated window for browsing everything Neytreya has seen and understood. Full-text search, project groupings, error history, visual timeline, and an AI chat interface — all local, all yours.
+            </motion.p>
+
+            {/* Placeholder screenshot for Recall */}
+            <motion.div variants={fadeUp} style={{ marginBottom: 32 }}>
+              <Card3D style={{ height: 320, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 16 }} orbColor="rgba(16,185,129,0.15)">
+                <FiSearch size={36} color="rgba(52,211,153,0.4)" />
+                <p style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase', letterSpacing: 2 }}>Recall window — screenshot coming soon</p>
               </Card3D>
+            </motion.div>
+
+            <motion.div variants={staggerContainer(0.05, 0.08)} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 12 }}>
+              {RECALL_FEATURES.map((f) => (
+                <motion.div key={f} variants={fadeUp} style={{ display: 'flex', alignItems: 'flex-start', gap: 14, padding: '14px 18px', borderRadius: 14, background: 'rgba(16,185,129,0.04)', border: '1px solid rgba(16,185,129,0.1)' }}>
+                  <FiCheck size={15} color={ACB} style={{ marginTop: 2, flexShrink: 0 }} />
+                  <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.65)', lineHeight: 1.6 }}>{f}</span>
+                </motion.div>
+              ))}
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section style={{ padding: '80px 5% 120px', position: 'relative', zIndex: 10 }}>
+      {/* ── 4. SETTINGS + AUTH ──────────────────── */}
+      <section style={{ padding: '60px 5% 80px', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))', gap: 40 }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }}>
+            <div style={s()}>Settings</div>
+            <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 12 }}>Granular control.</h2>
+            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', lineHeight: 1.75, marginBottom: 28 }}>
+              Toggle each subsystem independently. Block apps that should never be monitored. Nothing runs silently without your knowledge.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+              {SETTINGS_FEATURES.map((f) => (
+                <div key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: '12px 16px', borderRadius: 12, background: 'rgba(16,185,129,0.04)', border: '1px solid rgba(16,185,129,0.1)' }}>
+                  <FiCheck size={14} color={ACB} style={{ marginTop: 2, flexShrink: 0 }} />
+                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.6)', lineHeight: 1.6 }}>{f}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.15 }} transition={{ delay: 0.1 }}>
+            <div style={s()}>Auth &amp; Identity</div>
+            <h2 style={{ fontSize: 'clamp(26px, 3.5vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 12 }}>No account required.</h2>
+            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', lineHeight: 1.75, marginBottom: 28 }}>
+              Neytreya works completely offline without any account. Google OAuth is available for optional RexyCore sync features — but the core product never needs it.
+            </p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {[
+                { icon: <FiLogIn size={18} />, title: 'Google OAuth Login', desc: 'Secure sign-in via Google (opens browser, deep-links back via neytreya://). Optional.' },
+                { icon: <FiShield size={18} />, title: 'Offline Mode', desc: 'Use Neytreya without any account for fully private operation. All features still work.' },
+                { icon: <FiCheck size={18} />, title: 'Persistent Login', desc: 'Login state survives restarts and is never overwritten by background processes.' },
+              ].map((item) => (
+                <Card3D key={item.title} style={{ padding: '20px 22px', display: 'flex', gap: 16, alignItems: 'flex-start' }} orbColor="rgba(16,185,129,0.2)">
+                  <div style={{ width: 38, height: 38, borderRadius: 10, background: 'rgba(16,185,129,0.1)', color: ACB, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{item.icon}</div>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 800, marginBottom: 4 }}>{item.title}</div>
+                    <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', lineHeight: 1.6 }}>{item.desc}</div>
+                  </div>
+                </Card3D>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── SYSTEM REQUIREMENTS ─────────────────── */}
+      <section style={{ padding: '60px 5% 80px', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
-            <motion.div variants={fadeUp}>
-              <Card3D style={{ padding: '60px 48px', display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'center', justifyContent: 'space-between' }} orbColor="rgba(16,185,129,0.3)">
-                <div style={{ flex: '1 1 320px' }}>
-                  <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 12 }}>Get Neytreya for your machine.</h2>
-                  <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, margin: 0, fontSize: 15 }}>Explore a focused system intelligence layer designed around local awareness.</p>
-                </div>
-                <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                  <Link href="/products/neytreya" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
-                    Get Neytreya <FiArrowRight />
-                  </Link>
-                  <Link href="/products/neytreya" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '15px 30px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
-                    Back to Neytreya
-                  </Link>
-                </div>
-              </Card3D>
+          <motion.div variants={staggerContainer(0.1, 0.15)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+            <motion.div variants={fadeUp} style={s()}>System Requirements</motion.div>
+            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 16 }}>
+              What you need.
+            </motion.h2>
+            <motion.p variants={fadeUp} style={{ fontSize: 17, color: 'rgba(255,255,255,0.5)', maxWidth: 640, lineHeight: 1.75, marginBottom: 40 }}>
+              Neytreya runs in text-only mode from 4 GB RAM. The Vision Engine (Qwen3-VL) requires Ollama and at least 8 GB for the recommended experience.
+            </motion.p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(440px, 1fr))', gap: 24 }}>
+              {/* Minimum */}
+              <motion.div variants={fadeUp}>
+                <Card3D style={{ padding: '32px' }} orbColor="rgba(16,185,129,0.15)">
+                  <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase', marginBottom: 20 }}>Minimum · Text-only mode</div>
+                  {[
+                    ['OS', 'macOS 12 Ventura+ or Windows 10/11'],
+                    ['CPU', 'Intel i5 8th gen / Ryzen 5 / Apple M1 / Snapdragon X'],
+                    ['RAM', '4 GB (Vision Engine disabled at this tier)'],
+                    ['Storage', '2 GB free disk space'],
+                    ['Display', '1280×720 or higher'],
+                  ].map(([k, v]) => (
+                    <div key={k} style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: 12, padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase' }}>{k}</span>
+                      <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)' }}>{v}</span>
+                    </div>
+                  ))}
+                </Card3D>
+              </motion.div>
+
+              {/* Recommended */}
+              <motion.div variants={fadeUp}>
+                <Card3D style={{ padding: '32px', border: `1px solid ${AC}30` }} orbColor="rgba(16,185,129,0.3)">
+                  <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: ACB, textTransform: 'uppercase', marginBottom: 20 }}>✅ Recommended · Full Vision Engine</div>
+                  {[
+                    ['OS', 'macOS 14 Sonoma+ (Apple Silicon) or Windows 11 64-bit'],
+                    ['CPU', 'Apple M2 / Intel i7 12th gen / AMD Ryzen 7'],
+                    ['RAM', '8 GB+ (16 GB for best vision model)'],
+                    ['Storage', '25 GB free (Ollama + model weights ~20 GB)'],
+                    ['GPU', 'Apple Unified Memory or NVIDIA/AMD with 4 GB+ VRAM'],
+                    ['Ollama', 'Installed and running locally'],
+                  ].map(([k, v]) => (
+                    <div key={k} style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: 12, padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+                      <span style={{ fontSize: 12, fontWeight: 700, color: 'rgba(255,255,255,0.35)', textTransform: 'uppercase' }}>{k}</span>
+                      <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.7)' }}>{v}</span>
+                    </div>
+                  ))}
+                </Card3D>
+              </motion.div>
+            </div>
+
+            {/* Platform Notes */}
+            <motion.div variants={staggerContainer(0.06, 0.08)} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16, marginTop: 24 }}>
+              {[
+                { platform: 'macOS Apple Silicon', notes: ['Native arm64 binary', 'Unified Memory → significantly faster inference', 'Screen recording permission prompted on first launch', 'Tesseract OCR auto-installed via Homebrew'] },
+                { platform: 'macOS Intel', notes: ['All features work; vision inference is slower', 'Native Intel binaries — Rosetta 2 not needed'] },
+                { platform: 'Windows 10/11 x64', notes: ['Full feature support', 'Tesseract must be installed manually (UB-Mannheim)', 'Ollama for Windows available at ollama.com'] },
+                { platform: 'Windows 11 ARM64', notes: ['Native ARM64 build supported', 'Audio Recall (faster-whisper) not available on ARM64', 'All other features work normally'] },
+              ].map((p) => (
+                <motion.div key={p.platform} variants={fadeUp}>
+                  <Card3D style={{ padding: '24px 20px', height: '100%' }} orbColor="rgba(16,185,129,0.15)">
+                    <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 14, color: '#fff' }}>{p.platform}</div>
+                    <ul style={{ margin: 0, padding: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 8 }}>
+                      {p.notes.map((n) => (
+                        <li key={n} style={{ display: 'flex', gap: 10, alignItems: 'flex-start' }}>
+                          <FiCheck size={13} color={ACB} style={{ marginTop: 2, flexShrink: 0 }} />
+                          <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.5 }}>{n}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </Card3D>
+                </motion.div>
+              ))}
             </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── ROADMAP ─────────────────────────────── */}
+      <section style={{ padding: '60px 5% 80px', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <motion.div variants={staggerContainer(0.1, 0.15)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
+            <motion.div variants={fadeUp} style={s()}>Roadmap</motion.div>
+            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 16 }}>
+              What's coming next.
+            </motion.h2>
+            <motion.p variants={fadeUp} style={{ fontSize: 17, color: 'rgba(255,255,255,0.5)', maxWidth: 640, lineHeight: 1.75, marginBottom: 48 }}>
+              Beta v1.0 is the foundation. Here is what's planned for the next versions.
+            </motion.p>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(460px, 1fr))', gap: 40 }}>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 24 }}>
+                  <FiClock size={16} color={ACB} />
+                  <span style={{ fontSize: 13, fontWeight: 800, color: ACB, textTransform: 'uppercase', letterSpacing: 2 }}>Near-Term · v1.1 – v1.5</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                  {ROADMAP_NEAR.map((item) => (
+                    <div key={item.title} style={{ display: 'flex', gap: 14, padding: '16px 18px', borderRadius: 14, background: 'rgba(16,185,129,0.04)', border: '1px solid rgba(16,185,129,0.1)' }}>
+                      <FiGitBranch size={16} color="rgba(52,211,153,0.5)" style={{ marginTop: 2, flexShrink: 0 }} />
+                      <div>
+                        <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 4 }}>{item.title}</div>
+                        <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', lineHeight: 1.6 }}>{item.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 24 }}>
+                  <FiPackage size={16} color="rgba(165,180,252,0.7)" />
+                  <span style={{ fontSize: 13, fontWeight: 800, color: 'rgba(165,180,252,0.7)', textTransform: 'uppercase', letterSpacing: 2 }}>Mid-Term · v1.5 – v2.0</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                  {ROADMAP_MID.map((item) => (
+                    <div key={item.title} style={{ display: 'flex', gap: 14, padding: '16px 18px', borderRadius: 14, background: 'rgba(165,180,252,0.04)', border: '1px solid rgba(165,180,252,0.1)' }}>
+                      <FiGitBranch size={16} color="rgba(165,180,252,0.4)" style={{ marginTop: 2, flexShrink: 0 }} />
+                      <div>
+                        <div style={{ fontSize: 14, fontWeight: 800, marginBottom: 4 }}>{item.title}</div>
+                        <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', lineHeight: 1.6 }}>{item.desc}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── CTA ─────────────────────────────────── */}
+      <section style={{ padding: '60px 5% 120px', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <motion.div initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }}>
+            <Card3D style={{ padding: '64px 48px', display: 'flex', flexWrap: 'wrap', gap: 32, alignItems: 'center', justifyContent: 'space-between' }} orbColor="rgba(16,185,129,0.3)">
+              <div style={{ flex: '1 1 320px' }}>
+                <h2 style={{ fontSize: 'clamp(24px, 3.5vw, 38px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 12 }}>Start watching your machine.</h2>
+                <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, margin: 0, fontSize: 16 }}>
+                  Beta v1.0 is ready for macOS and Windows. Setup takes a few minutes.
+                </p>
+              </div>
+              <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+                <Link href="/products/neytreya" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '16px 32px', borderRadius: 99, background: `linear-gradient(90deg, ${AC}, ${ACB}, ${AC})`, color: '#000', fontWeight: 800, fontSize: 15, textDecoration: 'none' }}>
+                  <FiDownload size={16} /> Download Neytreya
+                </Link>
+                <Link href="/products/neytreya" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '16px 32px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 15, textDecoration: 'none' }}>
+                  Back to Product
+                </Link>
+              </div>
+            </Card3D>
           </motion.div>
         </div>
       </section>
