@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ChatWidget from '@/components/ChatWidget';
@@ -194,13 +194,11 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
 }
 
 /* ─── DOWNLOAD BUTTON ────────────────────────────────── */
-function DownloadBtn({ label, platform, downloadUrl, primary = false }) {
-  const [open, setOpen] = useState(false);
+function DownloadBtn({ label, platform, downloadUrl, primary = false, onClick }) {
   return (
-    <>
       <motion.button
         whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-        onClick={() => setOpen(true)}
+        onClick={onClick}
         style={{
           padding: '16px 32px', fontSize: 16, borderRadius: 99,
           display: 'inline-flex', alignItems: 'center', gap: 10,
@@ -213,17 +211,6 @@ function DownloadBtn({ label, platform, downloadUrl, primary = false }) {
       >
         <FiDownload size={18} /> {label}
       </motion.button>
-
-      <AnimatePresence>
-        {open && (
-          <PrereqModal
-            onClose={() => setOpen(false)}
-            platform={platform}
-            downloadUrl={downloadUrl}
-          />
-        )}
-      </AnimatePresence>
-    </>
   );
 }
 
@@ -245,6 +232,18 @@ const COMPAT = [
 ];
 
 export default function NeytreyaPage() {
+  const [modalData, setModalData] = useState(null);
+  const [detectedOs, setDetectedOs] = useState('mac');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const ua = window.navigator.userAgent.toLowerCase();
+      if (ua.includes('win')) setDetectedOs('win');
+      else if (ua.includes('linux')) setDetectedOs('linux');
+      else setDetectedOs('mac');
+    }
+  }, []);
+
   return (
     <div style={{ minHeight: '100vh', background: '#010104', color: '#fff', position: 'relative' }}>
       <StarField />
@@ -272,7 +271,11 @@ export default function NeytreyaPage() {
           </motion.p>
 
           <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <DownloadBtn label="Download for macOS" platform="macOS (Apple Silicon)" downloadUrl={DOWNLOADS.mac} primary />
+            {detectedOs === 'win' ? (
+              <DownloadBtn label="Download for Windows" platform="Windows x64" downloadUrl={DOWNLOADS.winx64} primary onClick={() => setModalData({ platform: 'Windows x64', url: DOWNLOADS.winx64 })} />
+            ) : (
+              <DownloadBtn label="Download for macOS" platform="macOS (Apple Silicon)" downloadUrl={DOWNLOADS.mac} primary onClick={() => setModalData({ platform: 'macOS (Apple Silicon)', url: DOWNLOADS.mac })} />
+            )}
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
               <Link href="/products/neytreya/learn-more" style={{ padding: '16px 32px', fontSize: 16, borderRadius: 99, border: '1px solid rgba(255,255,255,0.12)', background: 'rgba(255,255,255,0.04)', color: '#fff', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                 Deep dive <FiArrowRight size={14} />
@@ -365,9 +368,9 @@ export default function NeytreyaPage() {
 
                 {/* Download grid */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14, maxWidth: 680, margin: '0 auto 32px' }}>
-                  <DownloadBtn label="macOS (Apple Silicon)" platform="macOS (Apple Silicon)" downloadUrl={DOWNLOADS.mac} primary />
-                  <DownloadBtn label="Windows x64" platform="Windows x64" downloadUrl={DOWNLOADS.winx64} />
-                  <DownloadBtn label="Windows ARM64" platform="Windows ARM64" downloadUrl={DOWNLOADS.winarm} />
+                  <DownloadBtn label="macOS (Apple Silicon)" platform="macOS (Apple Silicon)" downloadUrl={DOWNLOADS.mac} primary onClick={() => setModalData({ platform: 'macOS (Apple Silicon)', url: DOWNLOADS.mac })} />
+                  <DownloadBtn label="Windows x64" platform="Windows x64" downloadUrl={DOWNLOADS.winx64} onClick={() => setModalData({ platform: 'Windows x64', url: DOWNLOADS.winx64 })} />
+                  <DownloadBtn label="Windows ARM64" platform="Windows ARM64" downloadUrl={DOWNLOADS.winarm} onClick={() => setModalData({ platform: 'Windows ARM64', url: DOWNLOADS.winarm })} />
                 </div>
 
                 <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>Requires macOS 12+ or Windows 10/11 · 4 GB RAM minimum · Ollama required for Vision Engine</p>
@@ -379,6 +382,17 @@ export default function NeytreyaPage() {
 
       <Footer />
       <ChatWidget />
+
+      {/* MODAL MOUNTED AT ROOT LEVEL TO PREVENT CLIPPING */}
+      <AnimatePresence>
+        {modalData && (
+          <PrereqModal
+            onClose={() => setModalData(null)}
+            platform={modalData.platform}
+            downloadUrl={modalData.url}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
