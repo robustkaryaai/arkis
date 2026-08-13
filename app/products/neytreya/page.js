@@ -6,9 +6,11 @@ import ChatWidget from '@/components/ChatWidget';
 import BackButton from '@/components/BackButton';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
+import {
   FiDownload, FiEye, FiActivity, FiCpu, FiSearch,
   FiSliders, FiShield, FiMonitor, FiZap, FiArrowRight,
-  FiX, FiExternalLink, FiAlertTriangle, FiCheckCircle
+  FiX, FiExternalLink, FiAlertTriangle, FiCheckCircle,
+  FiBox, FiTerminal, FiPackage, FiFileText
 } from 'react-icons/fi';
 import Link from 'next/link';
 import { StarField, Card3D, staggerContainer, fadeUp, textVariant, FlowText } from '@/components/SpaceUI';
@@ -26,36 +28,36 @@ const DOWNLOADS = {
 const PREREQS = [
   {
     name: 'Ollama',
-    desc: 'Required to run the local Qwen3-VL vision model. Neytreya will not be able to analyse your screen without it.',
+    desc: 'Local vision model runner.',
     required: true,
     href: 'https://ollama.com/download',
     color: '#a5b4fc',
-    icon: '🧠',
+    icon: <FiBox size={20} />,
   },
   {
     name: 'Python 3.10+',
-    desc: 'Required for the core perception engine and OCR pipeline. Bundled in most cases, but check if you\'re on Windows.',
+    desc: 'Core perception & OCR engine.',
     required: true,
     href: 'https://www.python.org/downloads/',
     color: '#fcd34d',
-    icon: '🐍',
+    icon: <FiTerminal size={20} />,
   },
   {
     name: 'Node.js 18+',
-    desc: 'Required for the Electron-based desktop app shell. Download the LTS version.',
+    desc: 'Desktop app shell environment.',
     required: true,
     href: 'https://nodejs.org/',
     color: '#6ee7b7',
-    icon: '⬡',
+    icon: <FiPackage size={20} />,
   },
   {
     name: 'Tesseract OCR',
-    desc: 'Required for reading text from screenshots. Auto-installed on macOS via Homebrew. On Windows, install manually from UB-Mannheim.',
+    desc: 'Reads text from screenshots.',
     required: false,
     href: 'https://github.com/UB-Mannheim/tesseract/wiki',
     color: '#7dd3fc',
-    icon: '📄',
-    note: 'macOS: auto-installed · Windows: manual',
+    icon: <FiFileText size={20} />,
+    note: 'macOS: auto-installed',
   },
 ];
 
@@ -71,84 +73,73 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
       onClick={onClose}
       style={{
         position: 'fixed', inset: 0, zIndex: 1000,
-        background: 'rgba(1,1,4,0.85)', backdropFilter: 'blur(20px)',
+        background: 'rgba(1,1,4,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: '24px',
       }}
     >
       <motion.div
-        initial={{ opacity: 0, scale: 0.92, y: 24 }}
+        initial={{ opacity: 0, scale: 0.95, y: 10 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.92, y: 24 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        exit={{ opacity: 0, scale: 0.95, y: 10 }}
+        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: 'rgba(10, 12, 18, 0.95)',
-          border: '1px solid rgba(16,185,129,0.2)',
-          borderRadius: 28,
-          maxWidth: 580,
+          background: 'rgba(15, 15, 20, 0.75)',
+          backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)',
+          border: '1px solid rgba(255,255,255,0.08)',
+          borderRadius: 24,
+          maxWidth: 520,
           width: '100%',
-          maxHeight: '90vh',
-          overflowY: 'auto',
-          boxShadow: '0 40px 100px rgba(0,0,0,0.7), 0 0 0 1px rgba(16,185,129,0.08), inset 0 1px 0 rgba(255,255,255,0.05)',
-          padding: '40px',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1)',
+          padding: '32px',
           position: 'relative',
         }}
       >
         {/* Close */}
         <button
           onClick={onClose}
-          style={{ position: 'absolute', top: 20, right: 20, background: 'rgba(255,255,255,0.06)', border: 'none', borderRadius: '50%', width: 36, height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'rgba(255,255,255,0.5)' }}
+          style={{ position: 'absolute', top: 16, right: 16, background: 'transparent', border: 'none', width: 32, height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'rgba(255,255,255,0.4)', transition: 'color 0.2s' }}
+          onMouseEnter={(e) => e.currentTarget.style.color = '#fff'}
+          onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.4)'}
         >
-          <FiX size={18} />
+          <FiX size={20} />
         </button>
 
         {/* Warning header */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24 }}>
-          <div style={{ width: 48, height: 48, borderRadius: 14, background: 'rgba(251,191,36,0.12)', border: '1px solid rgba(251,191,36,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-            <FiAlertTriangle size={22} color="#fbbf24" />
+        <div style={{ textAlign: 'center', marginBottom: 28 }}>
+          <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(251,191,36,0.1)', border: '1px solid rgba(251,191,36,0.2)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: 16 }}>
+            <FiAlertTriangle size={20} color="#fbbf24" />
           </div>
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: '#fbbf24', textTransform: 'uppercase', marginBottom: 4 }}>Before you install</div>
-            <h2 style={{ fontSize: 22, fontWeight: 900, letterSpacing: '-0.03em', margin: 0 }}>Install these first.</h2>
-          </div>
+          <h2 style={{ fontSize: 24, fontWeight: 800, letterSpacing: '-0.02em', margin: '0 0 8px 0', color: '#fff' }}>Install Prerequisites</h2>
+          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, margin: 0, padding: '0 20px' }}>
+            Neytreya requires these tools to be installed <strong style={{ color: '#fff' }}>before</strong> setup. The vision engine will not run without them.
+          </p>
         </div>
 
-        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, marginBottom: 28 }}>
-          Neytreya depends on a few tools that must be installed <strong style={{ color: 'rgba(255,255,255,0.8)' }}>before</strong> you run the setup. Without them, the vision engine and OCR will not work.
-        </p>
-
-        {/* Prereq items */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 28 }}>
+        {/* Prereq items - Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 28 }}>
           {PREREQS.map((p) => (
             <div
               key={p.name}
               style={{
-                display: 'flex', gap: 16, padding: '18px 20px',
-                borderRadius: 16,
-                background: `rgba(255,255,255,0.03)`,
-                border: `1px solid rgba(255,255,255,0.07)`,
+                display: 'flex', flexDirection: 'column', gap: 8, padding: '16px',
+                borderRadius: 16, background: 'rgba(255,255,255,0.02)',
+                border: '1px solid rgba(255,255,255,0.05)',
               }}
             >
-              <div style={{ fontSize: 26, width: 32, flexShrink: 0, textAlign: 'center', marginTop: 2 }}>{p.icon}</div>
-              <div style={{ flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: 15, fontWeight: 800, color: '#fff' }}>{p.name}</span>
-                  {p.required && (
-                    <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: 1.5, color: '#fbbf24', textTransform: 'uppercase', padding: '2px 8px', borderRadius: 99, background: 'rgba(251,191,36,0.12)', border: '1px solid rgba(251,191,36,0.2)' }}>Required</span>
-                  )}
-                  {p.note && (
-                    <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', fontStyle: 'italic' }}>{p.note}</span>
-                  )}
-                </div>
-                <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', lineHeight: 1.6, margin: '0 0 10px' }}>{p.desc}</p>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ color: p.color }}>{p.icon}</div>
+                {p.required && <span style={{ fontSize: 9, fontWeight: 800, letterSpacing: 1, color: '#fbbf24', textTransform: 'uppercase' }}>Required</span>}
+              </div>
+              <div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: '#fff', marginBottom: 2 }}>{p.name}</div>
+                <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', lineHeight: 1.4, marginBottom: 12, minHeight: 34 }}>{p.desc}</div>
                 <a
-                  href={p.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 12, fontWeight: 700, color: p.color, textDecoration: 'none', padding: '5px 12px', borderRadius: 99, background: `${p.color}12`, border: `1px solid ${p.color}30` }}
+                  href={p.href} target="_blank" rel="noopener noreferrer"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 11, fontWeight: 700, color: p.color, textDecoration: 'none' }}
                 >
-                  Download {p.name} <FiExternalLink size={12} />
+                  Download <FiExternalLink size={10} />
                 </a>
               </div>
             </div>
@@ -156,21 +147,21 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
         </div>
 
         {/* Confirm checkbox */}
-        <label style={{ display: 'flex', alignItems: 'flex-start', gap: 14, cursor: 'pointer', marginBottom: 28, padding: '16px 18px', borderRadius: 14, background: checked ? 'rgba(16,185,129,0.06)' : 'rgba(255,255,255,0.02)', border: `1px solid ${checked ? 'rgba(16,185,129,0.25)' : 'rgba(255,255,255,0.07)'}`, transition: 'all 0.2s' }}>
+        <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', marginBottom: 24, padding: '14px 16px', borderRadius: 12, background: checked ? 'rgba(16,185,129,0.08)' : 'rgba(255,255,255,0.02)', border: `1px solid ${checked ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.05)'}`, transition: 'all 0.2s' }}>
           <div
             onClick={() => setChecked(!checked)}
             style={{
-              width: 22, height: 22, borderRadius: 6, flexShrink: 0, marginTop: 1,
+              width: 20, height: 20, borderRadius: 6, flexShrink: 0,
               border: `2px solid ${checked ? AC : 'rgba(255,255,255,0.2)'}`,
               background: checked ? AC : 'transparent',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              transition: 'all 0.2s', cursor: 'pointer',
+              transition: 'all 0.2s',
             }}
           >
-            {checked && <FiCheckCircle size={14} color="#000" strokeWidth={3} />}
+            {checked && <FiCheckCircle size={12} color="#000" strokeWidth={4} />}
           </div>
-          <span style={{ fontSize: 14, color: 'rgba(255,255,255,0.6)', lineHeight: 1.6, userSelect: 'none' }}>
-            I have installed Ollama, Python, and Node.js and I understand the vision engine needs Ollama running before I launch Neytreya.
+          <span style={{ fontSize: 13, color: checked ? '#fff' : 'rgba(255,255,255,0.5)', fontWeight: checked ? 600 : 400, userSelect: 'none', transition: 'color 0.2s' }}>
+            I have installed the required tools.
           </span>
         </label>
 
@@ -180,23 +171,17 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
           download
           onClick={checked ? onClose : (e) => e.preventDefault()}
           style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-            width: '100%', padding: '16px 24px', borderRadius: 99,
-            background: checked ? '#fff' : 'rgba(255,255,255,0.08)',
-            color: checked ? '#000' : 'rgba(255,255,255,0.3)',
-            fontWeight: 800, fontSize: 16, textDecoration: 'none',
-            border: 'none', cursor: checked ? 'pointer' : 'not-allowed',
-            transition: 'all 0.2s',
-            boxShadow: checked ? '0 0 30px rgba(255,255,255,0.15)' : 'none',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+            width: '100%', padding: '14px 20px', borderRadius: 12,
+            background: checked ? '#fff' : 'rgba(255,255,255,0.05)',
+            color: checked ? '#000' : 'rgba(255,255,255,0.2)',
+            fontWeight: 700, fontSize: 15, textDecoration: 'none',
+            transition: 'all 0.2s', cursor: checked ? 'pointer' : 'not-allowed',
           }}
         >
-          <FiDownload size={18} />
+          <FiDownload size={16} />
           {checked ? `Download for ${platform}` : 'Confirm above to download'}
         </a>
-
-        <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.2)', marginTop: 16 }}>
-          Neytreya {platform} · v1.0.0 Beta · {platform.startsWith('macOS') ? '362 MB' : '343 MB'}
-        </p>
       </motion.div>
     </motion.div>
   );
