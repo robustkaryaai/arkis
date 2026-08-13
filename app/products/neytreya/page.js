@@ -72,8 +72,8 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
       exit={{ opacity: 0 }}
       onClick={onClose}
       style={{
-        position: 'fixed', inset: 0, zIndex: 9999,
-        background: 'rgba(1,1,4,0.85)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+        position: 'fixed', inset: 0, zIndex: 999999,
+        background: 'rgba(0,0,0,0.90)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: '24px',
       }}
@@ -85,13 +85,13 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: 'rgba(10, 12, 15, 0.97)',
+          background: 'rgba(10, 12, 15, 0.98)',
           backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)',
           border: '1px solid rgba(255,255,255,0.08)',
           borderRadius: 24,
           maxWidth: 520,
           width: '100%',
-          boxShadow: '0 40px 100px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.1)',
+          boxShadow: '0 40px 100px rgba(0,0,0,0.95), inset 0 1px 0 rgba(255,255,255,0.1)',
           padding: '32px',
           position: 'relative',
         }}
@@ -167,9 +167,16 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
 
         {/* Download button */}
         <a
-          href={checked ? downloadUrl : undefined}
+          href={checked ? downloadUrl : '#'}
           download
-          onClick={checked ? onClose : (e) => e.preventDefault()}
+          onClick={(e) => {
+            if (!checked) {
+              e.preventDefault();
+            } else {
+              // Delay unmounting so the browser doesn't abort the download
+              setTimeout(onClose, 2000);
+            }
+          }}
           style={{
             display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
             width: '100%', padding: '14px 20px', borderRadius: 12,
