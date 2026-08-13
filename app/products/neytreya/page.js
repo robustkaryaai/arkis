@@ -72,8 +72,8 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
       exit={{ opacity: 0 }}
       onClick={onClose}
       style={{
-        position: 'fixed', inset: 0, zIndex: 1000,
-        background: 'rgba(1,1,4,0.6)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
+        position: 'fixed', inset: 0, zIndex: 9999,
+        background: 'rgba(1,1,4,0.85)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
         padding: '24px',
       }}
@@ -85,13 +85,13 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: 'rgba(15, 15, 20, 0.75)',
+          background: 'rgba(10, 12, 15, 0.97)',
           backdropFilter: 'blur(40px)', WebkitBackdropFilter: 'blur(40px)',
           border: '1px solid rgba(255,255,255,0.08)',
           borderRadius: 24,
           maxWidth: 520,
           width: '100%',
-          boxShadow: '0 20px 60px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1)',
+          boxShadow: '0 40px 100px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.1)',
           padding: '32px',
           position: 'relative',
         }}
