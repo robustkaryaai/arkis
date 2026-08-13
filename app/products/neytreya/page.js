@@ -6,7 +6,6 @@ import ChatWidget from '@/components/ChatWidget';
 import BackButton from '@/components/BackButton';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-import {
   FiDownload, FiEye, FiActivity, FiCpu, FiSearch,
   FiSliders, FiShield, FiMonitor, FiZap, FiArrowRight,
   FiX, FiExternalLink, FiAlertTriangle, FiCheckCircle,
