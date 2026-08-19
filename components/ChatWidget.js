@@ -84,8 +84,13 @@ export default function ChatWidget() {
             : ['gemma-4-26b-a4b-it', 'gemini-3.1-flash-lite-preview'];
 
         const genAI = new GoogleGenerativeAI(apiKey);
-        const history = messages.map(m => `${m.role === 'user' ? 'User' : 'AI'}: ${m.text}`).join('\n');
-        const prompt = `${SYSTEM_PROMPT}\n\n${history}\nUser: ${userMsg}\nAI:`;
+        const systemInstruction = SYSTEM_BEHAVIOR_PROMPT + "\n\nRelevant Context:\n" + getRelevantKnowledge(userMsg);
+        
+        // Map previous messages to Gemini history format
+        const chatHistory = messages.map(msg => ({
+            role: msg.role === 'user' ? 'user' : 'model',
+            parts: [{ text: msg.text }]
+        }));
 
         const isRetryable = (e) => {
             const msg = `${e?.message || ''}`.toLowerCase();
@@ -102,8 +107,18 @@ export default function ChatWidget() {
         for (const modelName of fallbackModels) {
             for (let attempt = 1; attempt <= 2; attempt++) {
                 try {
-                    const model = genAI.getGenerativeModel({ model: modelName });
-                    const result = await withTimeout(model.generateContent(prompt), timeoutMs);
+                    const model = genAI.getGenerativeModel({ 
+                        model: modelName,
+                        systemInstruction: systemInstruction 
+                    });
+                    const chat = model.startChat({
+                        history: chatHistory,
+                        generationConfig: {
+                            temperature: 0.3,
+                            maxOutputTokens: 500,
+                        }
+                    });
+                    const result = await withTimeout(chat.sendMessage(userMsg), timeoutMs);
                     setLoading(false);
                     await typewriter(result.response.text());
                     return;
