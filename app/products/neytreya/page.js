@@ -187,6 +187,31 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
           </div>
         )}
 
+        {/* Windows SmartScreen warning */}
+        {platform.toLowerCase().includes('win') && (
+          <div style={{
+            marginBottom: 20,
+            padding: '16px 18px',
+            borderRadius: 14,
+            background: 'rgba(251,146,60,0.06)',
+            border: '1px solid rgba(251,146,60,0.35)',
+          }}>
+            <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+              <div style={{ flexShrink: 0, marginTop: 1 }}>
+                <FiAlertTriangle size={16} color="#fb923c" />
+              </div>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#fb923c', marginBottom: 6 }}>
+                  Windows SmartScreen Notice
+                </div>
+                <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, margin: 0 }}>
+                  We don&apos;t have a paid software license yet — we&apos;re still expanding. If Windows shows a warning, don&apos;t worry — the app is <strong style={{ color: '#fff' }}>completely safe to use.</strong> Click &ldquo;More info&rdquo; then &ldquo;Run anyway&rdquo; to proceed.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Confirm checkbox */}
         <label style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', marginBottom: 24, padding: '14px 16px', borderRadius: 12, background: checked ? 'rgba(16,185,129,0.08)' : 'rgba(255,255,255,0.02)', border: `1px solid ${checked ? 'rgba(16,185,129,0.3)' : 'rgba(255,255,255,0.05)'}`, transition: 'all 0.2s' }}>
           <div
