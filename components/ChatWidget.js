@@ -107,18 +107,37 @@ export default function ChatWidget() {
         for (const modelName of fallbackModels) {
             for (let attempt = 1; attempt <= 2; attempt++) {
                 try {
-                    const model = genAI.getGenerativeModel({ 
-                        model: modelName,
-                        systemInstruction: systemInstruction 
-                    });
+                    const modelConfig = { model: modelName };
+                    if (modelName.startsWith('gemini')) {
+                        modelConfig.systemInstruction = systemInstruction;
+                    }
+                    const model = genAI.getGenerativeModel(modelConfig);
+                    
+                    const finalHistory = [...chatHistory];
+                    let messageToSend = userMsg;
+                    
+                    // If model doesn't support systemInstruction natively
+                    if (!modelName.startsWith('gemini')) {
+                        if (finalHistory.length > 0) {
+                            // Inject into the very first history message
+                            finalHistory[0] = {
+                                ...finalHistory[0],
+                                parts: [{ text: `SYSTEM DIRECTIVE:\n${systemInstruction}\n\nUSER MESSAGE:\n${finalHistory[0].parts[0].text}` }]
+                            };
+                        } else {
+                            // No history exists, inject directly into the new message being sent
+                            messageToSend = `SYSTEM DIRECTIVE:\n${systemInstruction}\n\nUSER MESSAGE:\n${userMsg}`;
+                        }
+                    }
+
                     const chat = model.startChat({
-                        history: chatHistory,
+                        history: finalHistory,
                         generationConfig: {
                             temperature: 0.3,
                             maxOutputTokens: 500,
                         }
                     });
-                    const result = await withTimeout(chat.sendMessage(userMsg), timeoutMs);
+                    const result = await withTimeout(chat.sendMessage(messageToSend), timeoutMs);
                     setLoading(false);
                     await typewriter(result.response.text());
                     return;
