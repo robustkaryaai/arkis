@@ -173,7 +173,7 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
                     { step: '1', text: 'Open System Settings' },
                     { step: '2', text: 'Go to Privacy & Security' },
                     { step: '3', text: 'Scroll down to the Security section' },
-                    { step: '4', text: 'You'll see a message about Neytreya — click Open Anyway' },
+                    { step: '4', text: "You'll see a message about Neytreya — click Open Anyway" },
                   ].map(({ step, text }) => (
                     <div key={step} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <div style={{
