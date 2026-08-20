@@ -81,7 +81,7 @@ export default function ChatWidget() {
         const rawModels = (process.env.NEXT_PUBLIC_GEMINI_MODELS || '').trim();
         const fallbackModels = rawModels
             ? rawModels.split(',').map(s => s.trim()).filter(Boolean)
-            : ['gemini-2.5-flash', 'gemini-2.0-flash', 'gemma-4-26b-a4b-it'];
+            : ['gemini-3.1-flash-lite-preview', 'gemma-4-26b-a4b-it'];
 
         const genAI = new GoogleGenerativeAI(apiKey);
         const systemInstruction = SYSTEM_BEHAVIOR_PROMPT + "\n\nRelevant Context:\n" + getRelevantKnowledge(userMsg);
