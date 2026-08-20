@@ -20,7 +20,7 @@ const ACB = '#34d399';
 /* ─── DOWNLOAD URLS ─────────────────────────────────── */
 const DOWNLOADS = {
   mac:     'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-arm64.dmg',
-  winx64:  'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-x64-Setup.exe',
+  winx64:  'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-Setup.exe',
   winarm:  'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-arm64-Setup.exe',
 };
 
