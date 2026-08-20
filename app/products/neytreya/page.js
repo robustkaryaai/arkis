@@ -166,24 +166,31 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
                   macOS Gatekeeper Notice
                 </div>
                 <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, margin: '0 0 10px' }}>
-                  We don&apos;t have a paid Apple developer license yet — we&apos;re still expanding. If macOS blocks the app from opening, run this command in Terminal first:
+                  We don&apos;t have a paid Apple developer license yet — we&apos;re still expanding. If macOS says it can&apos;t open Neytreya, here&apos;s how to allow it:
                 </p>
-                <div style={{
-                  background: 'rgba(0,0,0,0.5)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                  borderRadius: 8,
-                  padding: '10px 14px',
-                  fontFamily: 'monospace',
-                  fontSize: 12,
-                  color: '#34d399',
-                  letterSpacing: '0.02em',
-                  wordBreak: 'break-all',
-                  userSelect: 'all',
-                }}>
-                  xattr -cr ~/Downloads/Neytreya-1.0.0-arm64.dmg
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {[
+                    { step: '1', text: 'Open System Settings' },
+                    { step: '2', text: 'Go to Privacy & Security' },
+                    { step: '3', text: 'Scroll down to the Security section' },
+                    { step: '4', text: 'You'll see a message about Neytreya — click Open Anyway' },
+                  ].map(({ step, text }) => (
+                    <div key={step} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <div style={{
+                        flexShrink: 0,
+                        width: 22, height: 22,
+                        borderRadius: '50%',
+                        background: 'rgba(251,146,60,0.15)',
+                        border: '1px solid rgba(251,146,60,0.3)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 10, fontWeight: 800, color: '#fb923c',
+                      }}>{step}</div>
+                      <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.6)', lineHeight: 1.5 }}>{text}</span>
+                    </div>
+                  ))}
                 </div>
-                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', margin: '8px 0 0', lineHeight: 1.5 }}>
-                  Click the command above to select it, then copy and paste it into Terminal.
+                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', margin: '12px 0 0', lineHeight: 1.5 }}>
+                  macOS only shows this once — after you click Open Anyway, Neytreya will launch normally every time.
                 </p>
               </div>
             </div>
