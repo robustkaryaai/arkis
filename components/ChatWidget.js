@@ -87,10 +87,13 @@ export default function ChatWidget() {
         const systemInstruction = SYSTEM_BEHAVIOR_PROMPT + "\n\nRelevant Context:\n" + getRelevantKnowledge(userMsg);
         
         // Map previous messages to Gemini history format
-        const chatHistory = messages.map(msg => ({
+        // Gemini requires history to start with a 'user' message — drop any leading bot messages
+        const allHistory = messages.map(msg => ({
             role: msg.role === 'user' ? 'user' : 'model',
             parts: [{ text: msg.text }]
         }));
+        const firstUserIdx = allHistory.findIndex(m => m.role === 'user');
+        const chatHistory = firstUserIdx >= 0 ? allHistory.slice(firstUserIdx) : [];
 
         const isRetryable = (e) => {
             const msg = `${e?.message || ''}`.toLowerCase();
