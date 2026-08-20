@@ -73,8 +73,9 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
       style={{
         position: 'fixed', inset: 0, zIndex: 999999,
         background: 'rgba(0,0,0,0.90)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
         padding: '24px',
+        overflowY: 'auto',
       }}
     >
       <motion.div
@@ -90,6 +91,8 @@ function PrereqModal({ onClose, onProceed, platform, downloadUrl }) {
           borderRadius: 24,
           maxWidth: 520,
           width: '100%',
+          maxHeight: '90vh',
+          overflowY: 'auto',
           boxShadow: '0 40px 100px rgba(0,0,0,0.95), inset 0 1px 0 rgba(255,255,255,0.1)',
           padding: '32px',
           position: 'relative',
