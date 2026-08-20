@@ -143,12 +143,14 @@ export default function ChatWidget() {
                     return;
                 } catch (e) {
                     lastError = e;
+                    console.error(`[Rexy] Model "${modelName}" attempt ${attempt} failed:`, e?.message || e);
                     if (!isRetryable(e)) break;
                     const wait = Math.min(8000, 1000 * Math.pow(2, attempt - 1) + Math.random() * 400);
                     await new Promise(r => setTimeout(r, wait));
                 }
             }
         }
+        console.error('[Rexy] All models exhausted. Last error:', lastError?.message || lastError);
         setMessages(prev => [...prev, { text: 'The assistant is busy. Please try again in a moment.', role: 'bot' }]);
         setLoading(false);
     };
