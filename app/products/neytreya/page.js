@@ -20,7 +20,7 @@ const ACB = '#34d399';
 /* ─── DOWNLOAD URLS ─────────────────────────────────── */
 const DOWNLOADS = {
   mac:     'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-beta-arm64.dmg',
-  win:     'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-Setup.exe',
+  win:     'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-x64-Setup.exe',
 };
 
 const PREREQS = [
@@ -302,7 +302,7 @@ const PILLARS = [
 
 const COMPAT = [
   { platform: 'macOS', detail: 'Apple Silicon (M1–M4)', status: 'available', color: '#10b981' },
-  { platform: 'Windows 10/11', detail: 'Intel / AMD / ARM64', status: 'available', color: '#10b981' },
+  { platform: 'Windows 10/11', detail: 'Intel / AMD (x64 only)', status: 'available', color: '#10b981' },
   { platform: 'Linux', detail: 'Ubuntu / Debian', status: 'coming soon', color: 'rgba(255,255,255,0.25)' },
 ];
 
