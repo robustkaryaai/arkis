@@ -19,9 +19,8 @@ const ACB = '#34d399';
 
 /* ─── DOWNLOAD URLS ─────────────────────────────────── */
 const DOWNLOADS = {
-  mac:     'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-arm64.dmg',
-  winx64:  'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-Setup.exe',
-  winarm:  'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-Setup.exe',
+  mac:     'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-beta-arm64.dmg',
+  win:     'https://github.com/robustkaryaai/neytreya_download/releases/download/v1.0.0/Neytreya-1.0.0-Setup.exe',
 };
 
 const PREREQS = [
@@ -303,8 +302,7 @@ const PILLARS = [
 
 const COMPAT = [
   { platform: 'macOS', detail: 'Apple Silicon (M1–M4)', status: 'available', color: '#10b981' },
-  { platform: 'Windows 10/11 x64', detail: '64-bit Intel / AMD', status: 'available', color: '#10b981' },
-  { platform: 'Windows 10/11 ARM64', detail: 'Snapdragon X · Surface Pro X', status: 'available', color: '#10b981' },
+  { platform: 'Windows 10/11', detail: 'Intel / AMD / ARM64', status: 'available', color: '#10b981' },
   { platform: 'Linux', detail: 'Ubuntu / Debian', status: 'coming soon', color: 'rgba(255,255,255,0.25)' },
 ];
 
@@ -349,7 +347,7 @@ export default function NeytreyaPage() {
 
           <motion.div variants={fadeUp} style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
             {detectedOs === 'win' ? (
-              <DownloadBtn label="Download for Windows" platform="Windows x64" downloadUrl={DOWNLOADS.winx64} primary onClick={() => setModalData({ platform: 'Windows x64', url: DOWNLOADS.winx64 })} />
+              <DownloadBtn label="Download for Windows" platform="Windows" downloadUrl={DOWNLOADS.win} primary onClick={() => setModalData({ platform: 'Windows', url: DOWNLOADS.win })} />
             ) : (
               <DownloadBtn label="Download for macOS" platform="macOS (Apple Silicon)" downloadUrl={DOWNLOADS.mac} primary onClick={() => setModalData({ platform: 'macOS (Apple Silicon)', url: DOWNLOADS.mac })} />
             )}
@@ -444,10 +442,9 @@ export default function NeytreyaPage() {
                 </p>
 
                 {/* Download grid */}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14, maxWidth: 680, margin: '0 auto 32px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 14, maxWidth: 460, margin: '0 auto 32px' }}>
                   <DownloadBtn label="macOS (Apple Silicon)" platform="macOS (Apple Silicon)" downloadUrl={DOWNLOADS.mac} primary onClick={() => setModalData({ platform: 'macOS (Apple Silicon)', url: DOWNLOADS.mac })} />
-                  <DownloadBtn label="Windows x64" platform="Windows x64" downloadUrl={DOWNLOADS.winx64} onClick={() => setModalData({ platform: 'Windows x64', url: DOWNLOADS.winx64 })} />
-                  <DownloadBtn label="Windows ARM64" platform="Windows ARM64" downloadUrl={DOWNLOADS.winarm} onClick={() => setModalData({ platform: 'Windows ARM64', url: DOWNLOADS.winarm })} />
+                  <DownloadBtn label="Windows" platform="Windows" downloadUrl={DOWNLOADS.win} onClick={() => setModalData({ platform: 'Windows', url: DOWNLOADS.win })} />
                 </div>
 
                 <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>Requires macOS 12+ or Windows 10/11 · 4 GB RAM minimum · Ollama required for Vision Engine</p>
