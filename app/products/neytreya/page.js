@@ -406,44 +406,6 @@ export default function NeytreyaPage() {
         </div>
       </section>
 
-      {/* ── GALLERY ──────────────────────────── */}
-      <section style={{ padding: '60px 0 80px', position: 'relative', zIndex: 10, overflow: 'hidden' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 5%' }}>
-          <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
-            <motion.p variants={fadeUp} style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: ACB, textTransform: 'uppercase', marginBottom: 16, display: 'inline-block', padding: '5px 14px', borderRadius: 8, background: 'rgba(16,185,129,0.08)' }}>Interface</motion.p>
-            <motion.h2 variants={textVariant(0)} style={{ fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, letterSpacing: '-0.03em', marginBottom: 48 }}>See it in action.</motion.h2>
-          </motion.div>
-        </div>
-
-        <div style={{ 
-          display: 'flex', gap: 24, padding: '20px 5vw 40px', overflowX: 'auto', 
-          scrollSnapType: 'x mandatory', WebkitOverflowScrolling: 'touch',
-          scrollbarWidth: 'none', msOverflowStyle: 'none'
-        }}>
-          {[
-            { src: '/images/neytreya-screens/neytreya-recall-window-.png', alt: 'Recall Timeline' },
-            { src: '/images/neytreya-screens/neytreya-main-panel-floating-one-it-opens-when-i-click-eye-from-menubar.png', alt: 'Main Floating Panel' },
-            { src: '/images/neytreya-screens/visual-timeline-widnow-.png', alt: 'Visual Timeline' },
-            { src: '/images/neytreya-screens/neytreya-while-i-am-coding.png', alt: 'Coding Context' },
-            { src: '/images/neytreya-screens/i-was-browsing-a-page-here-and-neytreya-even-got-the-title-of-page.png', alt: 'Browsing Context' },
-            { src: '/images/neytreya-screens/neytreya-shoing-me-when-i-am-using-safari.png', alt: 'Safari Integration' },
-            { src: '/images/neytreya-screens/neytreya-showing-me-when-i-use-whatsapp.png', alt: 'WhatsApp Context' },
-            { src: '/images/neytreya-screens/the-settings-tab-in-floating-panel.png', alt: 'Settings Tab' },
-          ].map((img, i) => (
-            <motion.div 
-              key={i} 
-              initial={{ opacity: 0, x: 50 }} 
-              whileInView={{ opacity: 1, x: 0 }} 
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              style={{ flex: '0 0 auto', width: 'clamp(300px, 70vw, 800px)', scrollSnapAlign: 'center', borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}
-            >
-              <img src={img.src} alt={img.alt} style={{ width: '100%', height: 'auto', display: 'block' }} loading="lazy" />
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
       {/* ── PLATFORM COMPATIBILITY ───────────── */}
       <section style={{ padding: '60px 5%', position: 'relative', zIndex: 10 }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
