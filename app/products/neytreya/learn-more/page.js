@@ -107,18 +107,87 @@ export default function NeytreyaLearnMore() {
         </div>
       </section>
 
-      {/* ── SCREENSHOT PLACEHOLDER ──────────────── */}
-      <section style={{ padding: '0 5% 100px', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false, amount: 0.2 }} transition={{ duration: 0.7 }}>
-            <Card3D style={{ height: 480, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: 20 }} orbColor="rgba(16,185,129,0.2)">
-              <div style={{ width: 64, height: 64, borderRadius: 20, background: 'rgba(16,185,129,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: ACB }}>
-                <FiEye size={32} />
-              </div>
-              <p style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: 2 }}>Screenshots coming soon</p>
-              <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.3)', maxWidth: 360, textAlign: 'center', lineHeight: 1.6 }}>The Neytreya interface will be showcased here once screenshots are ready.</p>
-            </Card3D>
-          </motion.div>
+{/* ── ANIMATED SHOWCASE ──────────────────── */}
+      <section style={{ padding: '40px 5% 120px', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 120 }}>
+          
+          {/* Group 1: The Command Center */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 40, alignItems: 'center' }}>
+            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }}>
+              <div style={s()}>The Command Center</div>
+              <h3 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 900, marginBottom: 16 }}>Everything from the menubar.</h3>
+              <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, marginBottom: 24 }}>
+                Instant access to Neytreya. Toggle tracking, view quick insights, configure settings, and access the mini-recall tab without interrupting your workflow.
+              </p>
+            </motion.div>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+              {[
+                '/images/neytreya-screens/neytreya-main-panel-floating-one-it-opens-when-i-click-eye-from-menubar.png',
+                '/images/neytreya-screens/the-recall-tab-in-panel.png',
+                '/images/neytreya-screens/the-settings-tab-in-floating-panel.png',
+                '/images/neytreya-screens/settings-scroolled-down.png',
+              ].map((src, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: i * 0.1 }}>
+                  <Card3D style={{ padding: 12, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} orbColor="rgba(16,185,129,0.15)">
+                    <img src={src} style={{ width: '100%', maxHeight: 280, objectFit: 'contain', borderRadius: 8 }} alt="Panel UI" />
+                  </Card3D>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
+          {/* Group 2: Context Awareness */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 40, alignItems: 'center' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, order: 2 }}>
+              {[
+                '/images/neytreya-screens/neytreya-while-i-am-coding.png',
+                '/images/neytreya-screens/neytreya-shoing-me-when-i-am-using-safari.png',
+                '/images/neytreya-screens/neytreya-showing-me-when-i-use-whatsapp.png',
+                '/images/neytreya-screens/i-was-browsing-a-page-here-and-neytreya-even-got-the-title-of-page.png',
+              ].map((src, i) => (
+                <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: i * 0.15 }}>
+                  <Card3D style={{ padding: 12, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} orbColor="rgba(16,185,129,0.15)">
+                    <img src={src} style={{ width: '100%', maxHeight: 280, objectFit: 'contain', borderRadius: 8 }} alt="Context tracking" />
+                  </Card3D>
+                </motion.div>
+              ))}
+            </div>
+            <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }} style={{ order: 1 }}>
+              <div style={s()}>Deep Context Awareness</div>
+              <h3 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 900, marginBottom: 16 }}>It knows what you are doing.</h3>
+              <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, marginBottom: 24 }}>
+                Whether you're coding, browsing Safari, or messaging on WhatsApp, Neytreya adapts. It even extracts page titles and specific conversational context to build a rich, searchable timeline of your work.
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Group 3: Recall Window */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 40 }}>
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }} style={{ textAlign: 'center', maxWidth: 700, margin: '0 auto' }}>
+              <div style={s()}>Time Travel</div>
+              <h3 style={{ fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 900, marginBottom: 16 }}>The Visual Timeline.</h3>
+              <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, marginBottom: 24 }}>
+                Scroll back in time. The main Recall window visually maps out your entire day. Find exactly what you were working on hours or days ago, filter by 'Today' or 'Yesterday', and review your history seamlessly.
+              </p>
+            </motion.div>
+            
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, justifyContent: 'center' }}>
+              {[
+                { src: '/images/neytreya-screens/neytreya-recall-window-.png', w: '100%' },
+                { src: '/images/neytreya-screens/visual-timeline-widnow-.png', w: '100%' },
+                { src: '/images/neytreya-screens/the-today-tab-in-recall-window-.png', w: 'calc(50% - 8px)' },
+                { src: '/images/neytreya-screens/the-yesterday-tab-in-recall-window.png', w: 'calc(50% - 8px)' },
+                { src: '/images/neytreya-screens/recall-tab-scrolled-down.png', w: '100%' }
+              ].map((item, i) => (
+                <motion.div key={i} initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-50px" }} transition={{ delay: i * 0.1 }} style={{ width: item.w, minWidth: 300 }}>
+                  <Card3D style={{ padding: 12, height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }} orbColor="rgba(16,185,129,0.25)">
+                    <img src={item.src} style={{ width: '100%', maxHeight: i < 2 ? 600 : 350, objectFit: 'contain', borderRadius: 12 }} alt="Recall Window" />
+                  </Card3D>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
         </div>
       </section>
 
