@@ -479,13 +479,13 @@ export default function Subscription() {
 
                     <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(40px, 7vw, 88px)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, marginBottom: 20 }}>
                         Choose Your{' '}
-                        <span className="flowing-gradient" style={{ background: 'linear-gradient(90deg, #8b5cf6, #10b981, #f43f5e, #10b981, #8b5cf6)' }}>
+                        <span className="flowing-gradient" style={{ background: 'linear-gradient(90deg, #10b981, #8b5cf6, #10b981, #f43f5e, #38bdf8, #a78bfa, #10b981)' }}>
                             Intelligence
                         </span>
                     </motion.h1>
 
                     <motion.p variants={fadeUp} style={{ fontSize: 'clamp(16px, 2vw, 20px)', color: 'rgba(255,255,255,0.4)', maxWidth: 600, margin: '0 auto 16px', lineHeight: 1.7 }}>
-                        One subscription unlocks the entire RexyCore ecosystem — RK AI Desktop, RK AI Home, and everything in between.
+                        One subscription unlocks the entire RexyCore ecosystem — RK AI Desktop, RK AI Home, Neytreya, and everything in between.
                     </motion.p>
 
                     {/* Active plan indicator */}
@@ -619,26 +619,28 @@ export default function Subscription() {
                             <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: '#10b981', textTransform: 'uppercase', marginBottom: 10 }}>One Subscription. Entire Ecosystem.</div>
                             <h3 style={{ fontSize: 'clamp(20px, 3vw, 28px)', fontWeight: 900, marginBottom: 12, letterSpacing: '-0.02em' }}>
                                 Works Across All{' '}
-                                <span className="flowing-gradient" style={{ background: 'linear-gradient(90deg, #10b981, #8b5cf6, #10b981)' }}>
+                                <span className="flowing-gradient" style={{ background: 'linear-gradient(90deg, #10b981, #8b5cf6, #f43f5e, #38bdf8, #a78bfa, #10b981)' }}>
                                     RexyCore Products
                                 </span>
                             </h3>
                             <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 14, lineHeight: 1.7 }}>
-                                A single Pro or Elite subscription unlocks premium features across RK AI Desktop, RK AI Home, and supported RexyCore products — no separate purchases needed.
+                                One subscription unlocks premium features across the entire RexyCore ecosystem. Elite and Quantum plans include Neytreya — the AI co-pilot that watches and remembers your workday, fully local and private.
                             </p>
                         </div>
                         <div style={{ flex: '1 1 280px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                             {[
-                                [<FiMonitor />, 'RK AI Desktop', 'Included'],
-                                [<FiHome />, 'RK AI Home', 'Included'],
-                                [<FiCloud />, 'RexyCore Cloud', 'Included'],
-                                [<FiAperture />, 'Neytreya', 'Standalone — separate license'],
-                            ].map(([icon, name, note]) => (
-                                <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 12, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)' }}>
-                                    <span style={{ fontSize: 18, color: '#10b981', display: 'flex' }}>{icon}</span>
+                                { icon: <FiMonitor />, name: 'RK AI Desktop', note: 'All plans', color: '#10b981' },
+                                { icon: <FiHome />, name: 'RK AI Home', note: 'All plans', color: '#10b981' },
+                                { icon: <FiCloud />, name: 'RexyCore Cloud', note: 'All plans', color: '#10b981' },
+                                { icon: <FiAperture />, name: 'Neytreya', note: 'Elite & Quantum', color: '#8b5cf6' },
+                                { icon: <FiGlobe />, name: 'LuminaOS', note: 'Coming soon', color: '#38bdf8' },
+                                { icon: <FiZap />, name: 'Venava', note: 'Coming soon', color: '#a78bfa' },
+                            ].map(({ icon, name, note, color }) => (
+                                <div key={name} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 14px', borderRadius: 12, background: 'rgba(255,255,255,0.03)', border: `1px solid ${color}20` }}>
+                                    <span style={{ fontSize: 18, color, display: 'flex' }}>{icon}</span>
                                     <div>
                                         <div style={{ fontSize: 13, fontWeight: 700, color: '#fff' }}>{name}</div>
-                                        <div style={{ fontSize: 11, color: note.includes('separate') ? '#f59e0b' : '#10b981', fontWeight: 600 }}>{note}</div>
+                                        <div style={{ fontSize: 11, color, fontWeight: 600 }}>{note}</div>
                                     </div>
                                 </div>
                             ))}
