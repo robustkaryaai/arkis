@@ -357,6 +357,11 @@ export default function NeytreyaPage() {
                 Deep dive <FiArrowRight size={14} />
               </Link>
             </motion.div>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link href="/products/neytreya/feedback" style={{ padding: '16px 32px', fontSize: 16, borderRadius: 99, border: '1px solid rgba(16,185,129,0.3)', background: 'rgba(16,185,129,0.06)', color: '#34d399', fontWeight: 700, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                Share Feedback <FiArrowRight size={14} />
+              </Link>
+            </motion.div>
           </motion.div>
         </motion.div>
       </section>
