@@ -26,11 +26,11 @@ const CATEGORIES = [
 ];
 
 const RATINGS = [
-  { value: '5', label: '\u{1F31F} Love it', color: '#10b981' },
-  { value: '4', label: '\u{1F44D} Pretty good', color: '#34d399' },
-  { value: '3', label: '\u{1F610} Okay', color: '#f59e0b' },
-  { value: '2', label: '\u{1F615} Needs work', color: '#f97316' },
-  { value: '1', label: '\u{1F61E} Not great', color: '#f43f5e' },
+  { value: '5', label: 'Love it', color: '#10b981' },
+  { value: '4', label: 'Pretty good', color: '#34d399' },
+  { value: '3', label: 'Okay', color: '#f59e0b' },
+  { value: '2', label: 'Needs work', color: '#f97316' },
+  { value: '1', label: 'Not great', color: '#f43f5e' },
 ];
 
 const CHANNELS = [
@@ -117,7 +117,7 @@ export default function NeytreyaFeedback() {
                   <div style={{ width: 72, height: 72, borderRadius: '50%', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px', fontSize: 28 }}>
                     <FiHeart color="#10b981" />
                   </div>
-                  <h2 style={{ fontSize: 28, fontWeight: 900, marginBottom: 12 }}>Thank you! 🎉</h2>
+                  <h2 style={{ fontSize: 28, fontWeight: 900, marginBottom: 12 }}>Thank you!</h2>
                   <p style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, marginBottom: 28 }}>
                     Your feedback has been received. We read every single submission and it directly influences what we build next for Neytreya.
                   </p>
