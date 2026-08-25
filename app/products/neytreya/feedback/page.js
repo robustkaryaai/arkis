@@ -106,8 +106,8 @@ export default function NeytreyaFeedback() {
       </section>
 
       {/* MAIN CONTENT */}
-      <section style={{ padding: '40px 5% 120px', position: 'relative', zIndex: 10 }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: 48, alignItems: 'start' }}>
+      <section style={{ padding: '60px 5% 140px', position: 'relative', zIndex: 10 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: 64, alignItems: 'start' }}>
 
           {/* FORM */}
           <motion.div variants={staggerContainer(0.1, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }}>
@@ -129,7 +129,7 @@ export default function NeytreyaFeedback() {
             ) : (
               <motion.div variants={fadeUp}>
                 <Card3D style={{ padding: '40px' }} orbColor="rgba(16,185,129,0.15)">
-                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+                  <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                     <div style={{ fontSize: 20, fontWeight: 800, marginBottom: 4 }}>Send Feedback</div>
 
                     <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
@@ -202,11 +202,11 @@ export default function NeytreyaFeedback() {
           </motion.div>
 
           {/* RIGHT COLUMN */}
-          <motion.div variants={staggerContainer(0.1, 0.4)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-            <motion.div variants={textVariant(0)} style={{ fontSize: 20, fontWeight: 800, marginBottom: 4 }}>Other ways to reach us</motion.div>
+          <motion.div variants={staggerContainer(0.1, 0.4)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.15 }} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <motion.div variants={textVariant(0)} style={{ fontSize: 20, fontWeight: 800, marginBottom: 8 }}>Other ways to reach us</motion.div>
 
             {CHANNELS.map((ch) => (
-              <motion.div key={ch.label} variants={fadeUp} style={{ marginBottom: 4 }}>
+              <motion.div key={ch.label} variants={fadeUp}>
                 <Card3D style={{ padding: '24px 28px', display: 'flex', gap: 20, alignItems: 'center' }} orbColor={`${ch.color}33`}>
                   <div style={{ width: 52, height: 52, borderRadius: 14, background: `${ch.color}15`, border: `1px solid ${ch.color}33`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: ch.color, flexShrink: 0 }}>{ch.icon}</div>
                   <div>
@@ -219,7 +219,7 @@ export default function NeytreyaFeedback() {
             ))}
 
             <motion.div variants={fadeUp}>
-              <Card3D style={{ padding: '28px', marginTop: 8 }} orbColor="rgba(16,185,129,0.2)">
+              <Card3D style={{ padding: '32px', marginTop: 0 }} orbColor="rgba(16,185,129,0.2)">
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 12 }}>
                   <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(16,185,129,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#34d399' }}>
                     <FiCpu size={18} />
