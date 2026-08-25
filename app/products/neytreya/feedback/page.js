@@ -5,7 +5,7 @@ import ChatWidget from '@/components/ChatWidget';
 import Footer from '@/components/Footer';
 import BackButton from '@/components/BackButton';
 import Link from 'next/link';
-import { FiSend, FiArrowRight, FiHeart, FiBug, FiStar, FiMessageCircle, FiCpu } from 'react-icons/fi';
+import { FiSend, FiArrowRight, FiHeart, FiAlertCircle, FiStar, FiMessageCircle, FiCpu } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { StarField, Card3D, staggerContainer, textVariant, fadeUp } from '@/components/SpaceUI';
 
@@ -34,7 +34,7 @@ const RATINGS = [
 ];
 
 const CHANNELS = [
-  { icon: <FiBug size={22} />, label: 'Bug Reports', value: 'rexycoreofficial@gmail.com', color: '#f43f5e', sub: 'Critical bugs — email with logs attached' },
+  { icon: <FiAlertCircle size={22} />, label: 'Bug Reports', value: 'rexycoreofficial@gmail.com', color: '#f43f5e', sub: 'Critical bugs — email with logs attached' },
   { icon: <FiMessageCircle size={22} />, label: 'Discord', value: 'Coming soon', color: '#a78bfa', sub: 'Community support & feature discussions' },
   { icon: <FiStar size={22} />, label: 'Feature Requests', value: 'Use the form \u2192', color: '#34d399', sub: 'Tag category as "Feature Request"' },
 ];
