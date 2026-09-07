@@ -2,40 +2,27 @@
 
 import { useEffect, useState, useRef } from "react";
 
-// Map product slug → deep-link scheme
-const PRODUCT_SCHEMES = {
-  "neytreya": "neytreya",
-  "rk-ai":    "rk-ai",
-  "madhyn":   "madhyn",
-};
-
-const PRODUCT_LABELS = {
-  "neytreya": "Neytreya",
-  "rk-ai":    "RK AI",
-  "madhyn":   "MADHYN",
-};
-
+const PRODUCT_SCHEMES = { "neytreya": "neytreya", "rk-ai": "rk-ai", "madhyn": "madhyn" };
+const PRODUCT_LABELS = { "neytreya": "Neytreya", "rk-ai": "RK AI", "madhyn": "MADHYN" };
 const PRODUCT_COLORS = {
   "neytreya": { accent: "#10b981", glow: "rgba(16,185,129,0.25)", gradient: "linear-gradient(135deg, #10b981, #34d399)" },
-  "rk-ai":    { accent: "#6366f1", glow: "rgba(99,102,241,0.25)",  gradient: "linear-gradient(135deg, #6366f1, #9333ea)" },
-  "madhyn":   { accent: "#8C97A3", glow: "rgba(140,151,163,0.15)",  gradient: "linear-gradient(135deg, #AAB4BF, #5F6873)" },
+  "rk-ai": { accent: "#6366f1", glow: "rgba(99,102,241,0.25)", gradient: "linear-gradient(135deg, #6366f1, #9333ea)" },
+  "madhyn": { accent: "#8C97A3", glow: "rgba(140,151,163,0.15)", gradient: "linear-gradient(135deg, #AAB4BF, #5F6873)" },
 };
 
 export default function DesktopOAuthSuccessPage() {
-  const [deepLink, setDeepLink]         = useState(null);
+  const [deepLink, setDeepLink] = useState(null);
   const [productLabel, setProductLabel] = useState("the app");
-  const [productKey, setProductKey]     = useState("rk-ai");
-  const [phase, setPhase]               = useState("launching");
+  const [productKey, setProductKey] = useState("rk-ai");
+  const [phase, setPhase] = useState("launching");
   const iframeRef = useRef(null);
 
   useEffect(() => {
     const search = typeof window !== "undefined" ? window.location.search || "" : "";
     const params = new URLSearchParams(search);
-
     const product = params.get("product") || "rk-ai";
-    const scheme  = PRODUCT_SCHEMES[product] || "rk-ai";
-    const label   = PRODUCT_LABELS[product]  || "RK AI";
-
+    const scheme = PRODUCT_SCHEMES[product] || "rk-ai";
+    const label = PRODUCT_LABELS[product] || "RK AI";
     params.delete("product");
     const forwardedSearch = params.toString() ? `?${params.toString()}` : "";
     const targetLink = `${scheme}://oauth-success${forwardedSearch}`;
@@ -44,11 +31,14 @@ export default function DesktopOAuthSuccessPage() {
     setProductLabel(label);
     setProductKey(product);
 
+    // Try fallback local server ping (for local dev of Electron apps)
+    try {
+      fetch(`http://localhost:19999/oauth-success${forwardedSearch}`).catch(() => {});
+    } catch(e) {}
+
     const launchTimer = setTimeout(() => {
       try {
-        if (iframeRef.current) {
-          iframeRef.current.src = targetLink;
-        }
+        if (iframeRef.current) iframeRef.current.src = targetLink;
         window.location.href = targetLink;
       } catch (e) {
         console.warn("Deep link launch failed:", e);
@@ -59,10 +49,7 @@ export default function DesktopOAuthSuccessPage() {
       setPhase("fallback");
     }, 3500);
 
-    return () => {
-      clearTimeout(launchTimer);
-      clearTimeout(fallbackTimer);
-    };
+    return () => { clearTimeout(launchTimer); clearTimeout(fallbackTimer); };
   }, []);
 
   const colors = PRODUCT_COLORS[productKey] || PRODUCT_COLORS["rk-ai"];
@@ -70,57 +57,41 @@ export default function DesktopOAuthSuccessPage() {
   return (
     <>
       <iframe ref={iframeRef} style={{ display: "none" }} title="deeplink" />
-
       <main style={s.main}>
         <div style={{ ...s.bgGlow, background: colors.glow }} />
-
         <section style={s.card}>
           <div style={s.orbWrap}>
             <div style={{ ...s.orb, background: colors.gradient }} />
             <div style={{ ...s.orbRing, borderColor: colors.accent }} />
           </div>
-
           {phase === "launching" ? (
             <>
               <h1 style={s.title}>Opening {productLabel}…</h1>
-              <p style={s.sub}>
-                Google sign-in is complete. {productLabel} should open automatically.
-              </p>
+              <p style={s.sub}>Google sign-in is complete. {productLabel} should open automatically.</p>
               <div style={s.loader}>
-                <div style={{ ...s.dot, animationDelay: "0s",   background: colors.accent }} />
+                <div style={{ ...s.dot, animationDelay: "0s", background: colors.accent }} />
                 <div style={{ ...s.dot, animationDelay: "0.15s", background: colors.accent }} />
-                <div style={{ ...s.dot, animationDelay: "0.3s",  background: colors.accent }} />
+                <div style={{ ...s.dot, animationDelay: "0.3s", background: colors.accent }} />
               </div>
             </>
           ) : (
             <>
               <h1 style={s.title}>Didn't open?</h1>
-              <p style={s.sub}>
-                The app may not be running. Start {productLabel}, then click retry — or use
-                the manual link below.
-              </p>
+              <p style={s.sub}>The app may not be running. Start {productLabel}, then click retry — or use the manual link below.</p>
               <div style={s.actions}>
                 <button onClick={() => window.location.href = deepLink} style={{ ...s.btn, background: colors.gradient }}>
                   Retry opening {productLabel}
                 </button>
-                {deepLink && (
-                  <a href={deepLink} style={s.manualLink}>
-                    Open manually
-                  </a>
-                )}
+                {deepLink && <a href={deepLink} style={s.manualLink}>Open manually</a>}
               </div>
               <div style={s.hint}>
                 <span style={s.hintIcon}>ⓘ</span>
-                <span>
-                  Make sure <strong>{productLabel}</strong> is installed and running in
-                  your system tray / menubar before retrying.
-                </span>
+                <span>Make sure <strong>{productLabel}</strong> is installed and running in your system tray / menubar before retrying.</span>
               </div>
             </>
           )}
         </section>
       </main>
-
       <style>{`
         @keyframes pulse { 0%, 100% { opacity: .85; transform: scale(1); } 50% { opacity: .55; transform: scale(1.1); } }
         @keyframes bounce { 0%, 80%, 100% { transform: translateY(0); opacity: 1; } 40% { transform: translateY(-8px); opacity: 0.5; } }
