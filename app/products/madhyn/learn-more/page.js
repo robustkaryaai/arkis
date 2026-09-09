@@ -33,194 +33,202 @@ import {
   staggerContainer,
   fadeUp,
   textVariant,
-  FlowText,
 } from '@/components/SpaceUI';
-
-const ACCENT = '#c7cdd4';
-const BRIGHT = '#f1f3f5';
 
 const PIPELINE = [
   {
     number: '01',
     icon: <FiCommand />,
-    title: 'Command',
-    short: 'Tell MADHYN the objective.',
-    desc: 'Start with what you want to accomplish instead of manually describing every file and implementation step.',
+    label: 'COMMAND',
+    title: 'Define the objective.',
+    description:
+      'You describe the outcome you want. MADHYN treats it as a development objective rather than a request for a snippet.',
   },
   {
     number: '02',
     icon: <FiSearch />,
-    title: 'Understand',
-    short: 'Build project context.',
-    desc: 'MADHYN examines the repository, structure, dependencies, configuration and relevant existing code before acting.',
+    label: 'UNDERSTAND',
+    title: 'Build project context.',
+    description:
+      'The system examines the project structure, relevant files and surrounding implementation before deciding what should change.',
   },
   {
     number: '03',
     icon: <FiTarget />,
-    title: 'Plan',
-    short: 'Turn intent into a mission.',
-    desc: 'The objective becomes an ordered execution plan with concrete changes and verification steps.',
+    label: 'PLAN',
+    title: 'Create the mission.',
+    description:
+      'The objective becomes a sequence of concrete development actions that can actually be executed.',
   },
   {
     number: '04',
-    icon: <FiPlay />,
-    title: 'Execute',
-    short: 'Actually do the work.',
-    desc: 'MADHYN moves from reasoning to implementation, modifying the project instead of stopping at suggestions.',
+    icon: <FiTerminal />,
+    label: 'EXECUTE',
+    title: 'Do the work.',
+    description:
+      'MADHYN moves from reasoning into action, making the required changes across the project.',
   },
   {
     number: '05',
     icon: <FiShield />,
-    title: 'Verify',
-    short: 'Prove the work.',
-    desc: 'Tests, builds, checks and project-level validation become part of the mission rather than an afterthought.',
+    label: 'VERIFY',
+    title: 'Prove the result.',
+    description:
+      'The mission includes checks, tests and validation so completion is based on evidence.',
   },
   {
     number: '06',
     icon: <FiFileText />,
-    title: 'Report',
-    short: 'Tell you what happened.',
-    desc: 'Every mission ends with a clear account of what changed, what passed and whether anything remains unresolved.',
+    label: 'REPORT',
+    title: 'Explain what happened.',
+    description:
+      'MADHYN returns the result of the mission: what changed, what was checked and what remains.',
   },
 ];
 
 const CAPABILITIES = [
   {
     icon: <FiLayers />,
-    label: 'PROJECT INTELLIGENCE',
+    eyebrow: 'PROJECT INTELLIGENCE',
     title: 'It sees the project, not just the prompt.',
-    desc: 'MADHYN is designed around repository-level context. Files, dependencies, configuration and existing patterns become part of the reasoning process.',
+    description:
+      'MADHYN is designed to reason from the environment around the task. Existing architecture, implementation patterns and project structure become part of the context.',
   },
   {
     icon: <FiTarget />,
-    label: 'MISSION PLANNING',
+    eyebrow: 'MISSION PLANNING',
     title: 'Objectives become executable missions.',
-    desc: 'Instead of turning every small decision back into a conversation, MADHYN can break a larger objective into concrete steps and track their state.',
+    description:
+      'Instead of stopping at an explanation, MADHYN can decompose a development objective into a practical sequence of work.',
   },
   {
-    icon: <FiTerminal />,
-    label: 'REAL EXECUTION',
+    icon: <FiZap />,
+    eyebrow: 'REAL EXECUTION',
     title: 'Reasoning has somewhere to go.',
-    desc: 'The goal is not another AI that only writes code in a chat box. MADHYN is built around actually changing, running and checking the project.',
+    description:
+      'The system is built around actually changing the project. The output is not merely a suggestion—it is progress toward the requested outcome.',
   },
   {
     icon: <FiCheckCircle />,
-    label: 'VERIFICATION',
+    eyebrow: 'VERIFICATION',
     title: 'Done means verified.',
-    desc: 'A successful generation is not the finish line. MADHYN is designed to validate the resulting project and surface failures instead of silently moving on.',
+    description:
+      'Validation is part of the development loop. MADHYN can run checks and use their results when determining whether a mission is complete.',
   },
 ];
 
 function MissionConsole() {
-  const stages = [
-    ['Repository context', 'complete'],
-    ['Mission planning', 'complete'],
-    ['Implementation', 'active'],
-    ['Verification', 'pending'],
-  ];
-
   return (
     <Card3D
       style={{
         padding: 0,
         overflow: 'hidden',
-        background: 'rgba(9,10,12,0.78)',
+        background: 'rgba(6, 7, 9, 0.88)',
       }}
-      orbColor="rgba(199,205,212,0.16)"
+      orbColor="rgba(199,205,212,0.12)"
     >
-      <div className="console-top">
-        <div className="window-dots">
-          <span />
-          <span />
-          <span />
-        </div>
-
-        <div className="console-title">
-          <FiActivity size={13} />
-          MADHYN / MISSION CONTROL
-        </div>
-
-        <div className="console-status">
-          <span className="status-dot" />
-          ACTIVE
-        </div>
-      </div>
-
-      <div className="console-body">
-        <div className="mission-heading">
-          <div>
-            <div className="micro-label">ACTIVE MISSION</div>
-            <h3>Rebuild authentication flow</h3>
+      <div className="console">
+        <div className="console-header">
+          <div className="console-controls">
+            <span />
+            <span />
+            <span />
           </div>
 
-          <div className="mission-id">M-0842</div>
-        </div>
-
-        <div className="progress-row">
-          <div className="progress-track">
-            <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: '61%' }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: 'easeOut' }}
-              className="progress-fill"
-            />
+          <div className="console-title">
+            <FiActivity />
+            MADHYN / MISSION CONTROL
           </div>
 
-          <span>61%</span>
+          <div className="console-status">
+            <i />
+            EXECUTING
+          </div>
         </div>
 
-        <div className="stage-list">
-          {stages.map(([name, state]) => (
-            <div className={`stage stage-${state}`} key={name}>
-              <div className="stage-icon">
-                {state === 'complete' ? (
-                  <FiCheckCircle />
-                ) : state === 'active' ? (
-                  <FiActivity />
-                ) : (
-                  <span />
-                )}
-              </div>
+        <div className="console-main">
+          <div className="console-mission">
+            <div>
+              <div className="console-label">ACTIVE MISSION</div>
 
-              <span>{name}</span>
+              <h3>Rebuild authentication flow</h3>
 
-              <small>
-                {state === 'complete'
-                  ? 'DONE'
-                  : state === 'active'
-                    ? 'RUNNING'
-                    : 'QUEUED'}
-              </small>
+              <p>
+                Refactor the existing authentication layer, update dependent
+                components and verify the resulting application.
+              </p>
             </div>
-          ))}
-        </div>
 
-        <div className="terminal">
-          <div className="terminal-head">
-            <span>EXECUTION LOG</span>
-            <span>LIVE</span>
+            <div className="mission-id">M-0842</div>
           </div>
 
-          <div className="terminal-line">
-            <span className="terminal-prompt">$</span>
-            <span>madhyn --mission auth-rebuild --verify</span>
+          <div className="console-progress">
+            <div className="progress-heading">
+              <span>MISSION PROGRESS</span>
+              <strong>61%</strong>
+            </div>
+
+            <div className="progress-track">
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: '61%' }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.15, ease: 'easeOut' }}
+              />
+            </div>
           </div>
 
-          <div className="terminal-line muted">
-            <span className="terminal-prompt">›</span>
-            <span>Inspecting authentication modules...</span>
+          <div className="console-grid">
+            {[
+              ['CONTEXT', 'Loaded', 'complete'],
+              ['PLAN', 'Ready', 'complete'],
+              ['EXECUTION', 'Running', 'active'],
+              ['VERIFY', 'Queued', 'queued'],
+            ].map(([label, state, type]) => (
+              <div className={`console-stage ${type}`} key={label}>
+                <div className="console-stage-top">
+                  <span>{label}</span>
+
+                  {type === 'complete' ? (
+                    <FiCheckCircle />
+                  ) : type === 'active' ? (
+                    <i className="active-dot" />
+                  ) : (
+                    <i className="queued-dot" />
+                  )}
+                </div>
+
+                <strong>{state}</strong>
+              </div>
+            ))}
           </div>
 
-          <div className="terminal-line muted">
-            <span className="terminal-prompt">›</span>
-            <span>6 relevant files identified</span>
-          </div>
+          <div className="console-terminal">
+            <div className="terminal-top">
+              <span>MISSION OUTPUT</span>
+              <span>LIVE</span>
+            </div>
 
-          <div className="terminal-line active-line">
-            <span className="terminal-prompt">›</span>
-            <span>Applying implementation plan...</span>
-            <span className="cursor" />
+            <div className="terminal-line">
+              <b>›</b>
+              Repository context loaded
+            </div>
+
+            <div className="terminal-line">
+              <b>›</b>
+              6 relevant files identified
+            </div>
+
+            <div className="terminal-line">
+              <b>›</b>
+              Dependency graph updated
+            </div>
+
+            <div className="terminal-line active-line">
+              <b>›</b>
+              Applying implementation plan
+              <i className="cursor" />
+            </div>
           </div>
         </div>
       </div>
@@ -231,159 +239,184 @@ function MissionConsole() {
 function ArchitectureDiagram() {
   return (
     <div className="architecture">
-      <div className="arch-node arch-command">
-        <FiCommand />
-        <span>COMMAND</span>
-        <small>Objective</small>
+      <div className="architecture-node">
+        <div className="architecture-icon">
+          <FiCommand />
+        </div>
+
+        <div>
+          <small>INPUT</small>
+          <strong>DEVELOPMENT OBJECTIVE</strong>
+          <span>What you want accomplished</span>
+        </div>
       </div>
 
-      <div className="arch-line" />
+      <div className="architecture-line" />
 
-      <div className="arch-node">
-        <FiLayers />
-        <span>CONTEXT</span>
-        <small>Repository intelligence</small>
+      <div className="architecture-node">
+        <div className="architecture-icon">
+          <FiSearch />
+        </div>
+
+        <div>
+          <small>CONTEXT</small>
+          <strong>PROJECT INTELLIGENCE</strong>
+          <span>Files · structure · dependencies · state</span>
+        </div>
       </div>
 
-      <div className="arch-line" />
+      <div className="architecture-line" />
 
-      <div className="arch-node arch-bright">
-        <FiCpu />
-        <span>MISSION ENGINE</span>
-        <small>Reason · plan · decide</small>
+      <div className="architecture-node core">
+        <div className="architecture-icon">
+          <FiCpu />
+        </div>
+
+        <div>
+          <small>ORCHESTRATION</small>
+          <strong>MISSION ENGINE</strong>
+          <span>Reason · plan · coordinate · adapt</span>
+        </div>
       </div>
 
-      <div className="arch-split">
-        <div className="arch-branch-line" />
-
-        <div className="arch-node">
+      <div className="architecture-split">
+        <div className="architecture-branch">
           <FiCode />
-          <span>EXECUTION</span>
-          <small>Implement changes</small>
+
+          <div>
+            <small>ACTION</small>
+            <strong>EXECUTION</strong>
+            <span>Apply project changes</span>
+          </div>
         </div>
 
-        <div className="arch-node">
+        <div className="architecture-branch">
           <FiShield />
-          <span>VERIFICATION</span>
-          <small>Test & validate</small>
+
+          <div>
+            <small>PROOF</small>
+            <strong>VERIFICATION</strong>
+            <span>Check the resulting state</span>
+          </div>
         </div>
       </div>
 
-      <div className="arch-line arch-final" />
+      <div className="architecture-line" />
 
-      <div className="arch-node arch-report">
-        <FiFileText />
-        <span>MISSION REPORT</span>
-        <small>What happened</small>
+      <div className="architecture-node report">
+        <div className="architecture-icon">
+          <FiFileText />
+        </div>
+
+        <div>
+          <small>OUTPUT</small>
+          <strong>MISSION REPORT</strong>
+          <span>Changes · checks · outcome</span>
+        </div>
       </div>
     </div>
   );
 }
 
-export default function MadhynLearnMorePage() {
+export default function MadhynLearnMore() {
   return (
-    <div className="madhyn-page">
+    <main className="madhyn-learn">
       <StarField />
-      <div className="noise" aria-hidden />
 
-      <BackButton />
+      <div className="page-noise" />
+
       <Navbar />
+      <BackButton />
 
       {/* HERO */}
+
       <section className="learn-hero">
         <motion.div
-          variants={staggerContainer(0.12, 0.08)}
+          className="hero-content"
+          variants={staggerContainer(0.08, 0.08)}
           initial="hidden"
-          whileInView="show"
-          viewport={{ once: false, amount: 0.15 }}
+          animate="show"
         >
           <motion.div variants={fadeUp} className="hero-eyebrow">
-            <span className="eyebrow-dot" />
-            Inside MADHYN
+            <span />
+            INSIDE MADHYN
           </motion.div>
 
-          <motion.h1 variants={textVariant(0.1)}>
-            How the
-            <br />
-            <FlowText gradient="linear-gradient(90deg,#f1f3f5,#8f98a3,#ffffff,#aeb5bd)">
+          <motion.h1 variants={fadeUp}>
+            How the{' '}
+            <span className="hero-gradient">
               autonomous developer
-            </FlowText>
-            <br />
+            </span>{' '}
             works.
           </motion.h1>
 
           <motion.p variants={fadeUp} className="hero-copy">
             MADHYN is designed to turn a development objective into a
-            complete, observable mission — from understanding the project
-            to verifying the result.
+            complete, observable mission — from understanding the project to
+            verifying the result.
           </motion.p>
 
           <motion.div variants={fadeUp} className="hero-meta">
-            <span>
-              <FiActivity />
-              PROJECT AWARE
-            </span>
-            <span>
-              <FiZap />
-              EXECUTION FIRST
-            </span>
-            <span>
-              <FiShield />
-              VERIFICATION BUILT IN
-            </span>
+            <span>PROJECT AWARE</span>
+            <i />
+            <span>EXECUTION FIRST</span>
+            <i />
+            <span>VERIFICATION BUILT IN</span>
           </motion.div>
         </motion.div>
       </section>
 
-      <hr className="divider" />
+      <div className="divider" />
 
-      {/* MISSION LOOP */}
-      <section className="section">
+      {/* LOOP */}
+
+      <section className="section loop-section">
         <div className="section-container">
           <motion.div
-            variants={staggerContainer(0.08, 0.1)}
+            variants={staggerContainer(0.08, 0.07)}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: false, amount: 0.1 }}
+            viewport={{ once: true, amount: 0.12 }}
           >
             <motion.div variants={fadeUp} className="section-label">
+              <span />
               THE MISSION LOOP
             </motion.div>
 
-            <motion.h2 variants={textVariant(0)}>
-              From command
-              <br />
-              <span>to verified software.</span>
-            </motion.h2>
+            <motion.div variants={fadeUp} className="section-heading">
+              <h2>
+                From command
+                <br />
+                <span>to verified result.</span>
+              </h2>
 
-            <motion.p variants={fadeUp} className="section-intro">
-              The core idea behind MADHYN is simple: autonomous development
-              should be a loop, not a single generation.
-            </motion.p>
+              <p>
+                MADHYN isn't designed around answering a prompt and stopping.
+                Its fundamental unit of work is the mission.
+              </p>
+            </motion.div>
 
             <div className="pipeline">
-              {PIPELINE.map((item, index) => (
+              {PIPELINE.map((stage) => (
                 <motion.div
                   variants={fadeUp}
-                  className="pipeline-item"
-                  key={item.number}
+                  className="pipeline-card"
+                  key={stage.number}
                 >
-                  <div className="pipeline-number">{item.number}</div>
-
-                  <div className="pipeline-icon">{item.icon}</div>
-
-                  <div className="pipeline-content">
-                    <div className="pipeline-title-row">
-                      <h3>{item.title}</h3>
-                      {index < PIPELINE.length - 1 && (
-                        <FiChevronRight className="pipeline-arrow" />
-                      )}
-                    </div>
-
-                    <strong>{item.short}</strong>
-
-                    <p>{item.desc}</p>
+                  <div className="pipeline-top">
+                    <span>{stage.number}</span>
+                    <FiChevronRight />
                   </div>
+
+                  <div className="pipeline-icon">{stage.icon}</div>
+
+                  <div className="pipeline-label">
+                    {stage.label}
+                  </div>
+
+                  <h3>{stage.title}</h3>
+
+                  <p>{stage.description}</p>
                 </motion.div>
               ))}
             </div>
@@ -391,32 +424,36 @@ export default function MadhynLearnMorePage() {
         </div>
       </section>
 
-      {/* LIVE CONSOLE */}
-      <section className="console-section">
+      {/* CONSOLE */}
+
+      <section className="section console-section">
         <div className="section-container">
           <motion.div
-            variants={staggerContainer(0.1, 0.1)}
+            variants={staggerContainer(0.08, 0.08)}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: false, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.12 }}
           >
-            <motion.div variants={fadeUp} className="console-copy">
-              <div className="section-label">MISSION CONTROL</div>
+            <motion.div variants={fadeUp} className="section-label">
+              <span />
+              MISSION CONTROL
+            </motion.div>
 
+            <motion.div variants={fadeUp} className="section-heading">
               <h2>
-                Autonomy should
+                Make development
                 <br />
-                <span>be visible.</span>
+                <span>observable.</span>
               </h2>
 
               <p>
-                MADHYN shouldn't disappear behind a loading spinner and
-                return with a wall of text. Its work should have state,
-                progress and a clear outcome.
+                Autonomous doesn't have to mean invisible. MADHYN exposes the
+                state of the mission so you can understand where the system
+                is, what it is doing and what has been verified.
               </p>
             </motion.div>
 
-            <motion.div variants={fadeUp}>
+            <motion.div variants={fadeUp} className="console-wrapper">
               <MissionConsole />
             </motion.div>
           </motion.div>
@@ -424,29 +461,33 @@ export default function MadhynLearnMorePage() {
       </section>
 
       {/* ARCHITECTURE */}
+
       <section className="section architecture-section">
         <div className="section-container">
           <motion.div
-            variants={staggerContainer(0.1, 0.1)}
+            variants={staggerContainer(0.08, 0.08)}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: false, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.12 }}
           >
             <motion.div variants={fadeUp} className="section-label">
+              <span />
               SYSTEM ARCHITECTURE
             </motion.div>
 
-            <motion.h2 variants={textVariant(0)}>
-              A developer
-              <br />
-              <span>built around missions.</span>
-            </motion.h2>
+            <motion.div variants={fadeUp} className="section-heading">
+              <h2>
+                Context becomes
+                <br />
+                <span>execution.</span>
+              </h2>
 
-            <motion.p variants={fadeUp} className="section-intro">
-              MADHYN's architecture is centered around one continuous
-              execution cycle rather than treating planning, coding and
-              verification as disconnected activities.
-            </motion.p>
+              <p>
+                The architecture is built around a simple idea: an autonomous
+                developer needs more than intelligence. It needs context,
+                orchestration, tools and a way to verify what it has done.
+              </p>
+            </motion.div>
 
             <motion.div variants={fadeUp}>
               <ArchitectureDiagram />
@@ -455,41 +496,47 @@ export default function MadhynLearnMorePage() {
         </div>
       </section>
 
-      {/* PROJECT INTELLIGENCE */}
-      <section className="intelligence-section">
+      {/* CAPABILITIES */}
+
+      <section className="section capabilities-section">
         <div className="section-container">
           <motion.div
-            variants={staggerContainer(0.08, 0.1)}
+            variants={staggerContainer(0.08, 0.08)}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: false, amount: 0.12 }}
+            viewport={{ once: true, amount: 0.12 }}
           >
             <motion.div variants={fadeUp} className="section-label">
+              <span />
               CORE CAPABILITIES
             </motion.div>
 
-            <motion.h2 variants={textVariant(0)}>
-              Not another
+            <motion.h2 variants={fadeUp} className="capabilities-title">
+              Intelligence that
               <br />
-              <span>code generator.</span>
+              <span>actually moves.</span>
             </motion.h2>
 
             <div className="capability-grid">
-              {CAPABILITIES.map((item) => (
+              {CAPABILITIES.map((capability) => (
                 <motion.div
                   variants={fadeUp}
-                  key={item.title}
                   className="capability-card"
+                  key={capability.title}
                 >
-                  <div className="capability-icon">{item.icon}</div>
+                  <div className="capability-icon">
+                    {capability.icon}
+                  </div>
 
-                  <div className="capability-label">{item.label}</div>
+                  <div className="capability-eyebrow">
+                    {capability.eyebrow}
+                  </div>
 
-                  <h3>{item.title}</h3>
+                  <h3>{capability.title}</h3>
 
-                  <p>{item.desc}</p>
+                  <p>{capability.description}</p>
 
-                  <div className="card-corner" />
+                  <div className="capability-line" />
                 </motion.div>
               ))}
             </div>
@@ -498,118 +545,130 @@ export default function MadhynLearnMorePage() {
       </section>
 
       {/* REPORT */}
-      <section className="report-section">
+
+      <section className="section report-section">
         <div className="section-container">
           <motion.div
-            variants={staggerContainer(0.1, 0.1)}
+            variants={staggerContainer(0.08, 0.08)}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: false, amount: 0.15 }}
+            viewport={{ once: true, amount: 0.12 }}
           >
             <motion.div variants={fadeUp} className="section-label">
+              <span />
               MISSION REPORT
             </motion.div>
 
-            <motion.h2 variants={textVariant(0)}>
-              You should always know
-              <br />
-              <span>what MADHYN did.</span>
-            </motion.h2>
+            <motion.div variants={fadeUp} className="report-heading">
+              <div>
+                <h2>
+                  Don't just say
+                  <br />
+                  <span>“it's done.”</span>
+                </h2>
+              </div>
 
-            <motion.div variants={fadeUp}>
-              <Card3D
-                style={{
-                  padding: 0,
-                  overflow: 'hidden',
-                }}
-                orbColor="rgba(199,205,212,0.13)"
-              >
-                <div className="report-header">
-                  <div>
-                    <div className="report-kicker">MISSION COMPLETE</div>
-                    <h3>Authentication flow rebuilt.</h3>
-                  </div>
+              <p>
+                A completed mission should leave behind evidence. The report
+                is the final layer connecting autonomous execution back to
+                the developer.
+              </p>
+            </motion.div>
 
-                  <div className="report-success">
-                    <FiCheckCircle />
-                    VERIFIED
-                  </div>
+            <motion.div variants={fadeUp} className="report-panel">
+              <div className="report-header">
+                <div>
+                  <span>MISSION</span>
+                  <strong>AUTH-REBUILD</strong>
                 </div>
 
-                <div className="report-stats">
-                  <div>
-                    <span>FILES CHANGED</span>
-                    <strong>06</strong>
-                  </div>
+                <div className="report-success">
+                  <FiCheckCircle />
+                  VERIFIED
+                </div>
+              </div>
 
-                  <div>
-                    <span>TESTS EXECUTED</span>
-                    <strong>24</strong>
-                  </div>
-
-                  <div>
-                    <span>TESTS PASSED</span>
-                    <strong>24</strong>
-                  </div>
-
-                  <div>
-                    <span>BUILD STATUS</span>
-                    <strong>PASS</strong>
-                  </div>
+              <div className="report-stats">
+                <div>
+                  <strong>06</strong>
+                  <span>FILES CHANGED</span>
                 </div>
 
-                <div className="report-footer">
-                  <span>
-                    <FiGitBranch />
-                    working tree inspected
-                  </span>
-
-                  <span>
-                    <FiCheckCircle />
-                    no unresolved issues detected
-                  </span>
+                <div>
+                  <strong>24</strong>
+                  <span>TESTS EXECUTED</span>
                 </div>
-              </Card3D>
+
+                <div>
+                  <strong>24</strong>
+                  <span>TESTS PASSED</span>
+                </div>
+
+                <div>
+                  <strong>PASS</strong>
+                  <span>BUILD STATUS</span>
+                </div>
+              </div>
+
+              <div className="report-summary">
+                <FiCheckCircle />
+
+                <div>
+                  <strong>Mission completed successfully.</strong>
+
+                  <p>
+                    Authentication flow rebuilt, dependent components updated,
+                    validation completed and project build verified.
+                  </p>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* FINAL CTA */}
+      {/* CTA */}
+
       <section className="final-section">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7 }}
         >
-          <div className="final-orbit">
+          <div className="final-icon">
             <FiCpu />
           </div>
 
-          <div className="section-label">THE IDEA</div>
+          <div className="section-label">
+            <span />
+            MADHYN
+          </div>
 
           <h2>
             Stop prompting.
             <br />
-            <FlowText gradient="linear-gradient(90deg,#ffffff,#9da5ae,#ffffff)">
-              Start commanding.
-            </FlowText>
+            <span>Start commanding.</span>
           </h2>
 
           <p>
-            MADHYN is being built to make autonomous development feel less
-            like talking to a chatbot — and more like directing a capable
-            engineering system.
+            Give your development work an objective. Let MADHYN turn it into
+            a mission.
           </p>
 
           <div className="final-actions">
-            <Link href="/products/madhyn" className="primary-btn">
+            <Link
+              href="/products/madhyn"
+              className="primary-button"
+            >
               Back to MADHYN
               <FiArrowRight />
             </Link>
 
-            <Link href="/products" className="secondary-btn">
+            <Link
+              href="/products"
+              className="secondary-button"
+            >
               Explore RexyCore
             </Link>
           </div>
@@ -620,294 +679,323 @@ export default function MadhynLearnMorePage() {
       <ChatWidget />
 
       <style jsx global>{`
-        .madhyn-page {
+        .madhyn-learn {
+          position: relative;
           min-height: 100vh;
+          overflow-x: hidden;
           background: #010104;
           color: #fff;
-          position: relative;
-          overflow-x: hidden;
         }
 
-        .divider {
-          border: 0;
-          border-top: 1px solid rgba(255, 255, 255, 0.07);
-          margin: 0;
+        .page-noise {
+          position: fixed;
+          inset: 0;
+          z-index: 2;
+          pointer-events: none;
+          opacity: 0.022;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
         }
+
+        .section-container {
+          width: min(1120px, calc(100% - 48px));
+          margin: 0 auto;
+          position: relative;
+          z-index: 5;
+        }
+
+        /* HERO */
 
         .learn-hero {
           position: relative;
-          z-index: 10;
+          z-index: 5;
+          isolation: isolate;
           min-height: 88vh;
           display: flex;
           align-items: center;
           justify-content: center;
+          padding: 145px 24px 95px;
           text-align: center;
-          padding: 150px 24px 100px;
         }
 
-        .learn-hero > div {
-          max-width: 1050px;
+        .hero-content {
+          width: min(980px, 100%);
+          position: relative;
+          z-index: 3;
         }
 
         .hero-eyebrow {
           display: inline-flex;
           align-items: center;
           gap: 9px;
-          padding: 7px 16px;
-          margin-bottom: 28px;
-          border-radius: 999px;
-          border: 1px solid rgba(199, 205, 212, 0.22);
-          background: rgba(199, 205, 212, 0.07);
-          color: #dce1e6;
-          font-size: 11px;
+          padding: 7px 12px;
+          border: 1px solid rgba(199, 205, 212, 0.13);
+          border-radius: 7px;
+          background: rgba(199, 205, 212, 0.045);
+          color: rgba(255, 255, 255, 0.4);
+          font-family: monospace;
+          font-size: 9px;
           font-weight: 800;
-          letter-spacing: 2px;
-          text-transform: uppercase;
+          letter-spacing: 1.7px;
         }
 
-        .eyebrow-dot,
-        .status-dot {
-          width: 7px;
-          height: 7px;
+        .hero-eyebrow span {
+          width: 5px;
+          height: 5px;
           border-radius: 50%;
-          background: #e7ebef;
-          box-shadow: 0 0 10px rgba(231, 235, 239, 0.8);
-          animation: madhynPulse 2s ease-in-out infinite;
+          background: #c7cdd4;
+          box-shadow: 0 0 10px rgba(199, 205, 212, 0.55);
         }
 
         .learn-hero h1 {
-          margin: 0;
-          font-size: clamp(50px, 8vw, 112px);
-          line-height: 0.94;
-          letter-spacing: -0.065em;
+          max-width: 1000px;
+          margin: 28px auto 0;
+          font-size: clamp(55px, 8.2vw, 105px);
+          line-height: 0.93;
+          letter-spacing: -0.075em;
           font-weight: 900;
         }
 
+        .hero-gradient {
+          display: inline;
+          background: linear-gradient(
+            100deg,
+            #f1f3f5 0%,
+            #8d959e 24%,
+            #ffffff 48%,
+            #aab1b9 72%,
+            #f1f3f5 100%
+          );
+          background-size: 220% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: madhynGradient 7s linear infinite;
+        }
+
         .hero-copy {
-          max-width: 690px;
-          margin: 34px auto 30px;
-          color: rgba(255, 255, 255, 0.56);
-          font-size: clamp(16px, 2vw, 19px);
-          line-height: 1.7;
+          width: min(690px, 100%);
+          margin: 28px auto 0;
+          color: rgba(255, 255, 255, 0.43);
+          font-size: 15px;
+          line-height: 1.75;
         }
 
         .hero-meta {
           display: flex;
           justify-content: center;
-          flex-wrap: wrap;
-          gap: 10px;
-        }
-
-        .hero-meta span {
-          display: inline-flex;
           align-items: center;
-          gap: 7px;
-          padding: 8px 12px;
-          border: 1px solid rgba(255, 255, 255, 0.07);
-          border-radius: 8px;
-          background: rgba(255, 255, 255, 0.025);
-          color: rgba(255, 255, 255, 0.42);
-          font-size: 9px;
-          letter-spacing: 1.3px;
+          gap: 13px;
+          flex-wrap: wrap;
+          margin-top: 35px;
+          color: rgba(255, 255, 255, 0.23);
+          font-family: monospace;
+          font-size: 8px;
           font-weight: 800;
+          letter-spacing: 1.4px;
         }
 
-        .hero-meta svg {
-          color: #c7cdd4;
+        .hero-meta i {
+          width: 3px;
+          height: 3px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.18);
         }
+
+        .divider {
+          width: min(1120px, calc(100% - 48px));
+          height: 1px;
+          margin: 0 auto;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.08),
+            transparent
+          );
+        }
+
+        /* SHARED */
 
         .section {
           position: relative;
-          z-index: 10;
-          padding: 120px 5%;
-        }
-
-        .section-container {
-          max-width: 1120px;
-          margin: 0 auto;
+          z-index: 5;
+          padding: 125px 0;
         }
 
         .section-label {
-          display: inline-block;
-          margin-bottom: 18px;
-          padding: 6px 13px;
-          border-radius: 8px;
-          background: rgba(199, 205, 212, 0.07);
-          border: 1px solid rgba(199, 205, 212, 0.12);
-          color: #cbd1d7;
-          font-size: 10px;
-          font-weight: 900;
-          letter-spacing: 2px;
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 10px;
+          border: 1px solid rgba(199, 205, 212, 0.1);
+          border-radius: 7px;
+          background: rgba(199, 205, 212, 0.035);
+          color: rgba(255, 255, 255, 0.37);
+          font-family: monospace;
+          font-size: 8px;
+          font-weight: 800;
+          letter-spacing: 1.7px;
         }
 
-        .section h2,
-        .console-copy h2,
-        .final-section h2 {
+        .section-label > span {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #c7cdd4;
+        }
+
+        .section-heading {
+          display: grid;
+          grid-template-columns: 1.08fr 0.92fr;
+          align-items: end;
+          gap: 70px;
+          margin-top: 25px;
+        }
+
+        .section-heading h2,
+        .report-heading h2 {
           margin: 0;
-          font-size: clamp(38px, 5vw, 65px);
-          line-height: 0.98;
-          letter-spacing: -0.055em;
+          font-size: clamp(44px, 5.8vw, 70px);
+          line-height: 0.96;
+          letter-spacing: -0.06em;
           font-weight: 900;
         }
 
-        .section h2 span,
-        .console-copy h2 span {
-          color: rgba(255, 255, 255, 0.32);
+        .section-heading h2 span,
+        .report-heading h2 span,
+        .capabilities-title span {
+          color: rgba(255, 255, 255, 0.28);
         }
 
-        .section-intro {
-          max-width: 650px;
-          margin: 25px 0 65px;
-          color: rgba(255, 255, 255, 0.47);
-          font-size: 17px;
-          line-height: 1.7;
+        .section-heading p,
+        .report-heading p {
+          margin: 0;
+          color: rgba(255, 255, 255, 0.4);
+          font-size: 14px;
+          line-height: 1.8;
         }
 
         /* PIPELINE */
 
         .pipeline {
-          position: relative;
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
+          gap: 12px;
+          margin-top: 55px;
         }
 
-        .pipeline-item {
-          position: relative;
-          min-height: 250px;
-          padding: 28px;
-          border-radius: 20px;
-          border: 1px solid rgba(255, 255, 255, 0.07);
-          background:
-            linear-gradient(
-              145deg,
-              rgba(255, 255, 255, 0.055),
-              rgba(255, 255, 255, 0.015)
-            );
+        .pipeline-card {
+          min-height: 255px;
+          padding: 24px;
+          border: 1px solid rgba(255, 255, 255, 0.065);
+          border-radius: 17px;
+          background: rgba(255, 255, 255, 0.017);
           transition:
-            transform 0.3s ease,
-            border-color 0.3s ease,
-            background 0.3s ease;
+            transform 0.25s ease,
+            border-color 0.25s ease;
         }
 
-        .pipeline-item:hover {
-          transform: translateY(-5px);
-          border-color: rgba(199, 205, 212, 0.2);
-          background: rgba(255, 255, 255, 0.045);
+        .pipeline-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(199, 205, 212, 0.17);
         }
 
-        .pipeline-number {
-          position: absolute;
-          top: 20px;
-          right: 22px;
-          color: rgba(255, 255, 255, 0.17);
+        .pipeline-top {
+          display: flex;
+          justify-content: space-between;
+          color: rgba(255, 255, 255, 0.2);
           font-family: monospace;
-          font-size: 11px;
-          letter-spacing: 1px;
+          font-size: 9px;
+        }
+
+        .pipeline-top svg {
+          color: rgba(255, 255, 255, 0.13);
         }
 
         .pipeline-icon {
-          width: 43px;
-          height: 43px;
+          width: 39px;
+          height: 39px;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 32px;
-          border-radius: 12px;
+          margin-top: 25px;
+          border: 1px solid rgba(199, 205, 212, 0.1);
+          border-radius: 10px;
+          background: rgba(199, 205, 212, 0.045);
           color: #dfe3e7;
-          background: rgba(199, 205, 212, 0.09);
-          border: 1px solid rgba(199, 205, 212, 0.12);
-          font-size: 18px;
         }
 
-        .pipeline-title-row {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
-
-        .pipeline-item h3 {
-          margin: 0;
-          font-size: 21px;
+        .pipeline-label {
+          margin-top: 19px;
+          color: rgba(255, 255, 255, 0.22);
+          font-family: monospace;
+          font-size: 8px;
           font-weight: 800;
+          letter-spacing: 1.5px;
         }
 
-        .pipeline-arrow {
-          color: rgba(255, 255, 255, 0.2);
+        .pipeline-card h3 {
+          margin: 8px 0 9px;
+          font-size: 19px;
+          line-height: 1.15;
+          letter-spacing: -0.025em;
         }
 
-        .pipeline-item strong {
-          display: block;
-          margin: 9px 0 12px;
-          color: rgba(255, 255, 255, 0.7);
-          font-size: 13px;
-        }
-
-        .pipeline-item p {
+        .pipeline-card p {
           margin: 0;
-          color: rgba(255, 255, 255, 0.42);
-          font-size: 13px;
+          color: rgba(255, 255, 255, 0.34);
+          font-size: 12px;
           line-height: 1.65;
         }
 
         /* CONSOLE */
 
         .console-section {
-          position: relative;
-          z-index: 10;
-          padding: 120px 5%;
           background:
             radial-gradient(
               ellipse at center,
-              rgba(199, 205, 212, 0.045),
-              transparent 60%
+              rgba(199, 205, 212, 0.028),
+              transparent 62%
             );
         }
 
-        .console-copy {
-          max-width: 720px;
-          margin-bottom: 45px;
+        .console-wrapper {
+          margin-top: 55px;
         }
 
-        .console-copy p {
-          max-width: 600px;
-          margin: 24px 0 0;
-          color: rgba(255, 255, 255, 0.48);
-          line-height: 1.7;
-          font-size: 16px;
+        .console {
+          width: 100%;
         }
 
-        .console-top {
-          min-height: 50px;
-          padding: 0 18px;
+        .console-header {
+          min-height: 48px;
           display: flex;
           align-items: center;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+          padding: 0 17px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.065);
           background: rgba(255, 255, 255, 0.025);
         }
 
-        .window-dots {
+        .console-controls {
+          width: 110px;
           display: flex;
           gap: 6px;
-          width: 100px;
         }
 
-        .window-dots span {
+        .console-controls span {
           width: 7px;
           height: 7px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.18);
+          background: rgba(255, 255, 255, 0.15);
         }
 
         .console-title {
           display: flex;
           align-items: center;
-          gap: 8px;
-          color: rgba(255, 255, 255, 0.48);
+          gap: 7px;
+          color: rgba(255, 255, 255, 0.4);
           font-family: monospace;
-          font-size: 10px;
+          font-size: 9px;
           letter-spacing: 1px;
-          font-weight: 700;
         }
 
         .console-status {
@@ -915,562 +1003,628 @@ export default function MadhynLearnMorePage() {
           align-items: center;
           gap: 7px;
           margin-left: auto;
-          color: rgba(255, 255, 255, 0.35);
+          color: rgba(255, 255, 255, 0.25);
           font-family: monospace;
-          font-size: 9px;
+          font-size: 8px;
           letter-spacing: 1px;
         }
 
-        .console-body {
+        .console-status i {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #eef0f2;
+          box-shadow: 0 0 10px rgba(238, 240, 242, 0.7);
+        }
+
+        .console-main {
           padding: 34px;
         }
 
-        .mission-heading {
+        .console-mission {
           display: flex;
-          align-items: flex-end;
+          align-items: flex-start;
           justify-content: space-between;
-          gap: 20px;
+          gap: 30px;
         }
 
-        .micro-label {
-          margin-bottom: 8px;
-          color: rgba(255, 255, 255, 0.27);
-          font-size: 9px;
-          font-weight: 900;
-          letter-spacing: 2px;
+        .console-label {
+          margin-bottom: 9px;
+          color: rgba(255, 255, 255, 0.22);
+          font-family: monospace;
+          font-size: 8px;
+          letter-spacing: 1.7px;
         }
 
-        .mission-heading h3 {
+        .console-mission h3 {
           margin: 0;
-          font-size: clamp(21px, 3vw, 30px);
-          letter-spacing: -0.025em;
+          font-size: clamp(22px, 3vw, 30px);
+          line-height: 1.1;
+          letter-spacing: -0.04em;
+        }
+
+        .console-mission p {
+          max-width: 620px;
+          margin: 10px 0 0;
+          color: rgba(255, 255, 255, 0.3);
+          font-size: 12px;
+          line-height: 1.65;
         }
 
         .mission-id {
           padding: 7px 10px;
           border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 7px;
-          color: rgba(255, 255, 255, 0.35);
+          border-radius: 6px;
+          color: rgba(255, 255, 255, 0.3);
           font-family: monospace;
-          font-size: 10px;
+          font-size: 8px;
         }
 
-        .progress-row {
+        .console-progress {
+          margin-top: 30px;
+        }
+
+        .progress-heading {
           display: flex;
-          align-items: center;
-          gap: 14px;
-          margin: 27px 0;
-        }
-
-        .progress-track {
-          height: 4px;
-          flex: 1;
-          overflow: hidden;
-          border-radius: 999px;
-          background: rgba(255, 255, 255, 0.07);
-        }
-
-        .progress-fill {
-          height: 100%;
-          border-radius: inherit;
-          background: linear-gradient(90deg, #7c848d, #f1f3f5);
-          box-shadow: 0 0 18px rgba(241, 243, 245, 0.25);
-        }
-
-        .progress-row > span {
-          width: 35px;
-          color: rgba(255, 255, 255, 0.45);
-          font-family: monospace;
-          font-size: 11px;
-        }
-
-        .stage-list {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 8px;
-          margin-bottom: 28px;
-        }
-
-        .stage {
-          min-width: 0;
-          padding: 14px;
-          border: 1px solid rgba(255, 255, 255, 0.055);
-          border-radius: 11px;
-          background: rgba(255, 255, 255, 0.02);
-        }
-
-        .stage-active {
-          border-color: rgba(199, 205, 212, 0.2);
-          background: rgba(199, 205, 212, 0.055);
-        }
-
-        .stage-icon {
-          display: flex;
-          align-items: center;
-          margin-bottom: 10px;
-          color: rgba(255, 255, 255, 0.25);
-        }
-
-        .stage-complete .stage-icon {
-          color: #dce1e6;
-        }
-
-        .stage-active .stage-icon {
-          color: #f1f3f5;
-          animation: madhynPulse 1.7s ease-in-out infinite;
-        }
-
-        .stage-icon > span {
-          width: 9px;
-          height: 9px;
-          border: 1px solid rgba(255, 255, 255, 0.16);
-          border-radius: 50%;
-        }
-
-        .stage > span {
-          display: block;
-          overflow: hidden;
-          margin-bottom: 7px;
-          color: rgba(255, 255, 255, 0.65);
-          font-size: 12px;
-          font-weight: 700;
-          white-space: nowrap;
-          text-overflow: ellipsis;
-        }
-
-        .stage small {
-          color: rgba(255, 255, 255, 0.25);
+          justify-content: space-between;
+          margin-bottom: 9px;
+          color: rgba(255, 255, 255, 0.22);
           font-family: monospace;
           font-size: 8px;
           letter-spacing: 1px;
         }
 
-        .stage-active small {
-          color: #c7cdd4;
+        .progress-heading strong {
+          color: rgba(255, 255, 255, 0.6);
         }
 
-        .terminal {
-          padding: 18px;
-          border: 1px solid rgba(255, 255, 255, 0.07);
-          border-radius: 12px;
-          background: #050608;
+        .progress-track {
+          height: 3px;
+          overflow: hidden;
+          border-radius: 99px;
+          background: rgba(255, 255, 255, 0.065);
+        }
+
+        .progress-track div {
+          height: 100%;
+          border-radius: inherit;
+          background: linear-gradient(90deg, #737b85, #f1f3f5);
+          box-shadow: 0 0 18px rgba(241, 243, 245, 0.25);
+        }
+
+        .console-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 8px;
+          margin-top: 20px;
+        }
+
+        .console-stage {
+          padding: 15px;
+          border: 1px solid rgba(255, 255, 255, 0.055);
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.018);
+        }
+
+        .console-stage.active {
+          border-color: rgba(199, 205, 212, 0.18);
+          background: rgba(199, 205, 212, 0.045);
+        }
+
+        .console-stage-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: rgba(255, 255, 255, 0.22);
+          font-family: monospace;
+          font-size: 7px;
+          letter-spacing: 1.1px;
+        }
+
+        .console-stage-top svg {
+          color: #dfe3e7;
+          font-size: 11px;
+        }
+
+        .console-stage strong {
+          display: block;
+          margin-top: 12px;
+          color: rgba(255, 255, 255, 0.57);
+          font-size: 12px;
+        }
+
+        .active-dot,
+        .queued-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+        }
+
+        .active-dot {
+          background: #f1f3f5;
+          box-shadow: 0 0 10px rgba(241, 243, 245, 0.75);
+          animation: madhynPulse 1.5s infinite;
+        }
+
+        .queued-dot {
+          border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .console-terminal {
+          margin-top: 18px;
+          padding: 17px;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 10px;
+          background: #030405;
           font-family: monospace;
         }
 
-        .terminal-head {
+        .terminal-top {
           display: flex;
           justify-content: space-between;
-          margin-bottom: 18px;
-          color: rgba(255, 255, 255, 0.22);
-          font-size: 8px;
-          letter-spacing: 1.5px;
+          margin-bottom: 12px;
+          color: rgba(255, 255, 255, 0.2);
+          font-size: 7px;
+          letter-spacing: 1.4px;
         }
 
         .terminal-line {
           display: flex;
           align-items: center;
-          gap: 9px;
-          min-height: 27px;
-          color: rgba(255, 255, 255, 0.72);
-          font-size: 11px;
+          min-height: 24px;
+          gap: 8px;
+          color: rgba(255, 255, 255, 0.31);
+          font-size: 10px;
         }
 
-        .terminal-line.muted {
-          color: rgba(255, 255, 255, 0.35);
-        }
-
-        .terminal-prompt {
+        .terminal-line b {
           color: #dce1e6;
         }
 
+        .active-line {
+          color: rgba(255, 255, 255, 0.65);
+        }
+
         .cursor {
-          width: 6px;
-          height: 13px;
-          margin-left: 2px;
-          background: rgba(255, 255, 255, 0.65);
+          width: 5px;
+          height: 11px;
+          margin-left: 1px;
+          background: rgba(255, 255, 255, 0.7);
           animation: madhynBlink 1s step-end infinite;
         }
 
         /* ARCHITECTURE */
 
         .architecture-section {
-          padding-top: 120px;
+          background:
+            radial-gradient(
+              ellipse at 50% 40%,
+              rgba(199, 205, 212, 0.022),
+              transparent 60%
+            );
         }
 
         .architecture {
-          position: relative;
-          max-width: 760px;
-          margin: 70px auto 0;
-          padding: 45px 25px;
-          border: 1px solid rgba(255, 255, 255, 0.07);
-          border-radius: 24px;
-          background: rgba(255, 255, 255, 0.018);
+          width: min(800px, 100%);
+          margin: 60px auto 0;
+          padding: 42px 35px;
+          border: 1px solid rgba(255, 255, 255, 0.065);
+          border-radius: 22px;
+          background: rgba(255, 255, 255, 0.015);
         }
 
-        .arch-node {
-          position: relative;
-          width: min(100%, 280px);
+        .architecture-node {
+          width: min(430px, 100%);
           margin: 0 auto;
-          padding: 17px 20px;
-          display: grid;
-          grid-template-columns: 28px 1fr;
-          column-gap: 10px;
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          border-radius: 12px;
-          background: rgba(255, 255, 255, 0.035);
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 17px 19px;
+          border: 1px solid rgba(255, 255, 255, 0.075);
+          border-radius: 11px;
+          background: rgba(255, 255, 255, 0.025);
         }
 
-        .arch-node svg {
-          grid-row: span 2;
-          align-self: center;
-          color: #c7cdd4;
+        .architecture-node.core {
+          border-color: rgba(199, 205, 212, 0.19);
+          background: rgba(199, 205, 212, 0.045);
+          box-shadow: 0 0 60px rgba(199, 205, 212, 0.035);
         }
 
-        .arch-node span {
+        .architecture-node.report {
+          border-color: rgba(199, 205, 212, 0.13);
+        }
+
+        .architecture-icon {
+          width: 35px;
+          height: 35px;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(199, 205, 212, 0.1);
+          border-radius: 9px;
+          background: rgba(199, 205, 212, 0.045);
+          color: #dfe3e7;
+        }
+
+        .architecture-node small,
+        .architecture-branch small {
+          display: block;
+          margin-bottom: 4px;
+          color: rgba(255, 255, 255, 0.2);
           font-family: monospace;
+          font-size: 7px;
+          letter-spacing: 1.3px;
+        }
+
+        .architecture-node strong,
+        .architecture-branch strong {
+          display: block;
+          color: rgba(255, 255, 255, 0.67);
+          font-family: monospace;
+          font-size: 9px;
+          letter-spacing: 0.8px;
+        }
+
+        .architecture-node span,
+        .architecture-branch span {
+          display: block;
+          margin-top: 4px;
+          color: rgba(255, 255, 255, 0.27);
           font-size: 10px;
-          letter-spacing: 1px;
-          font-weight: 800;
         }
 
-        .arch-node small {
-          margin-top: 3px;
-          color: rgba(255, 255, 255, 0.3);
-          font-size: 10px;
-        }
-
-        .arch-bright {
-          border-color: rgba(241, 243, 245, 0.22);
-          background: rgba(241, 243, 245, 0.07);
-          box-shadow: 0 0 50px rgba(199, 205, 212, 0.06);
-        }
-
-        .arch-line {
+        .architecture-line {
           width: 1px;
-          height: 38px;
+          height: 35px;
           margin: 0 auto;
           background: linear-gradient(
             to bottom,
-            rgba(255, 255, 255, 0.15),
-            rgba(255, 255, 255, 0.04)
+            rgba(255, 255, 255, 0.12),
+            rgba(255, 255, 255, 0.035)
           );
         }
 
-        .arch-split {
+        .architecture-split {
+          position: relative;
           display: grid;
           grid-template-columns: 1fr 1fr;
-          gap: 80px;
-          margin-top: 38px;
-          position: relative;
+          gap: 55px;
+          margin: 35px auto;
         }
 
-        .arch-split .arch-node {
-          width: 100%;
-        }
-
-        .arch-branch-line {
+        .architecture-split::before {
+          content: '';
           position: absolute;
           left: 25%;
           right: 25%;
-          top: -20px;
+          top: -18px;
           height: 1px;
-          background: rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.08);
         }
 
-        .arch-branch-line::before,
-        .arch-branch-line::after {
-          content: '';
-          position: absolute;
-          top: 0;
-          width: 1px;
-          height: 20px;
-          background: rgba(255, 255, 255, 0.1);
+        .architecture-branch {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 16px;
+          border: 1px solid rgba(255, 255, 255, 0.065);
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.018);
         }
 
-        .arch-branch-line::before {
-          left: 0;
-        }
-
-        .arch-branch-line::after {
-          right: 0;
-        }
-
-        .arch-final {
-          margin-top: 38px;
-        }
-
-        .arch-report {
-          border-color: rgba(199, 205, 212, 0.16);
+        .architecture-branch > svg {
+          flex-shrink: 0;
+          color: #c7cdd4;
+          font-size: 17px;
         }
 
         /* CAPABILITIES */
 
-        .intelligence-section {
-          position: relative;
-          z-index: 10;
-          padding: 120px 5%;
-          background:
-            linear-gradient(
-              180deg,
-              transparent,
-              rgba(255, 255, 255, 0.018),
-              transparent
-            );
+        .capabilities-title {
+          margin: 25px 0 0;
+          font-size: clamp(44px, 5.8vw, 70px);
+          line-height: 0.96;
+          letter-spacing: -0.06em;
+          font-weight: 900;
         }
 
         .capability-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
-          gap: 18px;
-          margin-top: 60px;
+          gap: 14px;
+          margin-top: 55px;
         }
 
         .capability-card {
           position: relative;
-          min-height: 280px;
-          padding: 34px;
+          min-height: 290px;
           overflow: hidden;
-          border: 1px solid rgba(255, 255, 255, 0.07);
-          border-radius: 20px;
-          background: rgba(255, 255, 255, 0.025);
-        }
-
-        .capability-card:hover {
-          border-color: rgba(199, 205, 212, 0.18);
+          padding: 30px;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 18px;
+          background:
+            linear-gradient(
+              145deg,
+              rgba(255, 255, 255, 0.035),
+              rgba(255, 255, 255, 0.012)
+            );
         }
 
         .capability-icon {
-          width: 44px;
-          height: 44px;
+          width: 43px;
+          height: 43px;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin-bottom: 25px;
-          border-radius: 12px;
-          color: #e1e5e8;
-          background: rgba(199, 205, 212, 0.09);
-          font-size: 19px;
+          margin-bottom: 23px;
+          border: 1px solid rgba(199, 205, 212, 0.11);
+          border-radius: 11px;
+          background: rgba(199, 205, 212, 0.05);
+          color: #e0e4e8;
+          font-size: 18px;
         }
 
-        .capability-label {
-          margin-bottom: 10px;
-          color: rgba(255, 255, 255, 0.27);
+        .capability-eyebrow {
+          margin-bottom: 9px;
+          color: rgba(255, 255, 255, 0.21);
           font-family: monospace;
-          font-size: 9px;
-          letter-spacing: 1.7px;
+          font-size: 8px;
           font-weight: 800;
+          letter-spacing: 1.5px;
         }
 
         .capability-card h3 {
-          max-width: 450px;
-          margin: 0 0 13px;
-          font-size: 23px;
+          max-width: 510px;
+          margin: 0 0 12px;
+          font-size: 22px;
           line-height: 1.15;
-          letter-spacing: -0.025em;
+          letter-spacing: -0.03em;
         }
 
         .capability-card p {
-          max-width: 490px;
+          max-width: 530px;
           margin: 0;
-          color: rgba(255, 255, 255, 0.42);
-          font-size: 14px;
+          color: rgba(255, 255, 255, 0.37);
+          font-size: 13px;
           line-height: 1.7;
         }
 
-        .card-corner {
+        .capability-line {
           position: absolute;
-          width: 100px;
-          height: 100px;
-          right: -60px;
-          bottom: -60px;
-          border: 1px solid rgba(255, 255, 255, 0.06);
-          transform: rotate(45deg);
+          right: 30px;
+          bottom: 21px;
+          left: 30px;
+          height: 1px;
+          background: linear-gradient(
+            90deg,
+            rgba(199, 205, 212, 0.13),
+            transparent
+          );
         }
 
         /* REPORT */
 
-        .report-section {
-          position: relative;
-          z-index: 10;
-          padding: 120px 5%;
+        .report-heading {
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 70px;
+          align-items: end;
+          margin-top: 25px;
         }
 
-        .report-section .section-container > div > .section-label {
-          margin-bottom: 18px;
+        .report-panel {
+          margin-top: 55px;
+          padding: 30px;
+          border: 1px solid rgba(255, 255, 255, 0.07);
+          border-radius: 18px;
+          background: rgba(255, 255, 255, 0.018);
         }
 
         .report-header {
           display: flex;
-          justify-content: space-between;
           align-items: center;
+          justify-content: space-between;
           gap: 20px;
-          padding: 30px 32px;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+          padding-bottom: 22px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        .report-kicker {
-          margin-bottom: 8px;
-          color: #c7cdd4;
+        .report-header span {
+          display: block;
+          margin-bottom: 5px;
+          color: rgba(255, 255, 255, 0.2);
           font-family: monospace;
-          font-size: 9px;
-          letter-spacing: 1.8px;
-          font-weight: 800;
+          font-size: 7px;
+          letter-spacing: 1.4px;
         }
 
-        .report-header h3 {
-          margin: 0;
-          font-size: 24px;
-          letter-spacing: -0.025em;
+        .report-header strong {
+          color: rgba(255, 255, 255, 0.65);
+          font-family: monospace;
+          font-size: 11px;
+          letter-spacing: 1px;
         }
 
         .report-success {
           display: flex;
           align-items: center;
-          gap: 8px;
-          padding: 8px 11px;
-          border: 1px solid rgba(199, 205, 212, 0.17);
-          border-radius: 8px;
-          color: #dce1e6;
+          gap: 7px;
+          color: rgba(255, 255, 255, 0.55);
           font-family: monospace;
-          font-size: 9px;
+          font-size: 8px;
           letter-spacing: 1px;
+        }
+
+        .report-success svg {
+          color: #e6eaed;
         }
 
         .report-stats {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          padding: 28px 32px;
-          gap: 20px;
+          gap: 1px;
+          margin-top: 1px;
+          background: rgba(255, 255, 255, 0.055);
         }
 
-        .report-stats div {
-          padding-right: 20px;
-          border-right: 1px solid rgba(255, 255, 255, 0.07);
+        .report-stats > div {
+          padding: 25px 20px;
+          background: #060709;
         }
 
-        .report-stats div:last-child {
-          border-right: 0;
+        .report-stats strong {
+          display: block;
+          color: rgba(255, 255, 255, 0.8);
+          font-family: monospace;
+          font-size: 25px;
+          letter-spacing: -0.05em;
         }
 
         .report-stats span {
           display: block;
-          margin-bottom: 9px;
-          color: rgba(255, 255, 255, 0.27);
+          margin-top: 7px;
+          color: rgba(255, 255, 255, 0.2);
           font-family: monospace;
-          font-size: 8px;
-          letter-spacing: 1.3px;
+          font-size: 7px;
+          letter-spacing: 1px;
         }
 
-        .report-stats strong {
-          color: rgba(255, 255, 255, 0.86);
-          font-family: monospace;
-          font-size: 22px;
-        }
-
-        .report-footer {
+        .report-summary {
           display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          gap: 12px;
-          padding: 18px 32px;
-          border-top: 1px solid rgba(255, 255, 255, 0.07);
+          align-items: flex-start;
+          gap: 13px;
+          margin-top: 18px;
+          padding: 17px;
+          border: 1px solid rgba(199, 205, 212, 0.08);
+          border-radius: 10px;
+          background: rgba(199, 205, 212, 0.025);
+        }
+
+        .report-summary > svg {
+          flex-shrink: 0;
+          margin-top: 2px;
+          color: #dfe3e7;
+        }
+
+        .report-summary strong {
+          color: rgba(255, 255, 255, 0.65);
+          font-size: 12px;
+        }
+
+        .report-summary p {
+          margin: 5px 0 0;
           color: rgba(255, 255, 255, 0.3);
-          font-family: monospace;
-          font-size: 9px;
-        }
-
-        .report-footer span {
-          display: flex;
-          align-items: center;
-          gap: 7px;
-        }
-
-        .report-footer svg {
-          color: #c7cdd4;
+          font-size: 11px;
+          line-height: 1.6;
         }
 
         /* FINAL */
 
         .final-section {
           position: relative;
-          z-index: 10;
-          padding: 150px 24px;
+          z-index: 5;
+          padding: 155px 24px 130px;
           text-align: center;
-          overflow: hidden;
         }
 
         .final-section > div {
-          max-width: 850px;
+          width: min(850px, 100%);
           margin: 0 auto;
         }
 
-        .final-orbit {
-          width: 70px;
-          height: 70px;
+        .final-icon {
+          width: 66px;
+          height: 66px;
           display: flex;
           align-items: center;
           justify-content: center;
-          margin: 0 auto 35px;
-          border: 1px solid rgba(199, 205, 212, 0.2);
+          margin: 0 auto 31px;
+          border: 1px solid rgba(199, 205, 212, 0.16);
           border-radius: 50%;
-          color: #e6eaed;
-          background: rgba(199, 205, 212, 0.06);
+          background: rgba(199, 205, 212, 0.04);
+          color: #e4e8eb;
           box-shadow:
-            0 0 0 12px rgba(199, 205, 212, 0.02),
-            0 0 60px rgba(199, 205, 212, 0.08);
-          font-size: 24px;
+            0 0 0 11px rgba(199, 205, 212, 0.016),
+            0 0 55px rgba(199, 205, 212, 0.065);
+          font-size: 22px;
         }
 
         .final-section h2 {
-          font-size: clamp(42px, 6vw, 78px);
+          margin: 22px 0 0;
+          font-size: clamp(47px, 7vw, 80px);
+          line-height: 0.94;
+          letter-spacing: -0.065em;
+          font-weight: 900;
+        }
+
+        .final-section h2 span {
+          color: rgba(255, 255, 255, 0.3);
         }
 
         .final-section p {
-          max-width: 650px;
-          margin: 28px auto 38px;
-          color: rgba(255, 255, 255, 0.43);
+          width: min(600px, 100%);
+          margin: 27px auto 35px;
+          color: rgba(255, 255, 255, 0.38);
+          font-size: 15px;
           line-height: 1.7;
-          font-size: 16px;
         }
 
         .final-actions {
           display: flex;
           justify-content: center;
-          gap: 12px;
+          gap: 10px;
           flex-wrap: wrap;
         }
 
-        .primary-btn,
-        .secondary-btn {
+        .primary-button,
+        .secondary-button {
+          min-height: 50px;
           display: inline-flex;
           align-items: center;
           justify-content: center;
           gap: 9px;
-          min-height: 52px;
-          padding: 0 25px;
+          padding: 0 23px;
           border-radius: 999px;
           text-decoration: none;
-          font-size: 14px;
+          font-size: 13px;
           font-weight: 800;
           transition:
             transform 0.25s ease,
-            background 0.25s ease;
+            background 0.25s ease,
+            border-color 0.25s ease;
         }
 
-        .primary-btn {
-          color: #000;
-          background: #fff;
+        .primary-button {
+          color: #050608;
+          background: #f2f3f4;
         }
 
-        .secondary-btn {
-          color: #fff;
+        .secondary-button {
+          color: rgba(255, 255, 255, 0.7);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          background: rgba(255, 255, 255, 0.04);
+          background: rgba(255, 255, 255, 0.035);
         }
 
-        .primary-btn:hover,
-        .secondary-btn:hover {
+        .primary-button:hover,
+        .secondary-button:hover {
           transform: translateY(-2px);
+        }
+
+        .secondary-button:hover {
+          border-color: rgba(199, 205, 212, 0.22);
+          background: rgba(255, 255, 255, 0.055);
+        }
+
+        @keyframes madhynGradient {
+          0% {
+            background-position: 0% center;
+          }
+
+          100% {
+            background-position: 220% center;
+          }
         }
 
         @keyframes madhynPulse {
@@ -1478,6 +1632,7 @@ export default function MadhynLearnMorePage() {
           100% {
             opacity: 1;
           }
+
           50% {
             opacity: 0.35;
           }
@@ -1489,12 +1644,24 @@ export default function MadhynLearnMorePage() {
           }
         }
 
+        /* TABLET */
+
         @media (max-width: 900px) {
+          .section-container {
+            width: min(100% - 36px, 720px);
+          }
+
+          .section-heading,
+          .report-heading {
+            grid-template-columns: 1fr;
+            gap: 22px;
+          }
+
           .pipeline {
             grid-template-columns: repeat(2, 1fr);
           }
 
-          .stage-list {
+          .console-grid {
             grid-template-columns: repeat(2, 1fr);
           }
 
@@ -1506,117 +1673,127 @@ export default function MadhynLearnMorePage() {
             grid-template-columns: repeat(2, 1fr);
           }
 
-          .report-stats div:nth-child(2) {
-            border-right: 0;
-          }
-
-          .report-stats div:nth-child(-n + 2) {
-            padding-bottom: 18px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+          .architecture-split {
+            gap: 20px;
           }
         }
 
+        /* PHONE */
+
         @media (max-width: 600px) {
+          .section-container {
+            width: calc(100% - 32px);
+          }
+
           .learn-hero {
-            min-height: 82vh;
-            padding: 130px 18px 80px;
+            min-height: 84vh;
+            padding: 125px 18px 75px;
           }
 
           .learn-hero h1 {
-            font-size: clamp(45px, 14vw, 72px);
+            margin-top: 24px;
+            font-size: clamp(46px, 13.5vw, 72px);
+            line-height: 0.96;
           }
 
           .hero-copy {
-            margin-top: 26px;
-            font-size: 15px;
+            margin-top: 22px;
+            font-size: 13px;
+            line-height: 1.7;
           }
 
           .hero-meta {
-            flex-direction: column;
-            align-items: center;
+            margin-top: 28px;
+            gap: 8px;
+            font-size: 7px;
           }
 
-          .section,
-          .console-section,
-          .intelligence-section,
-          .report-section {
-            padding: 85px 18px;
+          .hero-meta i {
+            display: none;
           }
 
-          .section h2,
-          .console-copy h2 {
-            font-size: clamp(36px, 11vw, 52px);
+          .divider {
+            width: calc(100% - 32px);
           }
 
-          .section-intro {
-            margin-bottom: 42px;
-            font-size: 15px;
+          .section {
+            padding: 90px 0;
+          }
+
+          .section-heading {
+            margin-top: 22px;
+          }
+
+          .section-heading h2,
+          .report-heading h2,
+          .capabilities-title {
+            font-size: clamp(40px, 11.5vw, 54px);
+          }
+
+          .section-heading p,
+          .report-heading p {
+            font-size: 13px;
           }
 
           .pipeline {
             grid-template-columns: 1fr;
+            margin-top: 40px;
           }
 
-          .pipeline-item {
+          .pipeline-card {
             min-height: auto;
-            padding: 25px;
-          }
-
-          .pipeline-icon {
-            margin-bottom: 23px;
-          }
-
-          .pipeline-arrow {
-            display: none;
-          }
-
-          .console-body {
             padding: 22px;
           }
 
-          .console-top {
+          .console-wrapper {
+            margin-top: 40px;
+          }
+
+          .console-header {
             padding: 0 13px;
           }
 
-          .window-dots {
+          .console-controls {
             width: auto;
-            margin-right: 13px;
+            margin-right: 12px;
           }
 
           .console-title {
-            font-size: 8px;
+            font-size: 7px;
           }
 
           .console-status {
             display: none;
           }
 
-          .mission-heading {
-            align-items: flex-start;
-            flex-direction: column;
+          .console-main {
+            padding: 22px;
           }
 
-          .stage-list {
+          .console-mission {
+            flex-direction: column;
+            gap: 13px;
+          }
+
+          .console-mission h3 {
+            font-size: 21px;
+          }
+
+          .console-grid {
             grid-template-columns: 1fr;
           }
 
-          .stage {
-            display: grid;
-            grid-template-columns: 25px 1fr auto;
+          .console-stage {
+            display: flex;
             align-items: center;
-            gap: 7px;
+            justify-content: space-between;
           }
 
-          .stage-icon {
-            margin: 0;
+          .console-stage strong {
+            margin-top: 0;
           }
 
-          .stage > span {
-            margin: 0;
-          }
-
-          .terminal {
-            padding: 14px;
+          .console-terminal {
             overflow-x: auto;
           }
 
@@ -1626,55 +1803,56 @@ export default function MadhynLearnMorePage() {
           }
 
           .architecture {
-            margin-top: 45px;
-            padding: 28px 14px;
+            margin-top: 42px;
+            padding: 25px 14px;
           }
 
-          .arch-split {
+          .architecture-split {
             grid-template-columns: 1fr;
-            gap: 15px;
-            margin-top: 38px;
+            gap: 10px;
           }
 
-          .arch-branch-line {
+          .architecture-split::before {
             display: none;
           }
 
-          .arch-split .arch-node {
-            width: min(100%, 280px);
+          .architecture-branch {
+            width: 100%;
           }
 
           .capability-grid {
-            margin-top: 42px;
+            margin-top: 40px;
           }
 
           .capability-card {
             min-height: auto;
-            padding: 28px;
+            padding: 25px;
+          }
+
+          .report-panel {
+            margin-top: 40px;
+            padding: 22px;
           }
 
           .report-header {
-            padding: 25px;
             align-items: flex-start;
             flex-direction: column;
           }
 
-          .report-header h3 {
-            font-size: 20px;
-          }
-
           .report-stats {
-            padding: 25px;
-            gap: 0;
+            grid-template-columns: 1fr 1fr;
           }
 
-          .report-stats div {
-            padding: 15px 10px 15px 0;
+          .report-stats > div {
+            padding: 20px 15px;
           }
 
-          .report-footer {
-            padding: 17px 25px;
-            flex-direction: column;
+          .report-stats strong {
+            font-size: 21px;
+          }
+
+          .report-summary {
+            padding: 14px;
           }
 
           .final-section {
@@ -1682,43 +1860,52 @@ export default function MadhynLearnMorePage() {
           }
 
           .final-section h2 {
-            font-size: clamp(42px, 12vw, 62px);
-          }
-
-          .final-section p {
-            font-size: 15px;
+            font-size: clamp(43px, 12.5vw, 63px);
           }
 
           .final-actions {
             flex-direction: column;
           }
 
-          .primary-btn,
-          .secondary-btn {
+          .primary-button,
+          .secondary-button {
             width: 100%;
           }
         }
 
         @media (max-width: 380px) {
+          .section-container {
+            width: calc(100% - 26px);
+          }
+
+          .learn-hero {
+            padding-left: 14px;
+            padding-right: 14px;
+          }
+
           .learn-hero h1 {
-            font-size: 43px;
+            font-size: 44px;
           }
 
           .hero-eyebrow {
-            font-size: 9px;
-            letter-spacing: 1.4px;
+            font-size: 8px;
+            letter-spacing: 1.2px;
           }
 
-          .console-body {
+          .console-main {
             padding: 18px;
           }
 
-          .report-stats strong {
-            font-size: 18px;
+          .capability-card {
+            padding: 22px;
+          }
+
+          .report-panel {
+            padding: 17px;
           }
         }
       `}
       </style>
-    </div>
+    </main>
   );
 }
