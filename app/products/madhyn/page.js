@@ -10,11 +10,15 @@ import {
   FiActivity,
   FiArrowRight,
   FiCheckCircle,
+  FiChevronRight,
   FiCode,
   FiCommand,
   FiCpu,
+  FiFileText,
   FiGitBranch,
   FiLayers,
+  FiPlay,
+  FiSearch,
   FiShield,
   FiTarget,
   FiTerminal,
@@ -29,2232 +33,1879 @@ import {
   staggerContainer,
   fadeUp,
   textVariant,
-  FlowText,
 } from '@/components/SpaceUI';
-
-
-/* ═══════════════════════════════════════════════════════════════
-   MADHYN
-   Autonomous Developer System
-   ═══════════════════════════════════════════════════════════════ */
-
-const ACCENT = '#c7cdd4';
-const ACCENT_BRIGHT = '#f1f3f5';
-
-
-/* ───────────────────────────────────────────────────────────────
-   FEATURE DATA
-   ─────────────────────────────────────────────────────────────── */
-
-const FEATURES = [
-  {
-    size: 'wide',
-    icon: <FiCpu />,
-    title: 'Understand the project before touching it.',
-    desc:
-      'MADHYN builds context around your repository, structure, files, dependencies, tooling, and existing implementation before deciding what needs to change.',
-  },
-  {
-    size: 'half',
-    icon: <FiTarget />,
-    title: 'Turn objectives into missions.',
-    desc:
-      'Give MADHYN an outcome instead of a list of tiny instructions. It can break complex development work into a sequence of actionable stages.',
-  },
-  {
-    size: 'half',
-    icon: <FiTerminal />,
-    title: 'Execute the actual work.',
-    desc:
-      'MADHYN is designed to work inside the development environment—editing files, running commands, building software, and inspecting what happens.',
-  },
-  {
-    size: 'half',
-    icon: <FiCheckCircle />,
-    title: 'Verification is part of the loop.',
-    desc:
-      'Writing code is not the finish line. MADHYN checks the resulting state and can use those results to determine what needs to happen next.',
-  },
-  {
-    size: 'half',
-    icon: <FiActivity />,
-    title: 'Never leave the mission silent.',
-    desc:
-      'The interface is designed around visible mission state, actions, progress, and results so you can understand what MADHYN is actually doing.',
-  },
-];
-
 
 const PIPELINE = [
   {
     number: '01',
     icon: <FiCommand />,
-    title: 'Command',
-    desc: 'Describe the outcome.',
+    label: 'COMMAND',
+    title: 'Define the objective.',
+    description:
+      'You describe the outcome you want. MADHYN treats it as a development objective rather than a request for a snippet.',
   },
   {
     number: '02',
-    icon: <FiCpu />,
-    title: 'Understand',
-    desc: 'Build project context.',
+    icon: <FiSearch />,
+    label: 'UNDERSTAND',
+    title: 'Build project context.',
+    description:
+      'The system examines the project structure, relevant files and surrounding implementation before deciding what should change.',
   },
   {
     number: '03',
     icon: <FiTarget />,
-    title: 'Plan',
-    desc: 'Create the mission.',
+    label: 'PLAN',
+    title: 'Create the mission.',
+    description:
+      'The objective becomes a sequence of concrete development actions that can actually be executed.',
   },
   {
     number: '04',
     icon: <FiTerminal />,
-    title: 'Execute',
-    desc: 'Make the changes.',
+    label: 'EXECUTE',
+    title: 'Do the work.',
+    description:
+      'MADHYN moves from reasoning into action, making the required changes across the project.',
   },
   {
     number: '05',
-    icon: <FiCheckCircle />,
-    title: 'Verify',
-    desc: 'Check the result.',
+    icon: <FiShield />,
+    label: 'VERIFY',
+    title: 'Prove the result.',
+    description:
+      'The mission includes checks, tests and validation so completion is based on evidence.',
   },
   {
     number: '06',
-    icon: <FiActivity />,
-    title: 'Report',
-    desc: 'Tell you what happened.',
+    icon: <FiFileText />,
+    label: 'REPORT',
+    title: 'Explain what happened.',
+    description:
+      'MADHYN returns the result of the mission: what changed, what was checked and what remains.',
   },
 ];
 
-
-const PRINCIPLES = [
+const CAPABILITIES = [
   {
     icon: <FiLayers />,
-    title: 'Project-aware',
-    desc:
-      'MADHYN works with the reality of your codebase rather than treating every task as an isolated prompt.',
+    eyebrow: 'PROJECT INTELLIGENCE',
+    title: 'It sees the project, not just the prompt.',
+    description:
+      'MADHYN is designed to reason from the environment around the task. Existing architecture, implementation patterns and project structure become part of the context.',
+  },
+  {
+    icon: <FiTarget />,
+    eyebrow: 'MISSION PLANNING',
+    title: 'Objectives become executable missions.',
+    description:
+      'Instead of stopping at an explanation, MADHYN can decompose a development objective into a practical sequence of work.',
   },
   {
     icon: <FiZap />,
-    title: 'Execution-first',
-    desc:
-      'The goal is not another AI chat window. The goal is getting engineering work done.',
+    eyebrow: 'REAL EXECUTION',
+    title: 'Reasoning has somewhere to go.',
+    description:
+      'The system is built around actually changing the project. The output is not merely a suggestion—it is progress toward the requested outcome.',
   },
   {
-    icon: <FiShield />,
-    title: 'Visible autonomy',
-    desc:
-      'Autonomous should never mean invisible. The mission and its state stay understandable.',
+    icon: <FiCheckCircle />,
+    eyebrow: 'VERIFICATION',
+    title: 'Done means verified.',
+    description:
+      'Validation is part of the development loop. MADHYN can run checks and use their results when determining whether a mission is complete.',
   },
 ];
 
-
-/* ───────────────────────────────────────────────────────────────
-   MISSION CONSOLE
-   ─────────────────────────────────────────────────────────────── */
-
 function MissionConsole() {
-  const steps = [
-    {
-      label: 'Repository context',
-      status: 'COMPLETE',
-      complete: true,
-    },
-    {
-      label: 'Mission planning',
-      status: 'COMPLETE',
-      complete: true,
-    },
-    {
-      label: 'Implementation',
-      status: 'RUNNING',
-      complete: false,
-      active: true,
-    },
-    {
-      label: 'Verification',
-      status: 'QUEUED',
-      complete: false,
-    },
-  ];
-
   return (
     <Card3D
-      orbColor="rgba(199,205,212,0.18)"
       style={{
         padding: 0,
         overflow: 'hidden',
-        borderRadius: 24,
-        background: 'rgba(255,255,255,0.025)',
-        border: '1px solid rgba(255,255,255,0.08)',
+        background: 'rgba(6, 7, 9, 0.88)',
       }}
+      orbColor="rgba(199,205,212,0.12)"
     >
-      {/* Console header */}
-      <div className="madhyn-console-header">
-        <div className="madhyn-window-dots">
-          <span />
-          <span />
-          <span />
+      <div className="console">
+        <div className="console-header">
+          <div className="console-controls">
+            <span />
+            <span />
+            <span />
+          </div>
+
+          <div className="console-title">
+            <FiActivity />
+            MADHYN / MISSION CONTROL
+          </div>
+
+          <div className="console-status">
+            <i />
+            EXECUTING
+          </div>
         </div>
 
-        <div className="madhyn-console-title">
-          <span className="madhyn-live-dot" />
-          MADHYN / MISSION CONTROL
-        </div>
+        <div className="console-main">
+          <div className="console-mission">
+            <div>
+              <div className="console-label">ACTIVE MISSION</div>
 
-        <div className="madhyn-console-status">
-          ACTIVE
-        </div>
-      </div>
+              <h3>Rebuild authentication flow</h3>
 
-      {/* Console body */}
-      <div className="madhyn-console-body">
-
-        <div className="madhyn-console-top">
-          <div>
-            <div className="madhyn-console-label">
-              ACTIVE MISSION
+              <p>
+                Refactor the existing authentication layer, update dependent
+                components and verify the resulting application.
+              </p>
             </div>
 
-            <div className="madhyn-console-mission">
-              Rebuild authentication flow
+            <div className="mission-id">M-0842</div>
+          </div>
+
+          <div className="console-progress">
+            <div className="progress-heading">
+              <span>MISSION PROGRESS</span>
+              <strong>61%</strong>
+            </div>
+
+            <div className="progress-track">
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: '61%' }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.15, ease: 'easeOut' }}
+              />
             </div>
           </div>
 
-          <div className="madhyn-mission-id">
-            M-0842
-          </div>
-        </div>
+          <div className="console-grid">
+            {[
+              ['CONTEXT', 'Loaded', 'complete'],
+              ['PLAN', 'Ready', 'complete'],
+              ['EXECUTION', 'Running', 'active'],
+              ['VERIFY', 'Queued', 'queued'],
+            ].map(([label, state, type]) => (
+              <div className={`console-stage ${type}`} key={label}>
+                <div className="console-stage-top">
+                  <span>{label}</span>
 
+                  {type === 'complete' ? (
+                    <FiCheckCircle />
+                  ) : type === 'active' ? (
+                    <i className="active-dot" />
+                  ) : (
+                    <i className="queued-dot" />
+                  )}
+                </div>
 
-        {/* Progress */}
-        <div className="madhyn-progress">
-          <div className="madhyn-progress-track">
-            <motion.div
-              className="madhyn-progress-fill"
-              initial={{ width: 0 }}
-              whileInView={{ width: '61%' }}
-              viewport={{ once: false }}
-              transition={{ duration: 1.2, ease: 'easeOut' }}
-            />
-          </div>
-
-          <span>61%</span>
-        </div>
-
-
-        {/* Steps */}
-        <div className="madhyn-steps">
-          {steps.map((step, index) => (
-            <motion.div
-              key={step.label}
-              className={`madhyn-step ${step.active ? 'madhyn-step-active' : ''}`}
-              initial={{ opacity: 0, x: -12 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: false }}
-              transition={{
-                delay: index * 0.08,
-                duration: 0.4,
-              }}
-            >
-              <div
-                className={`madhyn-step-icon ${
-                  step.complete ? 'madhyn-step-complete' : ''
-                }`}
-              >
-                {step.complete ? (
-                  <FiCheckCircle />
-                ) : (
-                  <FiActivity />
-                )}
+                <strong>{state}</strong>
               </div>
-
-              <div className="madhyn-step-name">
-                {step.label}
-              </div>
-
-              <div
-                className={`madhyn-step-status ${
-                  step.active ? 'madhyn-status-active' : ''
-                }`}
-              >
-                {step.status}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-
-        {/* Terminal */}
-        <div className="madhyn-terminal">
-          <div>
-            <span className="terminal-symbol">$</span>
-            madhyn
+            ))}
           </div>
 
-          <div className="terminal-command">
-            --mission auth-rebuild --verify
+          <div className="console-terminal">
+            <div className="terminal-top">
+              <span>MISSION OUTPUT</span>
+              <span>LIVE</span>
+            </div>
+
+            <div className="terminal-line">
+              <b>›</b>
+              Repository context loaded
+            </div>
+
+            <div className="terminal-line">
+              <b>›</b>
+              6 relevant files identified
+            </div>
+
+            <div className="terminal-line">
+              <b>›</b>
+              Dependency graph updated
+            </div>
+
+            <div className="terminal-line active-line">
+              <b>›</b>
+              Applying implementation plan
+              <i className="cursor" />
+            </div>
           </div>
-
-          <div className="terminal-cursor" />
         </div>
-
       </div>
     </Card3D>
   );
 }
 
-
-/* ───────────────────────────────────────────────────────────────
-   PAGE
-   ═══════════════════════════════════════════════════════════════ */
-
-export default function MadhynPage() {
+function ArchitectureDiagram() {
   return (
-    <div className="madhyn-page">
-
-      <StarField />
-
-      <div className="noise" aria-hidden />
-
-      <BackButton />
-      <Navbar />
-
-
-      {/* ═══════════════════════════════════════════════════════
-          HERO
-          ═══════════════════════════════════════════════════════ */}
-
-      <section className="madhyn-hero">
-
-        <motion.div
-          className="madhyn-hero-content"
-          variants={staggerContainer(0.12, 0.1)}
-          initial="hidden"
-          whileInView="show"
-          viewport={{
-            once: false,
-            amount: 0.15,
-          }}
-        >
-
-          {/* Eyebrow */}
-
-          <motion.div
-            variants={fadeUp}
-            className="madhyn-eyebrow"
-          >
-            <motion.span
-              className="madhyn-eyebrow-dot"
-              animate={{
-                opacity: [1, 0.3, 1],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 2,
-              }}
-            />
-
-            Autonomous developer system
-          </motion.div>
-
-
-          {/* Title */}
-
-          <motion.h1
-            variants={textVariant(0.1)}
-            className="madhyn-title"
-          >
-            <FlowText
-              gradient="
-                linear-gradient(
-                  90deg,
-                  #858c95 0%,
-                  #f7f8f9 28%,
-                  #aeb5bd 50%,
-                  #ffffff 72%,
-                  #858c95 100%
-                )
-              "
-            >
-              MADHYN
-            </FlowText>
-          </motion.h1>
-
-
-          {/* Tagline */}
-
-          <motion.h2
-            variants={textVariant(0.2)}
-            className="madhyn-tagline"
-          >
-            Your command center for{' '}
-            <span>autonomous development.</span>
-          </motion.h2>
-
-
-          {/* Description */}
-
-          <motion.p
-            variants={fadeUp}
-            className="madhyn-hero-description"
-          >
-            Tell MADHYN what you want built. It understands your project,
-            plans the mission, executes the work, verifies the result,
-            and reports back what actually happened.
-          </motion.p>
-
-
-          {/* Actions */}
-
-          <motion.div
-            variants={fadeUp}
-            className="madhyn-hero-actions"
-          >
-            <motion.a
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              href="#mission"
-              className="madhyn-primary-button"
-            >
-              See the mission loop
-              <FiArrowRight />
-            </motion.a>
-
-            <motion.div
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <Link
-                href="/products/madhyn/learn-more"
-                className="madhyn-secondary-button"
-              >
-                Learn more
-              </Link>
-            </motion.div>
-          </motion.div>
-
-        </motion.div>
-
-
-        {/* Mission UI */}
-
-        <motion.div
-          className="madhyn-console-wrapper"
-          initial={{
-            opacity: 0,
-            y: 50,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          viewport={{
-            once: false,
-            amount: 0.1,
-          }}
-          transition={{
-            duration: 0.9,
-            delay: 0.2,
-          }}
-        >
-          <MissionConsole />
-        </motion.div>
-
-      </section>
-
-
-      <hr className="divider" />
-
-
-      {/* ═══════════════════════════════════════════════════════
-          MISSION LOOP
-          ═══════════════════════════════════════════════════════ */}
-
-      <section
-        id="mission"
-        className="madhyn-section"
-      >
-
-        <div className="madhyn-container">
-
-          <motion.div
-            variants={staggerContainer(0.08, 0.05)}
-            initial="hidden"
-            whileInView="show"
-            viewport={{
-              once: false,
-              amount: 0.15,
-            }}
-          >
-
-            <motion.div
-              variants={fadeUp}
-              className="madhyn-section-label"
-            >
-              THE MADHYN LOOP
-            </motion.div>
-
-
-            <motion.h2
-              variants={textVariant(0.1)}
-              className="madhyn-section-title"
-            >
-              From idea to{' '}
-              <FlowText
-                gradient="
-                  linear-gradient(
-                    90deg,
-                    #f1f3f5,
-                    #9ca3aa,
-                    #f1f3f5
-                  )
-                "
-              >
-                verified result.
-              </FlowText>
-            </motion.h2>
-
-
-            <motion.div
-              variants={staggerContainer(0.06, 0.05)}
-              className="madhyn-pipeline"
-            >
-
-              {PIPELINE.map((step) => (
-                <motion.div
-                  key={step.number}
-                  variants={fadeUp}
-                  className="madhyn-pipeline-card"
-                >
-
-                  <div className="madhyn-pipeline-top">
-
-                    <div className="madhyn-pipeline-icon">
-                      {step.icon}
-                    </div>
-
-                    <span className="madhyn-pipeline-number">
-                      {step.number}
-                    </span>
-
-                  </div>
-
-                  <h3>{step.title}</h3>
-
-                  <p>{step.desc}</p>
-
-                </motion.div>
-              ))}
-
-            </motion.div>
-
-          </motion.div>
-
+    <div className="architecture">
+      <div className="architecture-node">
+        <div className="architecture-icon">
+          <FiCommand />
         </div>
 
+        <div>
+          <small>INPUT</small>
+          <strong>DEVELOPMENT OBJECTIVE</strong>
+          <span>What you want accomplished</span>
+        </div>
+      </div>
+
+      <div className="architecture-line" />
+
+      <div className="architecture-node">
+        <div className="architecture-icon">
+          <FiSearch />
+        </div>
+
+        <div>
+          <small>CONTEXT</small>
+          <strong>PROJECT INTELLIGENCE</strong>
+          <span>Files · structure · dependencies · state</span>
+        </div>
+      </div>
+
+      <div className="architecture-line" />
+
+      <div className="architecture-node core">
+        <div className="architecture-icon">
+          <FiCpu />
+        </div>
+
+        <div>
+          <small>ORCHESTRATION</small>
+          <strong>MISSION ENGINE</strong>
+          <span>Reason · plan · coordinate · adapt</span>
+        </div>
+      </div>
+
+      <div className="architecture-split">
+        <div className="architecture-branch">
+          <FiCode />
+
+          <div>
+            <small>ACTION</small>
+            <strong>EXECUTION</strong>
+            <span>Apply project changes</span>
+          </div>
+        </div>
+
+        <div className="architecture-branch">
+          <FiShield />
+
+          <div>
+            <small>PROOF</small>
+            <strong>VERIFICATION</strong>
+            <span>Check the resulting state</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="architecture-line" />
+
+      <div className="architecture-node report">
+        <div className="architecture-icon">
+          <FiFileText />
+        </div>
+
+        <div>
+          <small>OUTPUT</small>
+          <strong>MISSION REPORT</strong>
+          <span>Changes · checks · outcome</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function MadhynLearnMore() {
+  return (
+    <main className="madhyn-learn">
+      <StarField />
+
+      <div className="page-noise" />
+
+      <Navbar />
+      <BackButton />
+
+      {/* HERO */}
+
+      <section className="learn-hero">
+        <motion.div
+          className="hero-content"
+          variants={staggerContainer(0.08, 0.08)}
+          initial="hidden"
+          animate="show"
+        >
+          <motion.div variants={fadeUp} className="hero-eyebrow">
+            <span />
+            INSIDE MADHYN
+          </motion.div>
+
+          <motion.h1 variants={fadeUp}>
+            How the{' '}
+            <span className="hero-gradient">
+              autonomous developer
+            </span>{' '}
+            works.
+          </motion.h1>
+
+          <motion.p variants={fadeUp} className="hero-copy">
+            MADHYN is designed to turn a development objective into a
+            complete, observable mission — from understanding the project to
+            verifying the result.
+          </motion.p>
+
+          <motion.div variants={fadeUp} className="hero-meta">
+            <span>PROJECT AWARE</span>
+            <i />
+            <span>EXECUTION FIRST</span>
+            <i />
+            <span>VERIFICATION BUILT IN</span>
+          </motion.div>
+        </motion.div>
       </section>
 
+      <div className="divider" />
 
-      {/* ═══════════════════════════════════════════════════════
-          FEATURES
-          ═══════════════════════════════════════════════════════ */}
+      {/* LOOP */}
 
-      <section className="madhyn-section madhyn-features-section">
-
-        <div className="madhyn-container">
-
+      <section className="section loop-section">
+        <div className="section-container">
           <motion.div
-            variants={staggerContainer(0.08, 0.05)}
+            variants={staggerContainer(0.08, 0.07)}
             initial="hidden"
             whileInView="show"
-            viewport={{
-              once: false,
-              amount: 0.15,
-            }}
+            viewport={{ once: true, amount: 0.12 }}
           >
+            <motion.div variants={fadeUp} className="section-label">
+              <span />
+              THE MISSION LOOP
+            </motion.div>
 
-            <motion.div
-              variants={fadeUp}
-              className="madhyn-section-label"
-            >
+            <motion.div variants={fadeUp} className="section-heading">
+              <h2>
+                From command
+                <br />
+                <span>to verified result.</span>
+              </h2>
+
+              <p>
+                MADHYN isn't designed around answering a prompt and stopping.
+                Its fundamental unit of work is the mission.
+              </p>
+            </motion.div>
+
+            <div className="pipeline">
+              {PIPELINE.map((stage) => (
+                <motion.div
+                  variants={fadeUp}
+                  className="pipeline-card"
+                  key={stage.number}
+                >
+                  <div className="pipeline-top">
+                    <span>{stage.number}</span>
+                    <FiChevronRight />
+                  </div>
+
+                  <div className="pipeline-icon">{stage.icon}</div>
+
+                  <div className="pipeline-label">
+                    {stage.label}
+                  </div>
+
+                  <h3>{stage.title}</h3>
+
+                  <p>{stage.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CONSOLE */}
+
+      <section className="section console-section">
+        <div className="section-container">
+          <motion.div
+            variants={staggerContainer(0.08, 0.08)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.12 }}
+          >
+            <motion.div variants={fadeUp} className="section-label">
+              <span />
+              MISSION CONTROL
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="section-heading">
+              <h2>
+                Make development
+                <br />
+                <span>observable.</span>
+              </h2>
+
+              <p>
+                Autonomous doesn't have to mean invisible. MADHYN exposes the
+                state of the mission so you can understand where the system
+                is, what it is doing and what has been verified.
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="console-wrapper">
+              <MissionConsole />
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ARCHITECTURE */}
+
+      <section className="section architecture-section">
+        <div className="section-container">
+          <motion.div
+            variants={staggerContainer(0.08, 0.08)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.12 }}
+          >
+            <motion.div variants={fadeUp} className="section-label">
+              <span />
+              SYSTEM ARCHITECTURE
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="section-heading">
+              <h2>
+                Context becomes
+                <br />
+                <span>execution.</span>
+              </h2>
+
+              <p>
+                The architecture is built around a simple idea: an autonomous
+                developer needs more than intelligence. It needs context,
+                orchestration, tools and a way to verify what it has done.
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeUp}>
+              <ArchitectureDiagram />
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CAPABILITIES */}
+
+      <section className="section capabilities-section">
+        <div className="section-container">
+          <motion.div
+            variants={staggerContainer(0.08, 0.08)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.12 }}
+          >
+            <motion.div variants={fadeUp} className="section-label">
+              <span />
               CORE CAPABILITIES
             </motion.div>
 
-
-            <motion.h2
-              variants={textVariant(0.1)}
-              className="madhyn-section-title"
-            >
-              Not another assistant.
+            <motion.h2 variants={fadeUp} className="capabilities-title">
+              Intelligence that
               <br />
-
-              <span className="madhyn-muted">
-                An engineering system.
-              </span>
+              <span>actually moves.</span>
             </motion.h2>
 
-
-            <motion.div
-              variants={staggerContainer(0.05, 0.1)}
-              className="madhyn-feature-grid"
-            >
-
-              {FEATURES.map((feature) => (
+            <div className="capability-grid">
+              {CAPABILITIES.map((capability) => (
                 <motion.div
-                  key={feature.title}
                   variants={fadeUp}
-                  className={`madhyn-feature-card ${
-                    feature.size === 'wide'
-                      ? 'madhyn-feature-wide'
-                      : 'madhyn-feature-half'
-                  }`}
+                  className="capability-card"
+                  key={capability.title}
                 >
-
-                  <Card3D
-                    orbColor="rgba(199,205,212,0.14)"
-                    style={{
-                      padding: '30px 28px',
-                      height: '100%',
-                      boxSizing: 'border-box',
-                    }}
-                  >
-
-                    <div className="madhyn-feature-icon">
-                      {feature.icon}
-                    </div>
-
-                    <h3>
-                      {feature.title}
-                    </h3>
-
-                    <p>
-                      {feature.desc}
-                    </p>
-
-                  </Card3D>
-
-                </motion.div>
-              ))}
-
-            </motion.div>
-
-          </motion.div>
-
-        </div>
-
-      </section>
-
-
-      {/* ═══════════════════════════════════════════════════════
-          THE IDEA
-          ═══════════════════════════════════════════════════════ */}
-
-      <section className="madhyn-section madhyn-idea-section">
-
-        <div className="madhyn-container">
-
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 30,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: false,
-              amount: 0.15,
-            }}
-            transition={{
-              duration: 0.8,
-            }}
-          >
-
-            <Card3D
-              orbColor="rgba(199,205,212,0.12)"
-              style={{
-                padding: 0,
-                overflow: 'hidden',
-              }}
-            >
-
-              <div className="madhyn-idea-grid">
-
-                {/* Left */}
-
-                <div className="madhyn-idea-copy">
-
-                  <div className="madhyn-section-label">
-                    WHY MADHYN
+                  <div className="capability-icon">
+                    {capability.icon}
                   </div>
 
-                  <h2>
-                    Software development
-                    <br />
-                    should feel like
-                    <br />
-                    <span>giving a mission.</span>
-                  </h2>
+                  <div className="capability-eyebrow">
+                    {capability.eyebrow}
+                  </div>
+
+                  <h3>{capability.title}</h3>
+
+                  <p>{capability.description}</p>
+
+                  <div className="capability-line" />
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* REPORT */}
+
+      <section className="section report-section">
+        <div className="section-container">
+          <motion.div
+            variants={staggerContainer(0.08, 0.08)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.12 }}
+          >
+            <motion.div variants={fadeUp} className="section-label">
+              <span />
+              MISSION REPORT
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="report-heading">
+              <div>
+                <h2>
+                  Don't just say
+                  <br />
+                  <span>“it's done.”</span>
+                </h2>
+              </div>
+
+              <p>
+                A completed mission should leave behind evidence. The report
+                is the final layer connecting autonomous execution back to
+                the developer.
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="report-panel">
+              <div className="report-header">
+                <div>
+                  <span>MISSION</span>
+                  <strong>AUTH-REBUILD</strong>
+                </div>
+
+                <div className="report-success">
+                  <FiCheckCircle />
+                  VERIFIED
+                </div>
+              </div>
+
+              <div className="report-stats">
+                <div>
+                  <strong>06</strong>
+                  <span>FILES CHANGED</span>
+                </div>
+
+                <div>
+                  <strong>24</strong>
+                  <span>TESTS EXECUTED</span>
+                </div>
+
+                <div>
+                  <strong>24</strong>
+                  <span>TESTS PASSED</span>
+                </div>
+
+                <div>
+                  <strong>PASS</strong>
+                  <span>BUILD STATUS</span>
+                </div>
+              </div>
+
+              <div className="report-summary">
+                <FiCheckCircle />
+
+                <div>
+                  <strong>Mission completed successfully.</strong>
 
                   <p>
-                    Traditional coding assistants wait for every
-                    instruction. MADHYN is designed around a different
-                    interaction model: define the objective, give it
-                    the environment, and let the system carry the
-                    mission through the engineering loop.
+                    Authentication flow rebuilt, dependent components updated,
+                    validation completed and project build verified.
                   </p>
-
                 </div>
-
-
-                {/* Right */}
-
-                <div className="madhyn-principles">
-
-                  {PRINCIPLES.map((item, index) => (
-                    <motion.div
-                      key={item.title}
-                      initial={{
-                        opacity: 0,
-                        x: 20,
-                      }}
-                      whileInView={{
-                        opacity: 1,
-                        x: 0,
-                      }}
-                      viewport={{
-                        once: false,
-                      }}
-                      transition={{
-                        delay: index * 0.1,
-                      }}
-                      className="madhyn-principle"
-                    >
-
-                      <div className="madhyn-principle-icon">
-                        {item.icon}
-                      </div>
-
-                      <div>
-                        <h3>
-                          {item.title}
-                        </h3>
-
-                        <p>
-                          {item.desc}
-                        </p>
-                      </div>
-
-                    </motion.div>
-                  ))}
-
-                </div>
-
               </div>
-
-            </Card3D>
-
+            </motion.div>
           </motion.div>
-
         </div>
-
       </section>
 
+      {/* CTA */}
 
-      {/* ═══════════════════════════════════════════════════════
-          FINAL CTA
-          ═══════════════════════════════════════════════════════ */}
+      <section className="final-section">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7 }}
+        >
+          <div className="final-icon">
+            <FiCpu />
+          </div>
 
-      <section className="madhyn-section madhyn-final-section">
+          <div className="section-label">
+            <span />
+            MADHYN
+          </div>
 
-        <div className="madhyn-final-container">
+          <h2>
+            Stop prompting.
+            <br />
+            <span>Start commanding.</span>
+          </h2>
 
-          <motion.div
-            initial={{
-              opacity: 0,
-              y: 30,
-            }}
-            whileInView={{
-              opacity: 1,
-              y: 0,
-            }}
-            viewport={{
-              once: false,
-              amount: 0.15,
-            }}
-            transition={{
-              duration: 0.8,
-            }}
-          >
+          <p>
+            Give your development work an objective. Let MADHYN turn it into
+            a mission.
+          </p>
 
-            <Card3D
-              orbColor="rgba(241,243,245,0.13)"
-              style={{
-                padding: 0,
-                overflow: 'hidden',
-              }}
+          <div className="final-actions">
+            <Link
+              href="/products/madhyn"
+              className="primary-button"
             >
+              Back to MADHYN
+              <FiArrowRight />
+            </Link>
 
-              <div className="madhyn-final-card">
-
-                <div className="madhyn-command-icon">
-                  <FiCommand />
-                </div>
-
-                <h2>
-                  Stop prompting.
-                  <br />
-
-                  <span>
-                    Start commanding.
-                  </span>
-                </h2>
-
-                <p>
-                  MADHYN is being built for a development workflow where
-                  an AI system does more than generate code.
-                </p>
-
-                <Link
-                  href="/products/madhyn/learn-more"
-                  className="madhyn-primary-button"
-                >
-                  Explore MADHYN
-                  <FiArrowRight />
-                </Link>
-
-              </div>
-
-            </Card3D>
-
-          </motion.div>
-
-        </div>
-
+            <Link
+              href="/products"
+              className="secondary-button"
+            >
+              Explore RexyCore
+            </Link>
+          </div>
+        </motion.div>
       </section>
-
 
       <Footer />
       <ChatWidget />
 
-
-      {/* ═══════════════════════════════════════════════════════
-          RESPONSIVE CSS
-          ═══════════════════════════════════════════════════════ */}
-
       <style jsx global>{`
-
-        /* ──────────────────────────────────────────────────────
-           BASE
-           ────────────────────────────────────────────────────── */
-
-        .madhyn-page {
+        .madhyn-learn {
+          position: relative;
           min-height: 100vh;
+          overflow-x: hidden;
           background: #010104;
           color: #fff;
-          position: relative;
-          overflow-x: hidden;
         }
 
-        .madhyn-container {
+        .page-noise {
+          position: fixed;
+          inset: 0;
+          z-index: 2;
+          pointer-events: none;
+          opacity: 0.022;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+        }
+
+        .section-container {
           width: min(1120px, calc(100% - 48px));
           margin: 0 auto;
-        }
-
-
-        /* ──────────────────────────────────────────────────────
-           HERO
-           ────────────────────────────────────────────────────── */
-
-        .madhyn-hero {
           position: relative;
-          z-index: 10;
+          z-index: 5;
+        }
 
-          min-height: 92vh;
+        /* HERO */
 
+        .learn-hero {
+          position: relative;
+          z-index: 5;
+          isolation: isolate;
+          min-height: 88vh;
           display: flex;
-          flex-direction: column;
           align-items: center;
           justify-content: center;
-
+          padding: 145px 24px 95px;
           text-align: center;
-
-          padding:
-            140px
-            24px
-            100px;
-
-          box-sizing: border-box;
         }
 
-        .madhyn-hero-content {
-          width: 100%;
-          max-width: 1120px;
+        .hero-content {
+          width: min(980px, 100%);
+          position: relative;
+          z-index: 3;
         }
 
-        .madhyn-eyebrow {
+        .hero-eyebrow {
           display: inline-flex;
           align-items: center;
           gap: 9px;
-
-          padding: 7px 16px;
-
-          border-radius: 999px;
-
-          background: rgba(199,205,212,0.07);
-          border: 1px solid rgba(199,205,212,0.17);
-
-          color: #dce0e4;
-
-          font-size: 11px;
-          font-weight: 850;
-          letter-spacing: 2px;
-          text-transform: uppercase;
-
-          margin-bottom: 26px;
+          padding: 7px 12px;
+          border: 1px solid rgba(199, 205, 212, 0.13);
+          border-radius: 7px;
+          background: rgba(199, 205, 212, 0.045);
+          color: rgba(255, 255, 255, 0.4);
+          font-family: monospace;
+          font-size: 9px;
+          font-weight: 800;
+          letter-spacing: 1.7px;
         }
 
-        .madhyn-eyebrow-dot {
-          width: 7px;
-          height: 7px;
-
+        .hero-eyebrow span {
+          width: 5px;
+          height: 5px;
           border-radius: 50%;
-
-          background: #f1f3f5;
-
-          box-shadow:
-            0 0 8px rgba(241,243,245,0.75);
+          background: #c7cdd4;
+          box-shadow: 0 0 10px rgba(199, 205, 212, 0.55);
         }
 
-        .madhyn-title {
-          font-size: clamp(58px, 11vw, 158px);
-
-          font-weight: 950;
-
+        .learn-hero h1 {
+          max-width: 1000px;
+          margin: 28px auto 0;
+          font-size: clamp(55px, 8.2vw, 105px);
+          line-height: 0.93;
           letter-spacing: -0.075em;
-
-          line-height: 0.86;
-
-          margin:
-            0
-            0
-            28px;
+          font-weight: 900;
         }
 
-        .madhyn-tagline {
-          max-width: 950px;
-
-          margin:
-            0
-            auto
-            28px;
-
-          font-size: clamp(28px, 4.2vw, 56px);
-
-          font-weight: 850;
-
-          letter-spacing: -0.045em;
-
-          line-height: 1.02;
+        .hero-gradient {
+          display: inline;
+          background: linear-gradient(
+            100deg,
+            #f1f3f5 0%,
+            #8d959e 24%,
+            #ffffff 48%,
+            #aab1b9 72%,
+            #f1f3f5 100%
+          );
+          background-size: 220% auto;
+          -webkit-background-clip: text;
+          background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: madhynGradient 7s linear infinite;
         }
 
-        .madhyn-tagline span {
-          color: #cdd2d7;
+        .hero-copy {
+          width: min(690px, 100%);
+          margin: 28px auto 0;
+          color: rgba(255, 255, 255, 0.43);
+          font-size: 15px;
+          line-height: 1.75;
         }
 
-        .madhyn-hero-description {
-          max-width: 720px;
-
-          margin:
-            0
-            auto
-            46px;
-
-          color: rgba(255,255,255,0.53);
-
-          font-size: clamp(16px, 2vw, 20px);
-
-          line-height: 1.7;
+        .hero-meta {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 13px;
+          flex-wrap: wrap;
+          margin-top: 35px;
+          color: rgba(255, 255, 255, 0.23);
+          font-family: monospace;
+          font-size: 8px;
+          font-weight: 800;
+          letter-spacing: 1.4px;
         }
 
-        .madhyn-hero-actions {
+        .hero-meta i {
+          width: 3px;
+          height: 3px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.18);
+        }
+
+        .divider {
+          width: min(1120px, calc(100% - 48px));
+          height: 1px;
+          margin: 0 auto;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.08),
+            transparent
+          );
+        }
+
+        /* SHARED */
+
+        .section {
+          position: relative;
+          z-index: 5;
+          padding: 125px 0;
+        }
+
+        .section-label {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 6px 10px;
+          border: 1px solid rgba(199, 205, 212, 0.1);
+          border-radius: 7px;
+          background: rgba(199, 205, 212, 0.035);
+          color: rgba(255, 255, 255, 0.37);
+          font-family: monospace;
+          font-size: 8px;
+          font-weight: 800;
+          letter-spacing: 1.7px;
+        }
+
+        .section-label > span {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #c7cdd4;
+        }
+
+        .section-heading {
+          display: grid;
+          grid-template-columns: 1.08fr 0.92fr;
+          align-items: end;
+          gap: 70px;
+          margin-top: 25px;
+        }
+
+        .section-heading h2,
+        .report-heading h2 {
+          margin: 0;
+          font-size: clamp(44px, 5.8vw, 70px);
+          line-height: 0.96;
+          letter-spacing: -0.06em;
+          font-weight: 900;
+        }
+
+        .section-heading h2 span,
+        .report-heading h2 span,
+        .capabilities-title span {
+          color: rgba(255, 255, 255, 0.28);
+        }
+
+        .section-heading p,
+        .report-heading p {
+          margin: 0;
+          color: rgba(255, 255, 255, 0.4);
+          font-size: 14px;
+          line-height: 1.8;
+        }
+
+        /* PIPELINE */
+
+        .pipeline {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
+          margin-top: 55px;
+        }
+
+        .pipeline-card {
+          min-height: 255px;
+          padding: 24px;
+          border: 1px solid rgba(255, 255, 255, 0.065);
+          border-radius: 17px;
+          background: rgba(255, 255, 255, 0.017);
+          transition:
+            transform 0.25s ease,
+            border-color 0.25s ease;
+        }
+
+        .pipeline-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(199, 205, 212, 0.17);
+        }
+
+        .pipeline-top {
+          display: flex;
+          justify-content: space-between;
+          color: rgba(255, 255, 255, 0.2);
+          font-family: monospace;
+          font-size: 9px;
+        }
+
+        .pipeline-top svg {
+          color: rgba(255, 255, 255, 0.13);
+        }
+
+        .pipeline-icon {
+          width: 39px;
+          height: 39px;
           display: flex;
           align-items: center;
           justify-content: center;
-
-          gap: 14px;
-
-          flex-wrap: wrap;
+          margin-top: 25px;
+          border: 1px solid rgba(199, 205, 212, 0.1);
+          border-radius: 10px;
+          background: rgba(199, 205, 212, 0.045);
+          color: #dfe3e7;
         }
 
-        .madhyn-primary-button,
-        .madhyn-secondary-button {
-          min-height: 52px;
-
-          padding:
-            15px
-            27px;
-
-          box-sizing: border-box;
-
-          border-radius: 999px;
-
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-
-          gap: 9px;
-
-          text-decoration: none;
-
-          font-size: 15px;
-          font-weight: 850;
-
-          white-space: nowrap;
+        .pipeline-label {
+          margin-top: 19px;
+          color: rgba(255, 255, 255, 0.22);
+          font-family: monospace;
+          font-size: 8px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
         }
 
-        .madhyn-primary-button {
-          background: #f1f3f5;
-          color: #08090a;
-
-          box-shadow:
-            0 0 35px rgba(241,243,245,0.08);
+        .pipeline-card h3 {
+          margin: 8px 0 9px;
+          font-size: 19px;
+          line-height: 1.15;
+          letter-spacing: -0.025em;
         }
 
-        .madhyn-secondary-button {
-          color: #fff;
-
-          background: rgba(255,255,255,0.035);
-
-          border:
-            1px solid
-            rgba(255,255,255,0.1);
+        .pipeline-card p {
+          margin: 0;
+          color: rgba(255, 255, 255, 0.34);
+          font-size: 12px;
+          line-height: 1.65;
         }
 
+        /* CONSOLE */
 
-        /* ──────────────────────────────────────────────────────
-           MISSION CONSOLE
-           ────────────────────────────────────────────────────── */
+        .console-section {
+          background:
+            radial-gradient(
+              ellipse at center,
+              rgba(199, 205, 212, 0.028),
+              transparent 62%
+            );
+        }
 
-        .madhyn-console-wrapper {
+        .console-wrapper {
+          margin-top: 55px;
+        }
+
+        .console {
           width: 100%;
-          max-width: 900px;
-
-          margin-top: 70px;
         }
 
-        .madhyn-console-header {
-          height: 52px;
-
-          display: grid;
-          grid-template-columns: 1fr auto 1fr;
-
+        .console-header {
+          min-height: 48px;
+          display: flex;
           align-items: center;
-
-          padding:
-            0
-            18px;
-
-          box-sizing: border-box;
-
-          border-bottom:
-            1px solid
-            rgba(255,255,255,0.07);
+          padding: 0 17px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.065);
+          background: rgba(255, 255, 255, 0.025);
         }
 
-        .madhyn-window-dots {
+        .console-controls {
+          width: 110px;
           display: flex;
           gap: 6px;
         }
 
-        .madhyn-window-dots span {
+        .console-controls span {
           width: 7px;
           height: 7px;
-
           border-radius: 50%;
-
-          background: rgba(255,255,255,0.2);
+          background: rgba(255, 255, 255, 0.15);
         }
 
-        .madhyn-console-title {
+        .console-title {
           display: flex;
           align-items: center;
-          gap: 8px;
-
-          color: rgba(255,255,255,0.55);
-
-          font-size: 10px;
-          font-weight: 850;
-          letter-spacing: 2px;
-        }
-
-        .madhyn-live-dot {
-          width: 6px;
-          height: 6px;
-
-          border-radius: 50%;
-
-          background: #f1f3f5;
-
-          box-shadow:
-            0 0 9px rgba(241,243,245,0.7);
-        }
-
-        .madhyn-console-status {
-          justify-self: end;
-
-          color: #cdd2d7;
-
+          gap: 7px;
+          color: rgba(255, 255, 255, 0.4);
+          font-family: monospace;
           font-size: 9px;
-          font-weight: 850;
-          letter-spacing: 1.5px;
-        }
-
-        .madhyn-console-body {
-          padding: 30px;
-        }
-
-        .madhyn-console-top {
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-
-          gap: 20px;
-
-          margin-bottom: 24px;
-        }
-
-        .madhyn-console-label {
-          margin-bottom: 8px;
-
-          color: #aeb5bd;
-
-          font-size: 10px;
-          font-weight: 850;
-          letter-spacing: 2px;
-        }
-
-        .madhyn-console-mission {
-          font-size: 25px;
-          font-weight: 850;
-
-          letter-spacing: -0.035em;
-        }
-
-        .madhyn-mission-id {
-          color: rgba(255,255,255,0.28);
-
-          font-family:
-            ui-monospace,
-            SFMono-Regular,
-            Menlo,
-            monospace;
-
-          font-size: 11px;
-        }
-
-        .madhyn-progress {
-          display: flex;
-          align-items: center;
-
-          gap: 12px;
-
-          margin-bottom: 20px;
-        }
-
-        .madhyn-progress-track {
-          height: 4px;
-
-          flex: 1;
-
-          border-radius: 999px;
-
-          background: rgba(255,255,255,0.06);
-
-          overflow: hidden;
-        }
-
-        .madhyn-progress-fill {
-          height: 100%;
-
-          border-radius: inherit;
-
-          background:
-            linear-gradient(
-              90deg,
-              #777e86,
-              #f1f3f5
-            );
-        }
-
-        .madhyn-progress > span {
-          color: rgba(255,255,255,0.35);
-
-          font-size: 10px;
-          font-weight: 800;
-
-          width: 30px;
-        }
-
-        .madhyn-steps {
-          display: flex;
-          flex-direction: column;
-
-          gap: 8px;
-        }
-
-        .madhyn-step {
-          min-height: 50px;
-
-          display: grid;
-          grid-template-columns: 30px 1fr auto;
-
-          align-items: center;
-
-          gap: 12px;
-
-          padding:
-            9px
-            12px;
-
-          box-sizing: border-box;
-
-          border-radius: 12px;
-
-          background: rgba(255,255,255,0.022);
-
-          border:
-            1px solid
-            rgba(255,255,255,0.045);
-        }
-
-        .madhyn-step-active {
-          background: rgba(199,205,212,0.055);
-
-          border-color:
-            rgba(199,205,212,0.14);
-        }
-
-        .madhyn-step-icon {
-          width: 28px;
-          height: 28px;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          border-radius: 9px;
-
-          background: rgba(255,255,255,0.045);
-
-          color: #aeb5bd;
-
-          font-size: 13px;
-        }
-
-        .madhyn-step-complete {
-          color: #08090a;
-
-          background: #dce0e4;
-        }
-
-        .madhyn-step-name {
-          font-size: 13px;
-          font-weight: 650;
-
-          color: rgba(255,255,255,0.72);
-        }
-
-        .madhyn-step-status {
-          color: rgba(255,255,255,0.28);
-
-          font-size: 9px;
-          font-weight: 850;
           letter-spacing: 1px;
         }
 
-        .madhyn-status-active {
-          color: #e6e9ec;
+        .console-status {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          margin-left: auto;
+          color: rgba(255, 255, 255, 0.25);
+          font-family: monospace;
+          font-size: 8px;
+          letter-spacing: 1px;
         }
 
-        .madhyn-terminal {
-          margin-top: 18px;
+        .console-status i {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #eef0f2;
+          box-shadow: 0 0 10px rgba(238, 240, 242, 0.7);
+        }
 
-          padding:
-            15px
-            16px;
+        .console-main {
+          padding: 34px;
+        }
 
-          border-radius: 11px;
+        .console-mission {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 30px;
+        }
 
-          background: #050608;
+        .console-label {
+          margin-bottom: 9px;
+          color: rgba(255, 255, 255, 0.22);
+          font-family: monospace;
+          font-size: 8px;
+          letter-spacing: 1.7px;
+        }
 
-          border:
-            1px solid
-            rgba(255,255,255,0.06);
+        .console-mission h3 {
+          margin: 0;
+          font-size: clamp(22px, 3vw, 30px);
+          line-height: 1.1;
+          letter-spacing: -0.04em;
+        }
 
-          color: rgba(255,255,255,0.42);
+        .console-mission p {
+          max-width: 620px;
+          margin: 10px 0 0;
+          color: rgba(255, 255, 255, 0.3);
+          font-size: 12px;
+          line-height: 1.65;
+        }
 
-          font-family:
-            ui-monospace,
-            SFMono-Regular,
-            Menlo,
-            Monaco,
-            Consolas,
-            monospace;
+        .mission-id {
+          padding: 7px 10px;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          border-radius: 6px;
+          color: rgba(255, 255, 255, 0.3);
+          font-family: monospace;
+          font-size: 8px;
+        }
 
+        .console-progress {
+          margin-top: 30px;
+        }
+
+        .progress-heading {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 9px;
+          color: rgba(255, 255, 255, 0.22);
+          font-family: monospace;
+          font-size: 8px;
+          letter-spacing: 1px;
+        }
+
+        .progress-heading strong {
+          color: rgba(255, 255, 255, 0.6);
+        }
+
+        .progress-track {
+          height: 3px;
+          overflow: hidden;
+          border-radius: 99px;
+          background: rgba(255, 255, 255, 0.065);
+        }
+
+        .progress-track div {
+          height: 100%;
+          border-radius: inherit;
+          background: linear-gradient(90deg, #737b85, #f1f3f5);
+          box-shadow: 0 0 18px rgba(241, 243, 245, 0.25);
+        }
+
+        .console-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 8px;
+          margin-top: 20px;
+        }
+
+        .console-stage {
+          padding: 15px;
+          border: 1px solid rgba(255, 255, 255, 0.055);
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.018);
+        }
+
+        .console-stage.active {
+          border-color: rgba(199, 205, 212, 0.18);
+          background: rgba(199, 205, 212, 0.045);
+        }
+
+        .console-stage-top {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: rgba(255, 255, 255, 0.22);
+          font-family: monospace;
+          font-size: 7px;
+          letter-spacing: 1.1px;
+        }
+
+        .console-stage-top svg {
+          color: #dfe3e7;
           font-size: 11px;
-
-          text-align: left;
         }
 
-        .terminal-symbol {
-          color: #f1f3f5;
-
-          margin-right: 7px;
+        .console-stage strong {
+          display: block;
+          margin-top: 12px;
+          color: rgba(255, 255, 255, 0.57);
+          font-size: 12px;
         }
 
-        .terminal-command {
-          display: inline;
-        }
-
-        .terminal-cursor {
-          display: inline-block;
-
+        .active-dot,
+        .queued-dot {
           width: 6px;
-          height: 12px;
-
-          margin-left: 5px;
-
-          vertical-align: -2px;
-
-          background: rgba(241,243,245,0.65);
-
-          animation:
-            madhynBlink
-            1s
-            infinite;
+          height: 6px;
+          border-radius: 50%;
         }
 
-        @keyframes madhynBlink {
+        .active-dot {
+          background: #f1f3f5;
+          box-shadow: 0 0 10px rgba(241, 243, 245, 0.75);
+          animation: madhynPulse 1.5s infinite;
+        }
+
+        .queued-dot {
+          border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .console-terminal {
+          margin-top: 18px;
+          padding: 17px;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 10px;
+          background: #030405;
+          font-family: monospace;
+        }
+
+        .terminal-top {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 12px;
+          color: rgba(255, 255, 255, 0.2);
+          font-size: 7px;
+          letter-spacing: 1.4px;
+        }
+
+        .terminal-line {
+          display: flex;
+          align-items: center;
+          min-height: 24px;
+          gap: 8px;
+          color: rgba(255, 255, 255, 0.31);
+          font-size: 10px;
+        }
+
+        .terminal-line b {
+          color: #dce1e6;
+        }
+
+        .active-line {
+          color: rgba(255, 255, 255, 0.65);
+        }
+
+        .cursor {
+          width: 5px;
+          height: 11px;
+          margin-left: 1px;
+          background: rgba(255, 255, 255, 0.7);
+          animation: madhynBlink 1s step-end infinite;
+        }
+
+        /* ARCHITECTURE */
+
+        .architecture-section {
+          background:
+            radial-gradient(
+              ellipse at 50% 40%,
+              rgba(199, 205, 212, 0.022),
+              transparent 60%
+            );
+        }
+
+        .architecture {
+          width: min(800px, 100%);
+          margin: 60px auto 0;
+          padding: 42px 35px;
+          border: 1px solid rgba(255, 255, 255, 0.065);
+          border-radius: 22px;
+          background: rgba(255, 255, 255, 0.015);
+        }
+
+        .architecture-node {
+          width: min(430px, 100%);
+          margin: 0 auto;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          padding: 17px 19px;
+          border: 1px solid rgba(255, 255, 255, 0.075);
+          border-radius: 11px;
+          background: rgba(255, 255, 255, 0.025);
+        }
+
+        .architecture-node.core {
+          border-color: rgba(199, 205, 212, 0.19);
+          background: rgba(199, 205, 212, 0.045);
+          box-shadow: 0 0 60px rgba(199, 205, 212, 0.035);
+        }
+
+        .architecture-node.report {
+          border-color: rgba(199, 205, 212, 0.13);
+        }
+
+        .architecture-icon {
+          width: 35px;
+          height: 35px;
+          flex-shrink: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(199, 205, 212, 0.1);
+          border-radius: 9px;
+          background: rgba(199, 205, 212, 0.045);
+          color: #dfe3e7;
+        }
+
+        .architecture-node small,
+        .architecture-branch small {
+          display: block;
+          margin-bottom: 4px;
+          color: rgba(255, 255, 255, 0.2);
+          font-family: monospace;
+          font-size: 7px;
+          letter-spacing: 1.3px;
+        }
+
+        .architecture-node strong,
+        .architecture-branch strong {
+          display: block;
+          color: rgba(255, 255, 255, 0.67);
+          font-family: monospace;
+          font-size: 9px;
+          letter-spacing: 0.8px;
+        }
+
+        .architecture-node span,
+        .architecture-branch span {
+          display: block;
+          margin-top: 4px;
+          color: rgba(255, 255, 255, 0.27);
+          font-size: 10px;
+        }
+
+        .architecture-line {
+          width: 1px;
+          height: 35px;
+          margin: 0 auto;
+          background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.12),
+            rgba(255, 255, 255, 0.035)
+          );
+        }
+
+        .architecture-split {
+          position: relative;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 55px;
+          margin: 35px auto;
+        }
+
+        .architecture-split::before {
+          content: '';
+          position: absolute;
+          left: 25%;
+          right: 25%;
+          top: -18px;
+          height: 1px;
+          background: rgba(255, 255, 255, 0.08);
+        }
+
+        .architecture-branch {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 16px;
+          border: 1px solid rgba(255, 255, 255, 0.065);
+          border-radius: 10px;
+          background: rgba(255, 255, 255, 0.018);
+        }
+
+        .architecture-branch > svg {
+          flex-shrink: 0;
+          color: #c7cdd4;
+          font-size: 17px;
+        }
+
+        /* CAPABILITIES */
+
+        .capabilities-title {
+          margin: 25px 0 0;
+          font-size: clamp(44px, 5.8vw, 70px);
+          line-height: 0.96;
+          letter-spacing: -0.06em;
+          font-weight: 900;
+        }
+
+        .capability-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 14px;
+          margin-top: 55px;
+        }
+
+        .capability-card {
+          position: relative;
+          min-height: 290px;
+          overflow: hidden;
+          padding: 30px;
+          border: 1px solid rgba(255, 255, 255, 0.06);
+          border-radius: 18px;
+          background:
+            linear-gradient(
+              145deg,
+              rgba(255, 255, 255, 0.035),
+              rgba(255, 255, 255, 0.012)
+            );
+        }
+
+        .capability-icon {
+          width: 43px;
+          height: 43px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 23px;
+          border: 1px solid rgba(199, 205, 212, 0.11);
+          border-radius: 11px;
+          background: rgba(199, 205, 212, 0.05);
+          color: #e0e4e8;
+          font-size: 18px;
+        }
+
+        .capability-eyebrow {
+          margin-bottom: 9px;
+          color: rgba(255, 255, 255, 0.21);
+          font-family: monospace;
+          font-size: 8px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
+        }
+
+        .capability-card h3 {
+          max-width: 510px;
+          margin: 0 0 12px;
+          font-size: 22px;
+          line-height: 1.15;
+          letter-spacing: -0.03em;
+        }
+
+        .capability-card p {
+          max-width: 530px;
+          margin: 0;
+          color: rgba(255, 255, 255, 0.37);
+          font-size: 13px;
+          line-height: 1.7;
+        }
+
+        .capability-line {
+          position: absolute;
+          right: 30px;
+          bottom: 21px;
+          left: 30px;
+          height: 1px;
+          background: linear-gradient(
+            90deg,
+            rgba(199, 205, 212, 0.13),
+            transparent
+          );
+        }
+
+        /* REPORT */
+
+        .report-heading {
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 70px;
+          align-items: end;
+          margin-top: 25px;
+        }
+
+        .report-panel {
+          margin-top: 55px;
+          padding: 30px;
+          border: 1px solid rgba(255, 255, 255, 0.07);
+          border-radius: 18px;
+          background: rgba(255, 255, 255, 0.018);
+        }
+
+        .report-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+          padding-bottom: 22px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .report-header span {
+          display: block;
+          margin-bottom: 5px;
+          color: rgba(255, 255, 255, 0.2);
+          font-family: monospace;
+          font-size: 7px;
+          letter-spacing: 1.4px;
+        }
+
+        .report-header strong {
+          color: rgba(255, 255, 255, 0.65);
+          font-family: monospace;
+          font-size: 11px;
+          letter-spacing: 1px;
+        }
+
+        .report-success {
+          display: flex;
+          align-items: center;
+          gap: 7px;
+          color: rgba(255, 255, 255, 0.55);
+          font-family: monospace;
+          font-size: 8px;
+          letter-spacing: 1px;
+        }
+
+        .report-success svg {
+          color: #e6eaed;
+        }
+
+        .report-stats {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1px;
+          margin-top: 1px;
+          background: rgba(255, 255, 255, 0.055);
+        }
+
+        .report-stats > div {
+          padding: 25px 20px;
+          background: #060709;
+        }
+
+        .report-stats strong {
+          display: block;
+          color: rgba(255, 255, 255, 0.8);
+          font-family: monospace;
+          font-size: 25px;
+          letter-spacing: -0.05em;
+        }
+
+        .report-stats span {
+          display: block;
+          margin-top: 7px;
+          color: rgba(255, 255, 255, 0.2);
+          font-family: monospace;
+          font-size: 7px;
+          letter-spacing: 1px;
+        }
+
+        .report-summary {
+          display: flex;
+          align-items: flex-start;
+          gap: 13px;
+          margin-top: 18px;
+          padding: 17px;
+          border: 1px solid rgba(199, 205, 212, 0.08);
+          border-radius: 10px;
+          background: rgba(199, 205, 212, 0.025);
+        }
+
+        .report-summary > svg {
+          flex-shrink: 0;
+          margin-top: 2px;
+          color: #dfe3e7;
+        }
+
+        .report-summary strong {
+          color: rgba(255, 255, 255, 0.65);
+          font-size: 12px;
+        }
+
+        .report-summary p {
+          margin: 5px 0 0;
+          color: rgba(255, 255, 255, 0.3);
+          font-size: 11px;
+          line-height: 1.6;
+        }
+
+        /* FINAL */
+
+        .final-section {
+          position: relative;
+          z-index: 5;
+          padding: 155px 24px 130px;
+          text-align: center;
+        }
+
+        .final-section > div {
+          width: min(850px, 100%);
+          margin: 0 auto;
+        }
+
+        .final-icon {
+          width: 66px;
+          height: 66px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 0 auto 31px;
+          border: 1px solid rgba(199, 205, 212, 0.16);
+          border-radius: 50%;
+          background: rgba(199, 205, 212, 0.04);
+          color: #e4e8eb;
+          box-shadow:
+            0 0 0 11px rgba(199, 205, 212, 0.016),
+            0 0 55px rgba(199, 205, 212, 0.065);
+          font-size: 22px;
+        }
+
+        .final-section h2 {
+          margin: 22px 0 0;
+          font-size: clamp(47px, 7vw, 80px);
+          line-height: 0.94;
+          letter-spacing: -0.065em;
+          font-weight: 900;
+        }
+
+        .final-section h2 span {
+          color: rgba(255, 255, 255, 0.3);
+        }
+
+        .final-section p {
+          width: min(600px, 100%);
+          margin: 27px auto 35px;
+          color: rgba(255, 255, 255, 0.38);
+          font-size: 15px;
+          line-height: 1.7;
+        }
+
+        .final-actions {
+          display: flex;
+          justify-content: center;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        .primary-button,
+        .secondary-button {
+          min-height: 50px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 9px;
+          padding: 0 23px;
+          border-radius: 999px;
+          text-decoration: none;
+          font-size: 13px;
+          font-weight: 800;
+          transition:
+            transform 0.25s ease,
+            background 0.25s ease,
+            border-color 0.25s ease;
+        }
+
+        .primary-button {
+          color: #050608;
+          background: #f2f3f4;
+        }
+
+        .secondary-button {
+          color: rgba(255, 255, 255, 0.7);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          background: rgba(255, 255, 255, 0.035);
+        }
+
+        .primary-button:hover,
+        .secondary-button:hover {
+          transform: translateY(-2px);
+        }
+
+        .secondary-button:hover {
+          border-color: rgba(199, 205, 212, 0.22);
+          background: rgba(255, 255, 255, 0.055);
+        }
+
+        @keyframes madhynGradient {
+          0% {
+            background-position: 0% center;
+          }
+
+          100% {
+            background-position: 220% center;
+          }
+        }
+
+        @keyframes madhynPulse {
           0%,
-          45% {
+          100% {
             opacity: 1;
           }
 
-          46%,
-          100% {
+          50% {
+            opacity: 0.35;
+          }
+        }
+
+        @keyframes madhynBlink {
+          50% {
             opacity: 0;
           }
         }
 
-
-        /* ──────────────────────────────────────────────────────
-           SECTIONS
-           ────────────────────────────────────────────────────── */
-
-        .madhyn-section {
-          position: relative;
-
-          z-index: 10;
-
-          padding:
-            105px
-            0;
-        }
-
-        .madhyn-section-label {
-          display: inline-block;
-
-          margin-bottom: 16px;
-
-          padding:
-            5px
-            13px;
-
-          border-radius: 8px;
-
-          background:
-            rgba(199,205,212,0.07);
-
-          color: #bfc5cb;
-
-          font-size: 10px;
-          font-weight: 850;
-
-          letter-spacing: 2.5px;
-
-          text-transform: uppercase;
-        }
-
-        .madhyn-section-title {
-          max-width: 800px;
-
-          margin:
-            0
-            0
-            52px;
-
-          font-size:
-            clamp(36px, 5vw, 62px);
-
-          font-weight: 900;
-
-          letter-spacing: -0.055em;
-
-          line-height: 0.98;
-        }
-
-        .madhyn-muted {
-          color: rgba(255,255,255,0.4);
-        }
-
-
-        /* ──────────────────────────────────────────────────────
-           PIPELINE
-           ────────────────────────────────────────────────────── */
-
-        .madhyn-pipeline {
-          display: grid;
-
-          grid-template-columns:
-            repeat(3, 1fr);
-
-          gap: 14px;
-        }
-
-        .madhyn-pipeline-card {
-          min-height: 190px;
-
-          padding: 24px;
-
-          box-sizing: border-box;
-
-          border:
-            1px solid
-            rgba(255,255,255,0.07);
-
-          border-radius: 18px;
-
-          background:
-            rgba(255,255,255,0.025);
-
-          transition:
-            transform 0.25s ease,
-            border-color 0.25s ease,
-            background 0.25s ease;
-        }
-
-        .madhyn-pipeline-card:hover {
-          transform: translateY(-4px);
-
-          border-color:
-            rgba(199,205,212,0.18);
-
-          background:
-            rgba(255,255,255,0.04);
-        }
-
-        .madhyn-pipeline-top {
-          display: flex;
-
-          align-items: flex-start;
-
-          justify-content: space-between;
-
-          margin-bottom: 30px;
-        }
-
-        .madhyn-pipeline-icon {
-          width: 42px;
-          height: 42px;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          border-radius: 12px;
-
-          color: #e1e4e7;
-
-          background:
-            rgba(199,205,212,0.08);
-
-          border:
-            1px solid
-            rgba(199,205,212,0.1);
-        }
-
-        .madhyn-pipeline-number {
-          color: rgba(255,255,255,0.22);
-
-          font-size: 10px;
-          font-weight: 850;
-
-          letter-spacing: 2px;
-        }
-
-        .madhyn-pipeline-card h3 {
-          margin:
-            0
-            0
-            8px;
-
-          font-size: 20px;
-          font-weight: 850;
-
-          letter-spacing: -0.025em;
-        }
-
-        .madhyn-pipeline-card p {
-          margin: 0;
-
-          color: rgba(255,255,255,0.4);
-
-          font-size: 14px;
-
-          line-height: 1.6;
-        }
-
-
-        /* ──────────────────────────────────────────────────────
-           FEATURES
-           ────────────────────────────────────────────────────── */
-
-        .madhyn-features-section {
-          padding-top: 20px;
-        }
-
-        .madhyn-feature-grid {
-          display: grid;
-
-          grid-template-columns:
-            repeat(4, 1fr);
-
-          gap: 16px;
-        }
-
-        .madhyn-feature-wide {
-          grid-column: span 4;
-        }
-
-        .madhyn-feature-half {
-          grid-column: span 2;
-        }
-
-        .madhyn-feature-card {
-          min-height: 210px;
-        }
-
-        .madhyn-feature-icon {
-          width: 44px;
-          height: 44px;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          margin-bottom: 22px;
-
-          border-radius: 12px;
-
-          background:
-            rgba(199,205,212,0.08);
-
-          border:
-            1px solid
-            rgba(199,205,212,0.1);
-
-          color: #e1e4e7;
-
-          font-size: 19px;
-        }
-
-        .madhyn-feature-card h3 {
-          margin:
-            0
-            0
-            11px;
-
-          font-size: 20px;
-          font-weight: 850;
-
-          letter-spacing: -0.025em;
-        }
-
-        .madhyn-feature-card p {
-          max-width: 850px;
-
-          margin: 0;
-
-          color: rgba(255,255,255,0.45);
-
-          font-size: 14px;
-
-          line-height: 1.65;
-        }
-
-
-        /* ──────────────────────────────────────────────────────
-           IDEA SECTION
-           ────────────────────────────────────────────────────── */
-
-        .madhyn-idea-section {
-          padding-top: 40px;
-        }
-
-        .madhyn-idea-grid {
-          display: grid;
-
-          grid-template-columns:
-            1.15fr
-            0.85fr;
-
-          min-height: 480px;
-        }
-
-        .madhyn-idea-copy {
-          padding: 58px 50px;
-
-          border-right:
-            1px solid
-            rgba(255,255,255,0.06);
-        }
-
-        .madhyn-idea-copy h2 {
-          margin:
-            0
-            0
-            25px;
-
-          font-size:
-            clamp(34px, 4vw, 52px);
-
-          font-weight: 900;
-
-          letter-spacing: -0.05em;
-
-          line-height: 1.02;
-        }
-
-        .madhyn-idea-copy h2 span {
-          color: rgba(255,255,255,0.4);
-        }
-
-        .madhyn-idea-copy p {
-          max-width: 650px;
-
-          margin: 0;
-
-          color: rgba(255,255,255,0.43);
-
-          font-size: 16px;
-
-          line-height: 1.75;
-        }
-
-        .madhyn-principles {
-          padding: 38px;
-
-          display: flex;
-
-          flex-direction: column;
-
-          justify-content: center;
-
-          gap: 12px;
-        }
-
-        .madhyn-principle {
-          display: grid;
-
-          grid-template-columns:
-            44px
-            1fr;
-
-          gap: 15px;
-
-          padding: 18px;
-
-          border-radius: 15px;
-
-          background:
-            rgba(255,255,255,0.025);
-
-          border:
-            1px solid
-            rgba(255,255,255,0.055);
-        }
-
-        .madhyn-principle-icon {
-          width: 42px;
-          height: 42px;
-
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          border-radius: 11px;
-
-          color: #dfe3e6;
-
-          background:
-            rgba(199,205,212,0.08);
-        }
-
-        .madhyn-principle h3 {
-          margin:
-            0
-            0
-            5px;
-
-          font-size: 16px;
-          font-weight: 800;
-        }
-
-        .madhyn-principle p {
-          margin: 0;
-
-          color: rgba(255,255,255,0.38);
-
-          font-size: 12px;
-
-          line-height: 1.55;
-        }
-
-
-        /* ──────────────────────────────────────────────────────
-           FINAL
-           ────────────────────────────────────────────────────── */
-
-        .madhyn-final-section {
-          padding-top: 30px;
-          padding-bottom: 140px;
-        }
-
-        .madhyn-final-container {
-          width: min(900px, calc(100% - 48px));
-
-          margin: 0 auto;
-        }
-
-        .madhyn-final-card {
-          padding:
-            82px
-            40px;
-
-          text-align: center;
-        }
-
-        .madhyn-command-icon {
-          width: 54px;
-          height: 54px;
-
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-
-          margin-bottom: 25px;
-
-          border-radius: 16px;
-
-          background: #f1f3f5;
-
-          color: #08090a;
-
-          font-size: 23px;
-        }
-
-        .madhyn-final-card h2 {
-          margin:
-            0
-            0
-            20px;
-
-          font-size:
-            clamp(38px, 5vw, 62px);
-
-          font-weight: 900;
-
-          letter-spacing: -0.055em;
-
-          line-height: 0.98;
-        }
-
-        .madhyn-final-card h2 span {
-          color: rgba(255,255,255,0.38);
-        }
-
-        .madhyn-final-card p {
-          max-width: 620px;
-
-          margin:
-            0
-            auto
-            34px;
-
-          color: rgba(255,255,255,0.42);
-
-          font-size: 16px;
-
-          line-height: 1.7;
-        }
-
-
-        /* ══════════════════════════════════════════════════════
-           TABLET
-           ══════════════════════════════════════════════════════ */
+        /* TABLET */
 
         @media (max-width: 900px) {
-
-          .madhyn-hero {
-            min-height: auto;
-
-            padding-top: 130px;
+          .section-container {
+            width: min(100% - 36px, 720px);
           }
 
-          .madhyn-pipeline {
-            grid-template-columns:
-              repeat(2, 1fr);
+          .section-heading,
+          .report-heading {
+            grid-template-columns: 1fr;
+            gap: 22px;
           }
 
-          .madhyn-feature-grid {
-            grid-template-columns:
-              repeat(2, 1fr);
+          .pipeline {
+            grid-template-columns: repeat(2, 1fr);
           }
 
-          .madhyn-feature-wide {
-            grid-column: span 2;
+          .console-grid {
+            grid-template-columns: repeat(2, 1fr);
           }
 
-          .madhyn-feature-half {
-            grid-column: span 1;
-          }
-
-          .madhyn-idea-grid {
+          .capability-grid {
             grid-template-columns: 1fr;
           }
 
-          .madhyn-idea-copy {
-            border-right: none;
-
-            border-bottom:
-              1px solid
-              rgba(255,255,255,0.06);
+          .report-stats {
+            grid-template-columns: repeat(2, 1fr);
           }
 
+          .architecture-split {
+            gap: 20px;
+          }
         }
 
-
-        /* ══════════════════════════════════════════════════════
-           PHONE
-           ══════════════════════════════════════════════════════ */
+        /* PHONE */
 
         @media (max-width: 600px) {
-
-          .madhyn-container {
-            width:
-              calc(100% - 32px);
+          .section-container {
+            width: calc(100% - 32px);
           }
 
-
-          /* HERO */
-
-          .madhyn-hero {
-            padding:
-              115px
-              16px
-              70px;
+          .learn-hero {
+            min-height: 84vh;
+            padding: 125px 18px 75px;
           }
 
-          .madhyn-eyebrow {
-            max-width: 92%;
-
-            padding:
-              7px
-              12px;
-
-            font-size: 9px;
-
-            letter-spacing: 1.4px;
-
-            text-align: center;
+          .learn-hero h1 {
+            margin-top: 24px;
+            font-size: clamp(46px, 13.5vw, 72px);
+            line-height: 0.96;
           }
 
-          .madhyn-title {
-            font-size:
-              clamp(55px, 18vw, 92px);
-
-            letter-spacing: -0.075em;
-
-            margin-bottom: 22px;
+          .hero-copy {
+            margin-top: 22px;
+            font-size: 13px;
+            line-height: 1.7;
           }
 
-          .madhyn-tagline {
-            font-size:
-              clamp(27px, 8vw, 40px);
-
-            line-height: 1.04;
-
-            max-width: 360px;
-          }
-
-          .madhyn-hero-description {
-            max-width: 360px;
-
-            font-size: 15px;
-
-            line-height: 1.65;
-
-            margin-bottom: 32px;
-          }
-
-          .madhyn-hero-actions {
-            width: 100%;
-
-            flex-direction: column;
-
-            gap: 10px;
-          }
-
-          .madhyn-primary-button,
-          .madhyn-secondary-button {
-            width: 100%;
-
-            max-width: 340px;
-
-            min-height: 51px;
-
-            padding:
-              14px
-              20px;
-          }
-
-
-          /* CONSOLE */
-
-          .madhyn-console-wrapper {
-            margin-top: 48px;
-
-            width: 100%;
-          }
-
-          .madhyn-console-header {
-            height: 46px;
-
-            grid-template-columns:
-              auto
-              1fr
-              auto;
-
-            padding:
-              0
-              12px;
-          }
-
-          .madhyn-console-title {
-            justify-self: center;
-
-            font-size: 8px;
-
-            letter-spacing: 1.1px;
-          }
-
-          .madhyn-console-status {
-            font-size: 7px;
-          }
-
-          .madhyn-window-dots span {
-            width: 6px;
-            height: 6px;
-          }
-
-          .madhyn-console-body {
-            padding: 18px 14px;
-          }
-
-          .madhyn-console-top {
-            margin-bottom: 18px;
-
-            gap: 10px;
-          }
-
-          .madhyn-console-label {
-            font-size: 8px;
-
-            letter-spacing: 1.4px;
-          }
-
-          .madhyn-console-mission {
-            font-size: 17px;
-
-            line-height: 1.2;
-          }
-
-          .madhyn-mission-id {
-            font-size: 8px;
-          }
-
-          .madhyn-step {
-            min-height: 46px;
-
-            grid-template-columns:
-              27px
-              minmax(0, 1fr)
-              auto;
-
+          .hero-meta {
+            margin-top: 28px;
             gap: 8px;
-
-            padding:
-              8px;
-          }
-
-          .madhyn-step-icon {
-            width: 27px;
-            height: 27px;
-
-            font-size: 11px;
-          }
-
-          .madhyn-step-name {
-            font-size: 11px;
-          }
-
-          .madhyn-step-status {
             font-size: 7px;
-
-            letter-spacing: 0.7px;
           }
 
-          .madhyn-terminal {
-            overflow: hidden;
-
-            white-space: nowrap;
-
-            font-size: 9px;
-
-            padding:
-              12px;
+          .hero-meta i {
+            display: none;
           }
 
-
-          /* SECTIONS */
-
-          .madhyn-section {
-            padding:
-              75px
-              0;
+          .divider {
+            width: calc(100% - 32px);
           }
 
-          .madhyn-section-title {
-            font-size:
-              clamp(34px, 10vw, 47px);
-
-            line-height: 1;
-
-            margin-bottom: 35px;
+          .section {
+            padding: 90px 0;
           }
 
-          .madhyn-section-label {
-            font-size: 8px;
-
-            letter-spacing: 2px;
-
-            padding:
-              5px
-              10px;
+          .section-heading {
+            margin-top: 22px;
           }
 
+          .section-heading h2,
+          .report-heading h2,
+          .capabilities-title {
+            font-size: clamp(40px, 11.5vw, 54px);
+          }
 
-          /* PIPELINE */
+          .section-heading p,
+          .report-heading p {
+            font-size: 13px;
+          }
 
-          .madhyn-pipeline {
+          .pipeline {
             grid-template-columns: 1fr;
+            margin-top: 40px;
+          }
 
+          .pipeline-card {
+            min-height: auto;
+            padding: 22px;
+          }
+
+          .console-wrapper {
+            margin-top: 40px;
+          }
+
+          .console-header {
+            padding: 0 13px;
+          }
+
+          .console-controls {
+            width: auto;
+            margin-right: 12px;
+          }
+
+          .console-title {
+            font-size: 7px;
+          }
+
+          .console-status {
+            display: none;
+          }
+
+          .console-main {
+            padding: 22px;
+          }
+
+          .console-mission {
+            flex-direction: column;
+            gap: 13px;
+          }
+
+          .console-mission h3 {
+            font-size: 21px;
+          }
+
+          .console-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .console-stage {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+          }
+
+          .console-stage strong {
+            margin-top: 0;
+          }
+
+          .console-terminal {
+            overflow-x: auto;
+          }
+
+          .terminal-line {
+            white-space: nowrap;
+            font-size: 9px;
+          }
+
+          .architecture {
+            margin-top: 42px;
+            padding: 25px 14px;
+          }
+
+          .architecture-split {
+            grid-template-columns: 1fr;
             gap: 10px;
           }
 
-          .madhyn-pipeline-card {
+          .architecture-split::before {
+            display: none;
+          }
+
+          .architecture-branch {
+            width: 100%;
+          }
+
+          .capability-grid {
+            margin-top: 40px;
+          }
+
+          .capability-card {
             min-height: auto;
-
-            padding: 20px;
+            padding: 25px;
           }
 
-          .madhyn-pipeline-top {
-            margin-bottom: 22px;
+          .report-panel {
+            margin-top: 40px;
+            padding: 22px;
           }
 
-          .madhyn-pipeline-card h3 {
-            font-size: 18px;
+          .report-header {
+            align-items: flex-start;
+            flex-direction: column;
           }
 
-          .madhyn-pipeline-card p {
-            font-size: 13px;
+          .report-stats {
+            grid-template-columns: 1fr 1fr;
           }
 
-
-          /* FEATURES */
-
-          .madhyn-features-section {
-            padding-top: 10px;
+          .report-stats > div {
+            padding: 20px 15px;
           }
 
-          .madhyn-feature-grid {
-            grid-template-columns: 1fr;
-
-            gap: 12px;
+          .report-stats strong {
+            font-size: 21px;
           }
 
-          .madhyn-feature-wide,
-          .madhyn-feature-half {
-            grid-column: span 1;
+          .report-summary {
+            padding: 14px;
           }
 
-          .madhyn-feature-card {
-            min-height: 0;
+          .final-section {
+            padding: 110px 18px;
           }
 
-          .madhyn-feature-icon {
-            margin-bottom: 18px;
+          .final-section h2 {
+            font-size: clamp(43px, 12.5vw, 63px);
           }
 
-          .madhyn-feature-card h3 {
-            font-size: 18px;
-
-            line-height: 1.2;
+          .final-actions {
+            flex-direction: column;
           }
 
-          .madhyn-feature-card p {
-            font-size: 13px;
+          .primary-button,
+          .secondary-button {
+            width: 100%;
           }
-
-
-          /* IDEA */
-
-          .madhyn-idea-grid {
-            display: block;
-          }
-
-          .madhyn-idea-copy {
-            padding:
-              34px
-              24px;
-          }
-
-          .madhyn-idea-copy h2 {
-            font-size:
-              clamp(31px, 9vw, 43px);
-
-            line-height: 1.02;
-          }
-
-          .madhyn-idea-copy p {
-            font-size: 14px;
-          }
-
-          .madhyn-principles {
-            padding:
-              18px;
-          }
-
-          .madhyn-principle {
-            grid-template-columns:
-              38px
-              minmax(0, 1fr);
-
-            padding:
-              15px;
-
-            gap: 12px;
-          }
-
-          .madhyn-principle-icon {
-            width: 38px;
-            height: 38px;
-          }
-
-          .madhyn-principle h3 {
-            font-size: 15px;
-          }
-
-          .madhyn-principle p {
-            font-size: 11px;
-          }
-
-
-          /* FINAL */
-
-          .madhyn-final-section {
-            padding-top: 0;
-
-            padding-bottom: 90px;
-          }
-
-          .madhyn-final-container {
-            width:
-              calc(100% - 32px);
-          }
-
-          .madhyn-final-card {
-            padding:
-              58px
-              22px;
-          }
-
-          .madhyn-final-card h2 {
-            font-size:
-              clamp(36px, 10vw, 48px);
-          }
-
-          .madhyn-final-card p {
-            font-size: 14px;
-
-            line-height: 1.65;
-          }
-
         }
-
-
-        /* ══════════════════════════════════════════════════════
-           VERY SMALL PHONES
-           ══════════════════════════════════════════════════════ */
 
         @media (max-width: 380px) {
-
-          .madhyn-hero {
-            padding-left: 12px;
-            padding-right: 12px;
+          .section-container {
+            width: calc(100% - 26px);
           }
 
-          .madhyn-title {
-            font-size: 53px;
+          .learn-hero {
+            padding-left: 14px;
+            padding-right: 14px;
           }
 
-          .madhyn-console-title {
-            font-size: 7px;
+          .learn-hero h1 {
+            font-size: 44px;
           }
 
-          .madhyn-console-status {
-            display: none;
-          }
-
-          .madhyn-step-status {
-            display: none;
-          }
-
-          .madhyn-terminal {
+          .hero-eyebrow {
             font-size: 8px;
+            letter-spacing: 1.2px;
           }
 
-          .madhyn-final-card {
-            padding:
-              52px
-              18px;
+          .console-main {
+            padding: 18px;
           }
 
+          .capability-card {
+            padding: 22px;
+          }
+
+          .report-panel {
+            padding: 17px;
+          }
         }
-
-      `}</style>
-
-    </div>
+      `}
+      </style>
+    </main>
   );
 }
