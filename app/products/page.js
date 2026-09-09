@@ -90,6 +90,21 @@ const PRODUCTS = [
     cta: 'Explore Venava',
     ctaIcon: <FiArrowRight />,
   },
+{
+  id: 'madhyn',
+  category: 'Autonomous Developer',
+  name: 'MADHYN',
+  tagline: 'Your command center for autonomous development.',
+  desc: 'An autonomous developer system that understands your project, plans work, executes changes, verifies results, and reports what it accomplished — turning software development into a mission you can command.',
+  tags: ['Autonomous development', 'Project intelligence', 'Mission control'],
+  color: '#C7CDD4',
+  accent: '#737B85',
+  badge: 'In development',
+  badgeDot: '#F1F3F5',
+  href: '/products/madhyn',
+  cta: 'Explore MADHYN',
+  ctaIcon: <FiArrowRight />,
+},
 ];
 
 /* ─── Product Card ────────────────────────────────────────────── */
