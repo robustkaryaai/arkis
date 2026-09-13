@@ -42,7 +42,7 @@ const ARCH_FEATURES = [
   {
     icon: <FiCheckCircle size={28} />,
     title: 'Verification',
-    desc: 'Code isn't done just because it was generated. MADHYN verifies its changes by running tests, checking syntax, and observing the environment to ensure the software actually works.'
+    desc: "Code isn't done just because it was generated. MADHYN verifies its changes by running tests, checking syntax, and observing the environment to ensure the software actually works."
   }
 ];
 
