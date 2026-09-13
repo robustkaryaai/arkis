@@ -51,8 +51,8 @@ export default function MadhynPage() {
           </motion.div>
 
           <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(48px, 8vw, 96px)', fontWeight: 900, letterSpacing: '-0.05em', lineHeight: 1.05, marginBottom: 28, textShadow: '0 10px 30px rgba(0,0,0,0.5)' }}>
-            Build software.<br />
-            Let <FlowText gradient={`linear-gradient(90deg, ${MC}, #fff, ${MCA}, ${MC})`}>MADHYN</FlowText> handle the rest.
+            Imagine it.<br />
+            Let <FlowText gradient={`linear-gradient(90deg, ${MC}, #fff, ${MCA}, ${MC})`}>MADHYN</FlowText> build it.
           </motion.h1>
 
           <motion.p variants={fadeUp(0.2)} style={{ fontSize: 'clamp(18px, 2.5vw, 22px)', color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, marginBottom: 48, maxWidth: 720, margin: '0 auto 48px' }}>
@@ -79,9 +79,9 @@ export default function MadhynPage() {
             Modern AI coding tools still leave you orchestrating every step. You prompt. You inspect. You copy. You test. You debug. You repeat. MADHYN compresses that loop.
           </p>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 24 }}>
             {['You Prompt', 'You Inspect', 'You Test', 'You Debug'].map((step, i) => (
-              <Card3D key={i} orbColor={`${MC}22`} style={{ padding: '32px 24px', textAlign: 'center', opacity: 0.5 }}>
+              <Card3D key={i} orbColor={`${MC}22`} style={{ padding: '32px 24px', textAlign: 'center', opacity: 0.5, flex: '1 1 200px', maxWidth: 280 }}>
                 <div style={{ textDecoration: 'line-through', fontSize: 18, fontWeight: 800 }}>{step}</div>
               </Card3D>
             ))}

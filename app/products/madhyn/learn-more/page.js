@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FiArrowRight, FiDatabase, FiBox, FiGitBranch, FiCpu, FiMonitor } from 'react-icons/fi';
+import { FiArrowRight, FiDatabase, FiBox, FiGitBranch, FiCpu, FiMonitor, FiTerminal, FiCheckCircle } from 'react-icons/fi';
 import Navbar from '@/components/Navbar';
 import ChatWidget from '@/components/ChatWidget';
 import Footer from '@/components/Footer';
@@ -15,24 +15,34 @@ const BG = '#010104';
 
 const ARCH_FEATURES = [
   {
-    icon: <FiDatabase size={32} />,
+    icon: <FiDatabase size={28} />,
     title: 'Project Memory & Understanding',
-    desc: 'MADHYN builds a living context of your project. It understands folder structures, existing architecture, dependencies, and important design decisions. This prevents the AI from repeatedly rediscovering the same information, making it more contextually useful over time.'
+    desc: 'MADHYN builds a living context of your project before acting. It understands folder structures, existing architecture, dependencies, and important design decisions. This prevents the AI from repeatedly rediscovering the same information, making it vastly more contextually useful over time than a standard chatbot.'
   },
   {
-    icon: <FiCpu size={32} />,
+    icon: <FiCpu size={28} />,
     title: 'Model Freedom',
-    desc: 'The product is the orchestration, environment, tools, and security — not the underlying LLM. MADHYN treats the AI model as an interchangeable engine. Switch between local models for privacy, coding-focused models for complex logic, or fast models for quick tasks.'
+    desc: 'The product is the orchestration, environment, tools, and security — not the underlying LLM. MADHYN treats the AI model as an interchangeable engine. Switch between local models for absolute privacy, heavy reasoning models for complex logic, or fast models for quick iterative tasks.'
   },
   {
-    icon: <FiBox size={32} />,
+    icon: <FiBox size={28} />,
     title: 'Extensible Tool System',
-    desc: 'An extensible plugin architecture allows MADHYN to interact with the real world. Capabilities include secure file operations, terminal execution, web research, documentation search, testing frameworks, and custom internal plugins.'
+    desc: 'An extensible plugin architecture allows MADHYN to interact with the real world safely. Capabilities include secure file operations, terminal execution, web research, documentation search, automated testing frameworks, and custom internal plugins.'
   },
   {
-    icon: <FiGitBranch size={32} />,
+    icon: <FiGitBranch size={28} />,
     title: 'Repository Awareness',
-    desc: 'MADHYN understands repositories as actual development environments. It natively works with local folders, Git branches, diffs, and project history, allowing you to ask it to "fix the auth flow in this branch" without needing to paste a single line of code.'
+    desc: 'MADHYN understands repositories as actual development environments. It natively works with local folders, Git branches, diffs, and project history, allowing you to ask it to "fix the auth flow in this branch" without needing to manually paste a single line of code.'
+  },
+  {
+    icon: <FiTerminal size={28} />,
+    title: 'Autonomous Execution',
+    desc: 'Instead of just generating code blocks for you to copy and paste, MADHYN actively runs commands, modifies files, tests its own work, and investigates failures. You give the objective, it handles the execution.'
+  },
+  {
+    icon: <FiCheckCircle size={28} />,
+    title: 'Verification',
+    desc: 'Code isn't done just because it was generated. MADHYN verifies its changes by running tests, checking syntax, and observing the environment to ensure the software actually works.'
   }
 ];
 
@@ -55,19 +65,19 @@ export default function MadhynLearnMore() {
             <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1, color: '#fff', textTransform: 'uppercase' }}>Technical Deep Dive</span>
           </motion.div>
           
-          <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, marginBottom: 24 }}>
-            Engineering + Intelligence + <FlowText gradient={`linear-gradient(90deg, ${MC}, ${MCA})`}>Control.</FlowText>
+          <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1.1, marginBottom: 24, paddingBottom: '0.15em' }}>
+            Engineering + Intelligence + <br/><FlowText gradient={`linear-gradient(90deg, ${MC}, ${MCA})`}>Control.</FlowText>
           </motion.h1>
           
           <motion.p variants={fadeUp(0.2)} style={{ fontSize: 20, color: 'rgba(255,255,255,0.5)', lineHeight: 1.6, maxWidth: 680, margin: '0 auto' }}>
-            A closer look at the architecture that makes autonomous development possible without sacrificing developer control.
+            MADHYN is NOT another VS Code clone or simple AI code editor. It is an autonomous software engineer operating inside a controlled development environment.
           </motion.p>
         </motion.div>
       </section>
 
       {/* ── ARCHITECTURE FEATURES ── */}
       <section style={{ position: 'relative', zIndex: 10, padding: '80px 5% 120px' }}>
-        <div style={{ maxWidth: 1000, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 40 }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 32 }}>
           {ARCH_FEATURES.map((feat, i) => (
             <motion.div 
               key={i}
@@ -76,14 +86,12 @@ export default function MadhynLearnMore() {
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              <Card3D orbColor={`${MC}22`} style={{ padding: '40px 48px', display: 'flex', gap: 32, alignItems: 'flex-start' }}>
-                <div style={{ width: 64, height: 64, borderRadius: 16, background: 'rgba(148,163,184,0.05)', border: `1px solid ${MC}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: MC, flexShrink: 0 }}>
+              <Card3D orbColor={`${MC}22`} style={{ padding: '36px 32px', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                <div style={{ width: 56, height: 56, borderRadius: 16, background: 'rgba(148,163,184,0.05)', border: `1px solid ${MC}40`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: MC, marginBottom: 24 }}>
                   {feat.icon}
                 </div>
-                <div>
-                  <h3 style={{ fontSize: 24, fontWeight: 800, marginBottom: 12, color: '#fff' }}>{feat.title}</h3>
-                  <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.6)', lineHeight: 1.7 }}>{feat.desc}</p>
-                </div>
+                <h3 style={{ fontSize: 22, fontWeight: 800, marginBottom: 12, color: '#fff', lineHeight: 1.3 }}>{feat.title}</h3>
+                <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.6)', lineHeight: 1.65, marginTop: 'auto' }}>{feat.desc}</p>
               </Card3D>
             </motion.div>
           ))}
@@ -92,8 +100,8 @@ export default function MadhynLearnMore() {
 
       {/* ── CTA ── */}
       <section style={{ position: 'relative', zIndex: 10, padding: '0 5% 140px', textAlign: 'center' }}>
-        <Link href="/products" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '16px 36px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 16, textDecoration: 'none' }}>
-          Back to Products <FiArrowRight />
+        <Link href="/products/madhyn" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '16px 36px', borderRadius: 99, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', fontWeight: 700, fontSize: 16, textDecoration: 'none' }}>
+          Back to MADHYN <FiArrowRight />
         </Link>
       </section>
 
