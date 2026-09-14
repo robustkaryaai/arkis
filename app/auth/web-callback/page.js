@@ -34,21 +34,21 @@ function WebCallbackClient() {
         if (data || (token && userId)) {
           const email = data?.email || '';
           const username = data?.name || '';
-          let nextUrl = redirect.startsWith('rkphone://') ? redirect : (redirect.startsWith('/') ? redirect : `/${redirect}`);
+          let nextUrl = (redirect.startsWith('rkphone://') || redirect.startsWith('rk-ai://')) ? redirect : (redirect.startsWith('/') ? redirect : `/${redirect}`);
 
-          if (nextUrl.includes('/desktop/oauth-success') || nextUrl.startsWith('rkphone://')) {
-            const urlObj = new URL(nextUrl, nextUrl.startsWith('rkphone://') ? undefined : window.location.origin);
+          if (nextUrl.includes('/desktop/oauth-success') || (nextUrl.startsWith('rkphone://') || nextUrl.startsWith('rk-ai://'))) {
+            const urlObj = new URL(nextUrl, (nextUrl.startsWith('rkphone://') || nextUrl.startsWith('rk-ai://')) ? undefined : window.location.origin);
             if (email) urlObj.searchParams.set('email', email);
             if (username) urlObj.searchParams.set('username', username);
             if (slug) urlObj.searchParams.set('slug', slug);
             if (plan) urlObj.searchParams.set('plan', plan);
             
-            if (nextUrl.startsWith('rkphone://')) {
+            if ((nextUrl.startsWith('rkphone://') || nextUrl.startsWith('rk-ai://'))) {
               urlObj.searchParams.set('token', token);
               urlObj.searchParams.set('userId', userId);
             }
             
-            nextUrl = nextUrl.startsWith('rkphone://') ? urlObj.href : (urlObj.pathname + urlObj.search);
+            nextUrl = (nextUrl.startsWith('rkphone://') || nextUrl.startsWith('rk-ai://')) ? urlObj.href : (urlObj.pathname + urlObj.search);
             window.location.href = nextUrl; // Force hard redirect
           } else {
             router.replace(nextUrl);
@@ -59,7 +59,7 @@ function WebCallbackClient() {
         }
       } catch (_) {
         if (token && userId) {
-          let fallbackUrl = redirect.startsWith('rkphone://') ? redirect : (redirect.startsWith('/') ? redirect : `/${redirect}`);
+          let fallbackUrl = (redirect.startsWith('rkphone://') || redirect.startsWith('rk-ai://')) ? redirect : (redirect.startsWith('/') ? redirect : `/${redirect}`);
           if (fallbackUrl.startsWith('rkphone://')) {
             const urlObj = new URL(fallbackUrl);
             urlObj.searchParams.set('token', token);
