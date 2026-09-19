@@ -223,7 +223,7 @@ export default function ChatWidget() {
                                     letterSpacing: '0.5px', textTransform: 'uppercase',
                                     transition: 'all 0.2s ease',
                                 }}
-                                onMouseEnter={e => { e.currentTarget.style.color = '#ef4444; e.currentTarget.style.borderColor = 'rgba(239,68,68,0.4)'; e.currentTarget.style.background = 'rgba(239,68,68,0.1)'; }}
+                                onMouseEnter={e => { e.currentTarget.style.color = '#ef4444'; e.currentTarget.style.borderColor = 'rgba(239,68,68,0.4)'; e.currentTarget.style.background = 'rgba(239,68,68,0.1)'; }}
                                 onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.5)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'; e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; }}
                             >
                                 Clear
