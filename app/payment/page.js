@@ -666,8 +666,34 @@ function PaymentPageContent() {
                                         borderRadius: '24px', padding: '40px', maxWidth: '440px', width: '100%',
                                         boxShadow: '0 40px 80px rgba(0,0,0,0.8)', animation: 'floatUp 0.3s ease'
                                     }}>
+                                        <style>{`
+                                            @keyframes pay-warn-pulse { 0%,100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(251,191,36,0.0)); } 50% { transform: scale(1.05); filter: drop-shadow(0 0 18px rgba(251,191,36,0.6)); } }
+                                            @keyframes pay-warn-shake { 0%,100% { transform: translateX(0); } 20% { transform: translateX(-2px); } 40% { transform: translateX(2px); } 60% { transform: translateX(-1.5px); } 80% { transform: translateX(1.5px); } }
+                                        `}</style>
                                         <div style={{ textAlign: 'center', marginBottom: '24px' }}>
-                                            <div style={{ fontSize: '40px', marginBottom: '12px' }}>⚠️</div>
+                                            <div style={{ display:'inline-block', width:'56px', height:'56px', position:'relative', marginBottom:'12px', animation:'pay-warn-shake 2.4s ease-in-out infinite' }}>
+                                                <div style={{
+                                                    position:'absolute', inset:0,
+                                                    clipPath:'polygon(50% 4%, 96% 88%, 4% 88%)',
+                                                    background:'linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%)',
+                                                    animation:'pay-warn-pulse 1.8s ease-in-out infinite',
+                                                }} />
+                                                <div style={{
+                                                    position:'absolute', inset:'10% 14% 16% 14%',
+                                                    clipPath:'polygon(50% 8%, 92% 86%, 8% 86%)',
+                                                    background:'rgba(10,10,18,0.92)',
+                                                }} />
+                                                <div style={{
+                                                    position:'absolute', left:'50%', top:'52%', transform:'translate(-50%, -50%)',
+                                                    width:'5px', height:'18px', borderRadius:'2px',
+                                                    background:'linear-gradient(180deg, #fbbf24, #f59e0b)',
+                                                }} />
+                                                <div style={{
+                                                    position:'absolute', left:'50%', top:'74%', transform:'translate(-50%, -50%)',
+                                                    width:'5px', height:'5px', borderRadius:'50%',
+                                                    background:'#fbbf24',
+                                                }} />
+                                            </div>
                                             <h3 style={{ fontSize: '20px', fontWeight: '900', marginBottom: '8px' }}>Confirm Downgrade</h3>
                                             <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: '13px', lineHeight: 1.6 }}>
                                                 You are about to downgrade from <strong style={{ color: pal.c1 }}>{currentPlanId?.toUpperCase()}</strong> to <strong style={{ color: '#94a3b8' }}>{activePlan.name}</strong>. This will take effect immediately.

@@ -234,18 +234,31 @@ export default function NeytreyaLearnMore() {
                   {[
                     { model: 'qwen3-vl:2b', ram: '1 GB+', size: '~1.6 GB', note: 'Low-end / 4 GB RAM machines' },
                     { model: 'qwen3-vl:4b', ram: '4 GB+', size: '~3.2 GB', note: 'Mid-range machines' },
-                    { model: 'qwen3-vl:8b', ram: '8 GB+', size: '~6.1 GB', note: '✅ Recommended (16 GB RAM)' },
+                    {model: 'qwen3-vl:8b', ram: '8 GB+', size: '~6.1 GB', note: '__RECOMMENDED_MARK__ (16 GB RAM)'},
                     { model: 'qwen3-vl:30b', ram: '22 GB+', size: '~20 GB', note: 'High-end / M3 Max' },
-                  ].map((m) => (
+                  ].map((m) => {
+                    const isRec = m.note.startsWith('__RECOMMENDED_MARK__');
+                    const cleanNote = isRec ? m.note.replace('__RECOMMENDED_MARK__ ', '') : m.note;
+                    return (
                     <div key={m.model} style={{ display: 'grid', gridTemplateColumns: '1fr 60px 72px', gap: 8, padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.05)', alignItems: 'center' }}>
                       <div>
                         <div style={{ fontSize: 13, fontWeight: 700, fontFamily: 'monospace', color: '#fff', marginBottom: 2 }}>{m.model}</div>
-                        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>{m.note}</div>
+                        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', display:'flex', alignItems:'center', gap:6 }}>
+                          {isRec && (
+                            <span style={{ display:'inline-flex', width:14, height:14, flexShrink:0 }}>
+                              <svg viewBox="0 0 24 24" width="14" height="14" style={{ display:'block' }}>
+                                <path d="M4 12.5 L10 18.5 L20 6.5" fill="none" stroke={ACB} strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="60" style={{ animation:'nm-check-draw 1.1s cubic-bezier(0.16,1,0.3,1) both' }} />
+                              </svg>
+                            </span>
+                          )}
+                          {cleanNote}
+                        </div>
                       </div>
                       <div style={{ fontSize: 12, color: ACB, fontWeight: 700 }}>{m.ram}</div>
                       <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>{m.size}</div>
                     </div>
-                  ))}
+                    );
+                  })}
                 </Card3D>
               </motion.div>
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: false }} transition={{ delay: 0.1 }}>
@@ -373,7 +386,19 @@ export default function NeytreyaLearnMore() {
               {/* Recommended */}
               <motion.div variants={fadeUp}>
                 <Card3D style={{ padding: '32px', border: `1px solid ${AC}30` }} orbColor="rgba(16,185,129,0.3)">
-                  <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: ACB, textTransform: 'uppercase', marginBottom: 20 }}>✅ Recommended · Full Vision Engine</div>
+                  <style>{`
+                    @keyframes nm-check-draw { from { stroke-dashoffset: 60; } to { stroke-dashoffset: 0; } }
+                    @keyframes nm-check-pop { 0% { transform: scale(0.4); opacity: 0; } 60% { transform: scale(1.25); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+                    @keyframes nm-check-pulse { 0%,100% { filter: drop-shadow(0 0 0 rgba(16,185,129,0)); } 50% { filter: drop-shadow(0 0 8px rgba(16,185,129,0.7)); } }
+                  `}</style>
+                  <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 2, color: ACB, textTransform: 'uppercase', marginBottom: 20, display:'inline-flex', alignItems:'center', gap:'8px' }}>
+                    <span style={{ display:'inline-flex', width:'18px', height:'18px', animation:'nm-check-pulse 2.2s ease-in-out infinite' }}>
+                      <svg viewBox="0 0 24 24" width="18" height="18" style={{ display:'block' }}>
+                        <path d="M4 12.5 L10 18.5 L20 6.5" fill="none" stroke={ACB} strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" strokeDasharray="60" style={{ animation:'nm-check-draw 0.9s cubic-bezier(0.16,1,0.3,1) both, nm-check-pop 0.5s cubic-bezier(0.16,1,0.3,1) 0.1s both' }} />
+                      </svg>
+                    </span>
+                    Recommended · Full Vision Engine
+                  </div>
                   {[
                     ['OS', 'macOS 14 Sonoma+ (Apple Silicon) or Windows 11 64-bit'],
                     ['CPU', 'Apple M2 / Intel i7 12th gen / AMD Ryzen 7'],

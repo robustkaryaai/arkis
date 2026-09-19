@@ -197,6 +197,7 @@ function Card3D({ children, style, delay = 0, orbColor = 'rgba(129,140,248,0.22)
 ───────────────────────────────── */
 const PRODUCTS = [
   { id: 'rk-desktop', color: '#a5b4fc', glow: 'rgba(99,102,241,0.5)',  icon: <FiMonitor size={22} />,  tag: 'Desktop AI',       name: 'RK AI Desktop', who: 'AI for work and everyday computer tasks', tagline: 'AI that works closer to you.', desc: 'A desktop AI assistant for conversations, documents, coding, writing, studying, research, and everyday computer tasks. Whenever practical, models run locally on your hardware. Cloud services are used only when the requested action genuinely requires them.', href: '/products/rk-ai-desktop' },
+  { id: 'madhyn',     color: '#94a3b8', glow: 'rgba(148,163,184,0.5)', icon: <FiCode size={22} />,     tag: 'Autonomous Eng.',   name: 'MADHYN',        who: 'Engineers & development teams', tagline: 'Autonomous development, directed by you.', desc: 'MADHYN is a full autonomous AI engineering environment. It scans your project, researches what it needs, writes and edits code, runs commands, tests, iterates on failures, and verifies results—inside a strict security layer with full activity transparency.', href: '/products/madhyn' },
   { id: 'rk-home',    color: '#f9a8d4', glow: 'rgba(236,72,153,0.5)',  icon: <FiGlobe size={22} />,    tag: 'Home AI',          name: 'RK AI Home',    who: 'Natural voice interaction at home', tagline: 'AI for the spaces you live in.', desc: 'A dedicated AI device for the home. RK AI Home extends AI beyond the desktop through natural voice interaction while remaining part of the RexyCore product family.', href: '/products/rk-ai-home' },
   { id: 'neytreya',      color: '#6ee7b7', glow: 'rgba(16,185,129,0.5)',  icon: <FiActivity size={22} />, tag: 'Beta v1.0',          name: 'Neytreya',         who: 'Desktop watchers & power users', tagline: 'Perceptual intelligence, local-first.', desc: 'Neytreya watches your screen every 10 seconds using a local Qwen3-VL vision model. It understands your active app, detects errors, tracks system resources, and builds a full searchable memory of your work history—entirely on device.', href: '/products/neytreya' },
   { id: 'lumina',     color: '#7dd3fc', glow: 'rgba(14,165,233,0.5)',  icon: <FiTerminal size={22} />, tag: 'In development',    name: 'Lumina OS',     who: 'A long-term operating-system project', tagline: 'A more considered foundation.', desc: 'Lumina OS is a long-term project in development: RexyCore’s vision for an operating system designed around privacy, transparency, and AI from the beginning—not added later.', href: '/products/lumina-os' },
@@ -419,7 +420,7 @@ export default function HomeSpace() {
       {/* ════════ 4. PRODUCTS ════════ */}
       <section className="layer" style={{ position: 'relative', zIndex: 10, padding: '0 5% 160px' }}>
         <div style={{ maxWidth: 1400, margin: '0 auto' }}>
-          <SH label="Products" title="Five products. Five responsibilities." sub="Each RexyCore product is designed to solve one specific problem well. Select a product to learn more about the role it plays." />
+          <SH label="Products" title="Six products. Six responsibilities." sub="Each RexyCore product is designed to solve one specific problem well. Select a product to learn more about the role it plays." />
           <motion.div variants={staggerContainer(0.5, 0.2)} initial="hidden" whileInView="show" viewport={{ once: false, amount: 0.1 }} style={{ display: 'flex', gap: 14, minHeight: 600 }}>
             {PRODUCTS.map(p => <ExploreCard key={p.id} product={p} active={active} onActivate={() => setActive(p.id)} />)}
           </motion.div>
@@ -433,6 +434,7 @@ export default function HomeSpace() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 18 }}>
             {[
               { from: 'Desktop', fromC: '#a5b4fc', to: 'Your work', toC: 'rgba(255,255,255,0.4)', desc: 'RK AI Desktop brings AI to conversations, documents, coding, writing, studying, research, and the everyday tasks that happen on a computer.' },
+              { from: 'MADHYN', fromC: '#94a3b8', to: 'Your codebase', toC: 'rgba(255,255,255,0.4)', desc: 'MADHYN reads your project structure, researches unknowns, writes and edits files, runs build and test commands, observes failures, retries with adjustments, and verifies—before calling a task complete.' },
               { from: 'Neytreya', fromC: '#6ee7b7', to: 'Your computer', toC: 'rgba(255,255,255,0.4)', desc: 'Neytreya captures your screen every 10 seconds, runs it through a local Qwen3-VL vision model, and builds a searchable memory of everything you work on—CPU, RAM, active app, errors, and all.' },
               { from: 'RK AI Home', fromC: '#f9a8d4', to: 'Your home', toC: 'rgba(255,255,255,0.4)', desc: 'RK AI Home takes AI beyond the desktop with natural voice interaction in the spaces where life happens.' },
               { from: 'Venava', fromC: '#5eead4', to: 'Your voice', toC: 'rgba(255,255,255,0.4)', desc: 'Venava is the personal expression layer that helps technology communicate in your own style, wherever it belongs.' },
@@ -503,9 +505,10 @@ export default function HomeSpace() {
           <SH label="Looking ahead" title="A longer view of personal computing." sub="RexyCore is building toward AI that belongs more naturally in the computer itself: more private, more transparent, and more helpful without becoming more demanding." align="center" />
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: 18 }}>
             {[
+              { icon: <FiCode size={18} />, t: 'MADHYN', b: 'An autonomous AI development environment that executes engineering objectives from research to verification, with strict security and full observability.', c: '#94a3b8' },
               { icon: <FiCpu size={18} />, t: 'Lumina OS', b: 'A long-term operating-system project in development, designed around privacy, transparency, and AI from the beginning.', c: '#a5b4fc' },
               { icon: <FiEdit3 size={18} />, t: 'Venava', b: 'A personal expression layer that helps technology understand how you naturally communicate.', c: '#5eead4' },
-              { icon: <FiCode size={18} />, t: 'Thoughtful connection', b: 'As the product family grows, products can share context where appropriate while preserving their individual purpose.', c: '#6ee7b7' },
+              { icon: <FiUsers size={18} />, t: 'Thoughtful connection', b: 'As the product family grows, products can share context where appropriate while preserving their individual purpose.', c: '#6ee7b7' },
               { icon: <FiMap size={18} />, t: 'Human-centered computing', b: 'The direction is simple: technology that fits people better, without making them adapt to a cloud service or closed platform.', c: '#f9a8d4' },
             ].map((item, i) => (
               <Card3D key={item.t} delay={i * 0.1} orbColor={`${item.c}1a`} style={{ padding: '30px 26px' }}>
@@ -579,6 +582,7 @@ export default function HomeSpace() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 16 }}>
             {[
               { icon: <FiMonitor size={18} />, t: 'RK AI Desktop', b: 'A desktop AI assistant for your documents, code, writing, research, and everyday computer tasks.', href: '/products/rk-ai-desktop', c: '#a5b4fc' },
+              { icon: <FiCode size={18} />, t: 'MADHYN', b: 'An autonomous engineering environment that turns objectives into working code—with security guardrails and visible activity at every step.', href: '/products/madhyn', c: '#94a3b8', cta: 'Explore MADHYN →' },
               { icon: <FiActivity size={18} />, t: 'Neytreya', b: 'Watches your screen with a local vision model. Tracks apps, detects errors, monitors resources, and builds a full searchable memory of your work history.', href: '/products/neytreya', c: '#6ee7b7', cta: 'Learn more →' },
               { icon: <FiGlobe size={18} />, t: 'RK AI Home', b: 'A dedicated home AI device that brings natural voice interaction beyond the desktop.', href: '/products/rk-ai-home', c: '#f9a8d4' },
               { icon: <FiMap size={18} />, t: 'The vision', b: 'The thinking behind RexyCore and its long-term direction for more human-centered computing.', href: '/about', c: '#7dd3fc' },

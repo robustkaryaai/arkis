@@ -55,6 +55,34 @@ const TIER_ICONS = {
     quantum: <AiOutlineRocket size={22} />,
 };
 
+/* ── Cryptic placeholder strings for COMING SOON tiers ─────────── */
+const CRYPTIC_DESKTOP = [
+    'Quantum flux resonance core',
+    '9-dimensional manifold sync',
+    'Tachyon coherence engine v9',
+    'Zero-point neural weaving',
+    'Holographic lattice memory',
+    'Entanglement-driven workflows',
+    'Singularity-grade context',
+    'Phase-shifted multi-agent mesh',
+];
+const CRYPTIC_HOME = [
+    'Ambient topology inference',
+    'Gravitational field parsing',
+    'Chronosense routine lattice',
+    'Presence field harmonics',
+    'Psychoacoustic response net',
+    'Predictive waveform tuning',
+];
+const CRYPTIC_CLOUD = [
+    'Non-local storage continuum',
+    'Entangled token reservoir',
+    'Synthetic imagination buffer',
+    'Temporal priority nexus',
+    'Parallel outcome sampler',
+    'Genesis-grade pre-release key',
+];
+
 /* ── Plan Card ──────────────────────────────────────────────────── */
 function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) {
     const isTrial = plan.type === 'trial';
@@ -63,8 +91,11 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
     const isPopular = plan.popular || plan.badge === 'POPULAR';
     const isRecommended = plan.badge === 'RECOMMENDED';
     const isUltimate = plan.badge === 'ULTIMATE';
+    const isComingSoon = plan.id === 'quantum';
 
-    const btnLabel = isActive
+    const btnLabel = isComingSoon
+        ? 'COMING SOON'
+        : isActive
         ? (isTrial ? 'TRIAL ACTIVE' : 'CURRENT PLAN')
         : isTrial
         ? isSaving ? 'ACTIVATING...' : 'START FREE TRIAL'
@@ -72,9 +103,12 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
         ? 'DOWNGRADE'
         : isSaving ? 'PROCESSING...' : `GET ${plan.name}`;
 
-    const desktopFeatures = plan.desktopFeatures ?? (Array.isArray(plan.features) ? plan.features.slice(0, 3) : []);
-    const homeFeatures = plan.homeFeatures ?? (Array.isArray(plan.features) ? plan.features.slice(3) : []);
-    const sharedFeatures = plan.sharedFeatures ?? [];
+    const rawDesktop = plan.desktopFeatures ?? (Array.isArray(plan.features) ? plan.features.slice(0, 3) : []);
+    const rawHome = plan.homeFeatures ?? (Array.isArray(plan.features) ? plan.features.slice(3) : []);
+    const rawShared = plan.sharedFeatures ?? [];
+    const desktopFeatures = isComingSoon ? CRYPTIC_DESKTOP : rawDesktop;
+    const homeFeatures    = isComingSoon ? CRYPTIC_HOME    : rawHome;
+    const sharedFeatures  = isComingSoon ? CRYPTIC_CLOUD   : rawShared;
     const [tab, setTab] = useState('desktop');
 
     // Each plan's gradient direction
@@ -82,9 +116,9 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
         free:    'linear-gradient(90deg, #94a3b8, #64748b, #94a3b8)',
         pro:     'linear-gradient(90deg, #10b981, #059669, #34d399, #059669, #10b981)',
         elite:   'linear-gradient(90deg, #8b5cf6, #6d28d9, #a78bfa, #6d28d9, #8b5cf6)',
-        quantum: 'linear-gradient(90deg, #f43f5e, #be123c, #fb7185, #be123c, #f43f5e)',
+        quantum: 'linear-gradient(90deg, #475569, #64748b, #7f1d1d, #991b1b, #475569)',
     };
-    const glow = plan.glowColor;
+    const glow = isComingSoon ? '#dc2626' : plan.glowColor;
 
     return (
         <motion.div
@@ -92,33 +126,84 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
             custom={idx}
             style={{ height: '100%', position: 'relative' }}
         >
-            {/* Popular badge */}
-            {(isPopular || isRecommended || isUltimate) && (
+            {/* Popular / Recommended / Ultimate / Coming Soon badge */}
+            {(isPopular || isRecommended || isUltimate || isComingSoon) && (
                 <div style={{
                     position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)',
                     zIndex: 10, padding: '5px 18px', borderRadius: 99,
-                    background: gradients[plan.id],
+                    background: isComingSoon
+                        ? 'linear-gradient(90deg, #7f1d1d, #dc2626, #475569, #dc2626, #7f1d1d)'
+                        : gradients[plan.id],
                     backgroundSize: '200% auto',
-                    animation: 'shine-flow 3s linear infinite',
+                    animation: isComingSoon ? 'rx-cs-scan 2.4s linear infinite' : 'shine-flow 3s linear infinite',
                     fontSize: 10, fontWeight: 900, letterSpacing: 2, color: '#fff',
                     textTransform: 'uppercase', whiteSpace: 'nowrap',
-                    boxShadow: `0 4px 20px ${glow}80`,
+                    boxShadow: isComingSoon
+                        ? '0 4px 20px rgba(220,38,38,0.6)'
+                        : `0 4px 20px ${glow}80`,
                 }}>
-                    {isRecommended ? '★ RECOMMENDED' : isUltimate ? '⚡ ULTIMATE' : '🔥 POPULAR'}
+                    {isComingSoon ? (
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                            <span style={{
+                                display: 'inline-block', width: '7px', height: '7px',
+                                borderRadius: '50%', background: '#fca5a5',
+                                boxShadow: '0 0 8px #fca5a5',
+                                animation: 'rx-cs-dot 1.2s ease-in-out infinite',
+                            }} />
+                            COMING SOON
+                        </span>
+                    ) : isRecommended ? (
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                            <span style={{
+                                display: 'inline-block', width: '8px', height: '8px',
+                                background: '#fde68a',
+                                clipPath: 'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+                                filter: 'drop-shadow(0 0 3px #fbbf24)',
+                                animation: 'rx-star-spin 4s linear infinite',
+                            }} />
+                            RECOMMENDED
+                        </span>
+                    ) : isUltimate ? (
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                            <span style={{
+                                display: 'inline-block', width: '10px', height: '10px',
+                                background: 'linear-gradient(135deg, #f43f5e, #fbbf24)',
+                                clipPath: 'polygon(50% 0, 61% 38%, 98% 38%, 68% 60%, 79% 95%, 50% 75%, 21% 95%, 32% 60%, 2% 38%, 39% 38%)',
+                                filter: 'drop-shadow(0 0 5px #f43f5e)',
+                                animation: 'rx-bolt-pulse 1.4s ease-in-out infinite',
+                            }} />
+                            ULTIMATE
+                        </span>
+                    ) : (
+                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '6px' }}>
+                            <span style={{
+                                display: 'inline-block', width: '8px', height: '8px',
+                                borderRadius: '50%',
+                                background: 'radial-gradient(circle at 30% 30%, #fecaca, #ef4444 60%, #991b1b)',
+                                boxShadow: '0 0 10px #f87171',
+                                animation: 'rx-flame 0.9s ease-in-out infinite',
+                            }} />
+                            POPULAR
+                        </span>
+                    )}
                 </div>
             )}
 
             <motion.div
-                whileHover={{ y: -8, scale: 1.01 }}
+                whileHover={isComingSoon ? {} : { y: -8, scale: 1.01 }}
                 transition={{ type: 'spring', stiffness: 260, damping: 22 }}
                 style={{
                     height: '100%',
-                    background: isActive
+                    background: isComingSoon
+                        ? `linear-gradient(180deg, rgba(24,24,28,0.92), rgba(15,10,12,0.98))`
+                        : isActive
                         ? `linear-gradient(90deg, rgba(30, 30, 40, 0.95, 40, 30, rgba(30), rgba(15,15,25,0.98))`
                         : 'rgba(10,10,18,0.7)',
                     backdropFilter: 'blur(24px)',
                     WebkitBackdropFilter: 'blur(24px)',
-                    border: isActive
+                    border: isComingSoon
+                        ? `1px solid rgba(127,29,29,0.55)`
+                        : isActive
                         ? `1px solid ${glow}CC`
                         : (isRecommended || isPopular || isUltimate)
                             ? `1px solid ${glow}66`
@@ -129,22 +214,50 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
                     flexDirection: 'column',
                     position: 'relative',
                     overflow: 'hidden',
-                    boxShadow: isActive
+                    boxShadow: isComingSoon
+                        ? `0 10px 50px rgba(127,29,29,0.35), inset 0 0 0 1px rgba(127,29,29,0.15)`
+                        : isActive
                         ? `0 0 60px ${glow}33, 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08)`
                         : (isRecommended || isUltimate)
                             ? `0 0 40px ${glow}20, 0 20px 50px rgba(0,0,0,0.5)`
                             : `0 10px 40px rgba(0,0,0,0.4)`,
-                    transition: 'border 0.3s ease, box-shadow 0.3s ease',
+                    transition: 'border 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease',
+                    filter: isComingSoon ? 'saturate(0.28) brightness(0.94)' : 'none',
                 }}
             >
+                {/* Diagonal "COMING SOON" watermark for Quantum */}
+                {isComingSoon && (
+                    <div
+                        aria-hidden
+                        style={{
+                            position: 'absolute', top: 170, left: -40, right: -40,
+                            textAlign: 'center', padding: '10px 0',
+                            background: 'linear-gradient(90deg, rgba(127,29,29,0.9), rgba(220,38,38,0.9), rgba(127,29,29,0.9))',
+                            color: 'rgba(254,226,226,0.95)',
+                            fontSize: 10, fontWeight: 900, letterSpacing: 4,
+                            transform: 'rotate(-16deg)',
+                            textTransform: 'uppercase',
+                            boxShadow: '0 0 20px rgba(220,38,38,0.4)',
+                            pointerEvents: 'none',
+                            zIndex: 20,
+                        }}
+                    >
+                        ✦ LOCKED — COMING SOON ✦
+                    </div>
+                )}
+
                 {/* Top glow bar for non-free active/featured */}
-                {(isActive || isRecommended || isPopular || isUltimate) && (
+                {(isActive || isRecommended || isPopular || isUltimate || isComingSoon) && (
                     <div style={{
                         position: 'absolute', top: 0, left: 0, right: 0, height: 3,
-                        background: gradients[plan.id],
+                        background: isComingSoon
+                            ? 'linear-gradient(90deg, #475569, #7f1d1d, #dc2626, #7f1d1d, #475569)'
+                            : gradients[plan.id],
                         backgroundSize: '200% auto',
-                        animation: 'shine-flow 3s linear infinite',
-                        boxShadow: `0 0 20px ${glow}`,
+                        animation: isComingSoon ? 'rx-cs-scan 2.4s linear infinite' : 'shine-flow 3s linear infinite',
+                        boxShadow: isComingSoon
+                            ? '0 0 14px rgba(220,38,38,0.6)'
+                            : `0 0 20px ${glow}`,
                     }} />
                 )}
 
@@ -152,12 +265,14 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
                 <div style={{
                     position: 'absolute', top: -40, right: -40,
                     width: 160, height: 160,
-                    background: `radial-gradient(circle, ${glow}22 0%, transparent 70%)`,
+                    background: isComingSoon
+                        ? 'radial-gradient(circle, rgba(220,38,38,0.22) 0%, rgba(71,85,105,0.12) 50%, transparent 70%)'
+                        : `radial-gradient(circle, ${glow}22 0%, transparent 70%)`,
                     pointerEvents: 'none',
                 }} />
 
                 {/* ACTIVE ribbon */}
-                {isActive && (
+                {isActive && !isComingSoon && (
                     <div style={{
                         position: 'absolute', top: 20, right: -30,
                         background: glow, color: '#fff',
@@ -231,13 +346,15 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
                 {/* Quote */}
                 <div style={{
                     padding: '14px 16px', marginBottom: 28,
-                    borderLeft: `2px solid ${glow}55`,
-                    background: `${glow}08`,
+                    borderLeft: isComingSoon ? '2px solid rgba(127,29,29,0.6)' : `2px solid ${glow}55`,
+                    background: isComingSoon ? 'rgba(127,29,29,0.08)' : `${glow}08`,
                     borderRadius: '0 12px 12px 0',
                     fontStyle: 'italic', fontSize: 12,
-                    color: 'rgba(255,255,255,0.4)', lineHeight: 1.6,
+                    color: isComingSoon ? 'rgba(254,202,202,0.45)' : 'rgba(255,255,255,0.4)',
+                    lineHeight: 1.6,
+                    filter: isComingSoon ? 'grayscale(0.3)' : 'none',
                 }}>
-                    {plan.quote}
+                    {isComingSoon ? '"Beyond the horizon of what\'s possible."' : plan.quote}
                 </div>
 
                 {/* Tab switcher */}
@@ -248,12 +365,18 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
                             onClick={() => setTab(key)}
                             style={{
                                 flex: 1, padding: '7px 4px', borderRadius: 10, border: 'none',
-                                background: tab === key ? `${glow}22` : 'rgba(255,255,255,0.04)',
-                                color: tab === key ? glow : 'rgba(255,255,255,0.35)',
+                                background: isComingSoon
+                                    ? (tab === key ? 'rgba(127,29,29,0.18)' : 'rgba(255,255,255,0.03)')
+                                    : (tab === key ? `${glow}22` : 'rgba(255,255,255,0.04)'),
+                                color: isComingSoon
+                                    ? (tab === key ? '#b91c1c' : 'rgba(255,255,255,0.25)')
+                                    : (tab === key ? glow : 'rgba(255,255,255,0.35)'),
                                 fontSize: 10, fontWeight: 800, cursor: 'pointer',
                                 letterSpacing: 0.5,
                                 transition: 'all 0.2s ease',
-                                outline: tab === key ? `1px solid ${glow}44` : '1px solid rgba(255,255,255,0.06)',
+                                outline: isComingSoon
+                                    ? (tab === key ? '1px solid rgba(220,38,38,0.35)' : '1px solid rgba(255,255,255,0.05)')
+                                    : (tab === key ? `1px solid ${glow}44` : '1px solid rgba(255,255,255,0.06)'),
                             }}
                         >
                             {label}
@@ -276,11 +399,34 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
                                 <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
                                     <div style={{
                                         width: 18, height: 18, borderRadius: 5, flexShrink: 0, marginTop: 1,
-                                        background: `${glow}20`, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        background: isComingSoon
+                                            ? 'rgba(127,29,29,0.15)'
+                                            : `${glow}20`,
+                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                        border: isComingSoon ? '1px dashed rgba(127,29,29,0.35)' : 'none',
                                     }}>
-                                        <AiOutlineCheck size={11} color={glow} />
+                                        {isComingSoon ? (
+                                            <span style={{
+                                                display: 'inline-block', width: '7px', height: '7px',
+                                                borderRadius: '50%',
+                                                background: '#b91c1c',
+                                                opacity: 0.55,
+                                                animation: `rx-cs-dot ${1.1 + i * 0.13}s ease-in-out infinite`,
+                                            }} />
+                                        ) : (
+                                            <AiOutlineCheck size={11} color={glow} />
+                                        )}
                                     </div>
-                                    <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', fontWeight: 500, lineHeight: 1.4 }}>{f}</span>
+                                    <span style={{
+                                        fontSize: 13,
+                                        color: isComingSoon
+                                            ? 'rgba(254,202,202,0.42)'
+                                            : 'rgba(255,255,255,0.7)',
+                                        fontWeight: isComingSoon ? 400 : 500,
+                                        lineHeight: 1.4,
+                                        letterSpacing: isComingSoon ? '0.3px' : '0',
+                                        fontStyle: isComingSoon ? 'italic' : 'normal',
+                                    }}>{f}</span>
                                 </div>
                             ))}
                         </motion.div>
@@ -289,28 +435,41 @@ function PlanCard({ plan, activePlanId, trialActive, onAction, isSaving, idx }) 
 
                 {/* CTA Button */}
                 <motion.button
-                    onClick={() => !isActive && onAction(plan)}
-                    disabled={isActive || isSaving}
-                    whileHover={!isActive && !isSaving ? {
+                    onClick={() => !isActive && !isComingSoon && onAction(plan)}
+                    disabled={isActive || isSaving || isComingSoon}
+                    whileHover={!isActive && !isSaving && !isComingSoon ? {
                         scale: 1.02,
                         boxShadow: `0 12px 40px ${glow}66`,
                     } : {}}
-                    whileTap={!isActive && !isSaving ? { scale: 0.97 } : {}}
+                    whileTap={!isActive && !isSaving && !isComingSoon ? { scale: 0.97 } : {}}
                     style={{
                         width: '100%', height: 54, borderRadius: 14,
-                        border: isActive ? `1px solid rgba(255,255,255,0.08)` : `1px solid ${glow}55`,
-                        background: isActive
+                        border: isComingSoon
+                            ? '1px solid rgba(127,29,29,0.55)'
+                            : isActive
+                            ? `1px solid rgba(255,255,255,0.08)`
+                            : `1px solid ${glow}55`,
+                        background: isComingSoon
+                            ? 'linear-gradient(90deg, rgba(127,29,29,0.25), rgba(71,85,105,0.2), rgba(127,29,29,0.25))'
+                            : isActive
                             ? 'rgba(255,255,255,0.04)'
                             : gradients[plan.id],
                         backgroundSize: '200% auto',
-                        animation: !isActive ? 'shine-flow 3s linear infinite' : 'none',
-                        color: isActive ? 'rgba(255,255,255,0.25)' : '#fff',
+                        animation: isComingSoon
+                            ? 'rx-cs-scan 2.4s linear infinite'
+                            : (!isActive ? 'shine-flow 3s linear infinite' : 'none'),
+                        color: isComingSoon
+                            ? 'rgba(254,202,202,0.8)'
+                            : (isActive ? 'rgba(255,255,255,0.25)' : '#fff'),
                         fontSize: 13, fontWeight: 900, letterSpacing: 2,
-                        cursor: isActive ? 'default' : 'pointer',
+                        cursor: isComingSoon || isActive ? 'not-allowed' : 'pointer',
                         textTransform: 'uppercase',
-                        boxShadow: isActive ? 'none' : `0 6px 24px ${glow}44`,
-                        transition: 'box-shadow 0.3s ease',
-                        textShadow: isActive ? 'none' : '0 1px 4px rgba(0,0,0,0.4)',
+                        boxShadow: isComingSoon
+                            ? '0 6px 22px rgba(127,29,29,0.35), inset 0 1px 0 rgba(255,255,255,0.05)'
+                            : (isActive ? 'none' : `0 6px 24px ${glow}44`),
+                        transition: 'box-shadow 0.3s ease, opacity 0.3s ease',
+                        textShadow: isActive || isComingSoon ? 'none' : '0 1px 4px rgba(0,0,0,0.4)',
+                        opacity: isComingSoon ? 0.92 : 1,
                     }}
                 >
                     {btnLabel}
@@ -438,7 +597,7 @@ export default function Subscription() {
                     paymentIntent: surveyData.paymentIntent, notes: surveyData.notes,
                 }),
             });
-            if (res.ok) { alert('Added to Priority Waitlist! 🚀'); setShowSurvey(false); }
+            if (res.ok) { alert('Added to Priority Waitlist!'); setShowSurvey(false); }
             else { alert('Submission failed. Please try again later.'); }
         } catch { alert('Connection error'); }
         finally { setIsSaving(false); }
@@ -479,7 +638,12 @@ export default function Subscription() {
 
                     <motion.h1 variants={textVariant(0.1)} style={{ fontSize: 'clamp(40px, 7vw, 88px)', fontWeight: 900, letterSpacing: '-0.04em', lineHeight: 1, marginBottom: 20 }}>
                         Choose Your{' '}
-                        <span className="flowing-gradient" style={{ background: 'linear-gradient(90deg, #10b981, #8b5cf6, #10b981, #f43f5e, #38bdf8, #a78bfa, #10b981)' }}>
+                        <span className="flowing-gradient" style={{
+                            background: 'linear-gradient(90deg, #10b981, #8b5cf6, #10b981, #f43f5e, #38bdf8, #a78bfa, #10b981)',
+                            paddingRight: '0.25em', paddingLeft: '0.08em',
+                            marginRight: '-0.08em',
+                            display: 'inline-block',
+                        }}>
                             Intelligence
                         </span>
                     </motion.h1>
@@ -707,6 +871,29 @@ export default function Subscription() {
                 @keyframes shine-flow { to { background-position: 200% center; } }
                 .flowing-gradient { background-size: 200% auto; animation: shine-flow 4s linear infinite; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; display: inline-block; }
                 @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.3); } }
+
+                /* ─── Subscription / Plan badge animations ─── */
+                @keyframes rx-cs-scan {
+                    0%   { background-position: -10% center; }
+                    100% { background-position: 210% center; }
+                }
+                @keyframes rx-cs-dot {
+                    0%, 100% { opacity: 0.25; transform: scale(0.7); }
+                    50%      { opacity: 1;    transform: scale(1.15); }
+                }
+                @keyframes rx-star-spin {
+                    to { transform: rotate(360deg); }
+                }
+                @keyframes rx-bolt-pulse {
+                    0%, 100% { transform: scale(1);   filter: drop-shadow(0 0 5px #f43f5e); }
+                    50%      { transform: scale(1.2); filter: drop-shadow(0 0 10px #fbbf24); }
+                }
+                @keyframes rx-flame {
+                    0%, 100% { transform: scale(1) translateY(0);   box-shadow: 0 0 10px #f87171; }
+                    25%      { transform: scale(1.1) translateY(-0.5px); box-shadow: 0 0 14px #fb923c; }
+                    50%      { transform: scale(0.95) translateY(0.5px); box-shadow: 0 0 8px  #ef4444; }
+                    75%      { transform: scale(1.08) translateY(-0.3px); box-shadow: 0 0 12px #fbbf24; }
+                }
             `}</style>
         </div>
     );

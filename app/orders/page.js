@@ -129,8 +129,48 @@ export default function Orders() {
           <motion.div initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} viewport={VP} transition={{ duration: 0.7 }}>
             <Card3D orbColor="rgba(99,102,241,0.2)">
               <div style={{ padding: '64px', textAlign: 'center' }}>
+                <style>{`
+                    @keyframes ord-box-bounce { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(-1.2deg); } }
+                    @keyframes ord-box-shine { 0% { transform: translateX(-120%) skewX(-18deg); } 100% { transform: translateX(220%) skewX(-18deg); } }
+                    @keyframes ord-lid-bounce { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-6px) rotate(2deg); } }
+                `}</style>
                 <motion.div animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-                  style={{ fontSize: 56, marginBottom: 20 }}>📦</motion.div>
+                  style={{ display:'inline-block', width:'72px', height:'64px', position:'relative', marginBottom: 20 }}>
+                  <div style={{
+                    position:'absolute', left:'4px', right:'4px', top:'18px', bottom:'0',
+                    background:'linear-gradient(160deg, #c7d2fe 0%, #818cf8 55%, #6366f1 100%)',
+                    borderRadius:'6px 6px 8px 8px',
+                    boxShadow:'inset 0 -4px 0 rgba(0,0,0,0.18), 0 8px 20px rgba(99,102,241,0.35)',
+                    animation:'ord-box-bounce 2.6s ease-in-out infinite',
+                    overflow:'hidden',
+                  }}>
+                    <div style={{
+                        position:'absolute', top:0, bottom:0, width:'35%',
+                        background:'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
+                        animation:'ord-box-shine 3.2s linear infinite',
+                    }} />
+                    <div style={{
+                        position:'absolute', left:'50%', top:0, bottom:0, width:'3px', marginLeft:'-1.5px',
+                        background:'rgba(99,102,241,0.35)',
+                    }} />
+                  </div>
+                  <div style={{
+                    position:'absolute', left:'0', right:'0', top:'8px', height:'16px',
+                    background:'linear-gradient(160deg, #e0e7ff 0%, #a5b4fc 100%)',
+                    borderRadius:'6px 6px 3px 3px',
+                    boxShadow:'inset 0 -2px 0 rgba(0,0,0,0.15)',
+                    transformOrigin:'left 90%',
+                    animation:'ord-lid-bounce 2.6s ease-in-out infinite',
+                  }} />
+                  <div style={{
+                    position:'absolute', left:'50%', top:'22px', width:'18px', height:'18px',
+                    transform:'translateX(-50%)',
+                    border:'2.5px solid #fff',
+                    borderRadius:'3px',
+                    background:'rgba(99,102,241,0.4)',
+                    backdropFilter:'blur(1px)',
+                  }} />
+                </motion.div>
                 <h3 style={{ fontSize: '24px', fontWeight: '800', marginBottom: '10px' }}>No orders yet</h3>
                 <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: '15px', lineHeight: 1.7, marginBottom: 32 }}>
                   Place a pre-order or subscribe to see your order history here.

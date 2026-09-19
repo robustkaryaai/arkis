@@ -338,6 +338,10 @@ export default function RKDesktopLearnMore() {
                     <Link href="/academy" className="btn-primary" style={{ padding: '14px 28px', background: '#fff', color: '#000', borderRadius: 99, textDecoration: 'none', fontWeight: 800 }}>View Documentation</Link>
                   </div>
                   <div style={{ flex: '1 1 500px', background: '#0d1117', padding: '40px', borderLeft: '1px solid rgba(255,255,255,0.05)' }}>
+                    <style>{`
+                      @keyframes rk-rec-dot { 0%,100% { opacity: 1; transform: scale(1); box-shadow: 0 0 0 rgba(239,68,68,0.7), 0 0 0 rgba(239,68,68,0.4); } 50% { opacity: 0.85; transform: scale(0.92); box-shadow: 0 0 0 4px rgba(239,68,68,0), 0 0 0 8px rgba(239,68,68,0); } }
+                      @keyframes rk-rec-ring { 0% { transform: scale(0.6); opacity: 0.9; } 100% { transform: scale(2.6); opacity: 0; } }
+                    `}</style>
                     <pre style={{ margin: 0, fontFamily: 'monospace', fontSize: '14px', lineHeight: '1.6', color: '#c9d1d9', overflowX: 'auto' }}>
                       <code style={{ color: '#ff7b72' }}>import</code> {'{ RKDesktop }'} <code style={{ color: '#ff7b72' }}>from</code> <code style={{ color: '#a5d6ff' }}>'@rexycore/sdk'</code>;<br/><br/>
                       <code style={{ color: '#ff7b72' }}>const</code> ai = <code style={{ color: '#ff7b72' }}>new</code> RKDesktop();<br/><br/>
@@ -345,7 +349,7 @@ export default function RKDesktopLearnMore() {
                       ai.<code style={{ color: '#d2a8ff' }}>onCommand</code>(<code style={{ color: '#a5d6ff' }}>'prepare meeting'</code>, <code style={{ color: '#ff7b72' }}>async</code> () ={'>'} {'{'}<br/>
                       &nbsp;&nbsp;<code style={{ color: '#ff7b72' }}>await</code> ai.app.<code style={{ color: '#d2a8ff' }}>open</code>(<code style={{ color: '#a5d6ff' }}>'Slack'</code>);<br/>
                       &nbsp;&nbsp;<code style={{ color: '#ff7b72' }}>await</code> ai.ui.<code style={{ color: '#d2a8ff' }}>click</code>(<code style={{ color: '#a5d6ff' }}>'#status-button'</code>);<br/>
-                      &nbsp;&nbsp;<code style={{ color: '#ff7b72' }}>await</code> ai.ui.<code style={{ color: '#d2a8ff' }}>type</code>(<code style={{ color: '#a5d6ff' }}>'In a meeting 🔴'</code>);<br/>
+                      &nbsp;&nbsp;<code style={{ color: '#ff7b72' }}>await</code> ai.ui.<code style={{ color: '#d2a8ff' }}>type</code>(<code style={{ color: '#a5d6ff' }}>'In a meeting{' '}</code><span style={{ display:'inline-block', width:10, height:10, borderRadius:'50%', verticalAlign:'middle', margin:'0 1px', position:'relative', background:'radial-gradient(circle at 35% 30%, #fecaca, #ef4444 65%, #991b1b)', animation:'rk-rec-dot 1.35s ease-in-out infinite' }}><span style={{ position:'absolute', inset:0, borderRadius:'50%', border:'2px solid rgba(239,68,68,0.75)', animation:'rk-rec-ring 1.6s ease-out infinite' }} /></span><code style={{ color: '#a5d6ff' }}>{`'`}</code>);<br/>
                       &nbsp;&nbsp;<br/>
                       &nbsp;&nbsp;<code style={{ color: '#ff7b72' }}>await</code> ai.app.<code style={{ color: '#d2a8ff' }}>open</code>(<code style={{ color: '#a5d6ff' }}>'Zoom'</code>);<br/>
                       &nbsp;&nbsp;<code style={{ color: '#ff7b72' }}>await</code> ai.ui.<code style={{ color: '#d2a8ff' }}>clickText</code>(<code style={{ color: '#a5d6ff' }}>'Join Meeting'</code>);<br/>

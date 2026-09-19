@@ -75,7 +75,37 @@ function SuggestContent() {
                             background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)',
                             borderRadius: '32px', padding: '60px 40px', textAlign: 'center', boxShadow: '0 20px 40px rgba(0,0,0,0.4)', backdropFilter: 'blur(20px)'
                         }}>
-                            <div style={{ fontSize: '64px', marginBottom: '24px' }}>✨</div>
+                            <style>{`
+                                @keyframes sg-star-pop { 0% { transform: scale(0.2) rotate(-30deg); opacity: 0; } 50% { transform: scale(1.2) rotate(15deg); opacity: 1; } 100% { transform: scale(1) rotate(0deg); opacity: 1; } }
+                                @keyframes sg-star-twinkle { 0%,100% { filter: drop-shadow(0 0 0 rgba(251,191,36,0.0)); transform: scale(1); } 50% { filter: drop-shadow(0 0 22px rgba(251,191,36,0.7)); transform: scale(1.08); } }
+                                @keyframes sg-star-ray { 0%,100% { opacity: 0.25; transform: scale(0.85) ; } 50% { opacity: 1; transform: scale(1.2); } }
+                            `}</style>
+                            <div style={{ display:'inline-block', width:'84px', height:'84px', position:'relative', marginBottom: '24px', animation:'sg-star-pop 0.7s cubic-bezier(0.16,1,0.3,1) both' }}>
+                                {Array.from({length:6}).map((_,i)=>(
+                                    <span key={i} style={{
+                                        position:'absolute', left:'50%', top:'50%',
+                                        width:'3px', height:'34px', marginLeft:'-1.5px', marginTop:'-17px',
+                                        background: i%2===0 ? 'linear-gradient(180deg, transparent, #fbbf24, #f59e0b, transparent)' : 'linear-gradient(180deg, transparent, #fde68a, #fbbf24, transparent)',
+                                        transform:`rotate(${i*30}deg) translateY(-24px)`,
+                                        borderRadius:'2px',
+                                        animation:`sg-star-ray ${1.3+i*0.15}s ease-in-out infinite`,
+                                    }} />
+                                ))}
+                                <div style={{
+                                    position:'absolute', left:'50%', top:'50%',
+                                    width:'38px', height:'38px',
+                                    transform:'translate(-50%, -50%)',
+                                    clipPath:'polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 72%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)',
+                                    background:'linear-gradient(160deg, #fde68a 0%, #fbbf24 45%, #f59e0b 100%)',
+                                    animation:'sg-star-twinkle 2s ease-in-out infinite',
+                                }} />
+                                <div style={{
+                                    position:'absolute', left:'36%', top:'32%',
+                                    width:'8px', height:'8px', borderRadius:'50%',
+                                    background:'rgba(255,255,255,0.85)',
+                                    filter:'blur(0.6px)',
+                                }} />
+                            </div>
                             <h2 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '16px' }}>Feedback Sent!</h2>
                             <p style={{ color: 'var(--subtext)', fontSize: '16px', lineHeight: '1.7', maxWidth: '400px', margin: '0 auto' }}>
                                 Your email client should open. The engineering team reads every submission for {productName}.

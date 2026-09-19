@@ -17,7 +17,18 @@ export default function MacDesktop() {
       {/* Menu Bar */}
       <div className="mac-menu-bar">
         <div className="mac-menu-left">
-          <span style={{ fontSize: '13px', fontWeight: 'bold' }}></span>
+          <span style={{ fontSize: '13px', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center' }}>
+            <span style={{
+              display: 'inline-block', width: '12px', height: '14px', position: 'relative',
+            }}>
+              <span style={{
+                position: 'absolute', inset: 0,
+                background: 'currentColor',
+                clipPath: 'polygon(50% 0, 60% 8%, 55% 14%, 65% 14%, 82% 28%, 86% 46%, 80% 62%, 72% 78%, 65% 92%, 58% 100%, 42% 100%, 35% 92%, 28% 78%, 20% 62%, 14% 46%, 18% 28%, 35% 14%, 45% 14%, 40% 8%)',
+                animation: 'mac-logo-breathe 3s ease-in-out infinite',
+              }} />
+            </span>
+          </span>
           <span style={{ fontWeight: 'bold' }}>RK OS</span>
           <span>File</span>
           <span>Edit</span>
@@ -27,8 +38,42 @@ export default function MacDesktop() {
           <span>Help</span>
         </div>
         <div className="mac-menu-right">
-          <span style={{ opacity: 0.8 }}>100% [🔋]</span>
-          <span style={{ opacity: 0.8 }}>⚡</span>
+          <span style={{ opacity: 0.8, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+            100%
+            <span style={{
+              display: 'inline-flex', alignItems: 'center', gap: '1px',
+              padding: '1px 2px', border: '1px solid rgba(255,255,255,0.5)',
+              borderRadius: '3px', position: 'relative',
+            }}>
+              <span style={{
+                width: '14px', height: '7px', borderRadius: '1px',
+                background: 'linear-gradient(90deg, #4ade80 0%, #4ade80 100%)',
+                boxShadow: '0 0 4px #4ade80',
+                animation: 'mac-battery-fill 5s ease-in-out infinite',
+              }} />
+              <span style={{
+                position: 'absolute', right: '-3px', top: '50%',
+                transform: 'translateY(-50%)',
+                width: '2px', height: '4px',
+                background: 'rgba(255,255,255,0.5)',
+                borderRadius: '0 1px 1px 0',
+              }} />
+            </span>
+          </span>
+          <span style={{ opacity: 0.8, display: 'inline-flex', alignItems: 'center' }}>
+            <span style={{
+              display: 'inline-block', width: '10px', height: '12px', position: 'relative',
+            }}>
+              <span style={{
+                position: 'absolute', top: '1px', left: '2px',
+                width: '6px', height: '10px',
+                background: 'linear-gradient(180deg, #fbbf24 0%, #f59e0b 60%, transparent 100%)',
+                clipPath: 'polygon(50% 0, 100% 40%, 70% 40%, 100% 100%, 0% 60%, 30% 60%, 0 0%)',
+                filter: 'drop-shadow(0 0 2px #fbbf24)',
+                animation: 'mac-power-pulse 1.8s ease-in-out infinite',
+              }} />
+            </span>
+          </span>
           <span style={{ fontWeight: '500' }}>Mon 9:41 AM</span>
         </div>
       </div>
@@ -171,6 +216,26 @@ export default function MacDesktop() {
           40%{transform:translateY(0); box-shadow:10px -5px 0 var(--char-color-1), 20px 0 0 var(--char-color-1);}
           60%{transform:translateY(0); box-shadow:10px 0 0 var(--char-color-1), 20px -5px 0 var(--char-color-1);}
           80%{transform:translateY(0); box-shadow:10px 0 0 var(--char-color-1), 20px 0 0 var(--char-color-1);}
+        }
+        /* ─── Menu bar custom icons ─── */
+        @keyframes mac-logo-breathe {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50%      { transform: scale(1.08); opacity: 0.85; }
+        }
+        @keyframes mac-battery-fill {
+          0%, 95%, 100% {
+            background-size: 100% 100%;
+            background: linear-gradient(90deg, #4ade80 0%, #4ade80 100%);
+            box-shadow: 0 0 4px #4ade80;
+          }
+          50% {
+            background: linear-gradient(90deg, #22c55e 0%, #4ade80 100%);
+            box-shadow: 0 0 6px #22c55e;
+          }
+        }
+        @keyframes mac-power-pulse {
+          0%, 100% { transform: scale(1); filter: drop-shadow(0 0 2px #fbbf24); }
+          50%      { transform: scale(1.15); filter: drop-shadow(0 0 5px #f59e0b); }
         }
       `}</style>
     </div>

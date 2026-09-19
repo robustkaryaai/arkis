@@ -91,7 +91,72 @@ export default function DinoXPage() {
             {/* CURRENT FEATURE SET LIST */}
             <section style={{ padding: '80px 5%', background: 'rgba(16,185,129,0.03)', borderTop: '1px solid rgba(16,185,129,0.1)', borderBottom: '1px solid rgba(16,185,129,0.1)', position: 'relative', zIndex: 10 }}>
                 <div style={{ maxWidth: '900px', margin: '0 auto' }} className="reveal">
-                    <h2 style={{ fontSize: '32px', fontWeight: '900', marginBottom: '32px', textAlign: 'center' }}>🛠️ Current Capabilities</h2>
+                    <style>{`
+                        @keyframes dn-tool-spin { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg); } }
+                        @keyframes dn-tool-clang { 0%,100% { transform: translateX(0) rotate(0deg); } 25% { transform: translateX(-2px) rotate(-3deg); } 75% { transform: translateX(2px) rotate(3deg); } }
+                        @keyframes dn-tool-glow { 0%,100% { filter: drop-shadow(0 0 0 rgba(16,185,129,0)); } 50% { filter: drop-shadow(0 0 14px rgba(16,185,129,0.5)); } }
+                    `}</style>
+                    <h2 style={{ fontSize: '32px', fontWeight: '900', marginBottom: '32px', textAlign: 'center', display:'flex', alignItems:'center', justifyContent:'center', gap:'14px' }}>
+                        <span style={{ display:'inline-block', width:'38px', height:'38px', position:'relative', animation:'dn-tool-clang 1.8s ease-in-out infinite' }}>
+                            <span style={{
+                                position:'absolute', left:'50%', top:'0',
+                                width:'14px', height:'10px', marginLeft:'-7px',
+                                background:'linear-gradient(180deg, #e5e7eb 0%, #9ca3af 100%)',
+                                borderRadius:'2px 2px 0 0',
+                                boxShadow:'inset 0 -2px 0 rgba(0,0,0,0.2)',
+                            }} />
+                            <span style={{
+                                position:'absolute', left:'0', top:'6px',
+                                width:'10px', height:'8px',
+                                background:'linear-gradient(180deg, #d1d5db 0%, #6b7280 100%)',
+                                clipPath:'polygon(0 30%, 100% 0, 100% 100%, 0 70%)',
+                                borderRadius:'1px',
+                            }} />
+                            <span style={{
+                                position:'absolute', right:'0', top:'6px',
+                                width:'10px', height:'8px',
+                                background:'linear-gradient(180deg, #d1d5db 0%, #6b7280 100%)',
+                                clipPath:'polygon(0 0, 100% 30%, 100% 70%, 0 100%)',
+                                borderRadius:'1px',
+                            }} />
+                            <span style={{
+                                position:'absolute', left:'50%', top:'10px',
+                                width:'5px', height:'22px', marginLeft:'-2.5px',
+                                background:'linear-gradient(180deg, #b45309 0%, #78350f 100%)',
+                                borderRadius:'0 0 2px 2px',
+                                transformOrigin:'top center',
+                                animation:'dn-tool-spin 2.4s ease-in-out infinite',
+                            }} />
+                            <span style={{
+                                position:'absolute', left:'50%', bottom:'0',
+                                width:'8px', height:'8px', marginLeft:'-4px',
+                                background:'radial-gradient(circle at 35% 30%, #d97706, #78350f)',
+                                borderRadius:'50%',
+                                boxShadow:'inset 0 -1.5px 0 rgba(0,0,0,0.3)',
+                            }} />
+                        </span>
+                        <span style={{ display:'inline-block', width:'34px', height:'34px', position:'relative', animation:'dn-tool-glow 2.2s ease-in-out infinite', transformOrigin:'center 70%' }}>
+                            <span style={{
+                                position:'absolute', left:'0', top:'4px', right:'0', height:'10px',
+                                background:'linear-gradient(90deg, #d1d5db 0%, #9ca3af 50%, #d1d5db 100%)',
+                                borderRadius:'6px 6px 2px 2px',
+                                clipPath:'polygon(12% 0, 100% 0, 88% 100%, 0 100%)',
+                            }} />
+                            <span style={{
+                                position:'absolute', left:'50%', top:'12px',
+                                width:'4px', height:'20px', marginLeft:'-2px',
+                                background:'linear-gradient(180deg, #a3a3a3 0%, #525252 100%)',
+                            }} />
+                            <span style={{
+                                position:'absolute', left:'50%', top:'10px',
+                                width:'12px', height:'10px', marginLeft:'-6px',
+                                background:'linear-gradient(180deg, #10b981 0%, #047857 100%)',
+                                borderRadius:'50% 50% 30% 30% / 40% 40% 60% 60%',
+                                boxShadow:'inset 0 -1px 0 rgba(0,0,0,0.2)',
+                            }} />
+                        </span>
+                        Current Capabilities
+                    </h2>
                     <ul style={{ listStyle: 'none', padding: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '16px' }}>
                         {[
                             'Gamified Progression (XP, Levels, Streaks)',

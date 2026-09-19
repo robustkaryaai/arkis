@@ -145,7 +145,38 @@ export default function EnterprisePage() {
 
                 {sent ? (
                   <div style={{ textAlign: 'center', padding: '32px 0' }}>
-                    <div style={{ fontSize: '52px', marginBottom: '16px' }}>✨</div>
+                    <style>{`
+                        @keyframes ent-sparkle-burst { 0% { transform: scale(0.3) rotate(0deg); opacity: 0; } 40% { transform: scale(1.15) rotate(30deg); opacity: 1; } 100% { transform: scale(1) rotate(10deg); opacity: 1; } }
+                        @keyframes ent-sparkle-ray { 0%,100% { opacity: 0.2; transform: scale(0.9); } 50% { opacity: 1; transform: scale(1.15); } }
+                        @keyframes ent-sparkle-core { 0%,100% { box-shadow: 0 0 0 rgba(139,92,246,0.0); } 50% { box-shadow: 0 0 28px rgba(139,92,246,0.75); } }
+                    `}</style>
+                    <div style={{ display:'inline-block', width:'68px', height:'68px', position:'relative', marginBottom:'16px', animation:'ent-sparkle-burst 0.8s cubic-bezier(0.16,1,0.3,1) both' }}>
+                        {Array.from({length:8}).map((_,i)=>(
+                            <span key={i} style={{
+                                position:'absolute', left:'50%', top:'50%',
+                                width:'3px', height:'30px', marginLeft:'-1.5px', marginTop:'-15px',
+                                background: i%2===0 ? 'linear-gradient(180deg, transparent, #a78bfa, transparent)' : 'linear-gradient(180deg, transparent, #60a5fa, transparent)',
+                                transform:`rotate(${i*22.5}deg) translateY(-18px)`,
+                                transformOrigin:'center bottom',
+                                borderRadius:'2px',
+                                animation:`ent-sparkle-ray ${1.2+i*0.1}s ease-in-out infinite`,
+                            }} />
+                        ))}
+                        <div style={{
+                            position:'absolute', left:'50%', top:'50%', width:'26px', height:'26px',
+                            transform:'translate(-50%, -50%)',
+                            borderRadius:'50%',
+                            background:'radial-gradient(circle at 35% 30%, #e9d5ff, #a78bfa 55%, #7c3aed)',
+                            animation:'ent-sparkle-core 1.6s ease-in-out infinite',
+                        }} />
+                        <div style={{
+                            position:'absolute', left:'50%', top:'50%', width:'12px', height:'12px',
+                            transform:'translate(-35%, -65%)',
+                            borderRadius:'50%',
+                            background:'rgba(255,255,255,0.85)',
+                            filter:'blur(0.5px)',
+                        }} />
+                    </div>
                     <h3 style={{ fontSize: '22px', fontWeight: '800', color: '#a78bfa', marginBottom: '10px' }}>Request Sent</h3>
                     <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '14px' }}>Our enterprise team reviews all inquiries within 24 hours.</p>
                   </div>

@@ -89,7 +89,7 @@ function PreOrderContent() {
             };
             const res = await submitPreorder(reqData);
             if (!res.ok) throw new Error(res.error || 'Pre-order submission failed');
-            // 🎇 Fire the nebula burst!
+            // Fire the nebula burst!
             triggerNebula('preorder');
             setSuccess(true);
             setTimeout(() => { setIsSubmitting(false); router.push('/orders'); }, 2000);

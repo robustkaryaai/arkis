@@ -10,7 +10,6 @@ import { motion } from 'framer-motion';
 const rkPlans = [
   {
     name: 'Free',
-    emoji: '⚡',
     color: '#6b7280',
     price: '₹0',
     period: '/month',
@@ -30,7 +29,6 @@ const rkPlans = [
   },
   {
     name: 'Pro',
-    emoji: '🔵',
     color: '#3b82f6',
     price: '₹599',
     period: '/month',
@@ -50,7 +48,6 @@ const rkPlans = [
   },
   {
     name: 'Elite',
-    emoji: '🟣',
     color: '#a855f7',
     price: '₹1,499',
     period: '/month',
@@ -75,7 +72,6 @@ const rkPlans = [
 const neytreyaPlans = [
   {
     name: 'Free',
-    emoji: '🟢',
     color: '#10b981',
     price: '₹0',
     period: '/month',
@@ -103,7 +99,6 @@ const neytreyaPlans = [
   },
   {
     name: 'Neytreya Plus',
-    emoji: '🔵',
     color: '#3b82f6',
     price: '₹149',
     period: '/month',
@@ -130,7 +125,6 @@ const neytreyaPlans = [
   },
   {
     name: 'Neytreya Pro',
-    emoji: '🟣',
     color: '#a855f7',
     price: '₹299',
     period: '/month',
@@ -156,7 +150,6 @@ const neytreyaPlans = [
   },
   {
     name: 'Neytreya Teams',
-    emoji: '🏢',
     color: '#f59e0b',
     price: '₹799',
     period: '/month',
