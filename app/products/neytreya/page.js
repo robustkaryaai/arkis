@@ -276,8 +276,8 @@ function DownloadBtn({ label, platform, downloadUrl, primary = false, onClick })
         whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
         onClick={onClick}
         style={{
-          padding: '16px 32px', fontSize: 16, borderRadius: 99,
-          display: 'inline-flex', alignItems: 'center', gap: 10,
+          padding: '16px 11px', fontSize: 16, borderRadius: 99,
+          display: 'inline-flex', alignItems: 'center', gap: 9,
           fontWeight: 800, cursor: 'pointer', border: 'none', fontFamily: 'inherit',
           whiteSpace: 'nowrap',
           background: primary ? '#fff' : 'rgba(255,255,255,0.07)',

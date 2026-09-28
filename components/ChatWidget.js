@@ -252,12 +252,6 @@ export default function ChatWidget() {
 
                 {/* Attribution Row — subtle, on-brand */}
                 <div className="cw-attribution">
-                    <span className="cw-gem-pill" aria-hidden="true">
-                        <span style={{ background:'#4285F4' }} />
-                        <span style={{ background:'#EA4335' }} />
-                        <span style={{ background:'#FBBC05' }} />
-                        <span style={{ background:'#34A853' }} />
-                    </span>
                     <span className="cw-attribution-text">Powered by Google Gemini</span>
                 </div>
 
@@ -530,17 +524,17 @@ export default function ChatWidget() {
                         inset 0 -2px 0 rgba(0,0,0,0.25);
                     transition: transform 0.25s cubic-bezier(0.175,0.885,0.32,1.275), box-shadow 0.25s;
                 }
-                #chat-toggle::before {
-                    content:'';
-                    position:absolute; inset:-4px;
-                    border-radius:50%;
-                    background: conic-gradient(from 0deg, transparent 0 60%, rgba(236,72,153,0.5) 75%, rgba(124,58,237,0.4) 88%, transparent);
-                    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-                    -webkit-mask-composite: xor; mask-composite: exclude;
-                    padding: 1.8px;
-                    animation: cw-orb-spin 5s linear infinite;
-                    opacity: 0.7;
-                }
+                // #chat-toggle::before {
+                //     content:'';
+                //     position:absolute; inset:-4px;
+                //     border-radius:50%;
+                //     background: conic-gradient(from 0deg, transparent 0 60%, rgba(236,72,153,0.5) 75%, rgba(124,58,237,0.4) 88%, transparent);
+                //     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+                //     -webkit-mask-composite: xor; mask-composite: exclude;
+                //     padding: 1.8px;
+                //     animation: cw-orb-spin 5s linear infinite;
+                //     opacity: 0.7;
+                // }
                 #chat-toggle:hover {
                     transform: scale(1.08) rotate(-4deg);
                     box-shadow:

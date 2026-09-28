@@ -41,7 +41,7 @@ export default function BackButton({ href = "/products", label = "Product Suite"
     >
       <FiArrowLeft size={18} style={{ flexShrink: 0 }} />
       <span style={{ 
-        width: scrolled ? 0 : 120, 
+        width: 'auto', 
         opacity: scrolled ? 0 : 1, 
         transition: 'all 0.5s cubic-bezier(0.34, 1.2, 0.64, 1)',
         display: 'inline-block'

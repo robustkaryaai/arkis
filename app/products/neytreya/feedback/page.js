@@ -29,7 +29,6 @@ const RATINGS = [
   { value: '5', label: 'Love it', color: '#10b981' },
   { value: '4', label: 'Pretty good', color: '#34d399' },
   { value: '3', label: 'Okay', color: '#f59e0b' },
-  { value: '2', label: 'Needs work', color: '#f97316' },
   { value: '1', label: 'Not great', color: '#f43f5e' },
 ];
 
